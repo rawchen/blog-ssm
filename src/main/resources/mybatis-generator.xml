@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+		PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+		"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<properties resource="dbconfig.properties"/>
+
+	<context id="Mysql" targetRuntime="MyBatis3" defaultModelType="flat">
+		<property name="beginningDelimiter" value="`"/>
+		<property name="endingDelimiter" value="`"/>
+
+
+		<!--支持序列化-->
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+
+		<!--
+		<plugin type="${mapper.plugin}">
+			<property name="mappers" value="${mapper.Mapper}"/>
+			<property name="forceAnnotation" value="${mapper.forceAnnotation}" />
+		</plugin>
+		-->
+
+		<commentGenerator>
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+
+		<jdbcConnection driverClass="${jdbc.driver}"
+						connectionURL="${jdbc.url}"
+						userId="${jdbc.username}"
+						password="${jdbc.password}">
+		</jdbcConnection>
+
+		<javaModelGenerator targetPackage="${targetModelPackage}" targetProject="${targetJavaProject}">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false" />
+			<!-- 从数据库返回的值被清理前后的空格 -->
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator
+				targetPackage="${targetXMLPackage}"
+				targetProject="${targetResourcesProject}">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+
+		<javaClientGenerator
+				targetPackage="${targetMapperPackage}"
+				targetProject="${targetJavaProject}"
+				type="XMLMAPPER">
+			<!-- enableSubPackages:是否让schema作为包的后缀 -->
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+
+		<!--全部表参与逆向工程-->
+		<!-- 以下example为false，表示不会生成example类，否则将自动生成example类 -->
+<!--		<table schema="" tableName="%"-->
+<!--			   enableCountByExample="false"-->
+<!--			   enableUpdateByExample="false"-->
+<!--			   enableDeleteByExample="false"-->
+<!--			   enableSelectByExample="false"-->
+<!--			   selectByExampleQueryId="false">-->
+<!--		</table>-->
+
+		<!-- 指定某些表参与逆向工程 -->
+		<table tableName="contents"
+			   enableCountByExample="false"
+			   enableUpdateByExample="false"
+			   enableDeleteByExample="false"
+			   enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+	</context>
+</generatorConfiguration>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/mvc
+			http://www.springframework.org/schema/mvc/spring-mvc.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 扫描controller的注解，别的不扫描 -->
+	<context:component-scan base-package="com.yoyling">
+		<context:include-filter type="annotation"
+				expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+
+	<!-- 配置模板视图解析器 -->
+	<bean id="templateResolver"
+			class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
+		<!-- html文件所在的目录 -->
+		<property name="prefix" value="/WEB-INF/templates/" />
+		<!-- 文件的后缀名 -->
+		<property name="suffix" value=".html" />
+
+		<property name="order" value="1"/>
+		<property name="templateMode" value="LEGACYHTML5" />
+		<property name="cacheable" value="false" />
+		<property name="characterEncoding" value="UTF-8"/>
+	</bean>
+
+	<bean id="templateEngine" class="org.thymeleaf.spring5.SpringTemplateEngine">
+		<property name="templateResolver" ref="templateResolver" />
+	</bean>
+
+	<bean id="viewResolver" class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
+		<property name="templateEngine" ref="templateEngine" />
+		<property name="characterEncoding"  value="UTF-8" />
+	</bean>
+
+	<!-- 设置静态资源不过滤 -->
+	<mvc:resources location="/static/" mapping="/static/**" />
+
+<!--	<mvc:interceptors>-->
+<!--		<mvc:interceptor>-->
+<!--			<mvc:mapping path="/user2/**"/>-->
+<!--			<bean class="com.yoyling.interceptor.LoginInterceptor"/>-->
+<!--		</mvc:interceptor>-->
+<!--	</mvc:interceptors>-->
+
+	<!-- 开启对SpringMVC注解的支持 -->
+	<mvc:annotation-driven />
+
+	<!-- 进入服务器跳转 -->
+	<mvc:view-controller path="/" view-name="/index"/>
+
+</beans>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 3 | User Profile</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Theme style -->
+  <link rel="stylesheet" th:href="@{/static/css/adminlte.min.css}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" th:href="@{/static/plugins/fontawesome-free/css/all.min.css}">
+
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <!-- Messages Dropdown Menu -->
+      <li class="nav-item dropdown">
+        <a class="nav-link" href="index.html">
+          <i class="fa fa-paper-plane"></i>
+          <span>博客前台首页</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <h1>
+      <a href="index.html" class="brand-link">
+        <img src="./upload/avatar.jpg" class="brand-image img-circle elevation-3">
+        <span class="brand-text font-weight-light">YOYLING's Blog</span>
+      </a>
+    </h1>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-header">仪表盘</li>
+          <li class="nav-item">
+            <a href="dashboard.html" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>仪表盘</p>
+            </a>
+          </li>
+          <li class="nav-header">博客编辑</li>
+          <li class="nav-item">
+            <a href="edit.html" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
+              <p>发布博客</p>
+            </a>
+          </li>
+          <li class="nav-header">管理模块</li>
+          <li class="nav-item">
+            <a href="blog-mgr.html" class="nav-link">
+              <i class="fa fa-list-alt nav-icon"></i>
+              <p>博客管理</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="category-mgr.html" class="nav-link">
+              <i class="fa fa-bookmark nav-icon"></i>
+              <p>分类管理</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="tag-mgr.html" class="nav-link">
+              <i class="fa fa-tags nav-icon"></i>
+              <p>标签管理</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="comment-mgr.html" class="nav-link active">
+              <i class="fa fa-comments nav-icon"></i>
+              <p>评论管理</p>
+            </a>
+          </li>
+          <li class="nav-header">系统管理</li>
+          <li class="nav-item">
+            <a href="configuration.html"
+               class="nav-link">
+              <i class="fa fa-wrench nav-icon"></i>
+              <p>系统配置</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">
+              <i class="fa fa-sign-out-alt nav-icon"></i>
+              <p>安全退出</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper mt-3">
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- /.col -->
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">评论列表</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+              <table class="table table-hover text-nowrap table-bordered">
+                <thead>
+                <tr>
+                  <th width="5%"></th>
+                  <th>评论人</th>
+                  <th>评论人Github账号</th>
+                  <th>评论人内容</th>
+                  <th>评论时间</th>
+                  <th>前台地址</th>
+                  <th>回复内容</th>
+                  <th class="text-center" width="15%">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td class="text-center">1</td>
+                  <td>xiaoming</td>
+                  <td>123@163.com</td>
+                  <td>123</td>
+                  <td>2020.6.24</td>
+                  <td><a target="_blank" href="detail.html">博客标题</a></td>
+                  <td>456</td>
+                  <td class="text-center">
+                    <button class="btn btn-xs btn-success" data-toggle="modal" data-target="#replyCommentModal">
+                      <i class="fa fa-edit"></i>
+                      回复
+                    </button>
+                    <button class="btn btn-xs btn-danger ml-2" data-toggle="modal" data-target="#deleteCommentModal">
+                      <i class="fa fa-trash"></i>
+                      删除
+                    </button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer clearfix">
+              <ul class="pagination pagination-sm m-0 float-right">
+                <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
+              </ul>
+            </div>
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <p class="text-center mb-1">
+      Copyright © 2020 YOYLING Designed by YOYLING Powered by AdminLTE
+    </p>
+    <p class="text-center">
+      <a href="">粤ICP备20040058号</a>
+    </p>
+  </footer>
+</div>
+<!-- ./wrapper -->
+
+<div class="modal fade" id="replyCommentModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">回复</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input class="form-control" type="text">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+        <button id="updateCategoryBtn" type="button" class="btn btn-success">确认</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="deleteCommentModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">删除评论</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="m-0">你确定要删除吗？</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+        <button id="deleteCategoryBtn" type="button" class="btn btn-danger">删除</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<!-- jQuery -->
+<script th:src="@{/static/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/static/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+<!-- AdminLTE App -->
+<script th:src="@{/static/js/adminlte.min.js}"></script>
+
+
+</body>
+</html>

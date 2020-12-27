@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 3 | User Profile</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Theme style -->
+  <link rel="stylesheet" th:href="@{/static/css/adminlte.min.css}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" th:href="@{/static/plugins/fontawesome-free/css/all.min.css}">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
+      </li>
+    </ul>
+
+    <!-- SEARCH FORM -->
+    <form class="form-inline ml-3">
+      <div class="input-group input-group-sm">
+        <input class="form-control form-control-navbar" type="search" placeholder="博客搜索..." aria-label="Search">
+        <div class="input-group-append">
+          <button class="btn btn-navbar" type="submit">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <h1>
+      <a href="index.html" class="brand-link">
+        <img src="./upload/avatar.jpg" class="brand-image img-circle elevation-3">
+        <span class="brand-text font-weight-light">YOYLING's Blog</span>
+      </a>
+    </h1>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-header">读万卷书</li>
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">
+              <i class="fa fa-home nav-icon"></i>
+              <p>首页</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="category.html" class="nav-link">
+              <i class="fa fa-bookmark nav-icon"></i>
+              <p>分类</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="tag.html" class="nav-link">
+              <i class="fa fa-tags nav-icon"></i>
+              <p>标签</p>
+            </a>
+          </li>
+
+          <li class="nav-header">行万里路</li>
+          <li class="nav-item">
+            <a href="archive.html" class="nav-link">
+              <i class="fa fa-archive nav-icon"></i>
+              <p>归档</p>
+            </a>
+          </li>
+          <li class="nav-header">点滴记录</li>
+          <li class="nav-item">
+            <a href="guestbook.html" class="nav-link active">
+              <i class="fa fa-comments nav-icon"></i>
+              <p>留言</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper mt-3">
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card">
+              <!-- /.card-header -->
+              <div class="card-body position-relative p-3">
+                <!-- Conversations are loaded here -->
+                <!-- Message. Default to the left -->
+                <div class="direct-chat-msg">
+                  <div class="direct-chat-infos clearfix">
+                    <span class="direct-chat-name float-left">YOYLING.</span>
+                    <span class="badge badge-warning float-left ml-1">博主</span>
+                    <span class="direct-chat-timestamp float-left ml-2">23 Jan 2:00 pm</span>
+                  </div>
+                  <!-- /.direct-chat-infos -->
+                  <img class="direct-chat-img position-absolute border" src="./upload/avatar.jpg" alt="message user image">
+                  <!-- /.direct-chat-img -->
+                  <div class="direct-chat-text float-left">
+                    Is this template really for free? That's unbelievable!
+                    <a class="badge" href="#">回复</a>
+                  </div>
+                  <!-- /.direct-chat-text -->
+                </div>
+                <!-- /.direct-chat-msg -->
+                <!-- Message to the right -->
+                <div class="direct-chat-msg right">
+                  <div class="direct-chat-infos clearfix">
+                    <span class="direct-chat-timestamp float-right ml-2">23 Jan 2:00 pm</span>
+                    <span class="badge badge-warning float-right ml-1">博主</span>
+                    <span class="direct-chat-name float-right">Lee</span>
+                  </div>
+                  <!-- /.direct-chat-infos -->
+                  <img class="direct-chat-img border position-absolute r-2" src="./upload/avatar.jpg" alt="message user image">
+                  <!-- /.direct-chat-img -->
+                  <div class="direct-chat-text float-right">
+                    You better believe it!
+                    <a class="badge" href="#">回复</a>
+                  </div>
+                  <!-- /.direct-chat-text -->
+                </div>
+                <!-- /.direct-chat-msg -->
+                <!-- Message to the right -->
+                <div class="direct-chat-msg right">
+                  <div class="direct-chat-infos clearfix">
+                    <span class="direct-chat-timestamp float-right ml-2">23 Jan 2:00 pm</span>
+                    <span class="direct-chat-name float-right text-green ml-2">
+                      回复<span>@Lee</span>
+                    </span>
+                    <span class="badge badge-warning float-right ml-1">博主</span>
+                    <span class="direct-chat-name float-right">YOYLING.</span>
+                  </div>
+                  <!-- /.direct-chat-infos -->
+                  <img class="direct-chat-img border position-absolute r-2" src="./img/user3-128x128.jpg" alt="message user image">
+                  <!-- /.direct-chat-img -->
+                  <div class="direct-chat-text float-right">
+                    You better believe it!
+                    <a class="badge" href="#">回复</a>
+                  </div>
+                  <!-- /.direct-chat-text -->
+                </div>
+                <!-- /.direct-chat-msg -->
+                <!-- Message to the right -->
+                <div class="direct-chat-msg right">
+                  <div class="direct-chat-infos clearfix">
+                    <span class="direct-chat-timestamp float-right ml-2">23 Jan 2:00 pm</span>
+                    <span class="direct-chat-name float-right text-green ml-2">
+                      回复<span>@Lee</span>
+                    </span>
+                    <span class="direct-chat-name float-right">YOYLING.</span>
+                  </div>
+                  <!-- /.direct-chat-infos -->
+                  <img class="direct-chat-img border position-absolute r-2" src="./img/user3-128x128.jpg" alt="message user image">
+                  <!-- /.direct-chat-img -->
+                  <div class="direct-chat-text float-right">
+                    You better believe it!
+                    <a class="badge" href="#">回复</a>
+                  </div>
+                  <!-- /.direct-chat-text -->
+                </div>
+                <!-- /.direct-chat-msg -->
+                <hr>
+
+                <!-- Message. Default to the left -->
+                <div class="direct-chat-msg">
+                  <div class="direct-chat-infos clearfix">
+                    <span class="direct-chat-name float-left">YOYLING.</span>
+                    <span class="direct-chat-timestamp float-left ml-2">23 Jan 2:00 pm</span>
+                  </div>
+                  <!-- /.direct-chat-infos -->
+                  <img class="direct-chat-img position-absolute border" src="./upload/avatar.jpg" alt="message user image">
+                  <!-- /.direct-chat-img -->
+                  <div class="direct-chat-text float-left">
+                    一个Java初学者，一个热爱编程的人，希望能在0与1的世界与您相遇，结伴而行！
+                    一个Java初学者，一个热爱编程的人，希望能在0与1的世界与您相遇，结伴而行！
+                    <a class="badge" href="#">回复</a>
+                  </div>
+                  <!-- /.direct-chat-text -->
+                </div>
+                <!-- /.direct-chat-msg -->
+                <!-- Message to the right -->
+                <div class="direct-chat-msg right">
+                  <div class="direct-chat-infos clearfix">
+                    <span class="direct-chat-timestamp float-right ml-2">23 Jan 2:00 pm</span>
+                    <span class="direct-chat-name float-right">Lee</span>
+                  </div>
+                  <!-- /.direct-chat-infos -->
+                  <img class="direct-chat-img position-absolute r-2" src="./img/user3-128x128.jpg" alt="message user image">
+                  <!-- /.direct-chat-img -->
+                  <div class="direct-chat-text float-right">
+                    一个Java初学者，一个热爱编程的人，希望能在0与1的世界与您相遇，结伴而行！
+                    <a class="badge" href="#">回复</a>
+                  </div>
+                  <!-- /.direct-chat-text -->
+                </div>
+                <!-- /.direct-chat-msg -->
+                <hr>
+
+                <!-- Message. Default to the left -->
+                <div class="direct-chat-msg">
+                  <div class="direct-chat-infos clearfix">
+                    <span class="direct-chat-name float-left">YOYLING.</span>
+                    <span class="direct-chat-timestamp float-left ml-2">23 Jan 2:00 pm</span>
+                  </div>
+                  <!-- /.direct-chat-infos -->
+                  <img class="direct-chat-img position-absolute border" src="./upload/avatar.jpg" alt="message user image">
+                  <!-- /.direct-chat-img -->
+                  <div class="direct-chat-text float-left">
+                    一个Java初学者，一个热爱编程的人，希望能在0与1的世界与您相遇，结伴而行！
+                    <a class="badge" href="#">回复</a>
+                  </div>
+                  <!-- /.direct-chat-text -->
+                </div>
+                <!-- /.direct-chat-msg -->
+                <!-- Message to the right -->
+                <div class="direct-chat-msg right">
+                  <div class="direct-chat-infos clearfix">
+                    <span class="direct-chat-timestamp float-right ml-2">23 Jan 2:00 pm</span>
+                    <span class="direct-chat-name float-right">Lee</span>
+                  </div>
+                  <!-- /.direct-chat-infos -->
+                  <img class="direct-chat-img position-absolute r-2" src="./img/user3-128x128.jpg" alt="message user image">
+                  <!-- /.direct-chat-img -->
+                  <div class="direct-chat-text float-right">
+                    You better believe it!
+                    <a class="badge" href="#">回复</a>
+                  </div>
+                  <!-- /.direct-chat-text -->
+                </div>
+                <!-- /.direct-chat-msg -->
+                <hr>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer">
+                <form action="#" method="post">
+                  <div class="input-group">
+                    <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                    <span class="input-group-append">
+                      <button type="button" class="btn btn-primary">Send</button>
+                    </span>
+                  </div>
+                </form>
+              </div>
+              <!-- /.card-footer-->
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-md-4">
+            <!-- Profile Image -->
+            <div class="card widget-user sticky-top">
+              <!-- Add the bg color to the header using any of the bg-* classes -->
+              <div class="widget-user-header bg-info">
+                <h3 class="widget-user-username">YOYLING.</h3>
+                <h5 class="widget-user-desc">Student &amp; Coder</h5>
+              </div>
+              <div class="widget-user-image">
+                <img class="img-circle elevation-2" src="./upload/avatar.jpg" alt="User Avatar">
+              </div>
+              <div class="card-body pt-5">
+                <p class="text-muted">
+                  一个Java初学者，一个热爱编程的人，希望能在0与1的世界与您相遇，结伴而行！
+                </p>
+
+                <ul class="list-group list-group-unbordered">
+                  <li class="list-group-item">
+                    <strong><i class="far fa-bookmark mr-2"></i>推荐文章</strong>
+                    <a href="" class="d-block link-title text-truncate">Java学习路线Java学习路线Java学习路线Java学习路线</a>
+                    <a href="" class="d-block link-title">Java学习路线</a>
+                    <a href="" class="d-block link-title">Java学习路线</a>
+                  </li>
+
+                  <li class="list-group-item">
+                    <strong><i class="fa fa-map-marker-alt mr-2"></i>位置</strong>
+                    <div class="text-muted">Malibu, California</div>
+                  </li>
+
+                  <li class="list-group-item">
+                    <strong><i class="fa fa-pencil-alt mr-2"></i>技能</strong>
+                    <div class="text-muted">
+                      <span class="badge badge-success">UI Design</span>
+                      <span class="badge badge-success">Coding</span>
+                      <span class="badge badge-success">Javascript</span>
+                      <span class="badge badge-success">PHP</span>
+                      <span class="badge badge-success">Node.js</span>
+                    </div>
+                  </li>
+
+                  <li class="list-group-item">
+                    <strong><i class="fa fa-lightbulb mr-2"></i>爱好</strong>
+                    <div class="text-muted">
+                      <span class="badge badge-warning">编程</span>
+                      <span class="badge badge-warning">学习</span>
+                    </div>
+                  </li>
+
+                  <li class="list-group-item text-center">
+                    <button class="btn btn-success btn-sm rounded-circle" data-toggle="tooltip" data-placement="top"
+                            title="939234206">
+                      <i class="fab fa-qq"></i>
+                    </button>
+                    <button class="btn btn-success btn-sm rounded-circle" data-toggle="tooltip" data-placement="top"
+                            title="939234206">
+                      <i class="fab fa-weixin"></i>
+                    </button>
+                    <a href="http://www.baidu.com" target="_blank"
+                       class="btn btn-success btn-sm rounded-circle" data-toggle="tooltip" data-placement="top"
+                       title="github">
+                      <i class="fab fa-github text-white"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <p class="text-center mb-1">
+      Copyright © 2020 YOYLING Designed by YOYLING Powered by AdminLTE
+    </p>
+    <p class="text-center">
+      <a href="">粤ICP备20040058号</a>
+    </p>
+  </footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script th:src="@{/static/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/static/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/static/js/adminlte.min.js}"></script>
+<!--  -->
+<script th:src="@{/static/js/tooltip.init.js}"></script>
+
+</body>
+</html>

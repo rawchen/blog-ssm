@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 3 | User Profile</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Theme style -->
+    <link rel="stylesheet" th:href="@{/static/css/adminlte.min.css}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" th:href="@{/static/plugins/fontawesome-free/css/all.min.css}">
+
+  <link rel="stylesheet" th:href="@{/static/plugins/tocbot/css/tocbot.css}">
+  <link rel="stylesheet" th:href="@{/static/plugins/prism/css/prism.css}">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
+      </li>
+    </ul>
+
+    <!-- SEARCH FORM -->
+    <form class="form-inline ml-3">
+      <div class="input-group input-group-sm">
+        <input class="form-control form-control-navbar" type="search" placeholder="博客搜索..." aria-label="Search">
+        <div class="input-group-append">
+          <button class="btn btn-navbar" type="submit">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <h1>
+      <a href="index.html" class="brand-link">
+        <img src="./upload/avatar.jpg" class="brand-image img-circle elevation-3">
+        <span class="brand-text font-weight-light">YOYLING's Blog</span>
+      </a>
+    </h1>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-header">读万卷书</li>
+          <li class="nav-item">
+            <a href="index.html" class="nav-link">
+              <i class="fa fa-home nav-icon"></i>
+              <p>首页</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="category.html" class="nav-link">
+              <i class="fa fa-bookmark nav-icon"></i>
+              <p>分类</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="tag.html" class="nav-link">
+              <i class="fa fa-tags nav-icon"></i>
+              <p>标签</p>
+            </a>
+          </li>
+
+          <li class="nav-header">行万里路</li>
+          <li class="nav-item">
+            <a href="archive.html" class="nav-link">
+              <i class="fa fa-archive nav-icon"></i>
+              <p>归档</p>
+            </a>
+          </li>
+          <li class="nav-header">点滴记录</li>
+          <li class="nav-item">
+            <a href="guestbook.html" class="nav-link">
+              <i class="fa fa-comments nav-icon"></i>
+              <p>留言</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper mt-3">
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-9">
+            <div class="card card-teal card-outline mb-5 bg-color-ea">
+              <div class="card-header">
+                <div>
+                  <span class="text-xl">Spring重点笔记</span>
+                  <span class="badge badge-info">原创</span>
+                </div>
+                <div>
+                  <span class="text-sm mr-2"><i class="far fa-calendar-alt mr-1"></i> 2019-01-01 10:08</span>
+                  <span class="text-sm"><i class="far fa-eye mr-1"></i> 10</span>
+                </div>
+
+              </div><!-- /.card-header -->
+              <div class="card-body" id="blog-content">
+                <blockquote>
+                  <p>笔者认为Spring框架核心的功能就是IOC、AOP、声明式事务，这在编程中经常使用，遂来总结一番。</p>
+                </blockquote>
+                <div align="center">
+                  <img src="https://cdn.jsdelivr.net/gh/ZengZhiK/PicBed/Spring重点笔记/Spring架构图.png" width="50%">
+                </div>
+                <h2 id="1-spring-ioc">1. Spring IOC</h2>
+                <div class="flowchart"><svg height="605.419921875" version="1.1" width="310.8046875" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="overflow: hidden; position: relative; left: -0.6px; top: -0.1px;"><desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël 2.1.2</desc><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><marker id="raphael-marker-endblock33-obj34" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="black" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock33-obj35" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="black" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker><marker id="raphael-marker-endblock33-obj36" markerHeight="3" markerWidth="3" orient="auto" refX="1.5" refY="1.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><use xlink:href="#raphael-marker-block" transform="rotate(180 1.5 1.5) scale(0.6,0.6)" stroke-width="1.6667" fill="black" stroke="none" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></use></marker></defs><rect x="0" y="0" width="102.484375" height="37.609375" rx="20" ry="20" fill="#ffffff" stroke="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" stroke-width="2" class="flowchart" id="st" transform="matrix(1,0,0,1,105.1602,61.3965)"></rect><text x="10" y="18.8046875" text-anchor="start" font-family="&quot;Arial&quot;" font-size="14px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: Arial; font-size: 14px;" id="stt" class="flowchartt" transform="matrix(1,0,0,1,105.1602,61.3965)"><tspan dy="4.796875" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">User login</tspan></text><rect x="0" y="0" width="94.234375" height="37.609375" rx="0" ry="0" fill="#ffffff" stroke="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" stroke-width="2" class="flowchart" id="op" transform="matrix(1,0,0,1,109.2852,210.4023)"></rect><text x="10" y="18.8046875" text-anchor="start" font-family="&quot;Arial&quot;" font-size="14px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: Arial; font-size: 14px;" id="opt" class="flowchartt" transform="matrix(1,0,0,1,109.2852,210.4023)"><tspan dy="4.796875" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Operation</tspan></text><path fill="#ffffff" stroke="#000000" d="M76.201171875,38.1005859375L0,76.201171875L152.40234375,152.40234375L304.8046875,76.201171875L152.40234375,0L0,76.201171875" stroke-width="2" id="cond" class="flowchart" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" transform="matrix(1,0,0,1,4,302.0117)"></path><text x="81.201171875" y="76.201171875" text-anchor="start" font-family="&quot;Arial&quot;" font-size="14px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: Arial; font-size: 14px;" id="condt" class="flowchartt" transform="matrix(1,0,0,1,4,302.0117)"><tspan dy="4.802734375" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Successful Yes or No?</tspan></text><rect x="0" y="0" width="102.484375" height="37.609375" rx="20" ry="20" fill="#ffffff" stroke="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" stroke-width="2" class="end-element" id="e" transform="matrix(1,0,0,1,105.1602,565.8105)"></rect><text x="10" y="18.8046875" text-anchor="start" font-family="&quot;Arial&quot;" font-size="14px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: Arial; font-size: 14px;" id="et" class="end-elementt" transform="matrix(1,0,0,1,105.1602,565.8105)"><tspan dy="4.796875" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Into admin</tspan><tspan dy="18" x="10" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></tspan></text><path fill="none" stroke="#000000" d="M156.40234375,99.005859375C156.40234375,99.005859375,156.40234375,189.6094420826994,156.40234375,207.3939343915349" stroke-width="2" marker-end="url(#raphael-marker-endblock33-obj34)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M156.40234375,248.01171875C156.40234375,248.01171875,156.40234375,287.66581869125366,156.40234375,299.01215783460066" stroke-width="2" marker-end="url(#raphael-marker-endblock33-obj35)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#000000" d="M156.40234375,454.4140625C156.40234375,454.4140625,156.40234375,545.0176452076994,156.40234375,562.8021375165349" stroke-width="2" marker-end="url(#raphael-marker-endblock33-obj36)" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><text x="161.40234375" y="464.4140625" text-anchor="start" font-family="&quot;Arial&quot;" font-size="14px" stroke="none" fill="#000000" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: start; font-family: Arial; font-size: 14px;"><tspan dy="4.796875" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">yes</tspan></text></svg></div>
+                <ul>
+                  <li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox" checked="" disabled=""> <a href="https://github.com/mentions" title="@mentions" class="at-link">@mentions</a>, #refs, <a href="">links</a>, <strong>formatting</strong>, and &lt;del&gt;tags&lt;/del&gt; supported;</li><li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox" checked="" disabled=""> list syntax required (any unordered or ordered list supported);</li><li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox" checked="" disabled=""> this is a complete item;</li><li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox"> this is an incomplete item <a href="#">test link</a>;</li><li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox"> this is an incomplete item;<ul>
+                  <li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox"> this is an incomplete item <a href="#">test link</a>;</li><li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox"> this is an incomplete item <a href="#">test link</a>;</li></ul>
+                </li><li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox" checked="" disabled=""> list syntax required (any unordered or ordered list supported);</li><li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox" checked="" disabled=""> this is a complete item;</li><li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox"> this is an incomplete item <a href="#">test link</a>;</li><li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox"> this is an incomplete item;<ul>
+                  <li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox"> this is an incomplete item <a href="#">test link</a>;</li></ul>
+                </li><li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox" checked="" disabled=""> list syntax required (any unordered or ordered list supported);</li><li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox" checked="" disabled=""> this is a complete item;</li><li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox"> this is an incomplete item <a href="#">test link</a>;</li><li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox"> this is an incomplete item;<ul>
+                  <li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox"> this is an incomplete item <a href="#">test link</a>;</li><li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox"> this is an incomplete item <a href="#">test link</a>;</li></ul>
+                </li></ul>
+                <ul>
+                  <li><strong>IOC—Inversion of Control</strong>，即“控制反转”，是一种设计思想</li>
+                  <li><strong>DI—Dependency Injection</strong>，即“依赖注入” ，是Spring对IOC设计思想的具体实现</li>
+                </ul>
+                <p><strong>使用步骤：</strong></p>
+                <ol>
+                  <li>引入包：<code>spring-beans, spring-context, spring-core, spring-expression, common-logging</code>（common-logging
+                    是Spring框架依赖的日志框架，同时也是一个日志门面，其实现可以是log4j，如果没有引入log4j的jar包，则会使用 JDK自身的日志实现类 ）
+                  </li>
+                  <li>在<code>xml</code>配置文件中进行配置
+                    <ol>
+                      <li>使用<code>&lt;bean&gt;</code>标签</li>
+                      <li>使用<code>&lt;context:component-scan&gt;</code>标签</li>
+                    </ol>
+                  </li>
+                  <li>创建的Bean对象一般都是通过自动装配进行使用<code>@Autowired</code></li>
+                  <li>案例</li>
+                </ol>
+                <pre class=" language-xml line-numbers"><code class=" language-xml"><span class="token comment">&lt;!--
+	在SSM框架中，常用需要注入的Bean一般有数据库连接池、事务管理器、Mybatis框架提供的SqlSessionFactoryBean
+--&gt;</span>
+<span class="token comment">&lt;!-- 阿里的数据库连接池Druid --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span
+  class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span
+  class="token punctuation">"</span>dataSource<span class="token punctuation">"</span></span> <span
+  class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span
+  class="token punctuation">"</span>com.alibaba.druid.pool.DruidDataSource<span
+  class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span
+      class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span
+      class="token punctuation">"</span>username<span class="token punctuation">"</span></span> <span
+      class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span
+      class="token punctuation">"</span>${datasource.username}<span class="token punctuation">"</span></span><span
+      class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span
+      class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span
+      class="token punctuation">"</span>password<span class="token punctuation">"</span></span> <span
+      class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span
+      class="token punctuation">"</span>${datasource.password}<span class="token punctuation">"</span></span><span
+      class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span
+      class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span
+      class="token punctuation">"</span>url<span class="token punctuation">"</span></span> <span
+      class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span
+      class="token punctuation">"</span>${datasource.url}<span class="token punctuation">"</span></span><span
+      class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span
+      class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span
+      class="token punctuation">"</span>driverClassName<span class="token punctuation">"</span></span> <span
+      class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span
+      class="token punctuation">"</span>${datasource.driver}<span class="token punctuation">"</span></span><span
+      class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span
+  class="token punctuation">&gt;</span></span>
+
+<span class="token comment">&lt;!-- 事务管理器 --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span
+  class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span
+  class="token punctuation">"</span>txManager<span class="token punctuation">"</span></span> <span
+  class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span
+  class="token punctuation">"</span>org.springframework.jdbc.datasource.DataSourceTransactionManager<span
+  class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span
+      class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span
+      class="token punctuation">"</span>dataSource<span class="token punctuation">"</span></span> <span
+      class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span
+      class="token punctuation">"</span>dataSource<span class="token punctuation">"</span></span><span
+      class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span
+  class="token punctuation">&gt;</span></span>
+
+<span class="token comment">&lt;!-- Mybatis框架提供的SqlSessionFactoryBean --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span
+  class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span
+  class="token punctuation">"</span>org.mybatis.spring.SqlSessionFactoryBean<span
+  class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span
+      class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span
+      class="token punctuation">"</span>configLocation<span class="token punctuation">"</span></span> <span
+      class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span
+      class="token punctuation">"</span>classpath:/mybatis/mybatis-config.xml<span
+      class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span
+      class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span
+      class="token punctuation">"</span>dataSource<span class="token punctuation">"</span></span> <span
+      class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span
+      class="token punctuation">"</span>dataSource<span class="token punctuation">"</span></span><span
+      class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span
+      class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span
+      class="token punctuation">"</span>mapperLocations<span class="token punctuation">"</span></span> <span
+      class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span
+      class="token punctuation">"</span>classpath:/mybatis/mapper/*.xml<span
+      class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span
+  class="token punctuation">&gt;</span></span>
+</code></pre>
+                <pre class="language-xml line-numbers"><code class=" language-xml"><span class="token comment">&lt;!--
+	在SSM框架中，包扫描一般会把Controller单独分开，交给SpringMVC的子容器进行管理
+--&gt;</span>
+
+<span class="token comment">&lt;!-- 排除Controller --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span
+  class="token namespace">context:</span>component-scan</span> <span class="token attr-name">base-package</span><span
+  class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zzk.crowdfunding<span
+  class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span
+      class="token namespace">context:</span>exclude-filter</span> <span class="token attr-name">type</span><span
+      class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>annotation<span
+      class="token punctuation">"</span></span> <span class="token attr-name">expression</span><span
+      class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>org.springframework.stereotype.Controller<span
+      class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span
+  class="token namespace">context:</span>component-scan</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token comment">&lt;!-- 只扫描Controller --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span
+  class="token namespace">context:</span>component-scan</span> <span class="token attr-name">base-package</span><span
+  class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.zzk.crowdfunding.controller<span
+  class="token punctuation">"</span></span> <span class="token attr-name">use-default-filters</span><span
+  class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>false<span
+  class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span
+      class="token namespace">context:</span>include-filter</span> <span class="token attr-name">type</span><span
+      class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>annotation<span
+      class="token punctuation">"</span></span> <span class="token attr-name">expression</span><span
+      class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>org.springframework.stereotype.Controller<span
+      class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span
+  class="token namespace">context:</span>component-scan</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+                <p><strong>注意点：</strong></p>
+                <ul>
+                  <li>创建的Bean对象一般是单例的，如果需要更改，可以修改<code>&lt;bean&gt;</code>标签中的scope属性</li>
+                  <li>这些Bean对象一般会在IOC容器初始化时创建</li>
+                  <li>依赖注入的方式一般是通过构造方法的方式，Bean对象的属性值通过setter方法注入，如果没有通过setter方法，那么程序会报错</li>
+                </ul>
+                <h2 id="2-spring-aopaspectj注解模式">2. Spring AOP（Aspectj注解模式）</h2>
+                <ul>
+                  <li><strong>AOP— Aspect Oriented Programming</strong>
+                    ，即“面向切面编程”，是一种编程思想，AOP中有很多基本术语，例如横切关注点、连接点（Joinpoint）、切入点（pointcut）、通知（Advice）、切面（Aspect）、目标（Target）、代理（Proxy），AOP最核心的功能就是在不需要修改业务模块的代码的前提下加入非业务代码（例如日志、声明式事务等）
+                  </li>
+                  <li><strong>横切关注点</strong>： 指的是一些具有横越多个<a href="https://baike.baidu.com/item/模块"
+                                                            target="_blank">模块</a>的行为
+                  </li>
+                  <li><strong>连接点Joinpoint</strong>：横切关注点在程序代码中的具体体现，对应程序执行的某个特定位置。例如：类某个方法调用前、调用后、方法捕获到异常后等，在应用程序中可以使用横纵两个坐标来定位一个具体的连接点
+                  </li>
+                </ul>
+                <div align="center">
+                  <img src="https://cdn.jsdelivr.net/gh/ZengZhiK/PicBed/Spring重点笔记/AOP连接点解释.png" width="50%">
+                </div>
+                <ul>
+                  <li><strong>切入点pointcut</strong>：一个匹配连接点（Join
+                    point）的谓词表达式。每个类的方法中都包含多个连接点，所以连接点是类中客观存在的事物。如果把连接点看作数据库中的记录，那么切入点就是查询条件——AOP可以通过切入点定位到特定的连接点
+                  </li>
+                  <li><strong>通知Advice</strong>：通知是指一个切面在特定的连接点要做的事情。通知分为方法执行前通知，方法执行后通知，环绕通知等</li>
+                  <li><strong>切面Aspect</strong>：它是通知（Advice）和切点（Pointcut）合起来的抽象，它定义了一个切点（Pointcut）用来匹配连接点（Join
+                    point），也就是需要对需要拦截的那些方法进行定义；它定义了一系列的通知（Advice）用来对拦截到的方法进行增强
+                  </li>
+                </ul>
+                <p><strong>使用步骤：</strong></p>
+                <ol>
+                  <li>引入包：<code>spring-aop, spring-aspects, aspectj.weaver, aopalliance</code></li>
+                  <li>在<code>xml</code>配置文件中开启AspectJ注解支持</li>
+                </ol>
+                <pre class=" language-xml line-numbers"><code class=" language-xml"><span class="token tag"><span
+                  class="token tag"><span class="token punctuation">&lt;</span><span
+                  class="token namespace">aop:</span>aspectj-autoproxy</span><span
+                  class="token punctuation">/&gt;</span></span>
+</code></pre>
+                <ol start="3">
+                  <li>编写切面类</li>
+                </ol>
+                <pre class=" language-java line-numbers"><code class=" language-java"><span
+                  class="token keyword">package</span> <span class="token namespace">com<span
+                  class="token punctuation">.</span>zzk<span class="token punctuation">.</span>spring<span
+                  class="token punctuation">.</span>aspect</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>aspectj<span
+                    class="token punctuation">.</span>lang<span
+                    class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span>*<span
+                    class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span
+                    class="token punctuation">.</span>stereotype</span><span class="token punctuation">.</span><span
+                    class="token class-name">Component</span><span class="token punctuation">;</span>
+
+
+<span class="token doc-comment comment">/**
+ * AOP简单示例
+ * <span class="token keyword">@author</span> zzk
+ * <span class="token keyword">@create</span> 2020-04-07 21:22
+ */</span>
+<span class="token annotation punctuation">@Aspect</span>
+<span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LogAspect</span> <span
+                    class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Pointcut</span><span class="token punctuation">(</span><span
+                    class="token string">"execution(* com.zzk.spring.service.impl..*(..))"</span><span
+                    class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span
+                    class="token function">log</span><span class="token punctuation">(</span><span
+                    class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Before</span><span class="token punctuation">(</span>pointcut <span
+                    class="token operator">=</span> <span class="token string">"log()"</span><span
+                    class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doBefore</span><span
+                    class="token punctuation">(</span><span class="token punctuation">)</span> <span
+                    class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span
+                    class="token punctuation">.</span><span class="token function">println</span><span
+                    class="token punctuation">(</span><span class="token string">"doBefore"</span><span
+                    class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@After</span><span class="token punctuation">(</span>pointcut <span
+                    class="token operator">=</span> <span class="token string">"log()"</span><span
+                    class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doAfter</span><span
+                    class="token punctuation">(</span><span class="token punctuation">)</span> <span
+                    class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span
+                    class="token punctuation">.</span><span class="token function">println</span><span
+                    class="token punctuation">(</span><span class="token string">"doAfter"</span><span
+                    class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@AfterReturning</span><span
+                    class="token punctuation">(</span>pointcut <span class="token operator">=</span> <span
+                    class="token string">"log()"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doAfterReturning</span><span
+                    class="token punctuation">(</span><span class="token punctuation">)</span> <span
+                    class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span
+                    class="token punctuation">.</span><span class="token function">println</span><span
+                    class="token punctuation">(</span><span class="token string">"doAfterReturning"</span><span
+                    class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@AfterThrowing</span><span
+                    class="token punctuation">(</span>pointcut <span class="token operator">=</span> <span
+                    class="token string">"log()"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">doAfterThrowing</span><span
+                    class="token punctuation">(</span><span class="token punctuation">)</span> <span
+                    class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span
+                    class="token punctuation">.</span><span class="token function">println</span><span
+                    class="token punctuation">(</span><span class="token string">"doAfterThrowing"</span><span
+                    class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+                <h2 id="3-spring-声明式事务">3. Spring 声明式事务</h2>
+                <ul>
+                  <li>
+                    <p><strong>事务</strong>就是一组由于逻辑上紧密关联而合并成一个整体的多个数据库操作，这些操作要么都执行，要么都不执行</p>
+                  </li>
+                  <li>
+                    <p><strong>事务的四个关键属性</strong>（ACID）</p>
+                    <ul>
+                      <li><strong>原子性atomicity</strong>：“原子”的本意是“不可再分”，事务的原子性表现为一个事务中涉及到的多个操作在逻辑上缺一不可。事务的原子性要求事务中的所有操作要么都执行，要么都不执行
+                      </li>
+                      <li><strong>一致性consistency</strong>：“一致”指的是数据的一致，具体是指：所有数据都处于满足业务规则的一致性状态。一致性原则要求：一个事务中不管涉及到多少个操作，都必须保证事务执行之前数据是正确的，事务执行之后数据仍然是正确的。如果一个事务在执行的过程中，其中某一个或某几个操作失败了，则必须将其他所有操作撤销，将数据恢复到事务执行之前的状态，这就是回滚
+                      </li>
+                      <li><strong>隔离性isolation</strong>：在应用程序实际运行过程中，事务往往是并发执行的，所以很有可能有许多事务同时处理相同的数据，因此每个事务都应该与其他事务隔离开来，防止数据损坏。隔离性原则要求多个事务在并发执行过程中不会互相干扰
+                      </li>
+                      <li><strong>持久性durability</strong>：持久性原则要求事务执行完成后，对数据的修改永久的保存下来，不会因各种系统错误或其他意外情况而受到影响。通常情况下，事务对数据的修改应该被写入到持久化存储器中
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <p><strong>事务的隔离级别</strong>：数据库系统必须具有隔离并发运行各个事务的能力，使它们不会相互影响，避免各种并发问题。一个事务与其他事务隔离的程度称为隔离级别。SQL标准中规定了多种事务隔离级别，不同隔离级别对应不同的干扰程度，隔离级别越高，数据一致性就越好，但并发性越弱
+                    </p>
+                    <ul>
+                      <li><strong>读未提交：READ UNCOMMITTED</strong></li>
+                      <li><strong>读已提交：READ COMMITTED</strong></li>
+                      <li><strong>可重复读：REPEATABLE READ</strong></li>
+                      <li><strong>串行化：SERIALIZABLE</strong></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <p><strong>事务的传播行为</strong>：当事务方法被另一个事务方法调用时，必须指定事务应该如何传播。例如：方法可能继续在现有事务中运行，也可能开启一个新事务，并在自己的事务中运行。
+                      事务的传播行为可以由传播属性指定。Spring定义了7种类传播行为。</p>
+                    <table class="table table-bordered table-sm">
+                      <thead>
+                      <tr>
+                        <th align="left">传播属性</th>
+                        <th>描述</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                        <td align="left">REQUIRED</td>
+                        <td>如 果 有 事 务 在 运 行 ， 当 前 的 方 法 就 在 这 个 事 务 内 运 行 ， 否 则 ， 就 启 动 一 个 新 的 事 务 ， 并 在 自 己 的 事 务 内
+                          运 行
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="left">REQUIRED_NEW</td>
+                        <td>当 前 的 方 法 必 须 启 动 新 事 务 ， 并 在 它 自 己 的 事 务 内 运 行 . 如 果 有 事 务 正 在 运 行 ， 应 该 将 它 桂 起</td>
+                      </tr>
+                      <tr>
+                        <td align="left">SUPPORTS</td>
+                        <td>如 果 有 事 务 在 运 行 ， 当 前 的 方 法 就 在 这 个 事 务 内 运 行 . 否 则 它 可 以 不 运 行 在 事 务 中 .</td>
+                      </tr>
+                      <tr>
+                        <td align="left">NOT_SUPPORTED</td>
+                        <td>当 前 的 方 法 不 应 该 运 行 在 事 务 中 . 如 果 有 运 行 的 事 务 ， 将 它 桂 起</td>
+                      </tr>
+                      <tr>
+                        <td align="left">NEVER</td>
+                        <td>当 前 的 方 法 不 应 该 运 行 在 事 务 中 . 如 果 有 运 行 的 事 务 ， 就 抛 出 异 常</td>
+                      </tr>
+                      <tr>
+                        <td align="left">NESTED</td>
+                        <td>如 果 有 事 务 在 运 行 ， 当 前 的 方 法 就 应 该 在 这 个 事 务 的 嵌 套 事 务 内 运 行 . 否 则 ， 就 启 动 一 个 新 的 事 务 ， 并
+                          在 它 自 己 的 事 务 内 运 行
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="left">MANDATORY</td>
+                        <td>当 前 的 方 法 必 须 运 行 在 事 务 内 部 ， 如 果 没 有 正 在 运 行 的 事 务 ， 就 抛 出 异 常</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </li>
+                </ul>
+                <p><strong>使用步骤：</strong></p>
+                <ol>
+                  <li>引入包<code>spring-tx, spring-jdbc, spring-orm</code>
+                    <ol>
+                      <li>PlatformTransactionManager：平台事务管理器，是Spring实现事务的顶层接口</li>
+                      <li>DataSourceTransactionManager：JDBC或MyBatis开发时使用的事务管理器</li>
+                      <li>JtaTransactionManager：在JavaEE应用服务器上用JTA(Java Transaction API)进行事务管理</li>
+                      <li>HibernateTransactionManager：Hibernate开发时的事务管理器</li>
+                    </ol>
+                  </li>
+                </ol>
+                <div align="center">
+                  <img src="https://cdn.jsdelivr.net/gh/ZengZhiK/PicBed/Spring重点笔记/Spring事务管理器的主要实现.png" width="50%">
+                </div>
+                <ol start="2">
+                  <li>
+                    <p>配置注解的方式：</p>
+                    <ol>
+                      <li>在<code>xml</code>配置文件中配置事务管理器并开启事务注解驱动</li>
+                    </ol>
+                    <pre class=" language-xml line-numbers"><code class=" language-xml"><span class="token comment">&lt;!-- 配置事务管理器 --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span
+  class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span
+  class="token punctuation">"</span>transactionManager<span class="token punctuation">"</span></span>
+	<span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span
+    class="token punctuation">"</span>org.springframework.jdbc.datasource.DataSourceTransactionManager<span
+    class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span
+    class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span
+    class="token punctuation">"</span>dataSource<span class="token punctuation">"</span></span> <span
+    class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span
+    class="token punctuation">"</span>dataSource<span class="token punctuation">"</span></span><span
+    class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span
+  class="token punctuation">&gt;</span></span>
+
+<span class="token comment">&lt;!-- 启用事务注解 --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span
+  class="token namespace">tx:</span>annotation-driven</span> <span
+  class="token attr-name">transaction-manager</span><span class="token attr-value"><span
+  class="token punctuation">=</span><span class="token punctuation">"</span>transactionManager<span
+  class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+</code></pre>
+                    <ol start="2">
+                      <li>为类或者方法加@Transactional注解</li>
+                    </ol>
+                    <pre class=" language-java line-numbers"><code class=" language-java"><span
+                      class="token annotation punctuation">@Transactional</span><span
+                      class="token punctuation">(</span>propagation <span class="token operator">=</span> <span
+                      class="token class-name">Propagation</span><span class="token punctuation">.</span>REQUIRED<span
+                      class="token punctuation">,</span>
+               isolation <span class="token operator">=</span> <span class="token class-name">Isolation</span><span
+                        class="token punctuation">.</span>READ_COMMITTED<span class="token punctuation">,</span>
+               rollbackFor <span class="token operator">=</span> <span class="token punctuation">{</span><span
+                        class="token class-name">IOException</span><span class="token punctuation">.</span><span
+                        class="token keyword">class</span><span class="token punctuation">,</span> <span
+                        class="token class-name">SQLException</span><span class="token punctuation">.</span><span
+                        class="token keyword">class</span><span class="token punctuation">}</span><span
+                        class="token punctuation">,</span>
+               noRollbackFor <span class="token operator">=</span> <span
+                        class="token class-name">ArithmeticException</span><span
+                        class="token punctuation">.</span><span class="token keyword">class</span><span
+                        class="token punctuation">,</span>
+               readOnly <span class="token operator">=</span> <span class="token boolean">true</span><span
+                        class="token punctuation">,</span>
+               timeout <span class="token operator">=</span> <span class="token number">30</span><span
+                        class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span
+                        class="token function">purchase</span><span class="token punctuation">(</span><span
+                        class="token class-name">String</span> isbn<span class="token punctuation">,</span> <span
+                        class="token class-name">String</span> username<span class="token punctuation">)</span> <span
+                        class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+</code></pre>
+                  </li>
+                  <li>
+                    <p>配置<code>xml</code>文件、使用AOP的方式，使用AOP的方式不用对每个方法都进行配置，只需要匹配好方法的开头，就可以控制该方法的事务</p>
+                  </li>
+                </ol>
+                <pre class=" language-xml line-numbers"><code class=" language-xml"><span class="token comment">&lt;!-- 配置事务管理器 --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span
+  class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span
+  class="token punctuation">"</span>transactionManager<span class="token punctuation">"</span></span>
+	<span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span
+    class="token punctuation">"</span>org.springframework.jdbc.datasource.DataSourceTransactionManager<span
+    class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span
+    class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span
+    class="token punctuation">"</span>dataSource<span class="token punctuation">"</span></span> <span
+    class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span
+    class="token punctuation">"</span>dataSource<span class="token punctuation">"</span></span><span
+    class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span
+  class="token punctuation">&gt;</span></span>
+
+<span class="token comment">&lt;!-- 配置事务策略 --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span
+  class="token namespace">tx:</span>advice</span> <span class="token attr-name">id</span><span class="token attr-value"><span
+  class="token punctuation">=</span><span class="token punctuation">"</span>txAdvice<span
+  class="token punctuation">"</span></span> <span class="token attr-name">transaction-manager</span><span
+  class="token attr-value"><span class="token punctuation">=</span><span
+  class="token punctuation">"</span>txManager<span class="token punctuation">"</span></span><span
+  class="token punctuation">&gt;</span></span>
+    <span class="token comment">&lt;!-- 事务属性 --&gt;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span
+      class="token namespace">tx:</span>attributes</span><span class="token punctuation">&gt;</span></span>
+        <span class="token comment">&lt;!-- 增删改 --&gt;</span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span
+          class="token namespace">tx:</span>method</span> <span class="token attr-name">name</span><span
+          class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>insert*<span
+          class="token punctuation">"</span></span> <span class="token attr-name">timeout</span><span
+          class="token attr-value"><span class="token punctuation">=</span><span
+          class="token punctuation">"</span>5000<span class="token punctuation">"</span></span><span
+          class="token punctuation">/&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span
+          class="token namespace">tx:</span>method</span> <span class="token attr-name">name</span><span
+          class="token attr-value"><span class="token punctuation">=</span><span
+          class="token punctuation">"</span>add*<span class="token punctuation">"</span></span> <span
+          class="token attr-name">timeout</span><span class="token attr-value"><span
+          class="token punctuation">=</span><span class="token punctuation">"</span>5000<span class="token punctuation">"</span></span><span
+          class="token punctuation">/&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span
+          class="token namespace">tx:</span>method</span> <span class="token attr-name">name</span><span
+          class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>update*<span
+          class="token punctuation">"</span></span> <span class="token attr-name">timeout</span><span
+          class="token attr-value"><span class="token punctuation">=</span><span
+          class="token punctuation">"</span>5000<span class="token punctuation">"</span></span><span
+          class="token punctuation">/&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span
+          class="token namespace">tx:</span>method</span> <span class="token attr-name">name</span><span
+          class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>delete*<span
+          class="token punctuation">"</span></span> <span class="token attr-name">timeout</span><span
+          class="token attr-value"><span class="token punctuation">=</span><span
+          class="token punctuation">"</span>5000<span class="token punctuation">"</span></span><span
+          class="token punctuation">/&gt;</span></span>
+
+        <span class="token comment">&lt;!-- 查询 --&gt;</span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span
+          class="token namespace">tx:</span>method</span> <span class="token attr-name">name</span><span
+          class="token attr-value"><span class="token punctuation">=</span><span
+          class="token punctuation">"</span>get*<span class="token punctuation">"</span></span> <span
+          class="token attr-name">read-only</span><span class="token attr-value"><span
+          class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span
+          class="token punctuation">/&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span
+          class="token namespace">tx:</span>method</span> <span class="token attr-name">name</span><span
+          class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>find*<span
+          class="token punctuation">"</span></span> <span class="token attr-name">read-only</span><span
+          class="token attr-value"><span class="token punctuation">=</span><span
+          class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span
+          class="token punctuation">/&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span
+          class="token namespace">tx:</span>method</span> <span class="token attr-name">name</span><span
+          class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>list*<span
+          class="token punctuation">"</span></span> <span class="token attr-name">read-only</span><span
+          class="token attr-value"><span class="token punctuation">=</span><span
+          class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span
+          class="token punctuation">/&gt;</span></span>
+
+        <span class="token comment">&lt;!-- 其它方法 --&gt;</span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span
+          class="token namespace">tx:</span>method</span> <span class="token attr-name">name</span><span
+          class="token attr-value"><span class="token punctuation">=</span><span
+          class="token punctuation">"</span>*<span class="token punctuation">"</span></span><span
+          class="token punctuation">/&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span
+      class="token namespace">tx:</span>attributes</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span
+  class="token namespace">tx:</span>advice</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token comment">&lt;!-- 配置事务控制的范围（切面） --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span
+  class="token namespace">aop:</span>config</span><span class="token punctuation">&gt;</span></span>
+    <span class="token comment">&lt;!--
+            *     任意返回值
+                  service包下
+            ..    service下的任意包
+            *     任意类
+            .*    任意方法
+            (..)  任意参数
+    --&gt;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span
+      class="token namespace">aop:</span>pointcut</span> <span class="token attr-name">expression</span><span
+      class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>execution(* com.zzk.crowdfunding.service..*.*(..))<span
+      class="token punctuation">"</span></span> <span class="token attr-name">id</span><span
+      class="token attr-value"><span class="token punctuation">=</span><span
+      class="token punctuation">"</span>point<span class="token punctuation">"</span></span><span
+      class="token punctuation">/&gt;</span></span>
+    <span class="token comment">&lt;!-- advice-ref：关联增强事务 pointcut-ref：关联事务的切入点 --&gt;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span
+      class="token namespace">aop:</span>advisor</span> <span class="token attr-name">advice-ref</span><span
+      class="token attr-value"><span class="token punctuation">=</span><span
+      class="token punctuation">"</span>txAdvice<span class="token punctuation">"</span></span> <span
+      class="token attr-name">pointcut-ref</span><span class="token attr-value"><span class="token punctuation">=</span><span
+      class="token punctuation">"</span>point<span class="token punctuation">"</span></span><span
+      class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span
+  class="token namespace">aop:</span>config</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+                <p><strong>最后介绍两个常用的功能</strong></p>
+                <h2 id="4-spring引入properties文件">4. Spring引入properties文件</h2>
+                <pre class=" language-xml line-numbers"><code class=" language-xml"><span class="token tag"><span
+                  class="token tag"><span class="token punctuation">&lt;</span><span
+                  class="token namespace">context:</span>property-placeholder</span> <span class="token attr-name">location</span><span
+                  class="token attr-value"><span class="token punctuation">=</span><span
+                  class="token punctuation">"</span>classpath:/config/jdbc.properties<span
+                  class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+</code></pre>
+                <h2 id="5-spring项目测试">5. Spring项目测试</h2>
+                <ol>
+                  <li>引入<code>spring-test</code>包</li>
+                  <li>在测试方法中加入<code>@RunWith(SpringJUnit4ClassRunner.class)</code>和<code>@ContextConfiguration("classpath:spring.xml")</code>注解
+                  </li>
+                </ol>
+                <pre class=" language-java line-numbers"><code class=" language-java"><span
+                  class="token keyword">package</span> <span class="token namespace">com<span
+                  class="token punctuation">.</span>zzk<span class="token punctuation">.</span>spring<span
+                  class="token punctuation">.</span>service</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token namespace">com<span
+                    class="token punctuation">.</span>zzk<span class="token punctuation">.</span>spring<span
+                    class="token punctuation">.</span>dao</span><span class="token punctuation">.</span><span
+                    class="token class-name">UserDao</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">com<span
+                    class="token punctuation">.</span>zzk<span class="token punctuation">.</span>spring<span
+                    class="token punctuation">.</span>dao<span class="token punctuation">.</span>impl</span><span
+                    class="token punctuation">.</span><span class="token class-name">UserDaoImpl</span><span
+                    class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>junit</span><span
+                    class="token punctuation">.</span><span class="token class-name">Test</span><span
+                    class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>junit<span
+                    class="token punctuation">.</span>runner</span><span class="token punctuation">.</span><span
+                    class="token class-name">RunWith</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span
+                    class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span
+                    class="token punctuation">.</span>annotation</span><span class="token punctuation">.</span><span
+                    class="token class-name">Autowired</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span
+                    class="token punctuation">.</span>context</span><span class="token punctuation">.</span><span
+                    class="token class-name">ApplicationContext</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span
+                    class="token punctuation">.</span>context<span
+                    class="token punctuation">.</span>support</span><span class="token punctuation">.</span><span
+                    class="token class-name">ClassPathXmlApplicationContext</span><span
+                    class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span
+                    class="token punctuation">.</span>test<span class="token punctuation">.</span>context</span><span
+                    class="token punctuation">.</span><span class="token class-name">ContextConfiguration</span><span
+                    class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span
+                    class="token punctuation">.</span>test<span class="token punctuation">.</span>context<span
+                    class="token punctuation">.</span>junit4</span><span class="token punctuation">.</span><span
+                    class="token class-name">SpringJUnit4ClassRunner</span><span class="token punctuation">;</span>
+
+<span class="token doc-comment comment">/**
+ * <span class="token keyword">@author</span> zzk
+ * <span class="token keyword">@create</span> 2020-05-18 17:22
+ */</span>
+<span class="token annotation punctuation">@RunWith</span><span class="token punctuation">(</span><span
+                    class="token class-name">SpringJUnit4ClassRunner</span><span
+                    class="token punctuation">.</span><span class="token keyword">class</span><span
+                    class="token punctuation">)</span>
+<span class="token annotation punctuation">@ContextConfiguration</span><span class="token punctuation">(</span><span
+                    class="token string">"classpath:spring.xml"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span
+                    class="token class-name">TXTest</span> <span class="token punctuation">{</span>
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> <span class="token class-name">UserService</span> userService<span
+                    class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Test</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">txTest</span><span
+                    class="token punctuation">(</span><span class="token punctuation">)</span> <span
+                    class="token punctuation">{</span>
+        userService<span class="token punctuation">.</span><span class="token function">add</span><span
+                    class="token punctuation">(</span><span class="token punctuation">)</span><span
+                    class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+              </div>
+              <hr class="m-0">
+              <div class="card-body position-relative p-3">
+                <div class="text-lg text-bold mb-3">
+                  <i class="far fa-comments mr-2"></i>
+                  评&nbsp;&nbsp;论
+                </div>
+                <!-- Conversations are loaded here -->
+                <!-- Message. Default to the left -->
+                <div class="direct-chat-msg">
+                  <div class="direct-chat-infos clearfix">
+                    <span class="direct-chat-name float-left">YOYLING</span>
+                    <span class="badge badge-warning float-left ml-1">博主</span>
+                    <span class="direct-chat-timestamp float-left ml-2">23 Jan 2:00 pm</span>
+                  </div>
+                  <!-- /.direct-chat-infos -->
+                  <img class="direct-chat-img position-absolute border" src="./upload/avatar.jpg" alt="message user image">
+                  <!-- /.direct-chat-img -->
+                  <div class="direct-chat-text float-left">
+                    Is this template really for free? That's unbelievable!
+                    <a class="badge" href="#">回复</a>
+                  </div>
+                  <!-- /.direct-chat-text -->
+                </div>
+                <!-- /.direct-chat-msg -->
+                <!-- Message to the right -->
+                <div class="direct-chat-msg right">
+                  <div class="direct-chat-infos clearfix">
+                    <span class="direct-chat-timestamp float-right ml-2">23 Jan 2:00 pm</span>
+                    <span class="badge badge-warning float-right ml-1">博主</span>
+                    <span class="direct-chat-name float-right">Lee</span>
+                  </div>
+                  <!-- /.direct-chat-infos -->
+                  <img class="direct-chat-img border position-absolute r-2" src="./upload/avatar.jpg" alt="message user image">
+                  <!-- /.direct-chat-img -->
+                  <div class="direct-chat-text float-right">
+                    You better believe it!
+                    <a class="badge" href="#">回复</a>
+                  </div>
+                  <!-- /.direct-chat-text -->
+                </div>
+                <!-- /.direct-chat-msg -->
+                <!-- Message to the right -->
+                <div class="direct-chat-msg right">
+                  <div class="direct-chat-infos clearfix">
+                    <span class="direct-chat-timestamp float-right ml-2">23 Jan 2:00 pm</span>
+                    <span class="direct-chat-name float-right text-green ml-2">
+                      回复<span>@Lee</span>
+                    </span>
+                    <span class="badge badge-warning float-right ml-1">博主</span>
+                    <span class="direct-chat-name float-right">YOYLING</span>
+                  </div>
+                  <!-- /.direct-chat-infos -->
+                  <img class="direct-chat-img border position-absolute r-2" src="./img/user3-128x128.jpg" alt="message user image">
+                  <!-- /.direct-chat-img -->
+                  <div class="direct-chat-text float-right">
+                    You better believe it!
+                    <a class="badge" href="#">回复</a>
+                  </div>
+                  <!-- /.direct-chat-text -->
+                </div>
+                <!-- /.direct-chat-msg -->
+                <!-- Message to the right -->
+                <div class="direct-chat-msg right">
+                  <div class="direct-chat-infos clearfix">
+                    <span class="direct-chat-timestamp float-right ml-2">23 Jan 2:00 pm</span>
+                    <span class="direct-chat-name float-right text-green ml-2">
+                      回复<span>@Lee</span>
+                    </span>
+                    <span class="direct-chat-name float-right">YOYLING</span>
+                  </div>
+                  <!-- /.direct-chat-infos -->
+                  <img class="direct-chat-img border position-absolute r-2" src="./img/user3-128x128.jpg" alt="message user image">
+                  <!-- /.direct-chat-img -->
+                  <div class="direct-chat-text float-right">
+                    You better believe it!
+                    <a class="badge" href="#">回复</a>
+                  </div>
+                  <!-- /.direct-chat-text -->
+                </div>
+                <!-- /.direct-chat-msg -->
+              </div>
+              <div class="card-footer">
+                <form action="#" method="post">
+                  <div class="input-group">
+                    <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                    <span class="input-group-append">
+                      <button type="button" class="btn btn-primary">Send</button>
+                    </span>
+                  </div>
+                </form>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.nav-tabs-custom -->
+          </div>
+          <!-- /.col -->
+
+          <div class="col-md-3 d-none d-md-block">
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline bg-color-ea sticky-top">
+              <div class="card-header text-center text-lg">
+                目录
+              </div><!-- /.card-header -->
+              <div class="card-body toc p-2" id="toc">
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <p class="text-center mb-1">
+      Copyright © 2020 YOYLING Designed by YOYLING Powered by AdminLTE
+    </p>
+    <p class="text-center">
+      <a href="">粤ICP备20040058号</a>
+    </p>
+  </footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script th:src="@{/static/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/static/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/static/js/adminlte.min.js}"></script>
+
+<script th:src="@{/static/plugins/tocbot/js/tocbot.min.js}"></script>
+<script th:src="@{/static/plugins/prism/js/prism.js}"></script>
+
+<script th:src="@{/static/js/detail.js}"></script>
+</body>
+</html>
