@@ -41,7 +41,12 @@
 	</bean>
 
 	<!-- 设置静态资源不过滤 -->
-	<mvc:resources location="/static/" mapping="/static/**" />
+	<mvc:resources location="/css/" mapping="/css/**" />
+	<mvc:resources location="/data/" mapping="/data/**" />
+	<mvc:resources location="/img/" mapping="/img/**" />
+	<mvc:resources location="/js/" mapping="/js/**" />
+	<mvc:resources location="/plugins/" mapping="/plugins/**" />
+	<mvc:resources location="/upload/" mapping="/upload/**" />
 
 <!--	<mvc:interceptors>-->
 <!--		<mvc:interceptor>-->

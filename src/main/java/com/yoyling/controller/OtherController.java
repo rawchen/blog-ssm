@@ -1,5 +1,6 @@
 package com.yoyling.controller;
 
+import com.yoyling.domain.Contents;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,13 @@ import java.util.Map;
 
 @Controller
 public class OtherController extends BaseController {
+
+	@RequestMapping("/detail2")
+	public String toDetails2(Model model){
+		Contents c = contentsService.selectByPrimaryKey(200);
+		model.addAttribute("content",c);
+		return "detail2";
+	}
 
 	@RequestMapping("/{page}")
 	public String test(@PathVariable String page) {

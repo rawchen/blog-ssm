@@ -9,6 +9,6 @@ public class ContentsServiceImpl extends BaseServiceImpl implements ContentsServ
 
 	@Override
 	public Contents selectByPrimaryKey(Integer cid) {
-		return contentsMapper.selectByPrimaryKey(13);
+		return contentsMapper.selectByPrimaryKey(cid);
 	}
 }

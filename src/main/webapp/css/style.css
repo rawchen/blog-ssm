@@ -1,0 +1,16 @@
+.linenums li[class*="L"] {
+	border-left: 1px solid #999999;
+	padding-left: 10px;
+}
+.linenums {
+	padding-left: 29px;
+	margin-bottom: 9px;
+	margin-top: 9px;
+}
+
+pre {
+	font-size: 1em;
+	color: #999999;
+	background-color: #2d2d2d;
+}
+

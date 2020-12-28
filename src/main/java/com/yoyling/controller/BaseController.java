@@ -1,6 +1,8 @@
 package com.yoyling.controller;
 
 
+import com.yoyling.service.ContentsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -21,6 +23,9 @@ public class BaseController {
 	protected HttpServletResponse response;
 
 	protected HttpSession session;
+
+	@Autowired
+	protected ContentsService contentsService;
 
 	@ModelAttribute
 	public void setReqAndRes(HttpServletRequest request, HttpServletResponse response) {
