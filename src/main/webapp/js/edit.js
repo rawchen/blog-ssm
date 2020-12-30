@@ -77,6 +77,7 @@ $(function () {
    */
   function validateBlogForm() {
     var blogTitle = $('#title').val();
+    var blogSlug = $('#slug').val();
     var blogCategoryId = $('#categoryId').val();
     var blogDescription = $('#description').val();
     var blogContent = blogEditor.getMarkdown();
@@ -85,6 +86,14 @@ $(function () {
       Toast.fire({
         icon: 'error',
         title: '博客标题不能为空！'
+      });
+      return false;
+    }
+
+    if (isNull(blogSlug)) {
+      Toast.fire({
+        icon: 'error',
+        title: '博客缩略名不能为空！'
       });
       return false;
     }

@@ -39,4 +39,12 @@ public class OtherController extends BaseController {
 		map.put("data2","222");
 		return map;
 	}
+
+	@RequestMapping("/json2")
+	@ResponseBody
+	public Map<String, String> toJson2(){
+		Map<String, String> map = new HashMap<>();
+		map.put("data",request.getServerName());
+		return map;
+	}
 }
