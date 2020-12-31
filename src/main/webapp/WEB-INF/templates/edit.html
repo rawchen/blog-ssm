@@ -101,7 +101,7 @@
 				</div>
 				<div class="card-body">
 					<div class="row">
-						<div class="col-md-3">
+						<div class="col-md-4">
 							<div class="form-group">
 								<div class="input-group">
 									<div class="input-group-prepend">
@@ -111,17 +111,6 @@
 									<input type="text" class="form-control" id="title" name="blogTitle"
 										   placeholder="title(必填)...">
 								</div>
-							</div>
-						</div>
-
-						<div class="col-md-3">
-							<div class="form-group">
-								<div class="input-group date form_datetime form-group" data-date="" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
-									<input class="form-control times-text" size="16" type="text" value="" readonly>
-									<span class="input-group-addon addon-times"><span class="fa fa-times"></span></span>
-									<span class="input-group-addon addon-calendar"><span class="fa fa-calendar"></span></span>
-								</div>
-								<input type="hidden" id="dtp_input1" value="" /><br/>
 							</div>
 						</div>
 
@@ -136,6 +125,21 @@
 									<input type="text" class="form-control" id="slug" required name="blogSlug"
 										   placeholder="slug(必填)">
 								</div>
+							</div>
+						</div>
+
+						<div class="col-md-3">
+							<div class="form-group">
+								<div class="input-group date form_datetime form-group" data-date="" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+									<div class="input-group-prepend">
+									<label for="time-content" class="input-group-text">时间</label>
+									</div>
+									<input class="form-control times-text" size="16" type="text" id="time-content" value="" readonly>
+									<span class="input-group-addon addon-times"><span class="fa fa-times"></span></span>
+									<span class="input-group-addon addon-calendar"><span class="fa fa-calendar"></span></span>
+
+								</div>
+								<input type="hidden" id="dtp_input1" value="" />
 							</div>
 						</div>
 
@@ -194,9 +198,9 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<label for="description">博客描述</label>
-								<textarea class="form-control" rows="5" id="description" name="blogDescription"
+								<textarea class="form-control" rows="3" id="description" name="blogDescription"
 										  placeholder="主页显示的简要（必填）..."
-										  maxlength="200" style="resize:none"></textarea>
+										  maxlength="" style="resize:none"></textarea>
 							</div>
 						</div>
 					</div>
@@ -224,15 +228,15 @@
 							<!-- radio -->
 							<div class="form-group clearfix">
 								<div class="icheck-default d-inline-block">
-									<input type="radio" id="original" name="blogType" value="原创" checked="checked">
+									<input type="radio" id="original" name="blogType" value="yc" checked="checked">
 									<label for="original">原创</label>
 								</div>
 								<div class="icheck-default d-inline-block ml-3">
-									<input type="radio" id="reprinted" name="blogType" value="转载">
+									<input type="radio" id="reprinted" name="blogType" value="zz">
 									<label for="reprinted">转载</label>
 								</div>
 								<div class="icheck-default d-inline-block ml-3">
-									<input type="radio" id="translated" name="blogType" value="翻译">
+									<input type="radio" id="translated" name="blogType" value="fy">
 									<label for="translated">翻译</label>
 								</div>
 							</div>
@@ -388,6 +392,7 @@
 		forceParse: 0,
 		showMeridian: 1
 	});
+	$('.today').click();
 </script>
 
 </body>
