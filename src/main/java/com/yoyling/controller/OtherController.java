@@ -1,6 +1,6 @@
 package com.yoyling.controller;
 
-import com.yoyling.domain.Contents;
+import com.yoyling.domain.Content;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,14 +8,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
 public class OtherController extends BaseController {
 
+	@RequestMapping("/index")
+	public String index(Model model){
+		model.addAttribute("numberOfArticles",1);
+
+		List<Content> contents = contentService.selectAllContent();
+		model.addAttribute("contents",contents);
+		for (Content c:contents) {
+			System.out.println(c);
+		}
+		return "index";
+	}
+
 	@RequestMapping("/detail2")
 	public String toDetails2(Model model){
-		Contents c = contentsService.selectByPrimaryKey(200);
+		Content c = contentService.selectByPrimaryKey(1);
 		model.addAttribute("content",c);
 		return "detail2";
 	}

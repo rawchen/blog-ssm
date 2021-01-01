@@ -1,380 +1,282 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | User Profile</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>AdminLTE 3 | User Profile</title>
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Theme style -->
-  <link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+	<!-- Theme style -->
+	<link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+	<style type="text/css">
+		.block-thumb img {
+			width: 100%;
+		}
+
+		.block-thumb .block-thumb2 {
+			background-image: url(./img/photo2.png);
+			min-height: 260px;
+			border-radius: 5px;
+			background-position: 50% 50%;
+			background-size: cover;
+			-webkit-box-shadow: 0 2px 4px rgba(0,0,0,.1);
+			box-shadow: 0 2px 4px rgba(0,0,0,.1);
+			transition-duration: .4s;
+			-webkit-transition-duration: .4s;
+		}
+	</style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="login.html" class="nav-link">登录页</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="dashboard.html" class="nav-link">后台主页</a>
-      </li>
-    </ul>
+	<!-- Navbar -->
+	<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+		<!-- Left navbar links -->
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
+			</li>
+			<li class="nav-item d-none d-sm-inline-block">
+				<a href="login.html" class="nav-link">登录页</a>
+			</li>
+			<li class="nav-item d-none d-sm-inline-block">
+				<a href="dashboard.html" class="nav-link">后台主页</a>
+			</li>
+		</ul>
 
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="博客搜索..." aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fa fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
-  </nav>
-  <!-- /.navbar -->
+		<!-- SEARCH FORM -->
+		<form class="form-inline ml-3">
+			<div class="input-group input-group-sm">
+				<input class="form-control form-control-navbar" type="search" placeholder="博客搜索..." aria-label="Search">
+				<div class="input-group-append">
+					<button class="btn btn-navbar" type="submit">
+						<i class="fa fa-search"></i>
+					</button>
+				</div>
+			</div>
+		</form>
+	</nav>
+	<!-- /.navbar -->
 
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <h1>
-      <a href="index.html" class="brand-link">
-        <img th:src="@{/upload/avatar.jpg}" class="brand-image img-circle elevation-3">
-        <span class="brand-text font-weight-light">YOYLING's Blog</span>
-      </a>
-    </h1>
+	<!-- Main Sidebar Container -->
+	<aside class="main-sidebar sidebar-dark-primary elevation-4">
+		<!-- Brand Logo -->
+		<h1>
+			<a href="index.html" class="brand-link">
+				<img th:src="@{/upload/avatar.jpg}" class="brand-image img-circle elevation-3">
+				<span class="brand-text font-weight-light">YOYLING's Blog</span>
+			</a>
+		</h1>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-header">读万卷书</li>
-          <li class="nav-item">
-            <a href="index.html" class="nav-link active">
-              <i class="fa fa-home nav-icon"></i>
-              <p>首页</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="category.html" class="nav-link">
-              <i class="fa fa-bookmark nav-icon"></i>
-              <p>分类</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="tag.html" class="nav-link">
-              <i class="fa fa-tags nav-icon"></i>
-              <p>标签</p>
-            </a>
-          </li>
+		<!-- Sidebar -->
+		<div class="sidebar">
+			<!-- Sidebar Menu -->
+			<nav class="mt-2">
+				<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+					<!-- Add icons to the links using the .nav-icon class
+						 with font-awesome or any other icon font library -->
+					<li class="nav-header">读万卷书</li>
+					<li class="nav-item">
+						<a href="index.html" class="nav-link active">
+							<i class="fa fa-home nav-icon"></i>
+							<p>首页</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="category.html" class="nav-link">
+							<i class="fa fa-bookmark nav-icon"></i>
+							<p>分类</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="tag.html" class="nav-link">
+							<i class="fa fa-tags nav-icon"></i>
+							<p>标签</p>
+						</a>
+					</li>
 
-          <li class="nav-header">行万里路</li>
-          <li class="nav-item">
-            <a href="archive.html" class="nav-link">
-              <i class="fa fa-archive nav-icon"></i>
-              <p>归档</p>
-            </a>
-          </li>
-          <li class="nav-header">点滴记录</li>
-          <li class="nav-item">
-            <a href="guestbook.html" class="nav-link">
-              <i class="fa fa-comments nav-icon"></i>
-              <p>留言</p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
+					<li class="nav-header">行万里路</li>
+					<li class="nav-item">
+						<a href="archive.html" class="nav-link">
+							<i class="fa fa-archive nav-icon"></i>
+							<p>归档</p>
+						</a>
+					</li>
+					<li class="nav-header">点滴记录</li>
+					<li class="nav-item">
+						<a href="guestbook.html" class="nav-link">
+							<i class="fa fa-comments nav-icon"></i>
+							<p>留言</p>
+						</a>
+					</li>
+				</ul>
+			</nav>
+			<!-- /.sidebar-menu -->
+		</div>
+		<!-- /.sidebar -->
+	</aside>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper mt-3">
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-8">
-            <div class="card card-teal card-outline mb-5">
-              <div class="card-header">
-                <h3 class="card-title float-right">
-                  共 <span class="text-teal text-xl">28</span> 篇博客
-                </h3>
-              </div><!-- /.card-header -->
-              <div class="card-body bg-hover-gray">
-                <div class="mb-1">
-                  <a href="detail.html" target="_blank" class="text-lg text-bold link-title">我是一只猫，快乐的星猫，一起喵喵喵</a>
-                  <span class="badge badge-info">原创</span>
-                </div>
-                <p>
-                  Lorem ipsum represents a long-held tradition for designers,
-                  typographers and the like. Some people hate it and argue for
-                  its demise, but others ignore the hate as they create awesome
-                  tools to help create filler text for everyone from bacon lovers
-                  to Charlie Sheen fans.
-                </p>
-                <p>
-                  <span class="text-sm mr-2"><i class="far fa-calendar-alt mr-1"></i> 2019-01-01 10:08</span>
-                  <span class="text-sm"><i class="far fa-eye mr-1"></i> 10</span>
-                </p>
-                <p class="mb-0">
-                  <button class="btn btn-outline-success btn-xs">分类</button>
-                  <button class="btn btn-outline-primary btn-xs">标签1</button>
-                  <button class="btn btn-outline-primary btn-xs">标签2</button>
-                </p>
-              </div><!-- /.card-body -->
-              <hr class="m-0">
+	<!-- Content Wrapper. Contains page content -->
+	<div class="content-wrapper mt-3">
+		<!-- Main content -->
+		<section class="content">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-8">
+						<div class="card card-teal card-outline mb-5">
+							<div class="card-header">
+								<h3 class="card-title float-right">
+									共 <span class="text-teal text-xl" th:text="${numberOfArticles}">?</span> 篇博客
+								</h3>
+							</div>
 
-              <div class="card-body bg-hover-gray">
-                <div class="mb-1">
-                  <a href="detail.html" target="_blank" class="text-lg text-bold link-title">我是一只猫，快乐的星猫，一起喵喵喵</a>
-                  <span class="badge badge-info">原创</span>
-                </div>
-                <p>
-                  Lorem ipsum represents a long-held tradition for designers,
-                  typographers and the like. Some people hate it and argue for
-                  its demise, but others ignore the hate as they create awesome
-                  tools to help create filler text for everyone from bacon lovers
-                  to Charlie Sheen fans.
-                </p>
-                <p>
-                  <span class="text-sm mr-2"><i class="far fa-calendar-alt mr-1"></i> 2019-01-01 10:08</span>
-                  <span class="text-sm"><i class="far fa-eye mr-1"></i> 10</span>
-                </p>
-                <p class="mb-0">
-                  <button class="btn btn-outline-success btn-xs">分类</button>
-                  <button class="btn btn-outline-primary btn-xs">标签1</button>
-                  <button class="btn btn-outline-primary btn-xs">标签2</button>
-                </p>
-              </div><!-- /.card-body -->
-              <hr class="m-0">
-              <div class="card-body bg-hover-gray">
-                <div class="mb-1">
-                  <a href="detail.html" target="_blank" class="text-lg text-bold link-title">我是一只猫，快乐的星猫，一起喵喵喵</a>
-                  <span class="badge badge-info">原创</span>
-                </div>
-                <p>
-                  Lorem ipsum represents a long-held tradition for designers,
-                  typographers and the like. Some people hate it and argue for
-                  its demise, but others ignore the hate as they create awesome
-                  tools to help create filler text for everyone from bacon lovers
-                  to Charlie Sheen fans.
-                </p>
-                <p>
-                  <span class="text-sm mr-2"><i class="far fa-calendar-alt mr-1"></i> 2019-01-01 10:08</span>
-                  <span class="text-sm"><i class="far fa-eye mr-1"></i> 10</span>
-                </p>
-                <p class="mb-0">
-                  <button class="btn btn-outline-success btn-xs">分类</button>
-                  <button class="btn btn-outline-primary btn-xs">标签1</button>
-                  <button class="btn btn-outline-primary btn-xs">标签2</button>
-                </p>
-              </div><!-- /.card-body -->
-              <hr class="m-0">
-              <div class="card-body bg-hover-gray">
-                <div class="mb-1">
-                  <a href="detail.html" target="_blank" class="text-lg text-bold link-title">我是一只猫，快乐的星猫，一起喵喵喵</a>
-                  <span class="badge badge-info">原创</span>
-                </div>
-                <p>
-                  Lorem ipsum represents a long-held tradition for designers,
-                  typographers and the like. Some people hate it and argue for
-                  its demise, but others ignore the hate as they create awesome
-                  tools to help create filler text for everyone from bacon lovers
-                  to Charlie Sheen fans.
-                </p>
-                <p>
-                  <span class="text-sm mr-2"><i class="far fa-calendar-alt mr-1"></i> 2019-01-01 10:08</span>
-                  <span class="text-sm"><i class="far fa-eye mr-1"></i> 10</span>
-                </p>
-                <p class="mb-0">
-                  <button class="btn btn-outline-success btn-xs">分类</button>
-                  <button class="btn btn-outline-primary btn-xs">标签1</button>
-                  <button class="btn btn-outline-primary btn-xs">标签2</button>
-                </p>
-              </div><!-- /.card-body -->
-              <hr class="m-0">
-              <div class="card-body bg-hover-gray">
-                <div class="mb-1">
-                  <a href="detail.html" target="_blank" class="text-lg text-bold link-title">我是一只猫，快乐的星猫，一起喵喵喵</a>
-                  <span class="badge badge-info">原创</span>
-                </div>
-                <p>
-                  Lorem ipsum represents a long-held tradition for designers,
-                  typographers and the like. Some people hate it and argue for
-                  its demise, but others ignore the hate as they create awesome
-                  tools to help create filler text for everyone from bacon lovers
-                  to Charlie Sheen fans.
-                </p>
-                <p>
-                  <span class="text-sm mr-2"><i class="far fa-calendar-alt mr-1"></i> 2019-01-01 10:08</span>
-                  <span class="text-sm"><i class="far fa-eye mr-1"></i> 10</span>
-                </p>
-                <p class="mb-0">
-                  <button class="btn btn-outline-success btn-xs">分类</button>
-                  <button class="btn btn-outline-primary btn-xs">标签1</button>
-                  <button class="btn btn-outline-primary btn-xs">标签2</button>
-                </p>
-              </div><!-- /.card-body -->
-              <hr class="m-0">
-              <div class="card-body bg-hover-gray">
-                <div class="mb-1">
-                  <a href="detail.html" target="_blank" class="text-lg text-bold link-title">我是一只猫，快乐的星猫，一起喵喵喵</a>
-                  <span class="badge badge-info">原创</span>
-                </div>
-                <p>
-                  Lorem ipsum represents a long-held tradition for designers,
-                  typographers and the like. Some people hate it and argue for
-                  its demise, but others ignore the hate as they create awesome
-                  tools to help create filler text for everyone from bacon lovers
-                  to Charlie Sheen fans.
-                </p>
-                <p>
-                  <span class="text-sm mr-2"><i class="far fa-calendar-alt mr-1"></i> 2019-01-01 10:08</span>
-                  <span class="text-sm"><i class="far fa-eye mr-1"></i> 10</span>
-                </p>
-                <p class="mb-0">
-                  <button class="btn btn-outline-success btn-xs">分类</button>
-                  <button class="btn btn-outline-primary btn-xs">标签1</button>
-                  <button class="btn btn-outline-primary btn-xs">标签2</button>
-                </p>
-              </div><!-- /.card-body -->
-              <hr class="m-0">
-              <div class="card-body bg-hover-gray">
-                <div class="mb-1">
-                  <a href="detail.html" target="_blank" class="text-lg text-bold link-title">我是一只猫，快乐的星猫，一起喵喵喵</a>
-                  <span class="badge badge-info">原创</span>
-                </div>
-                <p>
-                  Lorem ipsum represents a long-held tradition for designers,
-                  typographers and the like. Some people hate it and argue for
-                  its demise, but others ignore the hate as they create awesome
-                  tools to help create filler text for everyone from bacon lovers
-                  to Charlie Sheen fans.
-                </p>
-                <p>
-                  <span class="text-sm mr-2"><i class="far fa-calendar-alt mr-1"></i> 2019-01-01 10:08</span>
-                  <span class="text-sm"><i class="far fa-eye mr-1"></i> 10</span>
-                </p>
-                <p class="mb-0">
-                  <button class="btn btn-outline-success btn-xs">分类</button>
-                  <button class="btn btn-outline-primary btn-xs">标签1</button>
-                  <button class="btn btn-outline-primary btn-xs">标签2</button>
-                </p>
-              </div><!-- /.card-body -->
-              <hr class="m-0">
+							<div class="block-thumb" th:each="content,arrayS:${contents}">
+								<a href="detail.html" target="_blank">
+									<div class="card-body bg-hover-gray">
+										<div class="mb-1">
+											<a href="detail.html" target="_blank" class="text-lg text-bold link-title" th:text="${content.title}"></a>
+											<span class="badge badge-info" th:text="${content.contentType}"></span>
+										</div>
+										<p th:text="${content.description}"></p>
+										<p>
+<!--											<img src="./img/photo2.png">-->
+											<div class="block-thumb2"></div>
+											<span class="text-sm mr-2"><i class="far fa-calendar-alt mr-1"></i> [[${#dates.format(content.createdTime, 'yyyy-MM-dd HH:mm')}]]</span>
+											<span class="text-sm"><i class="far fa-eye mr-1"></i> [[${content.views}]]</span>
+										</p>
+										<p class="mb-0">
+											<button class="btn btn-outline-success btn-xs">分类</button>
+											<button class="btn btn-outline-primary btn-xs">标签1</button>
+											<button class="btn btn-outline-primary btn-xs">标签2</button>
+										</p>
+									</div>
+								</a>
+								<hr class="m-0">
+							</div>
 
+							<div class="card-body bg-hover-gray">
+								<div class="mb-1">
+									<a href="detail.html" target="_blank" class="text-lg text-bold link-title">我是一只猫，快乐的星猫，一起喵喵喵</a>
+									<span class="badge badge-info">原创</span>
+								</div>
+								<p>
+									Lorem ipsum represents a long-held tradition for designers,
+									typographers and the like. Some people hate it and argue for
+									its demise, but others ignore the hate as they create awesome
+									tools to help create filler text for everyone from bacon lovers
+									to Charlie Sheen fans.
+								</p>
+								<p>
+									<span class="text-sm mr-2"><i class="far fa-calendar-alt mr-1"></i> 2019-01-01 10:08</span>
+									<span class="text-sm"><i class="far fa-eye mr-1"></i> 10</span>
+								</p>
+								<p class="mb-0">
+									<button class="btn btn-outline-success btn-xs">分类</button>
+									<button class="btn btn-outline-primary btn-xs">标签1</button>
+									<button class="btn btn-outline-primary btn-xs">标签2</button>
+								</p>
+							</div><!-- /.card-body -->
+							<hr class="m-0">
 
-              <div class="card-footer clearfix">
-                <ul class="pagination m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
-                  <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
-                </ul>
-              </div><!-- /.card-footer -->
-            </div>
-            <!-- /.nav-tabs-custom -->
-          </div>
-          <!-- /.col -->
+							<div class="card-footer clearfix">
+								<ul class="pagination m-0 float-right">
+									<li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
+									<li class="page-item active"><a class="page-link" href="#">1</a></li>
+									<li class="page-item"><a class="page-link" href="#">2</a></li>
+									<li class="page-item"><a class="page-link" href="#">3</a></li>
+									<li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
+								</ul>
+							</div><!-- /.card-footer -->
+						</div>
+						<!-- /.nav-tabs-custom -->
+					</div>
+					<!-- /.col -->
 
-          <div class="col-md-4">
-            <!-- Profile Image -->
-            <div class="card widget-user sticky-top">
-              <!-- Add the bg color to the header using any of the bg-* classes -->
-              <div class="widget-user-header bg-info">
-                <h3 class="widget-user-username">YOYLING.</h3>
-                <h5 class="widget-user-desc">Student &amp; Coder</h5>
-              </div>
-              <div class="widget-user-image">
-                <img class="img-circle elevation-2" th:src="@{/upload/avatar.jpg}" alt="User Avatar">
-              </div>
-              <div class="card-body pt-5">
-                <p class="text-muted">
-                  一个Java初学者，一个热爱编程的人，希望能在0与1的世界与您相遇，结伴而行！
-                </p>
+					<div class="col-md-4">
+						<!-- Profile Image -->
+						<div class="card widget-user sticky-top">
+							<!-- Add the bg color to the header using any of the bg-* classes -->
+							<div class="widget-user-header bg-info">
+								<h3 class="widget-user-username">YOYLING.</h3>
+								<h5 class="widget-user-desc">Student &amp; Coder</h5>
+							</div>
+							<div class="widget-user-image">
+								<img class="img-circle elevation-2" th:src="@{/upload/avatar.jpg}" alt="User Avatar">
+							</div>
+							<div class="card-body pt-5">
+								<p class="text-muted">
+									一个Java初学者，一个热爱编程的人，希望能在0与1的世界与您相遇，结伴而行！
+								</p>
 
-                <ul class="list-group list-group-unbordered">
-                  <li class="list-group-item">
-                    <strong><i class="far fa-bookmark mr-2"></i>推荐文章</strong>
-                    <a href="" class="d-block link-title text-truncate">Java学习路线Java学习路线Java学习路线Java学习路线</a>
-                    <a href="" class="d-block link-title">Java学习路线</a>
-                    <a href="" class="d-block link-title">Java学习路线</a>
-                  </li>
+								<ul class="list-group list-group-unbordered">
+									<li class="list-group-item">
+										<strong><i class="far fa-bookmark mr-2"></i>推荐文章</strong>
+										<a href="" class="d-block link-title text-truncate">Java学习路线Java学习路线Java学习路线Java学习路线</a>
+										<a href="" class="d-block link-title">Java学习路线</a>
+										<a href="" class="d-block link-title">Java学习路线</a>
+									</li>
 
-                  <li class="list-group-item">
-                    <strong><i class="fa fa-map-marker-alt mr-2"></i>位置</strong>
-                    <div class="text-muted">Malibu, California</div>
-                  </li>
+									<li class="list-group-item">
+										<strong><i class="fa fa-map-marker-alt mr-2"></i>位置</strong>
+										<div class="text-muted">Malibu, California</div>
+									</li>
 
-                  <li class="list-group-item">
-                    <strong><i class="fa fa-pencil-alt mr-2"></i>技能</strong>
-                    <div class="text-muted">
-                      <span class="badge badge-success">UI Design</span>
-                      <span class="badge badge-success">Coding</span>
-                      <span class="badge badge-success">Javascript</span>
-                      <span class="badge badge-success">PHP</span>
-                      <span class="badge badge-success">Node.js</span>
-                    </div>
-                  </li>
+									<li class="list-group-item">
+										<strong><i class="fa fa-pencil-alt mr-2"></i>技能</strong>
+										<div class="text-muted">
+											<span class="badge badge-success">UI Design</span>
+											<span class="badge badge-success">Coding</span>
+											<span class="badge badge-success">Javascript</span>
+											<span class="badge badge-success">PHP</span>
+											<span class="badge badge-success">Node.js</span>
+										</div>
+									</li>
 
-                  <li class="list-group-item">
-                    <strong><i class="fa fa-lightbulb mr-2"></i>爱好</strong>
-                    <div class="text-muted">
-                      <span class="badge badge-warning">编程</span>
-                      <span class="badge badge-warning">学习</span>
-                    </div>
-                  </li>
+									<li class="list-group-item">
+										<strong><i class="fa fa-lightbulb mr-2"></i>爱好</strong>
+										<div class="text-muted">
+											<span class="badge badge-warning">编程</span>
+											<span class="badge badge-warning">学习</span>
+										</div>
+									</li>
 
-                  <li class="list-group-item text-center">
-                    <button class="btn btn-success btn-sm rounded-circle" data-toggle="tooltip" data-placement="top"
-                            title="939234206">
-                      <i class="fab fa-qq"></i>
-                    </button>
-                    <button class="btn btn-success btn-sm rounded-circle" data-toggle="tooltip" data-placement="top"
-                            title="939234206">
-                      <i class="fab fa-weixin"></i>
-                    </button>
-                    <a href="http://www.baidu.com" target="_blank"
-                       class="btn btn-success btn-sm rounded-circle" data-toggle="tooltip" data-placement="top"
-                       title="github">
-                      <i class="fab fa-github text-white"></i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- /.col -->
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <p class="text-center mb-1">
-      Copyright © 2020 YOYLING Designed by YOYLING Powered by AdminLTE
-    </p>
-    <p class="text-center">
-      <a href="">闽ICP备18008354号-1</a>
-    </p>
-  </footer>
+									<li class="list-group-item text-center">
+										<button class="btn btn-success btn-sm rounded-circle" data-toggle="tooltip" data-placement="top"
+												title="939234206">
+											<i class="fab fa-qq"></i>
+										</button>
+										<button class="btn btn-success btn-sm rounded-circle" data-toggle="tooltip" data-placement="top"
+												title="939234206">
+											<i class="fab fa-weixin"></i>
+										</button>
+										<a href="http://www.baidu.com" target="_blank"
+										   class="btn btn-success btn-sm rounded-circle" data-toggle="tooltip" data-placement="top"
+										   title="github">
+											<i class="fab fa-github text-white"></i>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /.col -->
+				<!-- /.row -->
+			</div><!-- /.container-fluid -->
+		</section>
+		<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
+	<footer class="main-footer">
+		<p class="text-center mb-1">
+			Copyright © 2020 YOYLING Designed by YOYLING Powered by AdminLTE
+		</p>
+		<p class="text-center">
+			<a href="">闽ICP备18008354号-1</a>
+		</p>
+	</footer>
 </div>
 <!-- ./wrapper -->
 

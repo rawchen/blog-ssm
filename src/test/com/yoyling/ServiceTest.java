@@ -1,7 +1,7 @@
 package com.yoyling;
 
-import com.yoyling.domain.Contents;
-import com.yoyling.service.ContentsService;
+import com.yoyling.domain.Content;
+import com.yoyling.service.ContentService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -11,8 +11,8 @@ public class ServiceTest {
 	public void run1() {
 		ApplicationContext ac = new
 				ClassPathXmlApplicationContext("classpath:spring-context.xml");
-		ContentsService contentsService = (ContentsService) ac.getBean("contentsService");
-		Contents content = contentsService.selectByPrimaryKey(13);
+		ContentService contentsService = (ContentService) ac.getBean("contentService");
+		Content content = contentsService.selectByPrimaryKey(1);
 		System.out.println(content);
 	}
 }

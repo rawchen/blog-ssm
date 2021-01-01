@@ -59,6 +59,6 @@
 	<mvc:annotation-driven />
 
 	<!-- 进入服务器跳转 -->
-	<mvc:view-controller path="/" view-name="/index"/>
+	<mvc:view-controller path="/" view-name="redirect:index"/>
 
 </beans>

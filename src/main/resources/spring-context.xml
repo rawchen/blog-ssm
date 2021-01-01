@@ -30,6 +30,7 @@
 	<!-- 配置SqlSession的工厂 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
+		<property name="typeAliasesPackage" value="com.yoyling.domain"/>
 	</bean>
 	<!-- 配置扫描mapper的包 -->
 	<bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">

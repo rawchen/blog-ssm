@@ -1,6 +1,6 @@
 package com.yoyling.service.impl;
 
-import com.yoyling.mapper.ContentsMapper;
+import com.yoyling.mapper.ContentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +11,6 @@ import org.springframework.stereotype.Service;
 public class BaseServiceImpl {
 
 	@Autowired
-	protected ContentsMapper contentsMapper;
+	protected ContentMapper contentMapper;
 
 }
