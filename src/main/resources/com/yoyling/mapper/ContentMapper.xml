@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yoyling.mapper.ContentMapper">
+  <resultMap id="BaseResultMap" type="com.yoyling.domain.Content">
+    <id column="cid" jdbcType="INTEGER" property="cid" />
+    <result column="cgid" jdbcType="INTEGER" property="cgid" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="slug" jdbcType="VARCHAR" property="slug" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+    <result column="content_order" jdbcType="INTEGER" property="contentOrder" />
+    <result column="author_id" jdbcType="INTEGER" property="authorId" />
+    <result column="content_type" jdbcType="VARCHAR" property="contentType" />
+    <result column="content_status" jdbcType="VARCHAR" property="contentStatus" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="views" jdbcType="INTEGER" property="views" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.yoyling.domain.Content">
+    <result column="content_text" jdbcType="LONGVARCHAR" property="contentText" />
+    <result column="thumb" jdbcType="LONGVARCHAR" property="thumb" />
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    cid, cgid, title, slug, created_time, modified_time, content_order, author_id, content_type, 
+    content_status, password, views
+  </sql>
+  <sql id="Blob_Column_List">
+    content_text, thumb, description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from content
+    where cid = #{cid,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAllContent" resultMap="BaseResultMap">
+    select * from content;
+  </select>
+
+  <select id="selectNumberOfArticles" resultType="int">
+    select count(*) from content;
+  </select>
+
+  <select id="selectRecommendContent" resultMap="BaseResultMap">
+    select * from content where content_order = 1;
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from content
+    where cid = #{cid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yoyling.domain.Content">
+    insert into content (cid, cgid, title, 
+      slug, created_time, modified_time, 
+      content_order, author_id, content_type, 
+      content_status, password, views, 
+      content_text, thumb, description
+      )
+    values (#{cid,jdbcType=INTEGER}, #{cgid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{slug,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP}, 
+      #{contentOrder,jdbcType=INTEGER}, #{authorId,jdbcType=INTEGER}, #{contentType,jdbcType=VARCHAR}, 
+      #{contentStatus,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{views,jdbcType=INTEGER}, 
+      #{contentText,jdbcType=LONGVARCHAR}, #{thumb,jdbcType=LONGVARCHAR}, #{description,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yoyling.domain.Content">
+    insert into content
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cid != null">
+        cid,
+      </if>
+      <if test="cgid != null">
+        cgid,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="slug != null">
+        slug,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="modifiedTime != null">
+        modified_time,
+      </if>
+      <if test="contentOrder != null">
+        content_order,
+      </if>
+      <if test="authorId != null">
+        author_id,
+      </if>
+      <if test="contentType != null">
+        content_type,
+      </if>
+      <if test="contentStatus != null">
+        content_status,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="views != null">
+        views,
+      </if>
+      <if test="contentText != null">
+        content_text,
+      </if>
+      <if test="thumb != null">
+        thumb,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cid != null">
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="cgid != null">
+        #{cgid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="slug != null">
+        #{slug,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contentOrder != null">
+        #{contentOrder,jdbcType=INTEGER},
+      </if>
+      <if test="authorId != null">
+        #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="contentType != null">
+        #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="contentStatus != null">
+        #{contentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="views != null">
+        #{views,jdbcType=INTEGER},
+      </if>
+      <if test="contentText != null">
+        #{contentText,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="thumb != null">
+        #{thumb,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yoyling.domain.Content">
+    update content
+    <set>
+      <if test="cgid != null">
+        cgid = #{cgid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="slug != null">
+        slug = #{slug,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contentOrder != null">
+        content_order = #{contentOrder,jdbcType=INTEGER},
+      </if>
+      <if test="authorId != null">
+        author_id = #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="contentType != null">
+        content_type = #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="contentStatus != null">
+        content_status = #{contentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="views != null">
+        views = #{views,jdbcType=INTEGER},
+      </if>
+      <if test="contentText != null">
+        content_text = #{contentText,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="thumb != null">
+        thumb = #{thumb,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yoyling.domain.Content">
+    update content
+    set cgid = #{cgid,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      slug = #{slug,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      content_order = #{contentOrder,jdbcType=INTEGER},
+      author_id = #{authorId,jdbcType=INTEGER},
+      content_type = #{contentType,jdbcType=VARCHAR},
+      content_status = #{contentStatus,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      views = #{views,jdbcType=INTEGER},
+      content_text = #{contentText,jdbcType=LONGVARCHAR},
+      thumb = #{thumb,jdbcType=LONGVARCHAR},
+      description = #{description,jdbcType=LONGVARCHAR}
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yoyling.domain.Content">
+    update content
+    set cgid = #{cgid,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      slug = #{slug,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      content_order = #{contentOrder,jdbcType=INTEGER},
+      author_id = #{authorId,jdbcType=INTEGER},
+      content_type = #{contentType,jdbcType=VARCHAR},
+      content_status = #{contentStatus,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      views = #{views,jdbcType=INTEGER}
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+</mapper>
