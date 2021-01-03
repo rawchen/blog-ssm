@@ -9,4 +9,7 @@ public interface ContentService {
 
 	List<Content> selectAllContent();
 
+	int selectNumberOfArticles();
+
+	List<Content> selectRecommendContent();
 }

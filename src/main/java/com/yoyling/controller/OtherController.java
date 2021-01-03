@@ -16,13 +16,40 @@ public class OtherController extends BaseController {
 
 	@RequestMapping("/index")
 	public String index(Model model){
-		model.addAttribute("numberOfArticles",1);
+
+		int numberOfArticles = contentService.selectNumberOfArticles();
+		model.addAttribute("numberOfArticles",numberOfArticles);
 
 		List<Content> contents = contentService.selectAllContent();
 		model.addAttribute("contents",contents);
-		for (Content c:contents) {
-			System.out.println(c);
-		}
+
+		List<Content> recommendContents = contentService.selectRecommendContent();
+		model.addAttribute("recommendContents",recommendContents);
+
+
+
+		String qqLink = optionsService.selectValueByName("qq_link");
+		String emailLink = optionsService.selectValueByName("email_link");
+		String githubLink = optionsService.selectValueByName("github_link");
+		String location = optionsService.selectValueByName("location");
+		String icp = optionsService.selectValueByName("icp");
+		String description = optionsService.selectValueByName("description");
+		String websiteTitle = optionsService.selectValueByName("website_title");
+		String avatar = optionsService.selectValueByName("avatar");
+
+		Map<String, String> optionsMap = new HashMap<>();
+		optionsMap.put("qqLink",qqLink);
+		optionsMap.put("emailLink",emailLink);
+		optionsMap.put("githubLink",githubLink);
+		optionsMap.put("location",location);
+		optionsMap.put("icp",icp);
+		optionsMap.put("description",description);
+		optionsMap.put("websiteTitle",websiteTitle);
+		optionsMap.put("avatar",avatar);
+
+
+		model.addAttribute("optionsMap",optionsMap);
+
 		return "index";
 	}
 

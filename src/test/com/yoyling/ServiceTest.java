@@ -2,9 +2,12 @@ package com.yoyling;
 
 import com.yoyling.domain.Content;
 import com.yoyling.service.ContentService;
+import com.yoyling.service.OptionsService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.List;
 
 public class ServiceTest {
 	@Test
@@ -15,4 +18,34 @@ public class ServiceTest {
 		Content content = contentsService.selectByPrimaryKey(1);
 		System.out.println(content);
 	}
+
+	@Test
+	public void run2() {
+		ApplicationContext ac = new
+				ClassPathXmlApplicationContext("classpath:spring-context.xml");
+		ContentService contentsService = (ContentService) ac.getBean("contentService");
+		int n = contentsService.selectNumberOfArticles();
+		System.out.println(n);
+	}
+
+	@Test
+	public void run3() {
+		ApplicationContext ac = new
+				ClassPathXmlApplicationContext("classpath:spring-context.xml");
+		ContentService contentsService = (ContentService) ac.getBean("contentService");
+		List<Content> contents = contentsService.selectRecommendContent();
+		for (Content c : contents) {
+			System.out.println(c);
+		}
+	}
+
+	@Test
+	public void run4() {
+		ApplicationContext ac = new
+				ClassPathXmlApplicationContext("classpath:spring-context.xml");
+		OptionsService optionsService = (OptionsService) ac.getBean("optionsService");
+		String value = optionsService.selectValueByName("qq_link");
+		System.out.println(value);
+	}
+
 }

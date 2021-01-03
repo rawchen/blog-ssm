@@ -18,4 +18,19 @@ public class ContentServiceImpl extends BaseServiceImpl implements ContentServic
 	public List<Content> selectAllContent() {
 		return contentMapper.selectAllContent();
 	}
+
+	@Override
+	public int selectNumberOfArticles() {
+		int num = contentMapper.selectNumberOfArticles();
+		if (num!=0) {
+			return num;
+		}else {
+			return 0;
+		}
+	}
+
+	@Override
+	public List<Content> selectRecommendContent() {
+		return contentMapper.selectRecommendContent();
+	}
 }
