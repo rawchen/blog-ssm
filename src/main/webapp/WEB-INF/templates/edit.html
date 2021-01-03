@@ -3,7 +3,10 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>AdminLTE 3 | User Profile</title>
+	<title th:text="${websiteTitle} + '&nbsp;|&nbsp;EditBlog'"></title>
+	<link rel="shortcut icon" th:href="${websiteIco}">
+	<link rel="apple-touch-icon" th:href="${websiteIco}">
+
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -50,8 +53,8 @@
 	<nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
 		<div class="container-fluid pl-5 pr-5">
 			<a href="admin" class="navbar-brand">
-				<img src="./upload/avatar.jpg" class="brand-image img-circle elevation-3">
-				<span class="brand-text font-weight-light">YOYLING's Blog</span>
+				<img th:src="${avatar}" class="brand-image img-circle elevation-3">
+				<span class="brand-text font-weight-light" th:text="${websiteTitle}">websiteTitle</span>
 			</a>
 
 			<button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"

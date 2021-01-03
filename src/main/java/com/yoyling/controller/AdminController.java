@@ -35,6 +35,13 @@ public class AdminController extends BaseController {
 	@RequestMapping("/adminEdit")
 	public String adminEdit(Model model) {
 		model.addAttribute("serverName",request.getServerName());
+		String websiteTitle = optionsService.selectValueByName("website_title");
+		String websiteIco = optionsService.selectValueByName("website_ico");
+		String avatar = optionsService.selectValueByName("avatar");
+		model.addAttribute("websiteTitle",websiteTitle);
+		model.addAttribute("websiteIco",websiteIco);
+		model.addAttribute("avatar",avatar);
+
 		return "edit";
 	}
 
