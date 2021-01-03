@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | User Profile</title>
+  <title th:text="${optionsMap.websiteTitle} + '&nbsp;|&nbsp;Dashboard'"></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -28,7 +28,7 @@
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" target="_blank" href="index">
           <i class="fa fa-paper-plane"></i>
           <span>博客前台首页</span>
         </a>
@@ -41,9 +41,9 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <h1>
-      <a href="index.html" class="brand-link">
-        <img src="./upload/avatar.jpg" class="brand-image img-circle elevation-3">
-        <span class="brand-text font-weight-light">YOYLING's Blog</span>
+      <a href="admin" class="brand-link">
+        <img th:src="${optionsMap.avatar}" class="brand-image img-circle elevation-3">
+        <span class="brand-text font-weight-light" th:text="${optionsMap.websiteTitle}">websiteTitle</span>
       </a>
     </h1>
 
@@ -56,53 +56,53 @@
                with font-awesome or any other icon font library -->
           <li class="nav-header">仪表盘</li>
           <li class="nav-item">
-            <a href="dashboard.html" class="nav-link active">
+            <a class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>仪表盘</p>
             </a>
           </li>
           <li class="nav-header">博客编辑</li>
           <li class="nav-item">
-            <a href="edit.html" class="nav-link">
+            <a href="adminEdit" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>发布博客</p>
             </a>
           </li>
           <li class="nav-header">管理模块</li>
           <li class="nav-item">
-            <a href="blog-mgr.html" class="nav-link">
+            <a href="adminBlog" class="nav-link">
               <i class="fa fa-list-alt nav-icon" aria-hidden="true"></i>
               <p>博客管理</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="category-mgr.html" class="nav-link">
+            <a href="adminCategory" class="nav-link">
               <i class="fa fa-bookmark nav-icon" aria-hidden="true"></i>
               <p>分类管理</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="tag-mgr.html" class="nav-link">
+            <a href="adminTag" class="nav-link">
               <i class="fa fa-tags nav-icon" aria-hidden="true"></i>
               <p>标签管理</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="comment-mgr.html" class="nav-link">
+            <a href="adminComment" class="nav-link">
               <i class="fa fa-comments nav-icon" aria-hidden="true"></i>
               <p>评论管理</p>
             </a>
           </li>
           <li class="nav-header">系统管理</li>
           <li class="nav-item">
-            <a href="configuration.html"
+            <a href="adminConfig"
                class="nav-link">
               <i class="fa fa-wrench nav-icon"></i>
               <p>系统配置</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="index.html" class="nav-link">
+            <a href="adminLogout" class="nav-link">
               <i class="fa fa-sign-out-alt nav-icon"></i>
               <p>安全退出</p>
             </a>
@@ -129,7 +129,7 @@
               <div class="icon">
                 <i class="fa fa-pen-square"></i>
               </div>
-              <a href="#" class="small-box-footer">Let's go <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="adminEdit" class="small-box-footer">Let's go <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -213,10 +213,7 @@
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <p class="text-center mb-1">
-      Copyright © 2020 YOYLING Designed by YOYLING Powered by AdminLTE
-    </p>
-    <p class="text-center">
-      <a href="">粤ICP备20040058号</a>
+      Copyright © 2020-2021 | THE HARDER, THE MORE FORTUNATE.
     </p>
   </footer>
 </div>

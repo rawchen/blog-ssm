@@ -4,15 +4,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 public class AdminController extends BaseController {
 
-	@RequestMapping("/adminDashboard")
+	@RequestMapping("/admin")
 	public String toDashboard(Model model) {
 		model.addAttribute("totalContent",99);
 		model.addAttribute("totalCategory",99);
 		model.addAttribute("totalTag",99);
 		model.addAttribute("totalComment",99);
+
+		String websiteTitle = optionsService.selectValueByName("website_title");
+		String websiteIco = optionsService.selectValueByName("website_ico");
+		String avatar = optionsService.selectValueByName("avatar");
+
+		Map<String, String> optionsMap = new HashMap<>();
+		optionsMap.put("websiteTitle",websiteTitle);
+		optionsMap.put("avatar",avatar);
+		optionsMap.put("websiteIco",websiteIco);
+
+		model.addAttribute("optionsMap",optionsMap);
+
+
 		return "dashboard";
 	}
 

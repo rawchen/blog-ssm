@@ -26,8 +26,6 @@ public class OtherController extends BaseController {
 		List<Content> recommendContents = contentService.selectRecommendContent();
 		model.addAttribute("recommendContents",recommendContents);
 
-
-
 		String qqLink = optionsService.selectValueByName("qq_link");
 		String emailLink = optionsService.selectValueByName("email_link");
 		String githubLink = optionsService.selectValueByName("github_link");
@@ -35,6 +33,7 @@ public class OtherController extends BaseController {
 		String icp = optionsService.selectValueByName("icp");
 		String description = optionsService.selectValueByName("description");
 		String websiteTitle = optionsService.selectValueByName("website_title");
+		String websiteIco = optionsService.selectValueByName("website_ico");
 		String avatar = optionsService.selectValueByName("avatar");
 
 		Map<String, String> optionsMap = new HashMap<>();
@@ -46,6 +45,7 @@ public class OtherController extends BaseController {
 		optionsMap.put("description",description);
 		optionsMap.put("websiteTitle",websiteTitle);
 		optionsMap.put("avatar",avatar);
+		optionsMap.put("websiteIco",websiteIco);
 
 
 		model.addAttribute("optionsMap",optionsMap);

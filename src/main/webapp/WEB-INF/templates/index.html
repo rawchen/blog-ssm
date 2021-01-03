@@ -3,7 +3,11 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>AdminLTE 3 | User Profile</title>
+	<title th:text="${optionsMap.websiteTitle}"></title>
+
+	<link rel="shortcut icon" th:href="${optionsMap.websiteIco}">
+	<link rel="apple-touch-icon" th:href="${optionsMap.websiteIco}">
+
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -26,10 +30,10 @@
 				<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
 			</li>
 			<li class="nav-item d-none d-sm-inline-block">
-				<a href="login.html" class="nav-link">登录页</a>
+				<a href="login" class="nav-link">登录页</a>
 			</li>
 			<li class="nav-item d-none d-sm-inline-block">
-				<a href="dashboard.html" class="nav-link">后台主页</a>
+				<a href="admin" class="nav-link">后台主页</a>
 			</li>
 		</ul>
 
@@ -52,8 +56,8 @@
 		<!-- Brand Logo -->
 		<h1>
 			<a href="index.html" class="brand-link">
-				<img th:src="@{/upload/avatar.jpg}" class="brand-image img-circle elevation-3">
-				<span class="brand-text font-weight-light">YOYLING's Blog</span>
+				<img th:src="${optionsMap.avatar}" class="brand-image img-circle elevation-3">
+				<span class="brand-text font-weight-light" th:text="${optionsMap.websiteTitle}">websiteTitle</span>
 			</a>
 		</h1>
 
@@ -66,7 +70,7 @@
 						 with font-awesome or any other icon font library -->
 					<li class="nav-header">读万卷书</li>
 					<li class="nav-item">
-						<a href="index.html" class="nav-link active">
+						<a class="nav-link active">
 							<i class="fa fa-home nav-icon"></i>
 							<p>首页</p>
 						</a>
@@ -253,7 +257,7 @@
 			Copyright © 2020-2021 | THE HARDER, THE MORE FORTUNATE.
 		</p>
 		<p class="text-center" th:if="!${#strings.isEmpty(optionsMap.icp)}">
-			<a href="123" th:text="${optionsMap.icp}"></a>
+			<a href="https://beian.miit.gov.cn/" th:text="${optionsMap.icp}"></a>
 		</p>
 	</footer>
 </div>
