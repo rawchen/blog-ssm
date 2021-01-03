@@ -1,6 +1,8 @@
 package com.yoyling;
 
+import com.yoyling.domain.Category;
 import com.yoyling.domain.Content;
+import com.yoyling.service.CategoryService;
 import com.yoyling.service.ContentService;
 import com.yoyling.service.OptionsService;
 import org.junit.Test;
@@ -46,6 +48,17 @@ public class ServiceTest {
 		OptionsService optionsService = (OptionsService) ac.getBean("optionsService");
 		String value = optionsService.selectValueByName("qq_link");
 		System.out.println(value);
+	}
+
+	@Test
+	public void run5() {
+		ApplicationContext ac = new
+				ClassPathXmlApplicationContext("classpath:spring-context.xml");
+		CategoryService categoryService = (CategoryService) ac.getBean("categoryService");
+		List<Category> categories = categoryService.selectAllCategory();
+		for (Category c:categories) {
+			System.out.println(c);
+		}
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.yoyling.controller;
 
 
+import com.yoyling.service.CategoryService;
 import com.yoyling.service.ContentService;
 import com.yoyling.service.OptionsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class BaseController {
 
 	@Autowired
 	protected OptionsService optionsService;
+
+	@Autowired
+	protected CategoryService categoryService;
 
 	@ModelAttribute
 	public void setReqAndRes(HttpServletRequest request, HttpServletResponse response) {

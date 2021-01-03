@@ -15,6 +15,11 @@
     from category
     where cgid = #{cgid,jdbcType=INTEGER}
   </select>
+
+  <select id="selectAllCategory" resultMap="BaseResultMap">
+  select * from category;
+</select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from category
     where cgid = #{cgid,jdbcType=INTEGER}

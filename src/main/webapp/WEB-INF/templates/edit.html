@@ -42,6 +42,10 @@
 		.times-text {
 			padding-right: 50px;
 		}
+		.selectize-input.items.not-full.has-options.has-items {
+			padding-top: 8px;
+			padding-bottom: 2px;
+		}
 	</style>
 </head>
 <body class="hold-transition layout-top-nav">
@@ -153,16 +157,21 @@
 						<div class="col-md-2">
 							<div class="form-group">
 								<label for="categoryId">分类</label>
+<!--								<select id="categoryId" name="blogCategory" class="select2"-->
+<!--										data-placeholder="选择分类(必选)...."-->
+<!--										style="width: 100%;">-->
+<!--									<option></option>-->
+<!--									<option selected value="1">点滴记录</option>-->
+<!--									<option value="2">后端</option>-->
+<!--									<option value="3">全栈</option>-->
+<!--									<option value="4">架构</option>-->
+<!--									<option value="5">天上人间</option>-->
+<!--									<option value="6">我是一只猫</option>-->
+<!--								</select>-->
 								<select id="categoryId" name="blogCategory" class="select2"
 										data-placeholder="选择分类(必选)...."
 										style="width: 100%;">
-									<option></option>
-									<option selected value="1">点滴记录</option>
-									<option value="2">后端</option>
-									<option value="3">全栈</option>
-									<option value="4">架构</option>
-									<option value="5">天上人间</option>
-									<option value="6">我是一只猫</option>
+									<option th:each="c,cStat:${categories}" th:value="${c.cgSlug}" th:text="${c.cgName}" th:selected="${cStat==1}"></option>
 								</select>
 							</div>
 							<!-- /.form-group -->
@@ -170,19 +179,20 @@
 
 						<!-- /.col -->
 						<div class="col-md-6">
-							<div class="form-group">
-								<label for="tagId">标签</label>
-								<select id="tagId" name="blogTag" class="select2" multiple="multiple"
-										data-placeholder="选择标签...."
-										style="width: 100%;">
-									<option value="1">Java</option>
-									<option value="2">JavScript</option>
-									<option value="3">HTML</option>
-									<option value="4">Spring</option>
-									<option value="5">SpringBoot</option>
-									<option value="6">我的笔记</option>
-								</select>
-							</div>
+
+							<label for="tagInput">标签</label>
+							<input type="text" id="tagInput" name="tag" value="前端,后台">
+	<!--								<select id="tagId" name="blogTag" class="select2" multiple="multiple"-->
+	<!--										data-placeholder="选择标签...."-->
+	<!--										style="width: 100%;">-->
+	<!--									<option value="1">Java</option>-->
+	<!--									<option value="2">JavScript</option>-->
+	<!--									<option value="3">HTML</option>-->
+	<!--									<option value="4">Spring</option>-->
+	<!--									<option value="5">SpringBoot</option>-->
+	<!--									<option value="6">我的笔记</option>-->
+	<!--								</select>-->
+
 							<!-- /.form-group -->
 						</div>
 						<!-- /.col -->
@@ -302,7 +312,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<input type="text" id="tagInput" name="tag" value="awesome,neat">
+				<input type="text" id="tagInput2" name="tag" value="awesome,neat">
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>

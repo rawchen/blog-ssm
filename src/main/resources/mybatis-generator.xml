@@ -65,7 +65,7 @@
 <!--		</table>-->
 
 		<!-- 指定某些表参与逆向工程 -->
-		<table tableName="category"
+		<table tableName="tag"
 			   enableCountByExample="false"
 			   enableUpdateByExample="false"
 			   enableDeleteByExample="false"

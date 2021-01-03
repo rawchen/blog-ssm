@@ -14,6 +14,7 @@
     <result column="content_status" jdbcType="VARCHAR" property="contentStatus" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="views" jdbcType="INTEGER" property="views" />
+    <result column="tag_lisk" jdbcType="VARCHAR" property="tagLisk" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.yoyling.domain.Content">
     <result column="content_text" jdbcType="LONGVARCHAR" property="contentText" />
@@ -21,14 +22,14 @@
     <result column="description" jdbcType="LONGVARCHAR" property="description" />
   </resultMap>
   <sql id="Base_Column_List">
-    cid, cgid, title, slug, created_time, modified_time, content_order, author_id, content_type, 
-    content_status, password, views
+    cid, cgid, title, slug, created_time, modified_time, content_order, author_id, content_type,
+    content_status, password, views, tag_lisk
   </sql>
   <sql id="Blob_Column_List">
     content_text, thumb, description
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -53,18 +54,18 @@
     where cid = #{cid,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.yoyling.domain.Content">
-    insert into content (cid, cgid, title, 
-      slug, created_time, modified_time, 
-      content_order, author_id, content_type, 
-      content_status, password, views, 
-      content_text, thumb, description
-      )
-    values (#{cid,jdbcType=INTEGER}, #{cgid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
-      #{slug,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP}, 
-      #{contentOrder,jdbcType=INTEGER}, #{authorId,jdbcType=INTEGER}, #{contentType,jdbcType=VARCHAR}, 
-      #{contentStatus,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{views,jdbcType=INTEGER}, 
-      #{contentText,jdbcType=LONGVARCHAR}, #{thumb,jdbcType=LONGVARCHAR}, #{description,jdbcType=LONGVARCHAR}
-      )
+    insert into content (cid, cgid, title,
+                         slug, created_time, modified_time,
+                         content_order, author_id, content_type,
+                         content_status, password, views,
+                         tag_lisk, content_text, thumb,
+                         description)
+    values (#{cid,jdbcType=INTEGER}, #{cgid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR},
+            #{slug,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP},
+            #{contentOrder,jdbcType=INTEGER}, #{authorId,jdbcType=INTEGER}, #{contentType,jdbcType=VARCHAR},
+            #{contentStatus,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{views,jdbcType=INTEGER},
+            #{tagLisk,jdbcType=VARCHAR}, #{contentText,jdbcType=LONGVARCHAR}, #{thumb,jdbcType=LONGVARCHAR},
+            #{description,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yoyling.domain.Content">
     insert into content
@@ -104,6 +105,9 @@
       </if>
       <if test="views != null">
         views,
+      </if>
+      <if test="tagLisk != null">
+        tag_lisk,
       </if>
       <if test="contentText != null">
         content_text,
@@ -152,6 +156,9 @@
       <if test="views != null">
         #{views,jdbcType=INTEGER},
       </if>
+      <if test="tagLisk != null">
+        #{tagLisk,jdbcType=VARCHAR},
+      </if>
       <if test="contentText != null">
         #{contentText,jdbcType=LONGVARCHAR},
       </if>
@@ -199,6 +206,9 @@
       <if test="views != null">
         views = #{views,jdbcType=INTEGER},
       </if>
+      <if test="tagLisk != null">
+        tag_lisk = #{tagLisk,jdbcType=VARCHAR},
+      </if>
       <if test="contentText != null">
         content_text = #{contentText,jdbcType=LONGVARCHAR},
       </if>
@@ -214,34 +224,36 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yoyling.domain.Content">
     update content
     set cgid = #{cgid,jdbcType=INTEGER},
-      title = #{title,jdbcType=VARCHAR},
-      slug = #{slug,jdbcType=VARCHAR},
-      created_time = #{createdTime,jdbcType=TIMESTAMP},
-      modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
-      content_order = #{contentOrder,jdbcType=INTEGER},
-      author_id = #{authorId,jdbcType=INTEGER},
-      content_type = #{contentType,jdbcType=VARCHAR},
-      content_status = #{contentStatus,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      views = #{views,jdbcType=INTEGER},
-      content_text = #{contentText,jdbcType=LONGVARCHAR},
-      thumb = #{thumb,jdbcType=LONGVARCHAR},
-      description = #{description,jdbcType=LONGVARCHAR}
+        title = #{title,jdbcType=VARCHAR},
+        slug = #{slug,jdbcType=VARCHAR},
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+        content_order = #{contentOrder,jdbcType=INTEGER},
+        author_id = #{authorId,jdbcType=INTEGER},
+        content_type = #{contentType,jdbcType=VARCHAR},
+        content_status = #{contentStatus,jdbcType=VARCHAR},
+        password = #{password,jdbcType=VARCHAR},
+        views = #{views,jdbcType=INTEGER},
+        tag_lisk = #{tagLisk,jdbcType=VARCHAR},
+        content_text = #{contentText,jdbcType=LONGVARCHAR},
+        thumb = #{thumb,jdbcType=LONGVARCHAR},
+        description = #{description,jdbcType=LONGVARCHAR}
     where cid = #{cid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.yoyling.domain.Content">
     update content
     set cgid = #{cgid,jdbcType=INTEGER},
-      title = #{title,jdbcType=VARCHAR},
-      slug = #{slug,jdbcType=VARCHAR},
-      created_time = #{createdTime,jdbcType=TIMESTAMP},
-      modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
-      content_order = #{contentOrder,jdbcType=INTEGER},
-      author_id = #{authorId,jdbcType=INTEGER},
-      content_type = #{contentType,jdbcType=VARCHAR},
-      content_status = #{contentStatus,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      views = #{views,jdbcType=INTEGER}
+        title = #{title,jdbcType=VARCHAR},
+        slug = #{slug,jdbcType=VARCHAR},
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+        content_order = #{contentOrder,jdbcType=INTEGER},
+        author_id = #{authorId,jdbcType=INTEGER},
+        content_type = #{contentType,jdbcType=VARCHAR},
+        content_status = #{contentStatus,jdbcType=VARCHAR},
+        password = #{password,jdbcType=VARCHAR},
+        views = #{views,jdbcType=INTEGER},
+        tag_lisk = #{tagLisk,jdbcType=VARCHAR}
     where cid = #{cid,jdbcType=INTEGER}
   </update>
 </mapper>

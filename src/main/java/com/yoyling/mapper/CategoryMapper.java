@@ -2,6 +2,8 @@ package com.yoyling.mapper;
 
 import com.yoyling.domain.Category;
 
+import java.util.List;
+
 public interface CategoryMapper {
     int deleteByPrimaryKey(Integer cgid);
 
@@ -14,4 +16,6 @@ public interface CategoryMapper {
     int updateByPrimaryKeySelective(Category record);
 
     int updateByPrimaryKey(Category record);
+
+    List<Category> selectAllCategory();
 }

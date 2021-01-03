@@ -34,4 +34,13 @@ public class Category implements Serializable {
     public void setCgSlug(String cgSlug) {
         this.cgSlug = cgSlug == null ? null : cgSlug.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "cgid=" + cgid +
+                ", cgName='" + cgName + '\'' +
+                ", cgSlug='" + cgSlug + '\'' +
+                '}';
+    }
 }

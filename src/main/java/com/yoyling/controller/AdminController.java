@@ -1,10 +1,12 @@
 package com.yoyling.controller;
 
+import com.yoyling.domain.Category;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -28,7 +30,6 @@ public class AdminController extends BaseController {
 
 		model.addAttribute("optionsMap",optionsMap);
 
-
 		return "dashboard";
 	}
 
@@ -42,6 +43,9 @@ public class AdminController extends BaseController {
 		model.addAttribute("websiteIco",websiteIco);
 		model.addAttribute("avatar",avatar);
 
+		List<Category> categories = categoryService.selectAllCategory();
+		model.addAttribute("categories",categories);
+
 		return "edit";
 	}
 
@@ -50,7 +54,7 @@ public class AdminController extends BaseController {
 		String blogTitle = request.getParameter("blogTitle");
 		String blogSlug = request.getParameter("blogSlug");
 		String blogCategory = request.getParameter("blogCategory");
-		String[] blogTag = request.getParameterValues("blogTag");
+//		String[] blogTag = request.getParameterValues("blogTag");
 		String blogDescription = request.getParameter("blogDescription");
 		String blogType = request.getParameter("blogType");
 		String blogContentsOrder = request.getParameter("blogContentOrder");
@@ -61,9 +65,9 @@ public class AdminController extends BaseController {
 		System.out.println(blogTitle);
 		System.out.println(blogSlug);
 		System.out.println(blogCategory);
-		for (String a:blogTag) {
-			System.out.println(a);
-		}
+//		for (String a:blogTag) {
+//			System.out.println(a);
+//		}
 		System.out.println(blogDescription);
 		System.out.println(blogType);
 		System.out.println(blogContentsOrder);

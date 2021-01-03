@@ -1,5 +1,6 @@
 package com.yoyling.service.impl;
 
+import com.yoyling.mapper.CategoryMapper;
 import com.yoyling.mapper.ContentMapper;
 import com.yoyling.mapper.OptionsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,5 +17,8 @@ public class BaseServiceImpl {
 
 	@Autowired
 	protected OptionsMapper optionsMapper;
+
+	@Autowired
+	protected CategoryMapper categoryMapper;
 
 }

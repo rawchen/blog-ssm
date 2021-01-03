@@ -19,7 +19,7 @@ public interface ContentMapper {
 
     int updateByPrimaryKey(Content record);
 
-    List<Content> selectAllContent();
+	List<Content> selectAllContent();
 
 	int selectNumberOfArticles();
 
