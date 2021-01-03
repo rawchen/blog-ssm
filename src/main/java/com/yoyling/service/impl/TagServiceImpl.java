@@ -1,0 +1,15 @@
+package com.yoyling.service.impl;
+
+import com.yoyling.domain.Tag;
+import com.yoyling.service.TagService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service("tagService")
+public class TagServiceImpl extends BaseServiceImpl implements TagService {
+	@Override
+	public List<Tag> selectAllTag() {
+		return tagMapper.selectAllTag();
+	}
+}

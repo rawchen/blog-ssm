@@ -2,6 +2,8 @@ package com.yoyling.mapper;
 
 import com.yoyling.domain.Tag;
 
+import java.util.List;
+
 public interface TagMapper {
     int deleteByPrimaryKey(Integer tid);
 
@@ -14,4 +16,6 @@ public interface TagMapper {
     int updateByPrimaryKeySelective(Tag record);
 
     int updateByPrimaryKey(Tag record);
+
+	List<Tag> selectAllTag();
 }

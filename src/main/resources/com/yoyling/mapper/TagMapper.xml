@@ -15,6 +15,11 @@
     from tag
     where tid = #{tid,jdbcType=INTEGER}
   </select>
+
+  <select id="selectAllTag" resultMap="BaseResultMap">
+    select * from tag;
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from tag
     where tid = #{tid,jdbcType=INTEGER}
@@ -66,60 +71,6 @@
     update tag
     set name = #{name,jdbcType=VARCHAR},
       count = #{count,jdbcType=INTEGER}
-    where tid = #{tid,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="com.yoyling.domain.Tag">
-    <id column="tid" jdbcType="INTEGER" property="tid" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    tid, name
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from tag
-    where tid = #{tid,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tag
-    where tid = #{tid,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.yoyling.domain.Tag">
-    insert into tag (tid, name)
-    values (#{tid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.yoyling.domain.Tag">
-    insert into tag
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="tid != null">
-        tid,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="tid != null">
-        #{tid,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yoyling.domain.Tag">
-    update tag
-    <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where tid = #{tid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.yoyling.domain.Tag">
-    update tag
-    set name = #{name,jdbcType=VARCHAR}
     where tid = #{tid,jdbcType=INTEGER}
   </update>
 </mapper>

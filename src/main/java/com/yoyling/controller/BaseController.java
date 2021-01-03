@@ -4,6 +4,7 @@ package com.yoyling.controller;
 import com.yoyling.service.CategoryService;
 import com.yoyling.service.ContentService;
 import com.yoyling.service.OptionsService;
+import com.yoyling.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,6 +35,9 @@ public class BaseController {
 
 	@Autowired
 	protected CategoryService categoryService;
+
+	@Autowired
+	protected TagService tagService;
 
 	@ModelAttribute
 	public void setReqAndRes(HttpServletRequest request, HttpServletResponse response) {

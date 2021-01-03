@@ -1,6 +1,7 @@
 package com.yoyling.controller;
 
 import com.yoyling.domain.Category;
+import com.yoyling.domain.Tag;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +46,8 @@ public class AdminController extends BaseController {
 
 		List<Category> categories = categoryService.selectAllCategory();
 		model.addAttribute("categories",categories);
+
+		List<Tag> tags = tagService.selectAllTag();
 
 		return "edit";
 	}

@@ -34,4 +34,13 @@ public class Tag implements Serializable {
     public void setCount(Integer count) {
         this.count = count;
     }
+
+    @Override
+    public String toString() {
+        return "Tag{" +
+                "tid=" + tid +
+                ", name='" + name + '\'' +
+                ", count=" + count +
+                '}';
+    }
 }
