@@ -12,4 +12,9 @@ public class TagServiceImpl extends BaseServiceImpl implements TagService {
 	public List<Tag> selectAllTag() {
 		return tagMapper.selectAllTag();
 	}
+
+	@Override
+	public List<Tag> fuzzyQueryTag(String tagName) {
+		return tagMapper.fuzzyQueryTag(tagName);
+	}
 }

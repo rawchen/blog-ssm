@@ -73,4 +73,14 @@ public class ServiceTest {
 		}
 	}
 
+	@Test
+	public void run7() {
+		ApplicationContext ac = new ClassPathXmlApplicationContext("classpath:spring-context.xml");
+		TagService tagService = (TagService) ac.getBean("tagService");
+		List<Tag> tags = tagService.fuzzyQueryTag("i");
+		for (Tag t:tags) {
+			System.out.println(t);
+		}
+	}
+
 }

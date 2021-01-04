@@ -5,10 +5,15 @@ import com.yoyling.domain.Tag;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.yoyling.utils.StringUtil.listToString;
 
 @Controller
 public class AdminController extends BaseController {
@@ -48,6 +53,11 @@ public class AdminController extends BaseController {
 		model.addAttribute("categories",categories);
 
 		List<Tag> tags = tagService.selectAllTag();
+		List<String> tags1 = new ArrayList<>();
+		for (Tag tag:tags) {
+			tags1.add(tag.getName());
+		}
+		model.addAttribute("tags",listToString(tags1));
 
 		return "edit";
 	}
@@ -82,5 +92,22 @@ public class AdminController extends BaseController {
 		return "blog-mgr";
 	}
 
+	@RequestMapping("/adminGetTagList")
+	@ResponseBody
+	public Map<String,Object> adminEditBlog() {
+		Map<String, Object> map = new HashMap<>();
+		List<Tag> tags = tagService.selectAllTag();
+		map.put("tags",tags);
+		return map;
+	}
 
+	@RequestMapping("/fuzzyQueryTag")
+	@ResponseBody
+	public Map<String,Object> fuzzyQueryTag(@RequestParam(value="tagName")String tagName){
+		Map<String, Object> map = new HashMap<>();
+		List<Tag> tags = tagService.fuzzyQueryTag(tagName);
+		map.put("tags",tags);
+		return map;
+
+	}
 }

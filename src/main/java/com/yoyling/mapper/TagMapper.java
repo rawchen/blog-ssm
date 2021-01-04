@@ -18,4 +18,6 @@ public interface TagMapper {
     int updateByPrimaryKey(Tag record);
 
 	List<Tag> selectAllTag();
+
+	List<Tag> fuzzyQueryTag(String tagName);
 }

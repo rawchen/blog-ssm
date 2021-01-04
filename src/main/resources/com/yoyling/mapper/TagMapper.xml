@@ -9,6 +9,7 @@
   <sql id="Base_Column_List">
     tid, name, count
   </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -18,6 +19,10 @@
 
   <select id="selectAllTag" resultMap="BaseResultMap">
     select * from tag;
+  </select>
+
+  <select id="fuzzyQueryTag" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from tag where name like '%${value}%';
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

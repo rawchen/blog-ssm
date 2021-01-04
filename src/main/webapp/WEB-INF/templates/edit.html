@@ -46,6 +46,11 @@
 			padding-top: 8px;
 			padding-bottom: 2px;
 		}
+
+		.selectize-input.items.not-full{
+			padding-top: 9px;
+			padding-bottom: 9px;
+		}
 	</style>
 </head>
 <body class="hold-transition layout-top-nav">
@@ -168,9 +173,7 @@
 <!--									<option value="5">天上人间</option>-->
 <!--									<option value="6">我是一只猫</option>-->
 <!--								</select>-->
-								<select id="categoryId" name="blogCategory" class="select2"
-										data-placeholder="选择分类(必选)...."
-										style="width: 100%;">
+								<select id="categoryId" name="blogCategory" class="" data-placeholder="选择分类(必选)...." style="width: 100%;">
 									<option th:each="c,cStat:${categories}" th:value="${c.cgSlug}" th:text="${c.cgName}" th:selected="${cStat==1}"></option>
 								</select>
 							</div>
@@ -181,13 +184,14 @@
 						<div class="col-md-6">
 
 							<label for="tagInput">标签</label>
-							<input type="text" id="tagInput" name="tag" value="前端,后台">
+<!--							<input type="text" id="tagInput" name="tag" th:value="${tags}">-->
+							<input type="text" id="tagInput" name="tag">
 	<!--								<select id="tagId" name="blogTag" class="select2" multiple="multiple"-->
 	<!--										data-placeholder="选择标签...."-->
 	<!--										style="width: 100%;">-->
 	<!--									<option value="1">Java</option>-->
 	<!--									<option value="2">JavScript</option>-->
-	<!--									<option value="3">HTML</option>-->
+							<!--									<option value="3">HTML</option>-->
 	<!--									<option value="4">Spring</option>-->
 	<!--									<option value="5">SpringBoot</option>-->
 	<!--									<option value="6">我的笔记</option>-->
@@ -367,15 +371,12 @@
 
 <script th:src="@{/js/edit.js}"></script>
 <script th:src="@{/js/categoryinput.init.js}"></script>
-<script th:src="@{/js/taginput.init.js}"></script>
+<!--<script th:src="@{/js/taginput.init.js}"></script>-->
 
 <script th:src="@{/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
 <script th:src="@{/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.zh-CN.js}"></script>
 
 <script>
-	if ($("#contentsstatus").val() === '3') {
-		alert("123");
-	}
 	$('#contentsstatus').change(function () {
 		//判断是否选取prompt属性，无返回值；
 		if ($(this).val() === '3') {
@@ -407,6 +408,64 @@
 	});
 	$('.today').click();
 </script>
+<script type="text/javascript">
+	/**
+	 * 初始化标签输入框
+	 */
+	var $tag = $('#tagInput').selectize({
+		valueField: 'name',
+		labelField: 'name',
+		searchField: 'name',
+		create: true,
+		// render: {
+		// 	item: function (item, escape) {
+		// 		return '<div>' +item.name +
+		// 			'</div>';
+		// 	},
+		// 	option: function(item, escape) {
+		// 		console.log(123,item, escape)
+		// 		return '<div>' +item.name +
+		// 			'</div>';
+		// 	},
+		// },
+		load: function(query, callback) {
+			if (!query.length) return callback();
+			this.addOption({name: 345})
+			$.ajax({
+				url: 'fuzzyQueryTag',
+				type: 'GET',
+				data:{tagName:query},
+				error: function() {
+					callback();
+				},
+				success: function(res) {
+					// callback(res.tags.slice(0, 10));
+					var _this = $tag[0].selectize
+					res.tags.slice(0, 10).forEach(function(item) {
+						_this.addOption({name: item.name})
+					})
+				}
+			});
+		}
+	});
+	$tag[0].selectize.addOption({name: 123})
 
+	$('#tagInput2').selectize({
+		create: true,
+		createOnBlur: true,
+		maxItems: 10
+	});
+
+	$('#categoryId').select2({
+		minimumResultsForSearch: -1
+	});
+
+	/**
+	 * 新增标签按钮事件
+	 */
+	$('#addTagBtn').on('click', function () {
+		alert($('#tagInput').val().split(','));
+	});
+</script>
 </body>
 </html>
