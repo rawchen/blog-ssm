@@ -50,6 +50,9 @@ public class AdminController extends BaseController {
 		model.addAttribute("avatar",avatar);
 
 		List<Category> categories = categoryService.selectAllCategory();
+		for (Category c:categories) {
+			System.out.println(c);
+		}
 		model.addAttribute("categories",categories);
 
 		List<Tag> tags = tagService.selectAllTag();

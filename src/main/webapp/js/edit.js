@@ -2,7 +2,7 @@ $(function () {
   /**
    * Initialize Select2
    */
-  $('.select2').select2();
+  // $('.select2').select2();
 
   /**
    * Initialize SweetAlert2
@@ -10,8 +10,8 @@ $(function () {
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
-    showConfirmButton: true,
-    timer: 3000
+    showConfirmButton: false,
+    timer: 2000
   });
 
   /**
@@ -31,7 +31,7 @@ $(function () {
         "list-ul", "list-ol", "hr", "|",
         "link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime", "html-entities", "pagebreak", "|",
         "goto-line", "watch", "preview", "clear", "search", "|",
-        "help", "info"
+        "help"
       ];
     },
     path: './plugins/editor.md/lib/',

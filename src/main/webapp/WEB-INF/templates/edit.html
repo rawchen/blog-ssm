@@ -17,39 +17,23 @@
 	<link rel="stylesheet" th:href="@{/plugins/selectize/css/selectize.default.css}">
 
 	<!-- Select2 -->
-	<link rel="stylesheet" th:href="@{/plugins/select2/css/select2.min.css}">
+<!--	<link rel="stylesheet" th:href="@{/plugins/select2/css/select2.min.css}">-->
+
 	<!-- iCheck for checkboxes and radio inputs -->
 	<link rel="stylesheet" th:href="@{/plugins/icheck-bootstrap/icheck-bootstrap.min.css}">
 
 	<!-- SweetAlert2 -->
-	<link rel="stylesheet" th:href="@{/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css}">
+<!--	<link rel="stylesheet" th:href="@{/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css}">-->
+	<link rel="stylesheet" th:href="@{/plugins/sweetalert2/sweetalert2.min.css}">
 
 	<!-- Theme style -->
 	<link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
 	<link rel="stylesheet" th:href="@{/plugins/bootstrap-datetimepicker/css/bootstrap-theme.min.css}">
 	<link rel="stylesheet" th:href="@{/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css}">
 	<style type="text/css">
-		span.addon-times {
-			position: absolute;
-			right: 30px;
-			top: 5px;
-		}
-		span.addon-calendar {
-			position: absolute;
-			right: 10px;
-			top: 5px;
-		}
-		.times-text {
-			padding-right: 50px;
-		}
-		.selectize-input.items.not-full.has-options.has-items {
-			padding-top: 8px;
-			padding-bottom: 2px;
-		}
+		.sweetAlert {
 
-		.selectize-input.items.not-full{
-			padding-top: 9px;
-			padding-bottom: 9px;
 		}
 	</style>
 </head>
@@ -120,8 +104,7 @@
 										<label for="title" class="input-group-text">标题</label>
 									</div>
 									<!-- /btn-group -->
-									<input type="text" class="form-control" id="title" name="blogTitle"
-										   placeholder="title(必填)...">
+									<input type="text" class="form-control" id="title" name="blogTitle" placeholder="title(必填)...">
 								</div>
 							</div>
 						</div>
@@ -173,7 +156,7 @@
 <!--									<option value="5">天上人间</option>-->
 <!--									<option value="6">我是一只猫</option>-->
 <!--								</select>-->
-								<select id="categoryId" name="blogCategory" class="" data-placeholder="选择分类(必选)...." style="width: 100%;">
+								<select id="categoryId" name="blogCategory" data-placeholder="选择分类(必选)...." style="width: 100%;">
 									<option th:each="c,cStat:${categories}" th:value="${c.cgSlug}" th:text="${c.cgName}" th:selected="${cStat==1}"></option>
 								</select>
 							</div>
@@ -203,7 +186,7 @@
 
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="categoryId">文章缩略图直链</label>
+								<label for="blogThumb">文章缩略图直链</label>
 								<input type="text" class="form-control" id="blogThumb" name="blogThumb"
 									   placeholder="建议存储 OSS/JsDelivr....">
 							</div>
@@ -268,8 +251,7 @@
 
 						<div class="col-md-2">
 							<div class="form-group">
-								<select id="contentsstatus" name="blogContentStatus" class="select2"
-										style="width: 100%;">
+								<select id="contentsstatus" name="blogContentStatus" style="width: 100%;">
 									<option selected value="1">公开</option>
 									<option value="2">隐藏</option>
 									<option value="3">加密</option>
@@ -360,12 +342,12 @@
 <script th:src="@{/js/adminlte.min.js}"></script>
 
 <!-- SweetAlert2 -->
-<script th:src="@{/plugins/sweetalert2/sweetalert2.min.js}"></script>
+<script th:src="@{/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
 
 <script th:src="@{/plugins/editor.md/js/editormd.min.js}"></script>
 
 <!-- Select2 -->
-<script th:src="@{/plugins/select2/js/select2.full.min.js}"></script>
+<!--<script th:src="@{/plugins/select2/js/select2.full.min.js}"></script>-->
 
 <script th:src="@{/plugins/selectize/js/standalone/selectize.min.js}"></script>
 
@@ -412,52 +394,36 @@
 	/**
 	 * 初始化标签输入框
 	 */
-	var $tag = $('#tagInput').selectize({
+	$('#tagInput').selectize({
+		plugins: ['remove_button'],
 		valueField: 'name',
 		labelField: 'name',
 		searchField: 'name',
 		create: true,
-		// render: {
-		// 	item: function (item, escape) {
-		// 		return '<div>' +item.name +
-		// 			'</div>';
-		// 	},
-		// 	option: function(item, escape) {
-		// 		console.log(123,item, escape)
-		// 		return '<div>' +item.name +
-		// 			'</div>';
-		// 	},
-		// },
+		render: {
+			option: function(item, escape) {
+				return '<div class="selection">' + '<i class="fa fa-tags nav-icon"></i>&nbsp;' + item.name + '</div>';
+			},
+		},
 		load: function(query, callback) {
 			if (!query.length) return callback();
-			this.addOption({name: 345})
 			$.ajax({
-				url: 'fuzzyQueryTag',
+				url: 'adminGetTagList',
 				type: 'GET',
-				data:{tagName:query},
 				error: function() {
 					callback();
 				},
 				success: function(res) {
-					// callback(res.tags.slice(0, 10));
-					var _this = $tag[0].selectize
-					res.tags.slice(0, 10).forEach(function(item) {
-						_this.addOption({name: item.name})
-					})
+					callback(res.tags.slice(0, 10));
 				}
 			});
 		}
 	});
-	$tag[0].selectize.addOption({name: 123})
 
 	$('#tagInput2').selectize({
 		create: true,
 		createOnBlur: true,
 		maxItems: 10
-	});
-
-	$('#categoryId').select2({
-		minimumResultsForSearch: -1
 	});
 
 	/**
@@ -466,6 +432,21 @@
 	$('#addTagBtn').on('click', function () {
 		alert($('#tagInput').val().split(','));
 	});
+</script>
+<script>
+	$(function () {
+		$('#categoryId').selectize({
+
+		});
+	});
+
+	$(function () {
+		$('#contentsstatus').selectize({
+
+		});
+	});
+
+
 </script>
 </body>
 </html>
