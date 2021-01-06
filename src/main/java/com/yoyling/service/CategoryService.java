@@ -7,4 +7,6 @@ import java.util.List;
 public interface CategoryService {
 
 	List<Category> selectAllCategory();
+
+	Integer selectCategoryBySlug(String blogCategory);
 }

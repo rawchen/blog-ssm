@@ -17,4 +17,14 @@ public class TagServiceImpl extends BaseServiceImpl implements TagService {
 	public List<Tag> fuzzyQueryTag(String tagName) {
 		return tagMapper.fuzzyQueryTag(tagName);
 	}
+
+	@Override
+	public int findTagIdByName(String s) {
+		return tagMapper.findTagIdByName(s);
+	}
+
+	@Override
+	public int insert(Tag tag) {
+		return tagMapper.insert(tag);
+	}
 }

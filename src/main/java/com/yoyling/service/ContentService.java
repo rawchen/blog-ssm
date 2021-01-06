@@ -13,4 +13,8 @@ public interface ContentService {
 	int selectNumberOfArticles();
 
 	List<Content> selectRecommendContent();
+
+	int insert(Content content);
+
+	Content findContentBySlugName(String slugName);
 }

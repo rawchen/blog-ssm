@@ -1,6 +1,7 @@
 package com.yoyling.controller;
 
 import com.yoyling.domain.Category;
+import com.yoyling.domain.Content;
 import com.yoyling.domain.Tag;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,10 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static com.yoyling.utils.StringUtil.listToString;
 
@@ -70,29 +70,71 @@ public class AdminController extends BaseController {
 		String blogTitle = request.getParameter("blogTitle");
 		String blogSlug = request.getParameter("blogSlug");
 		String blogCategory = request.getParameter("blogCategory");
-//		String[] blogTag = request.getParameterValues("blogTag");
+
+		List<String> blogTag = new ArrayList<>();
+		if (request.getParameterValues("blogTag") != null) {
+			blogTag = Arrays.asList(request.getParameterValues("blogTag"));
+		}
+
 		String blogDescription = request.getParameter("blogDescription");
 		String blogType = request.getParameter("blogType");
-		String blogContentsOrder = request.getParameter("blogContentOrder");
+		String blogContentsOrder = "0";
+		if ("on".equals(request.getParameter("blogContentOrder"))) {
+			blogContentsOrder = "1";
+		}
 		String blogContentStatus = request.getParameter("blogContentStatus");
 		String blogPassword = request.getParameter("blogPassword");
 		String blogThumb = request.getParameter("blogThumb");
-		String content = request.getParameter("content");
-		System.out.println(blogTitle);
-		System.out.println(blogSlug);
-		System.out.println(blogCategory);
-//		for (String a:blogTag) {
-//			System.out.println(a);
-//		}
-		System.out.println(blogDescription);
-		System.out.println(blogType);
-		System.out.println(blogContentsOrder);
-		System.out.println(blogContentStatus);
-		System.out.println(blogPassword);
-		System.out.println(blogThumb);
-		System.out.println(content);
+		String blogContent = request.getParameter("content");
 
+		Content content = new Content();
+		content.setCgid(categoryService.selectCategoryBySlug(blogCategory));
+		content.setTitle(blogTitle);
+		content.setSlug(blogSlug);
+
+		try {
+			content.setCreatedTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+					.parse(request.getParameter("blogCreatedTime")));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		content.setModifiedTime(new Date());
+		content.setContentText(blogContent);
+		content.setContentOrder(Integer.parseInt(blogContentsOrder));
+//		content.setAuthorId(Integer.parseInt((String) session.getAttribute("authorId")));
+		content.setAuthorId(1);
+		content.setContentType(blogType);
+		content.setContentStatus(blogContentStatus);
+		content.setContentStatus(blogContentStatus);
+		content.setPassword(blogPassword);
+		content.setViews(0);
+		if ("".equals(blogThumb) || blogThumb == null) {
+			content.setThumb("img/default.jpg");
+		}
+		content.setDescription(blogDescription);
+
+		List<String> tagListNew = new ArrayList<>();
+		for (String s:blogTag) {
+			int i = tagService.findTagIdByName(s);
+			if (i != -1) {
+				tagListNew.add(String.valueOf(i));
+			} else {
+				tagService.insert(new Tag(null,s,0));
+				tagListNew.add(String.valueOf(tagService.findTagIdByName(s)));
+			}
+			content.setTagList(listToString(tagListNew));
+		}
+
+		System.out.println(content);
+		int result =  contentService.insert(content);
+		if (result == 1) {
+			model.addAttribute("message", "1");
+		} else {
+			model.addAttribute("message", "0");
+		}
 		return "blog-mgr";
+
 	}
 
 	@RequestMapping("/adminGetTagList")
@@ -111,6 +153,18 @@ public class AdminController extends BaseController {
 		List<Tag> tags = tagService.fuzzyQueryTag(tagName);
 		map.put("tags",tags);
 		return map;
+	}
 
+	@RequestMapping("/findContentBySlugName")
+	@ResponseBody
+	public Map<String,Object> findContentBySlugName(@RequestParam(value="slugName")String slugName){
+		Map<String, Object> map = new HashMap<>();
+		Content c = contentService.findContentBySlugName(slugName);
+		boolean slugExist = false;
+		if (c != null) {
+			slugExist = true;
+		}
+		map.put("slugExist", slugExist);
+		return map;
 	}
 }

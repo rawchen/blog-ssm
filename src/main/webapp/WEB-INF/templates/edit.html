@@ -14,27 +14,19 @@
 
 	<link rel="stylesheet" th:href="@{/plugins/editor.md/css/editormd.min.css}">
 
-	<link rel="stylesheet" th:href="@{/plugins/selectize/css/selectize.default.css}">
-
-	<!-- Select2 -->
-<!--	<link rel="stylesheet" th:href="@{/plugins/select2/css/select2.min.css}">-->
+	<link rel="stylesheet" th:href="@{/plugins/selectize/css/selectize.bootstrap3.css}">
 
 	<!-- iCheck for checkboxes and radio inputs -->
 	<link rel="stylesheet" th:href="@{/plugins/icheck-bootstrap/icheck-bootstrap.min.css}">
 
 	<!-- SweetAlert2 -->
-<!--	<link rel="stylesheet" th:href="@{/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css}">-->
 	<link rel="stylesheet" th:href="@{/plugins/sweetalert2/sweetalert2.min.css}">
 
 	<!-- Theme style -->
 	<link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
 	<link rel="stylesheet" th:href="@{/css/style.css}">
-	<link rel="stylesheet" th:href="@{/plugins/bootstrap-datetimepicker/css/bootstrap-theme.min.css}">
 	<link rel="stylesheet" th:href="@{/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css}">
 	<style type="text/css">
-		.sweetAlert {
-
-		}
 	</style>
 </head>
 <body class="hold-transition layout-top-nav">
@@ -43,7 +35,7 @@
 <!-- Site wrapper -->
 <div class="wrapper">
 	<!-- Navbar -->
-	<nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+	<nav class="main-header navbar navbar-expand-md navbar-dark navbar-dark">
 		<div class="container-fluid pl-5 pr-5">
 			<a href="admin" class="navbar-brand">
 				<img th:src="${avatar}" class="brand-image img-circle elevation-3">
@@ -89,7 +81,7 @@
 	<!-- /.navbar -->
 
 	<div class="container-fluid pl-5 pr-5 mt-3">
-		<form id="blogForm" action="adminEditBlog" method="post">
+		<form id="blogForm" action="adminEditBlog" onkeydown="if(event.keyCode==13)return false;" method="post">
 			<!-- /.card-body -->
 			<div class="card card-teal card-outline">
 				<div class="card-header">
@@ -104,7 +96,7 @@
 										<label for="title" class="input-group-text">标题</label>
 									</div>
 									<!-- /btn-group -->
-									<input type="text" class="form-control" id="title" name="blogTitle" placeholder="title(必填)...">
+									<input type="text" class="form-control" required id="title" name="blogTitle" placeholder="title(必填)...">
 								</div>
 							</div>
 						</div>
@@ -113,11 +105,11 @@
 							<div class="form-group">
 								<div class="input-group">
 									<div class="input-group-prepend">
-										<label for="title"
+										<label for="slug"
 											   class="input-group-text">[[${serverName}]]/{category}/</label>
 									</div>
 									<!-- /btn-group -->
-									<input type="text" class="form-control" id="slug" required name="blogSlug"
+									<input type="text" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9\-_]/g,'')" class="form-control" id="slug" required name="blogSlug"
 										   placeholder="slug(必填)">
 								</div>
 							</div>
@@ -134,7 +126,7 @@
 									<span class="input-group-addon addon-calendar"><span class="fa fa-calendar"></span></span>
 
 								</div>
-								<input type="hidden" id="dtp_input1" value="" />
+								<input type="hidden" name="blogCreatedTime" id="dtp_input1" value="" />
 							</div>
 						</div>
 
@@ -145,17 +137,7 @@
 						<div class="col-md-2">
 							<div class="form-group">
 								<label for="categoryId">分类</label>
-<!--								<select id="categoryId" name="blogCategory" class="select2"-->
-<!--										data-placeholder="选择分类(必选)...."-->
-<!--										style="width: 100%;">-->
-<!--									<option></option>-->
-<!--									<option selected value="1">点滴记录</option>-->
-<!--									<option value="2">后端</option>-->
-<!--									<option value="3">全栈</option>-->
-<!--									<option value="4">架构</option>-->
-<!--									<option value="5">天上人间</option>-->
-<!--									<option value="6">我是一只猫</option>-->
-<!--								</select>-->
+
 								<select id="categoryId" name="blogCategory" data-placeholder="选择分类(必选)...." style="width: 100%;">
 									<option th:each="c,cStat:${categories}" th:value="${c.cgSlug}" th:text="${c.cgName}" th:selected="${cStat==1}"></option>
 								</select>
@@ -167,19 +149,7 @@
 						<div class="col-md-6">
 
 							<label for="tagInput">标签</label>
-<!--							<input type="text" id="tagInput" name="tag" th:value="${tags}">-->
-							<input type="text" id="tagInput" name="tag">
-	<!--								<select id="tagId" name="blogTag" class="select2" multiple="multiple"-->
-	<!--										data-placeholder="选择标签...."-->
-	<!--										style="width: 100%;">-->
-	<!--									<option value="1">Java</option>-->
-	<!--									<option value="2">JavScript</option>-->
-							<!--									<option value="3">HTML</option>-->
-	<!--									<option value="4">Spring</option>-->
-	<!--									<option value="5">SpringBoot</option>-->
-	<!--									<option value="6">我的笔记</option>-->
-	<!--								</select>-->
-
+							<select id="tagInput" name="blogTag" multiple="multiple"></select>
 							<!-- /.form-group -->
 						</div>
 						<!-- /.col -->
@@ -212,16 +182,14 @@
 								<i class="fa fa-edit"></i>
 								发布
 							</button>
-							<button type="button" class="btn btn-sm btn-info float-left ml-1" data-toggle="modal"
-									data-target="#addTagModal">
+							<a href="adminTag" target="_blank" class="btn btn-sm btn-info float-left ml-1">
 								<i class="fas fa fa-plus"></i>
 								标签
-							</button>
-							<button type="button" class="btn btn-sm btn-primary float-left ml-1" data-toggle="modal"
-									data-target="#addCategoryModal">
+							</a>
+							<a href="adminCategory" target="_blank" class="btn btn-sm btn-primary float-left ml-1">
 								<i class="fa fa-plus"></i>
 								分类
-							</button>
+							</a>
 						</div>
 
 						<div class="col-md-3">
@@ -252,9 +220,9 @@
 						<div class="col-md-2">
 							<div class="form-group">
 								<select id="contentsstatus" name="blogContentStatus" style="width: 100%;">
-									<option selected value="1">公开</option>
-									<option value="2">隐藏</option>
-									<option value="3">加密</option>
+									<option selected value="publish">公开</option>
+									<option value="hidden">隐藏</option>
+									<option value="password">加密</option>
 								</select>
 							</div>
 						</div>
@@ -286,53 +254,6 @@
 		</form>
 	</div>
 </div>
-<!-- ./wrapper -->
-
-<div class="modal fade" id="addTagModal">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">新增标签</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<input type="text" id="tagInput2" name="tag" value="awesome,neat">
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-				<button id="addTagBtn" type="button" class="btn btn-success">新增</button>
-			</div>
-		</div>
-		<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
-</div>
-
-<div class="modal fade" id="addCategoryModal">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">新增标签</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<input type="text" id="categoryInput" name="category" value="前端,后台">
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-				<button id="addCategoryBtn" type="button" class="btn btn-success">新增</button>
-			</div>
-		</div>
-		<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
-
 
 <!-- jQuery -->
 <script th:src="@{/plugins/jquery/jquery.min.js}"></script>
@@ -346,9 +267,6 @@
 
 <script th:src="@{/plugins/editor.md/js/editormd.min.js}"></script>
 
-<!-- Select2 -->
-<!--<script th:src="@{/plugins/select2/js/select2.full.min.js}"></script>-->
-
 <script th:src="@{/plugins/selectize/js/standalone/selectize.min.js}"></script>
 
 <script th:src="@{/js/edit.js}"></script>
@@ -360,23 +278,15 @@
 
 <script>
 	$('#contentsstatus').change(function () {
-		//判断是否选取prompt属性，无返回值；
-		if ($(this).val() === '3') {
-			//赋值
+		if ($(this).val() === 'password') {
 			$('#contentspassword-div').attr('style', 'display:contents;');
-
-		} else if ($(this).val() === '2') {
-			//赋值
+		} else if ($(this).val() === 'hidden') {
 			$('#contentspassword-div').attr('style', 'display:none;');
 		} else {
-			//赋值
 			$('#contentspassword-div').attr('style', 'display:none;');
 		}
 	});
 
-</script>
-
-<script type="text/javascript">
 	$('.form_datetime').datetimepicker({
 		language : 'zh-CN',
 		format : 'yyyy-mm-dd hh:ii:ss',
@@ -389,8 +299,7 @@
 		showMeridian: 1
 	});
 	$('.today').click();
-</script>
-<script type="text/javascript">
+
 	/**
 	 * 初始化标签输入框
 	 */
@@ -399,6 +308,7 @@
 		valueField: 'name',
 		labelField: 'name',
 		searchField: 'name',
+		maxItems: 5,
 		create: true,
 		render: {
 			option: function(item, escape) {
@@ -420,32 +330,26 @@
 		}
 	});
 
-	$('#tagInput2').selectize({
-		create: true,
-		createOnBlur: true,
-		maxItems: 10
+	$('#categoryId').selectize({});
+	$('#contentsstatus').selectize({});
+
+	var Toast2 = Swal.mixin({toast: true, position: 'top-end', showConfirmButton: false, timer: 2000});
+
+	$('#slug').blur(function () {
+		var slugName = $(this).val();
+		if (slugName != '') {
+			$.get("findContentBySlugName",{slugName:slugName},function (data) {
+				if (data.slugExist) {
+					Toast2.fire({
+						icon: 'error',
+						title: '已存在此slug'
+					});
+					$('#slug').val("");
+					$('#slug').focus();
+				}
+			});
+		}
 	});
-
-	/**
-	 * 新增标签按钮事件
-	 */
-	$('#addTagBtn').on('click', function () {
-		alert($('#tagInput').val().split(','));
-	});
-</script>
-<script>
-	$(function () {
-		$('#categoryId').selectize({
-
-		});
-	});
-
-	$(function () {
-		$('#contentsstatus').selectize({
-
-		});
-	});
-
 
 </script>
 </body>

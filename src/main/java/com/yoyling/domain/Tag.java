@@ -11,6 +11,17 @@ public class Tag implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public Tag(Integer tid, String name, Integer count) {
+        this.tid = tid;
+        this.name = name;
+        this.count = count;
+    }
+
+    public Tag(String name, Integer count) {
+        this.name = name;
+        this.count = count;
+    }
+
     public Integer getTid() {
         return tid;
     }

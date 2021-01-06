@@ -28,7 +28,7 @@ public class Content implements Serializable {
 
     private Integer views;
 
-    private String tagLisk;
+    private String tagList;
 
     private String contentText;
 
@@ -134,12 +134,12 @@ public class Content implements Serializable {
         this.views = views;
     }
 
-    public String getTagLisk() {
-        return tagLisk;
+    public String getTagList() {
+        return tagList;
     }
 
-    public void setTagLisk(String tagLisk) {
-        this.tagLisk = tagLisk == null ? null : tagLisk.trim();
+    public void setTagList(String tagList) {
+        this.tagList = tagList == null ? null : tagList.trim();
     }
 
     public String getContentText() {
@@ -181,7 +181,7 @@ public class Content implements Serializable {
                 ", contentStatus='" + contentStatus + '\'' +
                 ", password='" + password + '\'' +
                 ", views=" + views +
-                ", tagLisk='" + tagLisk + '\'' +
+                ", tagList='" + tagList + '\'' +
                 ", contentText='" + contentText + '\'' +
                 ", thumb='" + thumb + '\'' +
                 ", description='" + description + '\'' +

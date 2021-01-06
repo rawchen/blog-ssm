@@ -33,4 +33,14 @@ public class ContentServiceImpl extends BaseServiceImpl implements ContentServic
 	public List<Content> selectRecommendContent() {
 		return contentMapper.selectRecommendContent();
 	}
+
+	@Override
+	public int insert(Content content) {
+		return contentMapper.insert(content);
+	}
+
+	@Override
+	public Content findContentBySlugName(String slugName) {
+		return contentMapper.findContentBySlugName(slugName);
+	}
 }

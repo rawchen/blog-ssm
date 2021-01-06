@@ -18,4 +18,6 @@ public interface CategoryMapper {
     int updateByPrimaryKey(Category record);
 
     List<Category> selectAllCategory();
+
+	Integer selectCategoryBySlug(String blogCategory);
 }

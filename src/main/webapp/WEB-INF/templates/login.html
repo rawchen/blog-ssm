@@ -1,61 +1,61 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Log in</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>AdminLTE 3 | Log in</title>
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
-  <!-- Theme style -->
-  <link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+	<!-- Theme style -->
+	<link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
+	<!-- Google Font: Source Sans Pro -->
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
-  <div class="login-logo">
-    <b>Blog-SSM</b>
-  </div>
-  <!-- /.login-logo -->
-  <div class="card">
-    <div class="card-body login-card-body">
-      <form action="user/login" method="post">
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="UserName">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <!-- /.col -->
-            <button type="submit" class="btn btn-success btn-block">登录</button>
-          <!-- /.col -->
-        </div>
-      </form>
+	<div class="login-logo">
+		<b>Blog-SSM</b>
+	</div>
+	<!-- /.login-logo -->
+	<div class="card">
+		<div class="card-body login-card-body">
+			<form action="user/login" method="post">
+				<div class="input-group mb-3">
+					<input type="text" class="form-control" placeholder="UserName">
+					<div class="input-group-append">
+						<div class="input-group-text">
+							<span class="fas fa-user"></span>
+						</div>
+					</div>
+				</div>
+				<div class="input-group mb-3">
+					<input type="password" class="form-control" placeholder="Password">
+					<div class="input-group-append">
+						<div class="input-group-text">
+							<span class="fas fa-lock"></span>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<!-- /.col -->
+					<button type="submit" class="btn btn-success btn-block">登录</button>
+					<!-- /.col -->
+				</div>
+			</form>
 
-      <div class="social-auth-links text-center mb-3">
-        <p>- OR -</p>
-        <a href="#" class="btn btn-block btn-primary">
-          <i class="fab fa-github mr-2"></i> Sign in using Github
-        </a>
-      </div>
-      <!-- /.social-auth-links -->
-    </div>
-    <!-- /.login-card-body -->
-  </div>
+			<div class="social-auth-links text-center mb-3">
+				<p>- OR -</p>
+				<a href="#" class="btn btn-block btn-primary">
+					<i class="fab fa-github mr-2"></i> Sign in using Github
+				</a>
+			</div>
+			<!-- /.social-auth-links -->
+		</div>
+		<!-- /.login-card-body -->
+	</div>
 </div>
 <!-- /.login-box -->
 

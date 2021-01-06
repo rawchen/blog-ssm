@@ -14,7 +14,7 @@
     <result column="content_status" jdbcType="VARCHAR" property="contentStatus" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="views" jdbcType="INTEGER" property="views" />
-    <result column="tag_lisk" jdbcType="VARCHAR" property="tagLisk" />
+    <result column="tag_list" jdbcType="VARCHAR" property="tagList" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.yoyling.domain.Content">
     <result column="content_text" jdbcType="LONGVARCHAR" property="contentText" />
@@ -23,7 +23,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     cid, cgid, title, slug, created_time, modified_time, content_order, author_id, content_type,
-    content_status, password, views, tag_lisk
+    content_status, password, views, tag_list
   </sql>
   <sql id="Blob_Column_List">
     content_text, thumb, description
@@ -45,6 +45,10 @@
     select count(*) from content;
   </select>
 
+  <select id="findContentBySlugName" parameterType="string" resultMap="BaseResultMap">
+    select * from content where slug = #{slug};
+  </select>
+
   <select id="selectRecommendContent" resultMap="BaseResultMap">
     select * from content where content_order = 1;
   </select>
@@ -58,13 +62,13 @@
                          slug, created_time, modified_time,
                          content_order, author_id, content_type,
                          content_status, password, views,
-                         tag_lisk, content_text, thumb,
+                         tag_list, content_text, thumb,
                          description)
     values (#{cid,jdbcType=INTEGER}, #{cgid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR},
             #{slug,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP},
             #{contentOrder,jdbcType=INTEGER}, #{authorId,jdbcType=INTEGER}, #{contentType,jdbcType=VARCHAR},
             #{contentStatus,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{views,jdbcType=INTEGER},
-            #{tagLisk,jdbcType=VARCHAR}, #{contentText,jdbcType=LONGVARCHAR}, #{thumb,jdbcType=LONGVARCHAR},
+            #{tagList,jdbcType=VARCHAR}, #{contentText,jdbcType=LONGVARCHAR}, #{thumb,jdbcType=LONGVARCHAR},
             #{description,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yoyling.domain.Content">
@@ -106,8 +110,8 @@
       <if test="views != null">
         views,
       </if>
-      <if test="tagLisk != null">
-        tag_lisk,
+      <if test="tagList != null">
+        tag_list,
       </if>
       <if test="contentText != null">
         content_text,
@@ -156,8 +160,8 @@
       <if test="views != null">
         #{views,jdbcType=INTEGER},
       </if>
-      <if test="tagLisk != null">
-        #{tagLisk,jdbcType=VARCHAR},
+      <if test="tagList != null">
+        #{tagList,jdbcType=VARCHAR},
       </if>
       <if test="contentText != null">
         #{contentText,jdbcType=LONGVARCHAR},
@@ -206,8 +210,8 @@
       <if test="views != null">
         views = #{views,jdbcType=INTEGER},
       </if>
-      <if test="tagLisk != null">
-        tag_lisk = #{tagLisk,jdbcType=VARCHAR},
+      <if test="tagList != null">
+        tag_list = #{tagList,jdbcType=VARCHAR},
       </if>
       <if test="contentText != null">
         content_text = #{contentText,jdbcType=LONGVARCHAR},
@@ -234,7 +238,7 @@
         content_status = #{contentStatus,jdbcType=VARCHAR},
         password = #{password,jdbcType=VARCHAR},
         views = #{views,jdbcType=INTEGER},
-        tag_lisk = #{tagLisk,jdbcType=VARCHAR},
+        tag_list = #{tagList,jdbcType=VARCHAR},
         content_text = #{contentText,jdbcType=LONGVARCHAR},
         thumb = #{thumb,jdbcType=LONGVARCHAR},
         description = #{description,jdbcType=LONGVARCHAR}
@@ -253,7 +257,7 @@
         content_status = #{contentStatus,jdbcType=VARCHAR},
         password = #{password,jdbcType=VARCHAR},
         views = #{views,jdbcType=INTEGER},
-        tag_lisk = #{tagLisk,jdbcType=VARCHAR}
+        tag_list = #{tagList,jdbcType=VARCHAR}
     where cid = #{cid,jdbcType=INTEGER}
   </update>
 </mapper>

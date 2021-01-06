@@ -83,4 +83,29 @@ public class ServiceTest {
 		}
 	}
 
+	@Test
+	public void run8() {
+		ApplicationContext ac = new
+				ClassPathXmlApplicationContext("classpath:spring-context.xml");
+		CategoryService categoryService = (CategoryService) ac.getBean("categoryService");
+		int c = categoryService.selectCategoryBySlug("se");
+		System.out.println(c);
+	}
+
+	@Test
+	public void run9() {
+		ApplicationContext ac = new ClassPathXmlApplicationContext("classpath:spring-context.xml");
+		TagService tagService = (TagService) ac.getBean("tagService");
+		int a = tagService.findTagIdByName("IO");
+		System.out.println(a);
+	}
+
+	@Test
+	public void run10() {
+		ApplicationContext ac = new
+				ClassPathXmlApplicationContext("classpath:spring-context.xml");
+		ContentService contentsService = (ContentService) ac.getBean("contentService");
+		Content content = contentsService.findContentBySlugName("ioc");
+		System.out.println(content);
+	}
 }

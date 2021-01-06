@@ -9,4 +9,8 @@ public interface TagService {
 	List<Tag> selectAllTag();
 
 	List<Tag> fuzzyQueryTag(String tagName);
+
+	int findTagIdByName(String s);
+
+	int insert(Tag tag);
 }

@@ -24,4 +24,6 @@ public interface ContentMapper {
 	int selectNumberOfArticles();
 
 	List<Content> selectRecommendContent();
+
+	Content findContentBySlugName(String slugName);
 }

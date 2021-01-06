@@ -17,8 +17,12 @@
   </select>
 
   <select id="selectAllCategory" resultMap="BaseResultMap">
-  select * from category;
-</select>
+    select * from category;
+  </select>
+
+  <select id="selectCategoryBySlug" parameterType="java.lang.String" resultType="int">
+    select cgid from category where cg_slug = #{cgSlug};
+  </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from category

@@ -12,4 +12,9 @@ public class CategoryServiceImpl extends BaseServiceImpl implements CategoryServ
 	public List<Category> selectAllCategory() {
 		return categoryMapper.selectAllCategory();
 	}
+
+	@Override
+	public Integer selectCategoryBySlug(String blogCategory) {
+		return categoryMapper.selectCategoryBySlug(blogCategory);
+	}
 }

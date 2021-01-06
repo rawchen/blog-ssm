@@ -17,6 +17,10 @@
     where tid = #{tid,jdbcType=INTEGER}
   </select>
 
+  <select id="findTagIdByName" parameterType="java.lang.String" resultType="int">
+    select IFNULL(Max(tid),-1) from tag where name = #{name};
+  </select>
+
   <select id="selectAllTag" resultMap="BaseResultMap">
     select * from tag;
   </select>

@@ -1,223 +1,223 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title th:text="${optionsMap.websiteTitle} + '&nbsp;|&nbsp;Dashboard'"></title>
-  <link rel="shortcut icon" th:href="${optionsMap.websiteIco}">
-  <link rel="apple-touch-icon" th:href="${optionsMap.websiteIco}">
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title th:text="${optionsMap.websiteTitle} + '&nbsp;|&nbsp;Dashboard'"></title>
+	<link rel="shortcut icon" th:href="${optionsMap.websiteIco}">
+	<link rel="apple-touch-icon" th:href="${optionsMap.websiteIco}">
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Theme style -->
-  <link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+	<!-- Theme style -->
+	<link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
-      </li>
-    </ul>
+	<!-- Navbar -->
+	<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+		<!-- Left navbar links -->
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
+			</li>
+		</ul>
 
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" target="_blank" href="index">
-          <i class="fa fa-paper-plane"></i>
-          <span>博客前台首页</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
-  <!-- /.navbar -->
+		<!-- Right navbar links -->
+		<ul class="navbar-nav ml-auto">
+			<!-- Messages Dropdown Menu -->
+			<li class="nav-item dropdown">
+				<a class="nav-link" target="_blank" href="index">
+					<i class="fa fa-paper-plane"></i>
+					<span>博客前台首页</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+	<!-- /.navbar -->
 
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <h1>
-      <a href="admin" class="brand-link">
-        <img th:src="${optionsMap.avatar}" class="brand-image img-circle elevation-3">
-        <span class="brand-text font-weight-light" th:text="${optionsMap.websiteTitle}">websiteTitle</span>
-      </a>
-    </h1>
+	<!-- Main Sidebar Container -->
+	<aside class="main-sidebar sidebar-dark-primary elevation-4">
+		<!-- Brand Logo -->
+		<h1>
+			<a href="admin" class="brand-link">
+				<img th:src="${optionsMap.avatar}" class="brand-image img-circle elevation-3">
+				<span class="brand-text font-weight-light" th:text="${optionsMap.websiteTitle}">websiteTitle</span>
+			</a>
+		</h1>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-header">仪表盘</li>
-          <li class="nav-item">
-            <a class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>仪表盘</p>
-            </a>
-          </li>
-          <li class="nav-header">博客编辑</li>
-          <li class="nav-item">
-            <a href="adminEdit" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
-              <p>发布博客</p>
-            </a>
-          </li>
-          <li class="nav-header">管理模块</li>
-          <li class="nav-item">
-            <a href="adminBlog" class="nav-link">
-              <i class="fa fa-list-alt nav-icon" aria-hidden="true"></i>
-              <p>博客管理</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="adminCategory" class="nav-link">
-              <i class="fa fa-bookmark nav-icon" aria-hidden="true"></i>
-              <p>分类管理</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="adminTag" class="nav-link">
-              <i class="fa fa-tags nav-icon" aria-hidden="true"></i>
-              <p>标签管理</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="adminComment" class="nav-link">
-              <i class="fa fa-comments nav-icon" aria-hidden="true"></i>
-              <p>评论管理</p>
-            </a>
-          </li>
-          <li class="nav-header">系统管理</li>
-          <li class="nav-item">
-            <a href="adminConfig"
-               class="nav-link">
-              <i class="fa fa-wrench nav-icon"></i>
-              <p>系统配置</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="adminLogout" class="nav-link">
-              <i class="fa fa-sign-out-alt nav-icon"></i>
-              <p>安全退出</p>
-            </a>
-          </li>
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
+		<!-- Sidebar -->
+		<div class="sidebar">
+			<!-- Sidebar Menu -->
+			<nav class="mt-2">
+				<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+					<!-- Add icons to the links using the .nav-icon class
+						 with font-awesome or any other icon font library -->
+					<li class="nav-header">仪表盘</li>
+					<li class="nav-item">
+						<a class="nav-link active">
+							<i class="nav-icon fas fa-tachometer-alt"></i>
+							<p>仪表盘</p>
+						</a>
+					</li>
+					<li class="nav-header">博客编辑</li>
+					<li class="nav-item">
+						<a href="adminEdit" class="nav-link">
+							<i class="nav-icon fas fa-edit"></i>
+							<p>发布博客</p>
+						</a>
+					</li>
+					<li class="nav-header">管理模块</li>
+					<li class="nav-item">
+						<a href="adminBlog" class="nav-link">
+							<i class="fa fa-list-alt nav-icon" aria-hidden="true"></i>
+							<p>博客管理</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="adminCategory" class="nav-link">
+							<i class="fa fa-bookmark nav-icon" aria-hidden="true"></i>
+							<p>分类管理</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="adminTag" class="nav-link">
+							<i class="fa fa-tags nav-icon" aria-hidden="true"></i>
+							<p>标签管理</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="adminComment" class="nav-link">
+							<i class="fa fa-comments nav-icon" aria-hidden="true"></i>
+							<p>评论管理</p>
+						</a>
+					</li>
+					<li class="nav-header">系统管理</li>
+					<li class="nav-item">
+						<a href="adminConfig"
+						   class="nav-link">
+							<i class="fa fa-wrench nav-icon"></i>
+							<p>系统配置</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="adminLogout" class="nav-link">
+							<i class="fa fa-sign-out-alt nav-icon"></i>
+							<p>安全退出</p>
+						</a>
+					</li>
+				</ul>
+			</nav>
+			<!-- /.sidebar-menu -->
+		</div>
+		<!-- /.sidebar -->
+	</aside>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper mt-3">
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-4 col-6">
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>新增博客</h3>
-                <p>记心中所想</p>
-              </div>
-              <div class="icon">
-                <i class="fa fa-pen-square"></i>
-              </div>
-              <a href="adminEdit" class="small-box-footer">Let's go <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-4 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3 th:text="${totalContent}">1</h3>
-                <p>总文章数</p>
-              </div>
-              <div class="icon">
-                <i class="fa fa-list-alt"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-4 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3 th:text="${totalCategory}">1</h3>
-                <p>分类数量</p>
-              </div>
-              <div class="icon">
-                <i class="fa fa-bookmark"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-4 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3 th:text="${totalTag}">1</h3>
-                <p>标签总量</p>
-              </div>
-              <div class="icon">
-                <i class="fa fa-tags"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-4 col-6">
-            <!-- small box -->
-            <div class="small-box bg-primary">
-              <div class="inner">
-                <h3 th:text="${totalComment}">1</h3>
-                <p>收到评论数</p>
-              </div>
-              <div class="icon">
-                <i class="fa fa-comments"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-4 col-6">
-            <!-- small box -->
-            <div class="small-box bg-dark">
-              <div class="inner">
-                <h3>系统配置</h3>
-                <p>站点描述信息</p>
-              </div>
-              <div class="icon">
-                <i class="fa fa-wrench"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <p class="text-center mb-1">
-      Copyright © 2020-2021 | THE HARDER, THE MORE FORTUNATE.
-    </p>
-  </footer>
+	<!-- Content Wrapper. Contains page content -->
+	<div class="content-wrapper mt-3">
+		<!-- Main content -->
+		<section class="content">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-4 col-6">
+						<div class="small-box bg-info">
+							<div class="inner">
+								<h3>新增博客</h3>
+								<p>记心中所想</p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-pen-square"></i>
+							</div>
+							<a href="adminEdit" class="small-box-footer">Let's go <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+					<!-- ./col -->
+					<div class="col-lg-4 col-6">
+						<!-- small box -->
+						<div class="small-box bg-success">
+							<div class="inner">
+								<h3 th:text="${totalContent}">1</h3>
+								<p>总文章数</p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-list-alt"></i>
+							</div>
+							<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+					<!-- ./col -->
+					<div class="col-lg-4 col-6">
+						<!-- small box -->
+						<div class="small-box bg-warning">
+							<div class="inner">
+								<h3 th:text="${totalCategory}">1</h3>
+								<p>分类数量</p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-bookmark"></i>
+							</div>
+							<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+					<!-- ./col -->
+					<div class="col-lg-4 col-6">
+						<!-- small box -->
+						<div class="small-box bg-danger">
+							<div class="inner">
+								<h3 th:text="${totalTag}">1</h3>
+								<p>标签总量</p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-tags"></i>
+							</div>
+							<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+					<!-- ./col -->
+					<div class="col-lg-4 col-6">
+						<!-- small box -->
+						<div class="small-box bg-primary">
+							<div class="inner">
+								<h3 th:text="${totalComment}">1</h3>
+								<p>收到评论数</p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-comments"></i>
+							</div>
+							<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+					<!-- ./col -->
+					<div class="col-lg-4 col-6">
+						<!-- small box -->
+						<div class="small-box bg-dark">
+							<div class="inner">
+								<h3>系统配置</h3>
+								<p>站点描述信息</p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-wrench"></i>
+							</div>
+							<a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+					<!-- ./col -->
+				</div>
+				<!-- /.col -->
+			</div>
+			<!-- /.row -->
+		</section>
+		<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
+	<footer class="main-footer">
+		<p class="text-center mb-1">
+			Copyright © 2020-2021 | THE HARDER, THE MORE FORTUNATE.
+		</p>
+	</footer>
 </div>
 <!-- ./wrapper -->
 

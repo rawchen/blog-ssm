@@ -20,4 +20,6 @@ public interface TagMapper {
 	List<Tag> selectAllTag();
 
 	List<Tag> fuzzyQueryTag(String tagName);
+
+	int findTagIdByName(String s);
 }
