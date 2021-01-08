@@ -1,14 +1,11 @@
 package com.yoyling.controller;
 
 
-import com.yoyling.service.CategoryService;
-import com.yoyling.service.ContentService;
-import com.yoyling.service.OptionsService;
-import com.yoyling.service.TagService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.yoyling.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -27,17 +24,20 @@ public class BaseController {
 
 	protected HttpSession session;
 
-	@Autowired
+	@Resource
 	protected ContentService contentService;
 
-	@Autowired
+	@Resource
 	protected OptionsService optionsService;
 
-	@Autowired
+	@Resource
 	protected CategoryService categoryService;
 
-	@Autowired
+	@Resource
 	protected TagService tagService;
+
+	@Resource
+	protected UserService userService;
 
 	@ModelAttribute
 	public void setReqAndRes(HttpServletRequest request, HttpServletResponse response) {

@@ -15,6 +15,8 @@
 	<link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
 	<!-- Font Awesome -->
 	<link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+	<!-- SweetAlert2 -->
+	<link rel="stylesheet" th:href="@{/plugins/sweetalert2/sweetalert2.min.css}">
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -187,6 +189,8 @@
 
 <!-- AdminLTE App -->
 <script th:src="@{/js/adminlte.min.js}"></script>
+<!-- SweetAlert2 -->
+<script th:src="@{/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
 
 <script>
 	$(function () {
@@ -279,16 +283,18 @@
 		toast: true,
 		position: 'top-end',
 		showConfirmButton: false,
-		timer: 2000
+		timer: 1500
 	});
 
 	var t = "[[${message}]]";
-	if (t = '1') {
+	if (t === '1') {
 		Toast.fire({
-			icon: 'error',
+			icon: 'success',
 			title: '文章发表了哦！'
 		});
-	} else {
+	}
+
+	if (t === '0') {
 		Toast.fire({
 			icon: 'error',
 			title: '文章发表失败！'

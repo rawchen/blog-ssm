@@ -1,5 +1,7 @@
 package com.yoyling.utils;
 
+import org.springframework.util.DigestUtils;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,5 +21,9 @@ public class StringUtil {
 			items = items.substring(0,items.length()-1);
 		}
 		return items;
+	}
+
+	public static String passwordToMd5(String password) {
+		return DigestUtils.md5DigestAsHex(DigestUtils.md5DigestAsHex(password.getBytes()).getBytes());
 	}
 }

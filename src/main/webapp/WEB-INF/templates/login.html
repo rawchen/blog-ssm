@@ -11,6 +11,8 @@
 	<link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
 	<!-- Theme style -->
 	<link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
+	<!-- iCheck for checkboxes and radio inputs -->
+	<link rel="stylesheet" th:href="@{/plugins/icheck-bootstrap/icheck-bootstrap.min.css}">
 	<!-- Google Font: Source Sans Pro -->
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -22,9 +24,10 @@
 	<!-- /.login-logo -->
 	<div class="card">
 		<div class="card-body login-card-body">
-			<form action="user/login" method="post">
+<!--			<form action="user/login" method="post" id="loginForm">-->
+			<form method="post" id="loginForm">
 				<div class="input-group mb-3">
-					<input type="text" class="form-control" placeholder="UserName">
+					<input type="text" id="userName" class="form-control" required placeholder="UserName">
 					<div class="input-group-append">
 						<div class="input-group-text">
 							<span class="fas fa-user"></span>
@@ -32,24 +35,26 @@
 					</div>
 				</div>
 				<div class="input-group mb-3">
-					<input type="password" class="form-control" placeholder="Password">
+					<input type="password" id="password" class="form-control" required placeholder="Password">
 					<div class="input-group-append">
 						<div class="input-group-text">
 							<span class="fas fa-lock"></span>
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<!-- /.col -->
+				<div class="input-group mb-3">
+					<div class="icheck-success float-left">
+						<input type="checkbox" id="noLogin">
+						<label for="noLogin">7天免登陆</label>
+					</div>
 					<button type="submit" class="btn btn-success btn-block">登录</button>
-					<!-- /.col -->
 				</div>
 			</form>
 
 			<div class="social-auth-links text-center mb-3">
 				<p>- OR -</p>
 				<a href="#" class="btn btn-block btn-primary">
-					<i class="fab fa-github mr-2"></i> Sign in using Github
+					注册
 				</a>
 			</div>
 			<!-- /.social-auth-links -->
@@ -65,6 +70,45 @@
 <script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
 <!-- AdminLTE App -->
 <script th:src="@{/js/adminlte.min.js}"></script>
+<script>
+	$("#loginForm").submit(function () {
+		//请求登入接口
+		$.ajax({
+			type: 'post'
+			, url: 'userLogin' //实际使用请改成服务端真实接口
+			, data: {'name': $('#userName').val(), 'password': $('#passWord').val(), 'remember': $('#noLogin').val()}
+			, success: function (res) {
+				alert(res);
+				if (res.data == "success") {
+					verifyCode = new GVerify("v_container");
+					//登入成功的提示与跳转
+					layer.msg('进入系统中...', {
+						offset: '15px'
+						, icon: 1
+						, time: 1000
+					}, function () {
+
+						location.href = '${ctx}/index'; //后台主页
+					});
+				} else if (res.data == "fail") {
+					verifyCode = new GVerify("v_container");
+					layer.msg('用户名或密码错误', {
+						offset: '15px'
+						, icon: 2
+						, time: 1000
+					});
+				} else {
+					layer.msg('未知错误', {
+						offset: '15px'
+						, icon: 2
+						, time: 1000
+					});
+				}
+			}
+		});
+	});
+
+</script>
 
 </body>
 </html>

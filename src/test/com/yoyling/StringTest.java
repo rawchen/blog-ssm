@@ -1,5 +1,7 @@
 package com.yoyling;
 
+import com.yoyling.utils.GravatarUtil;
+import com.yoyling.utils.StringUtil;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -27,6 +29,16 @@ public class StringTest {
 		list.add("4");
 
 		System.out.println(listToString(list));
+	}
+
+	@Test
+	public void run3() {
+		System.out.println(GravatarUtil.getGravatarUrlByEmail("2221999792@qq.com"));
+	}
+
+	@Test
+	public void run4() {
+		System.out.println(StringUtil.passwordToMd5("yoyling"));
 	}
 
 }

@@ -139,7 +139,7 @@ public class AdminController extends BaseController {
 
 	@RequestMapping("/adminGetTagList")
 	@ResponseBody
-	public Map<String,Object> adminEditBlog() {
+	public Map<String,Object> adminGetTagList() {
 		Map<String, Object> map = new HashMap<>();
 		List<Tag> tags = tagService.selectAllTag();
 		map.put("tags",tags);
@@ -167,4 +167,10 @@ public class AdminController extends BaseController {
 		map.put("slugExist", slugExist);
 		return map;
 	}
+
+	@RequestMapping("/adminBlog")
+	public String adminBlog(Model model) {
+		return "blog-mgr";
+	}
+
 }

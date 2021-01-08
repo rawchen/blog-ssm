@@ -1,11 +1,9 @@
 package com.yoyling.service.impl;
 
-import com.yoyling.mapper.CategoryMapper;
-import com.yoyling.mapper.ContentMapper;
-import com.yoyling.mapper.OptionsMapper;
-import com.yoyling.mapper.TagMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.yoyling.mapper.*;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * 基础业务类，用来继承
@@ -13,17 +11,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class BaseServiceImpl {
 
-	@Autowired
+	@Resource
 	protected ContentMapper contentMapper;
 
-	@Autowired
+	@Resource
 	protected OptionsMapper optionsMapper;
 
-	@Autowired
+	@Resource
 	protected CategoryMapper categoryMapper;
 
-	@Autowired
+	@Resource
 	protected TagMapper tagMapper;
+
+	@Resource
+	protected UserMapper userMapper;
 
 
 }
