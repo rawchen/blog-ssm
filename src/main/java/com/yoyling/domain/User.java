@@ -20,7 +20,7 @@ public class User implements Serializable {
 
     private Date activated;
 
-    private String group;
+    private String role;
 
     private String photo;
 
@@ -90,12 +90,12 @@ public class User implements Serializable {
         this.activated = activated;
     }
 
-    public String getGroup() {
-        return group;
+    public String getRole() {
+        return role;
     }
 
-    public void setGroup(String group) {
-        this.group = group == null ? null : group.trim();
+    public void setRole(String role) {
+        this.role = role == null ? null : role.trim();
     }
 
     public String getPhoto() {
@@ -117,7 +117,7 @@ public class User implements Serializable {
                 ", screenname='" + screenname + '\'' +
                 ", created=" + created +
                 ", activated=" + activated +
-                ", group='" + group + '\'' +
+                ", role='" + role + '\'' +
                 ", photo='" + photo + '\'' +
                 '}';
     }

@@ -18,6 +18,11 @@ import static com.yoyling.utils.StringUtil.listToString;
 @Controller
 public class AdminController extends BaseController {
 
+	/**
+	 * 跳转dashboard.html后台首页
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/admin")
 	public String toDashboard(Model model) {
 		model.addAttribute("totalContent",99);
@@ -39,6 +44,11 @@ public class AdminController extends BaseController {
 		return "dashboard";
 	}
 
+	/**
+	 * 跳转edit.html新增博客页面
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/adminEdit")
 	public String adminEdit(Model model) {
 		model.addAttribute("serverName",request.getServerName());
@@ -65,6 +75,11 @@ public class AdminController extends BaseController {
 		return "edit";
 	}
 
+	/**
+	 * 提交博客编写表单
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/adminEditBlog")
 	public String adminEditBlog(Model model) {
 		String blogTitle = request.getParameter("blogTitle");
@@ -137,6 +152,10 @@ public class AdminController extends BaseController {
 
 	}
 
+	/**
+	 * 获取便签列表
+	 * @return
+	 */
 	@RequestMapping("/adminGetTagList")
 	@ResponseBody
 	public Map<String,Object> adminGetTagList() {
@@ -146,6 +165,11 @@ public class AdminController extends BaseController {
 		return map;
 	}
 
+	/**
+	 * 模糊查询标签列表
+	 * @param tagName
+	 * @return
+	 */
 	@RequestMapping("/fuzzyQueryTag")
 	@ResponseBody
 	public Map<String,Object> fuzzyQueryTag(@RequestParam(value="tagName")String tagName){
@@ -155,6 +179,11 @@ public class AdminController extends BaseController {
 		return map;
 	}
 
+	/**
+	 * 通过文章缩略名获取文章实体
+	 * @param slugName
+	 * @return
+	 */
 	@RequestMapping("/findContentBySlugName")
 	@ResponseBody
 	public Map<String,Object> findContentBySlugName(@RequestParam(value="slugName")String slugName){

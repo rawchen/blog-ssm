@@ -124,46 +124,41 @@
 							</div>
 
 							<div class="block-thumb" th:each="content,arrayS:${contents}">
-
-									<div class="card-body bg-hover-gray">
-<!--										<div class="mb-1">-->
-<!--											<a href="detail.html" target="_blank" class="text-lg text-bold link-title" th:text="${content.title}"></a>-->
-<!--											<span class="badge badge-info" th:text="${content.contentType}"></span>-->
-<!--										</div>-->
-										<p>
-											<a href="detail.html">
-												<div class="block-thumb2" th:style="'background-image:url('+${content.thumb}+')'">
-													<div class="overlaya">
-														<div class="post-header-text-container">
-															<span class="post-title" href="" th:text="${content.title}"></span>
-															<span class="badge badge-info" th:text="${content.contentType}"></span>
-															<div class="post-meta">
-																<div class="post-meta-detail post-meta-detail-time">
-																	<i class="fa fa-clock-o" aria-hidden="true"></i>
-																	<time>[[${#dates.format(content.createdTime, 'yyyy-MM-dd')}]]
-																	</time>
-																	<div class="post-meta-devide">|</div>
-																	<div class="post-meta-detail post-meta-detail-views">
-																		<i class="fa fa-eye" aria-hidden="true"></i> [[${content.views}]]
-																	</div>
-																	<div class="post-meta-devide">|</div>
-																	<div class="post-meta-detail post-meta-detail-views">
-																		<i class="fa fa-comments-o" aria-hidden="true"></i> 12
-																	</div>
+								<div class="card-body bg-hover-gray">
+									<p>
+										<a href="detail.html">
+											<div class="block-thumb2" th:style="'background-image:url('+${content.thumb}+')'">
+												<div class="overlaya">
+													<div class="post-header-text-container">
+														<span class="post-title" href="" th:text="${content.title}"></span>
+														<span class="badge badge-info" th:text="${content.contentType}"></span>
+														<div class="post-meta">
+															<div class="post-meta-detail post-meta-detail-time">
+																<i class="fa fa-clock-o" aria-hidden="true"></i>
+																<time>[[${#dates.format(content.createdTime, 'yyyy-MM-dd')}]]
+																</time>
+																<div class="post-meta-devide">|</div>
+																<div class="post-meta-detail post-meta-detail-views">
+																	<i class="fa fa-eye" aria-hidden="true"></i> [[${content.views}]]
+																</div>
+																<div class="post-meta-devide">|</div>
+																<div class="post-meta-detail post-meta-detail-views">
+																	<i class="fa fa-comments-o" aria-hidden="true"></i> 12
 																</div>
 															</div>
-															<p class="mb-0">
-																<object><a class="btn btn-outline-light btn-xs category-a" href="detail2.html"><i class="fa fa-bookmark-o nav-item" aria-hidden="true"></i> 点滴记录</a></object>
-																<span class="btn btn-outline-light btn-xs">标签1</span>
-																<span class="btn btn-outline-light btn-xs">标签2</span>
-															</p>
 														</div>
+														<p class="mb-0">
+															<object><a class="btn btn-outline-light btn-xs category-a" href="detail2.html"><i class="fa fa-bookmark-o nav-item" aria-hidden="true"></i> 点滴记录</a></object>
+															<span class="btn btn-outline-light btn-xs">标签1</span>
+															<span class="btn btn-outline-light btn-xs">标签2</span>
+														</p>
 													</div>
 												</div>
-												</a>
-										</p>
-										<p th:text="${content.description}" class="description-content"></p>
-									</div>
+											</div>
+											</a>
+									</p>
+									<p th:text="${content.description}" class="description-content"></p>
+								</div>
 								<hr class="m-0">
 							</div>
 
@@ -199,7 +194,7 @@
 									<li class="list-group-item" th:if="${!recommendContents.isEmpty()}">
 										<strong><i class="far fa-bookmark mr-2"></i>推荐</strong>
 										<div th:each="content,arrayS:${recommendContents}">
-										<a href="123" class="d-block link-title text-truncate" th:text="${content.title}"></a>
+											<a href="123" class="d-block link-title text-truncate" th:text="${content.title}"></a>
 										</div>
 									</li>
 

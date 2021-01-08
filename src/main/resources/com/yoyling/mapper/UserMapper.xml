@@ -10,11 +10,11 @@
     <result column="screenName" jdbcType="VARCHAR" property="screenname" />
     <result column="created" jdbcType="TIMESTAMP" property="created" />
     <result column="activated" jdbcType="TIMESTAMP" property="activated" />
-    <result column="group" jdbcType="VARCHAR" property="group" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
     <result column="photo" jdbcType="VARCHAR" property="photo" />
   </resultMap>
   <sql id="Base_Column_List">
-    uid, name, password, mail, url, screenName, created, activated, group, photo
+    uid, name, password, mail, url, screenName, created, activated, role, photo
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -23,11 +23,8 @@
     where uid = #{uid,jdbcType=INTEGER}
   </select>
 
-  <select id="selectUserByNameAndPassword" parameterType="com.yoyling.domain.User" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from user
-    where name = #{name} and password = #{password}
+  <select id="selectUserByNameAndPassword" parameterType="user" resultMap="BaseResultMap">
+    select * from user where name = #{name,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -37,11 +34,11 @@
   <insert id="insert" parameterType="com.yoyling.domain.User">
     insert into user (uid, name, password, 
       mail, url, screenName, 
-      created, activated, group, 
+      created, activated, role, 
       photo)
     values (#{uid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{mail,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{screenname,jdbcType=VARCHAR}, 
-      #{created,jdbcType=TIMESTAMP}, #{activated,jdbcType=TIMESTAMP}, #{group,jdbcType=VARCHAR},
+      #{created,jdbcType=TIMESTAMP}, #{activated,jdbcType=TIMESTAMP}, #{role,jdbcType=VARCHAR},
       #{photo,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yoyling.domain.User">
@@ -71,8 +68,8 @@
       <if test="activated != null">
         activated,
       </if>
-      <if test="group != null">
-        group,
+      <if test="role != null">
+        role,
       </if>
       <if test="photo != null">
         photo,
@@ -103,8 +100,8 @@
       <if test="activated != null">
         #{activated,jdbcType=TIMESTAMP},
       </if>
-      <if test="group != null">
-        #{group,jdbcType=VARCHAR},
+      <if test="role != null">
+        #{role,jdbcType=VARCHAR},
       </if>
       <if test="photo != null">
         #{photo,jdbcType=VARCHAR},
@@ -135,8 +132,8 @@
       <if test="activated != null">
         activated = #{activated,jdbcType=TIMESTAMP},
       </if>
-      <if test="group != null">
-        group = #{group,jdbcType=VARCHAR},
+      <if test="role != null">
+        role = #{role,jdbcType=VARCHAR},
       </if>
       <if test="photo != null">
         photo = #{photo,jdbcType=VARCHAR},
@@ -153,7 +150,7 @@
       screenName = #{screenname,jdbcType=VARCHAR},
       created = #{created,jdbcType=TIMESTAMP},
       activated = #{activated,jdbcType=TIMESTAMP},
-      group = #{group,jdbcType=VARCHAR},
+      role = #{role,jdbcType=VARCHAR},
       photo = #{photo,jdbcType=VARCHAR}
     where uid = #{uid,jdbcType=INTEGER}
   </update>

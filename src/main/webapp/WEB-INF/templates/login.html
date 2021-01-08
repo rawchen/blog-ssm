@@ -3,7 +3,10 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>AdminLTE 3 | Log in</title>
+	<title th:text="${optionsMap.websiteTitle} + '&nbsp;|&nbsp;Log in'"></title>
+	<link rel="shortcut icon" th:href="${optionsMap.websiteIco}">
+	<link rel="apple-touch-icon" th:href="${optionsMap.websiteIco}">
+
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -13,6 +16,8 @@
 	<link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
 	<!-- iCheck for checkboxes and radio inputs -->
 	<link rel="stylesheet" th:href="@{/plugins/icheck-bootstrap/icheck-bootstrap.min.css}">
+	<!-- SweetAlert2 -->
+	<link rel="stylesheet" th:href="@{/plugins/sweetalert2/sweetalert2.min.css}">
 	<!-- Google Font: Source Sans Pro -->
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -47,7 +52,7 @@
 						<input type="checkbox" id="noLogin">
 						<label for="noLogin">7天免登陆</label>
 					</div>
-					<button type="submit" class="btn btn-success btn-block">登录</button>
+					<input type="button" onclick="subForm()" class="btn btn-success btn-block" value="登录">
 				</div>
 			</form>
 
@@ -70,44 +75,90 @@
 <script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
 <!-- AdminLTE App -->
 <script th:src="@{/js/adminlte.min.js}"></script>
+<!-- SweetAlert2 -->
+<script th:src="@{/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
 <script>
-	$("#loginForm").submit(function () {
-		//请求登入接口
-		$.ajax({
-			type: 'post'
-			, url: 'userLogin' //实际使用请改成服务端真实接口
-			, data: {'name': $('#userName').val(), 'password': $('#passWord').val(), 'remember': $('#noLogin').val()}
-			, success: function (res) {
-				alert(res);
-				if (res.data == "success") {
-					verifyCode = new GVerify("v_container");
-					//登入成功的提示与跳转
-					layer.msg('进入系统中...', {
-						offset: '15px'
-						, icon: 1
-						, time: 1000
-					}, function () {
-
-						location.href = '${ctx}/index'; //后台主页
-					});
-				} else if (res.data == "fail") {
-					verifyCode = new GVerify("v_container");
-					layer.msg('用户名或密码错误', {
-						offset: '15px'
-						, icon: 2
-						, time: 1000
-					});
-				} else {
-					layer.msg('未知错误', {
-						offset: '15px'
-						, icon: 2
-						, time: 1000
-					});
-				}
-			}
-		});
+	var Toast = Swal.mixin({
+		toast: true,
+		position: 'top-end',
+		showConfirmButton: false,
+		timer: 1500
 	});
 
+	$('#userName').bind('keydown', function (event) {
+		var event = window.event || arguments.callee.caller.arguments[0];
+		if (event.keyCode == 13){
+			$('#password').focus();
+		}
+	});
+
+	$('#password').bind('keydown', function (event) {
+		var event = window.event || arguments.callee.caller.arguments[0];
+		if (event.keyCode == 13){
+			subForm();
+		}
+	});
+
+	function isNull(str) {
+		return str === null || str === undefined || str.trim() === '';
+	}
+
+	function validateBlogForm() {
+		var userName = $('#userName').val();
+		var password = $('#password').val();
+
+		if (isNull(userName)) {
+			Toast.fire({
+				icon: 'error',
+				title: '请填写用户名哦'
+			});
+			$('#userName').focus();
+			return false;
+		}
+
+		if (isNull(password)) {
+			Toast.fire({
+				icon: 'error',
+				title: '请填写密码哦'
+			});
+			$('#password').focus();
+			return false;
+		}
+		return true;
+	}
+
+	function subForm() {
+		if (validateBlogForm()) {
+			//请求登入接口
+			$.ajax({
+				type: 'post',
+				url: 'userLogin',
+				data: {'name': $('#userName').val(), 'password': $('#password').val(), 'remember': $('#noLogin').val()},
+				success: function (res) {
+					if (res.data == "success") {
+						Toast.fire({
+							icon: 'success',
+							title: '正在进入后台！'
+						});
+						location.href = 'admin'; //后台主页
+					} else if (res.data == "error") {
+						Toast.fire({
+							icon: 'error',
+							title: '帐号或密码错误！'
+						});
+						$('#userName').val("");
+						$('#password').val("");
+						$('#userName').focus();
+					} else {
+						Toast.fire({
+							icon: 'error',
+							title: '未知错误！'
+						});
+					}
+				}
+			});
+		}
+	}
 </script>
 
 </body>

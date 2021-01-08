@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 /**
- * 基础业务类，用来继承
+ * 基础业务类，用来继承。
  */
 @Service
 public class BaseServiceImpl {

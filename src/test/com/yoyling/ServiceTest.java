@@ -3,10 +3,8 @@ package com.yoyling;
 import com.yoyling.domain.Category;
 import com.yoyling.domain.Content;
 import com.yoyling.domain.Tag;
-import com.yoyling.service.CategoryService;
-import com.yoyling.service.ContentService;
-import com.yoyling.service.OptionsService;
-import com.yoyling.service.TagService;
+import com.yoyling.domain.User;
+import com.yoyling.service.*;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -107,5 +105,17 @@ public class ServiceTest {
 		ContentService contentsService = (ContentService) ac.getBean("contentService");
 		Content content = contentsService.findContentBySlugName("ioc");
 		System.out.println(content);
+	}
+
+	@Test
+	public void run11() {
+		ApplicationContext ac = new
+				ClassPathXmlApplicationContext("classpath:spring-context.xml");
+		UserService userService = (UserService) ac.getBean("userService");
+		User t = new User();
+		t.setName("yoyling");
+		t.setPassword("yoyling");
+		User user = userService.selectUserByNameAndPassword(t);
+		System.out.println(user);
 	}
 }
