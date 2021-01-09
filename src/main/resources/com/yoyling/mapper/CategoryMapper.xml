@@ -24,6 +24,10 @@
     select cgid from category where cg_slug = #{cgSlug};
   </select>
 
+  <select id="selectCountOfCategory" resultType="int">
+    select count(*) from category;
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from category
     where cgid = #{cgid,jdbcType=INTEGER}

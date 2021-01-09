@@ -17,4 +17,19 @@ public class CategoryServiceImpl extends BaseServiceImpl implements CategoryServ
 	public Integer selectCategoryBySlug(String blogCategory) {
 		return categoryMapper.selectCategoryBySlug(blogCategory);
 	}
+
+	@Override
+	public Category selectByPrimaryKey(Integer cgid) {
+		return categoryMapper.selectByPrimaryKey(cgid);
+	}
+
+	@Override
+	public int selectCountOfCategory() {
+		int num = categoryMapper.selectCountOfCategory();
+		if (num!=0) {
+			return num;
+		}else {
+			return 0;
+		}
+	}
 }

@@ -13,4 +13,8 @@ public interface TagService {
 	int findTagIdByName(String s);
 
 	int insert(Tag tag);
+
+	Tag findTagById(int tagId);
+
+	int selectCountOfTag();
 }

@@ -30,9 +30,6 @@
 				<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
 			</li>
 			<li class="nav-item d-none d-sm-inline-block">
-				<a href="login" class="nav-link">登录页</a>
-			</li>
-			<li class="nav-item d-none d-sm-inline-block">
 				<a href="admin" class="nav-link">后台主页</a>
 			</li>
 		</ul>
@@ -143,14 +140,15 @@
 																</div>
 																<div class="post-meta-devide">|</div>
 																<div class="post-meta-detail post-meta-detail-views">
-																	<i class="fa fa-comments-o" aria-hidden="true"></i> 12
+																	<i class="fa fa-comments-o" aria-hidden="true"></i> [[${content.commentCount}]]
 																</div>
 															</div>
 														</div>
 														<p class="mb-0">
-															<object><a class="btn btn-outline-light btn-xs category-a" href="detail2.html"><i class="fa fa-bookmark-o nav-item" aria-hidden="true"></i> 点滴记录</a></object>
-															<span class="btn btn-outline-light btn-xs">标签1</span>
-															<span class="btn btn-outline-light btn-xs">标签2</span>
+															<object><a class="btn btn-success btn-xs category-a" href="detail2.html"><i class="fa fa-bookmark-o nav-item" aria-hidden="true" th:text="'&nbsp;'+${content.categoyName}"></i></a></object>
+															<span class="block-thumb" th:each="tags,arrayS:${content.tList}">
+																<span class="btn btn-outline-light btn-xs" th:text="${tags.name}"></span>
+															</span>
 														</p>
 													</div>
 												</div>

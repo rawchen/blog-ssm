@@ -15,6 +15,11 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="views" jdbcType="INTEGER" property="views" />
     <result column="tag_list" jdbcType="VARCHAR" property="tagList" />
+<!--    <collection property="tags" ofType="tag">-->
+<!--      <id    column="tid" property="id"/>-->
+<!--      <result column="name" property="name"/>-->
+<!--      <result column="count" property="count"/>-->
+<!--    </collection>-->
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.yoyling.domain.Content">
     <result column="content_text" jdbcType="LONGVARCHAR" property="contentText" />

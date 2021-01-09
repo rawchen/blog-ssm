@@ -30,6 +30,16 @@ public class UserController extends BaseController {
 	}
 
 	/**
+	 * 注销跳转登录
+	 * @return
+	 */
+	@RequestMapping("/logout")
+	public String toLogout(Model model) {
+		session.invalidate();
+		return "redirect:index";
+	}
+
+	/**
 	 * 通过ajax登录系统后台
 	 * @param u
 	 * @param remember

@@ -22,4 +22,8 @@ public interface TagMapper {
 	List<Tag> fuzzyQueryTag(String tagName);
 
 	int findTagIdByName(String s);
+
+	Tag findTagById(int tagId);
+
+	int selectCountOfTag();
 }

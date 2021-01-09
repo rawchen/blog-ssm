@@ -2,11 +2,18 @@ package com.yoyling.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Content implements Serializable {
     private Integer cid;
 
     private Integer cgid;
+
+    private String categoyName;
+
+    private String categoySlug;
+
+    private int CommentCount;
 
     private String title;
 
@@ -36,7 +43,33 @@ public class Content implements Serializable {
 
     private String description;
 
+    private List<Tag> tList;
+
     private static final long serialVersionUID = 1L;
+
+    public int getCommentCount() {
+        return CommentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        CommentCount = commentCount;
+    }
+
+    public String getCategoyName() {
+        return categoyName;
+    }
+
+    public void setCategoyName(String categoyName) {
+        this.categoyName = categoyName;
+    }
+
+    public String getCategoySlug() {
+        return categoySlug;
+    }
+
+    public void setCategoySlug(String categoySlug) {
+        this.categoySlug = categoySlug;
+    }
 
     public Integer getCid() {
         return cid;
@@ -166,11 +199,22 @@ public class Content implements Serializable {
         this.description = description == null ? null : description.trim();
     }
 
+    public List<Tag> gettList() {
+        return tList;
+    }
+
+    public void settList(List<Tag> tList) {
+        this.tList = tList;
+    }
+
     @Override
     public String toString() {
         return "Content{" +
                 "cid=" + cid +
                 ", cgid=" + cgid +
+                ", categoyName='" + categoyName + '\'' +
+                ", categoySlug='" + categoySlug + '\'' +
+                ", CommentCount=" + CommentCount +
                 ", title='" + title + '\'' +
                 ", slug='" + slug + '\'' +
                 ", createdTime=" + createdTime +
@@ -185,6 +229,7 @@ public class Content implements Serializable {
                 ", contentText='" + contentText + '\'' +
                 ", thumb='" + thumb + '\'' +
                 ", description='" + description + '\'' +
+                ", tList=" + tList +
                 '}';
     }
 }

@@ -48,12 +48,12 @@
 	<mvc:resources location="/plugins/" mapping="/plugins/**" />
 	<mvc:resources location="/upload/" mapping="/upload/**" />
 
-<!--	<mvc:interceptors>-->
-<!--		<mvc:interceptor>-->
-<!--			<mvc:mapping path="/user2/**"/>-->
-<!--			<bean class="com.yoyling.interceptor.LoginInterceptor"/>-->
-<!--		</mvc:interceptor>-->
-<!--	</mvc:interceptors>-->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin**"/>
+			<bean class="com.yoyling.interceptor.LoginInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 	<!-- 开启对SpringMVC注解的支持 -->
 	<mvc:annotation-driven />

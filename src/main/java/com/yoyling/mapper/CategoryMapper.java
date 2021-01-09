@@ -20,4 +20,6 @@ public interface CategoryMapper {
     List<Category> selectAllCategory();
 
 	Integer selectCategoryBySlug(String blogCategory);
+
+	int selectCountOfCategory();
 }

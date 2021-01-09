@@ -25,9 +25,9 @@ public class AdminController extends BaseController {
 	 */
 	@RequestMapping("/admin")
 	public String toDashboard(Model model) {
-		model.addAttribute("totalContent",99);
-		model.addAttribute("totalCategory",99);
-		model.addAttribute("totalTag",99);
+		model.addAttribute("totalContent",contentService.selectNumberOfArticles());
+		model.addAttribute("totalCategory",categoryService.selectCountOfCategory());
+		model.addAttribute("totalTag",tagService.selectCountOfTag());
 		model.addAttribute("totalComment",99);
 
 		String websiteTitle = optionsService.selectValueByName("website_title");
@@ -60,9 +60,6 @@ public class AdminController extends BaseController {
 		model.addAttribute("avatar",avatar);
 
 		List<Category> categories = categoryService.selectAllCategory();
-		for (Category c:categories) {
-			System.out.println(c);
-		}
 		model.addAttribute("categories",categories);
 
 		List<Tag> tags = tagService.selectAllTag();

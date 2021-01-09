@@ -27,4 +27,19 @@ public class TagServiceImpl extends BaseServiceImpl implements TagService {
 	public int insert(Tag tag) {
 		return tagMapper.insert(tag);
 	}
+
+	@Override
+	public Tag findTagById(int tagId) {
+		return tagMapper.findTagById(tagId);
+	}
+
+	@Override
+	public int selectCountOfTag() {
+		int num = tagMapper.selectCountOfTag();
+		if (num!=0) {
+			return num;
+		}else {
+			return 0;
+		}
+	}
 }

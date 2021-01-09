@@ -21,12 +21,20 @@
     select IFNULL(Max(tid),-1) from tag where name = #{name};
   </select>
 
+  <select id="findTagById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from tag where tid = #{tid};
+  </select>
+
   <select id="selectAllTag" resultMap="BaseResultMap">
     select * from tag;
   </select>
 
   <select id="fuzzyQueryTag" parameterType="java.lang.String" resultMap="BaseResultMap">
     select * from tag where name like '%${value}%';
+  </select>
+
+  <select id="selectCountOfTag" resultType="int">
+    select count(*) from tag;
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
