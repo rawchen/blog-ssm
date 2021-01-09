@@ -9,9 +9,9 @@ public class Content implements Serializable {
 
     private Integer cgid;
 
-    private String categoyName;
+    private String categoryName;
 
-    private String categoySlug;
+    private String categorySlug;
 
     private int CommentCount;
 
@@ -55,20 +55,20 @@ public class Content implements Serializable {
         CommentCount = commentCount;
     }
 
-    public String getCategoyName() {
-        return categoyName;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCategoyName(String categoyName) {
-        this.categoyName = categoyName;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    public String getCategoySlug() {
-        return categoySlug;
+    public String getCategorySlug() {
+        return categorySlug;
     }
 
-    public void setCategoySlug(String categoySlug) {
-        this.categoySlug = categoySlug;
+    public void setCategorySlug(String categorySlug) {
+        this.categorySlug = categorySlug;
     }
 
     public Integer getCid() {
@@ -212,8 +212,8 @@ public class Content implements Serializable {
         return "Content{" +
                 "cid=" + cid +
                 ", cgid=" + cgid +
-                ", categoyName='" + categoyName + '\'' +
-                ", categoySlug='" + categoySlug + '\'' +
+                ", categoryName='" + categoryName + '\'' +
+                ", categorySlug='" + categorySlug + '\'' +
                 ", CommentCount=" + CommentCount +
                 ", title='" + title + '\'' +
                 ", slug='" + slug + '\'' +

@@ -122,7 +122,7 @@ public class AdminController extends BaseController {
 		content.setPassword(blogPassword);
 		content.setViews(0);
 		if ("".equals(blogThumb) || blogThumb == null) {
-			content.setThumb("img/default.jpg");
+			content.setThumb("/img/default.jpg");
 		}
 		content.setDescription(blogDescription);
 

@@ -43,4 +43,19 @@ public class ContentServiceImpl extends BaseServiceImpl implements ContentServic
 	public Content findContentBySlugName(String slugName) {
 		return contentMapper.findContentBySlugName(slugName);
 	}
+
+	@Override
+	public int selectContentCountByCgid(Integer cgid) {
+		int num = contentMapper.selectContentCountByCgid(cgid);
+		if (num!=0) {
+			return num;
+		}else {
+			return 0;
+		}
+	}
+
+	@Override
+	public List<Content> selectContentListByCgid(int cgid) {
+		return contentMapper.selectContentListByCgid(cgid);
+	}
 }

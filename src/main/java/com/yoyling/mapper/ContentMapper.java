@@ -26,4 +26,8 @@ public interface ContentMapper {
 	List<Content> selectRecommendContent();
 
 	Content findContentBySlugName(String slugName);
+
+	int selectContentCountByCgid(Integer cgid);
+
+	List<Content> selectContentListByCgid(int cgid);
 }

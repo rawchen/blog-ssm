@@ -52,7 +52,7 @@
 	<aside class="main-sidebar sidebar-dark-primary elevation-4">
 		<!-- Brand Logo -->
 		<h1>
-			<a href="index.html" class="brand-link">
+			<a href="/index" class="brand-link">
 				<img th:src="${optionsMap.avatar}" class="brand-image img-circle elevation-3">
 				<span class="brand-text font-weight-light" th:text="${optionsMap.websiteTitle}">websiteTitle</span>
 			</a>
@@ -73,13 +73,13 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="category.html" class="nav-link">
+						<a href="/category/1" class="nav-link">
 							<i class="fa fa-bookmark nav-icon"></i>
 							<p>分类</p>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="tag.html" class="nav-link">
+						<a href="tag" class="nav-link">
 							<i class="fa fa-tags nav-icon"></i>
 							<p>标签</p>
 						</a>
@@ -87,14 +87,14 @@
 
 					<li class="nav-header">行万里路</li>
 					<li class="nav-item">
-						<a href="archive.html" class="nav-link">
+						<a href="archive" class="nav-link">
 							<i class="fa fa-archive nav-icon"></i>
 							<p>归档</p>
 						</a>
 					</li>
 					<li class="nav-header">点滴记录</li>
 					<li class="nav-item">
-						<a href="guestbook.html" class="nav-link">
+						<a href="guestbook" class="nav-link">
 							<i class="fa fa-comments nav-icon"></i>
 							<p>留言</p>
 						</a>
@@ -123,11 +123,11 @@
 							<div class="block-thumb" th:each="content,arrayS:${contents}">
 								<div class="card-body bg-hover-gray">
 									<p>
-										<a href="detail.html">
+										<a th:href="${content.categorySlug}+'/'+${content.slug}">
 											<div class="block-thumb2" th:style="'background-image:url('+${content.thumb}+')'">
 												<div class="overlaya">
 													<div class="post-header-text-container">
-														<span class="post-title" href="" th:text="${content.title}"></span>
+														<span class="post-title" th:text="${content.title}"></span>
 														<span class="badge badge-info" th:text="${content.contentType}"></span>
 														<div class="post-meta">
 															<div class="post-meta-detail post-meta-detail-time">
@@ -145,7 +145,7 @@
 															</div>
 														</div>
 														<p class="mb-0">
-															<object><a class="btn btn-success btn-xs category-a" href="detail2.html"><i class="fa fa-bookmark-o nav-item" aria-hidden="true" th:text="'&nbsp;'+${content.categoyName}"></i></a></object>
+															<object><a class="btn btn-success btn-xs category-a" th:href="'/category/'+${content.cgid}"><i class="fa fa-bookmark-o nav-item" aria-hidden="true" th:text="'&nbsp;'+${content.categoryName}"></i></a></object>
 															<span class="block-thumb" th:each="tags,arrayS:${content.tList}">
 																<span class="btn btn-outline-light btn-xs" th:text="${tags.name}"></span>
 															</span>
@@ -153,7 +153,7 @@
 													</div>
 												</div>
 											</div>
-											</a>
+										</a>
 									</p>
 									<p th:text="${content.description}" class="description-content"></p>
 								</div>
@@ -202,14 +202,13 @@
 									</li>
 
 									<li class="list-group-item">
-										<strong><i class="fas fa-code-branch mr-2"></i>技能</strong>
+										<strong><i class="fas fa-code-branch mr-2"></i>爱好</strong>
 										<div class="text-muted">
-											<span class="badge badge-success">Coding</span>
-											<span class="badge badge-success">Java</span>
-											<span class="badge badge-success">UI Design</span>
-											<span class="badge badge-success">Javascript</span>
-											<span class="badge badge-success">PHP</span>
-											<span class="badge badge-success">Node.js</span>
+											<span class="badge badge-success">后端开发</span>
+											<span class="badge badge-success">极简化</span>
+											<span class="badge badge-success">写博客</span>
+											<span class="badge badge-success">去看海</span>
+											<span class="badge badge-success">摄影</span>
 										</div>
 									</li>
 

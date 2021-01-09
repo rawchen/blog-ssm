@@ -17,4 +17,8 @@ public interface ContentService {
 	int insert(Content content);
 
 	Content findContentBySlugName(String slugName);
+
+	int selectContentCountByCgid(Integer cgid);
+
+	List<Content> selectContentListByCgid(int cgid);
 }

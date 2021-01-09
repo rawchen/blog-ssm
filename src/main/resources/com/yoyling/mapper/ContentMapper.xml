@@ -42,6 +42,14 @@
     where cid = #{cid,jdbcType=INTEGER}
   </select>
 
+  <select id="selectContentListByCgid" parameterType="int" resultMap="BaseResultMap">
+    select * from content where cgid = #{cgid};
+  </select>
+
+  <select id="selectContentCountByCgid" parameterType="int" resultType="int">
+    select count(*) from content where cgid = #{cgid};
+  </select>
+
   <select id="selectAllContent" resultMap="BaseResultMap">
     select * from content;
   </select>

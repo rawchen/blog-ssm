@@ -9,10 +9,18 @@ public class Category implements Serializable {
 
     private String cgSlug;
 
-    private static final long serialVersionUID = 1L;
+    private int count;
 
     public Integer getCgid() {
         return cgid;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public void setCgid(Integer cgid) {
@@ -41,6 +49,7 @@ public class Category implements Serializable {
                 "cgid=" + cgid +
                 ", cgName='" + cgName + '\'' +
                 ", cgSlug='" + cgSlug + '\'' +
+                ", count=" + count +
                 '}';
     }
 }
