@@ -135,3 +135,117 @@ span.addon-calendar {
 	z-index: 999;
 }
 
+#blog-content img {
+	position: relative;
+	display: block;
+	overflow: hidden;
+	max-width: 100%;
+	height: auto;
+	margin: 0 auto;
+	box-shadow: 0 0px 3px rgba(31,35,37,0.1);
+	-webkit-box-shadow: 0 0px 3px rgba(31,35,37,0.1);
+	vertical-align: middle;
+	border-style: none;
+}
+
+#blog-content .emoji {
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	max-width: 32px;
+	display: inline-block;
+	margin-bottom: 0px;
+	margin-top: -4px;
+
+}
+
+pre.prettyprint.linenums.prettyprinted {
+	box-shadow: 0px 0px 3px rgba(0,0,0,.35);
+	-webkit-box-shadow: 0px 0px 3px rgba(0,0,0,.35);
+}
+
+code {
+	font-family: Consolas,'Microsoft YaHei', Monaco, Andale Mono, Ubuntu Mono, monospace;
+	font-size: 16px;
+	color: black;
+	padding: 4px 7px 4px 7px;
+	margin: 2px 4px;
+	border-radius: 5px;
+	background: linear-gradient(to right, #ffc3aa, #ff8d8d);
+	color: #000;
+	-webkit-transition-duration: .15s;
+	transition-duration: .15s;
+}
+
+pre code {
+	padding: 0px;
+	margin: 0px;
+	background: none;
+
+}
+
+#blog-content h1 {
+	font-size: 1.4em;
+	margin: 40px 10px 20px 0;
+	padding-left: 9px;
+	border-left: 6px solid #ea5055;
+	font-weight: 700;
+	line-height: 1.4;
+}
+
+#blog-content h2 {
+	font-size: 1.3em;
+	line-height: 1.43;
+	font-weight: 700;
+}
+
+#blog-content h2:before {
+	border-radius: 50%;
+	background-color: #ea5055;
+	content: '';
+	width: 8px;
+	display: inline-block;
+	height: 8px;
+	vertical-align: middle;
+	margin-bottom: .18em;
+	margin-right: 8px;
+}
+
+#blog-content h3 {
+	font-size: 1.2em;
+	font-weight: 700;
+}
+
+#blog-content h3:before {
+	background-color: #ea5055;
+	content: '';
+	width: 6px;
+	display: inline-block;
+	height: 3px;
+	vertical-align: middle;
+	margin-bottom: .18em;
+	margin-right: 8px;
+}
+
+#blog-content h4, #blog-content h5, #blog-content h6 {
+	font-size: 1.1em;
+	font-weight: 700;
+	position: relative;
+	left: 15px;
+}
+
+#blog-content h4::before, #blog-content h5::before, #blog-content h6::before {
+	font-weight: 700;
+	position: absolute;
+	top: 0;
+	left: -15px;
+	content: '#';
+	color: #ea5055;
+}
+#blog-content p {
+	font-size: 16px;
+	line-height: 2;
+	word-wrap: break-word;
+	word-break: break-word;
+}
+
+

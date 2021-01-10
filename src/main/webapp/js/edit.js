@@ -17,6 +17,13 @@ $(function () {
 		width: "100%",
 		height: 580,
 		htmlDecode: true,
+		tex: true,
+		flowChart:true,
+		sequenceDiagram:true,
+		imageUpload : true,
+		imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+		imageUploadURL : "/upFile",
+
 		// taskList: true,
 		toolbarIcons: function () {
 			// Using "||" set icons align right.

@@ -2,8 +2,10 @@ package com.yoyling.utils;
 
 import org.springframework.util.DigestUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class StringUtil {
@@ -20,7 +22,6 @@ public class StringUtil {
 		if (list == null) {
 			return "";
 		}
-
 		String items = "";
 		for (String s:list) {
 			items = items + s + ",";
@@ -34,4 +35,12 @@ public class StringUtil {
 	public static String passwordToMd5(String password) {
 		return DigestUtils.md5DigestAsHex(DigestUtils.md5DigestAsHex(password.getBytes()).getBytes());
 	}
+
+	public static String getDateToString(Date date) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String dateNowStr = sdf.format(date);
+		return dateNowStr;
+	}
+
+
 }
