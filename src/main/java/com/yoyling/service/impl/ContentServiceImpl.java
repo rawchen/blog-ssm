@@ -58,4 +58,10 @@ public class ContentServiceImpl extends BaseServiceImpl implements ContentServic
 	public List<Content> selectContentListByCgid(int cgid) {
 		return contentMapper.selectContentListByCgid(cgid);
 	}
+
+	@Override
+	public List<Content> selectContentListByTid(int tid) {
+		String t = String.valueOf(tid);
+		return contentMapper.selectContentListByTid(t);
+	}
 }

@@ -118,4 +118,5 @@ public class ServiceTest {
 		User user = userService.selectUserByNameAndPassword(t);
 		System.out.println(user);
 	}
+
 }

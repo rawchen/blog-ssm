@@ -4,6 +4,8 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title th:text="${optionsMap.websiteTitle} + '&nbsp;|&nbsp;Category'"></title>
+	<link rel="shortcut icon" th:href="${optionsMap.websiteIco}">
+	<link rel="apple-touch-icon" th:href="${optionsMap.websiteIco}">
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -70,7 +72,7 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="tag" class="nav-link">
+						<a href="/tag" class="nav-link">
 							<i class="fa fa-tags nav-icon"></i>
 							<p>标签</p>
 						</a>
@@ -78,14 +80,14 @@
 
 					<li class="nav-header">行万里路</li>
 					<li class="nav-item">
-						<a href="archive" class="nav-link">
+						<a href="/archive" class="nav-link">
 							<i class="fa fa-archive nav-icon"></i>
 							<p>归档</p>
 						</a>
 					</li>
 					<li class="nav-header">点滴记录</li>
 					<li class="nav-item">
-						<a href="guestbook" class="nav-link">
+						<a href="/guestbook" class="nav-link">
 							<i class="fa fa-comments nav-icon"></i>
 							<p>留言</p>
 						</a>
@@ -132,7 +134,7 @@
 							<div class="block-thumb" th:each="content,arrayS:${contents}">
 								<div class="card-body bg-hover-gray">
 									<p>
-										<a href="detail.html">
+										<a th:href="'/c/'+${content.categorySlug}+'/'+${content.slug}">
 											<div class="block-thumb2" th:style="'background-image:url('+${content.thumb}+')'">
 												<div class="overlaya">
 													<div class="post-header-text-container">
@@ -156,7 +158,7 @@
 														<p class="mb-0">
 															<object><a class="btn btn-success btn-xs category-a" th:href="'/category/'+${content.cgid}"><i class="fa fa-bookmark-o nav-item" aria-hidden="true" th:text="'&nbsp;'+${content.categoryName}"></i></a></object>
 															<span class="block-thumb" th:each="tags,arrayS:${content.tList}">
-																<span class="btn btn-outline-light btn-xs" th:text="${tags.name}"></span>
+																<object><a class="btn btn-outline-light btn-xs" th:href="'/tag/'+${tags.tid}" th:text="${tags.name}"></a></object>
 															</span>
 														</p>
 													</div>
@@ -255,10 +257,10 @@
 	<!-- /.content-wrapper -->
 	<footer class="main-footer">
 		<p class="text-center mb-1">
-			Copyright © 2020 YOYLING Designed by YOYLING Powered by AdminLTE
+			Copyright © 2020-2021 | THE HARDER, THE MORE FORTUNATE.
 		</p>
-		<p class="text-center">
-			<a href="">粤ICP备20040058号</a>
+		<p class="text-center" th:if="!${#strings.isEmpty(optionsMap.icp)}">
+			<a href="https://beian.miit.gov.cn/" th:text="${optionsMap.icp}"></a>
 		</p>
 	</footer>
 </div>
@@ -279,9 +281,6 @@
 			this.className = 'btn btn-success btn-sm mt-2'
 		}
 	})
-	// console.log(b)
-	// alert(b);
-
 </script>
 
 </body>

@@ -51,19 +51,23 @@
   </select>
 
   <select id="selectAllContent" resultMap="BaseResultMap">
-    select * from content;
+    select * from content order by created_time DESC;
   </select>
 
   <select id="selectNumberOfArticles" resultType="int">
     select count(*) from content;
   </select>
 
-  <select id="findContentBySlugName" parameterType="string" resultMap="BaseResultMap">
+  <select id="findContentBySlugName" parameterType="string" resultMap="ResultMapWithBLOBs">
     select * from content where slug = #{slug};
   </select>
 
   <select id="selectRecommendContent" resultMap="BaseResultMap">
     select * from content where content_order = 1;
+  </select>
+
+  <select id="selectContentListByTid" parameterType="string" resultMap="ResultMapWithBLOBs">
+    select * from content where FIND_IN_SET(#{tid}, tag_list);
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

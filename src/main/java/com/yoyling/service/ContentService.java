@@ -21,4 +21,6 @@ public interface ContentService {
 	int selectContentCountByCgid(Integer cgid);
 
 	List<Content> selectContentListByCgid(int cgid);
+
+	List<Content> selectContentListByTid(int tid);
 }

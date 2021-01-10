@@ -3,14 +3,18 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>AdminLTE 3 | User Profile</title>
+	<title th:text="${optionsMap.websiteTitle} + '&nbsp;|&nbsp;Tag'"></title>
+	<link rel="shortcut icon" th:href="${optionsMap.websiteIco}">
+	<link rel="apple-touch-icon" th:href="${optionsMap.websiteIco}">
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- Theme style -->
 	<link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
 	<!-- Font Awesome -->
 	<link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+	<link rel="stylesheet" th:href="@{/plugins/font-awesome-4.7.0/css/font-awesome.min.css}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -41,9 +45,9 @@
 	<aside class="main-sidebar sidebar-dark-primary elevation-4">
 		<!-- Brand Logo -->
 		<h1>
-			<a href="index.html" class="brand-link">
-				<img src="./upload/avatar.jpg" class="brand-image img-circle elevation-3">
-				<span class="brand-text font-weight-light">YOYLING's Blog</span>
+			<a href="/index" class="brand-link">
+				<img th:src="${optionsMap.avatar}" class="brand-image img-circle elevation-3">
+				<span class="brand-text font-weight-light" th:text="${optionsMap.websiteTitle}">websiteTitle</span>
 			</a>
 		</h1>
 
@@ -56,19 +60,19 @@
 						 with font-awesome or any other icon font library -->
 					<li class="nav-header">读万卷书</li>
 					<li class="nav-item">
-						<a href="index.html" class="nav-link">
+						<a href="/index" class="nav-link">
 							<i class="fa fa-home nav-icon"></i>
 							<p>首页</p>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="category" class="nav-link">
+						<a href="/category/1" class="nav-link">
 							<i class="fa fa-bookmark nav-icon"></i>
 							<p>分类</p>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="tag" class="nav-link active">
+						<a class="nav-link active">
 							<i class="fa fa-tags nav-icon"></i>
 							<p>标签</p>
 						</a>
@@ -76,14 +80,14 @@
 
 					<li class="nav-header">行万里路</li>
 					<li class="nav-item">
-						<a href="archive" class="nav-link">
+						<a href="/archive" class="nav-link">
 							<i class="fa fa-archive nav-icon"></i>
 							<p>归档</p>
 						</a>
 					</li>
 					<li class="nav-header">点滴记录</li>
 					<li class="nav-item">
-						<a href="guestbook" class="nav-link">
+						<a href="/guestbook" class="nav-link">
 							<i class="fa fa-comments nav-icon"></i>
 							<p>留言</p>
 						</a>
@@ -104,148 +108,75 @@
 					<div class="col-md-8">
 						<div class="card card-blue card-outline">
 							<div class="card-body">
-								<button class="btn btn-primary btn-sm mt-2">
-									<span>SpringBoot</span>
-									<span class="ml-2 badge badge-warning">5</span>
-								</button>
-								<button class="btn btn-outline-primary btn-sm mt-2">
-									<span>Spring</span>
-									<span class="ml-2 badge badge-warning">4</span>
-								</button>
-								<button class="btn btn-outline-primary btn-sm mt-2">
-									<span>天上人间</span>
-									<span class="ml-2 badge badge-warning">2</span>
-								</button>
-								<button class="btn btn-outline-primary btn-sm mt-2">
-									<span>我是一只猫猫猫猫猫</span>
-									<span class="ml-2 badge badge-warning">100</span>
-								</button>
-								<button class="btn btn-outline-primary btn-sm mt-2">
-									<span>JavaScript</span>
-									<span class="ml-2 badge badge-warning">1000</span>
-								</button>
+<!--								<button class="btn btn-primary btn-sm mt-2">-->
+<!--									<span>SpringBoot</span>-->
+<!--									<span class="ml-2 badge badge-warning">5</span>-->
+<!--								</button>-->
+<!--								<button class="btn btn-outline-primary btn-sm mt-2">-->
+<!--									<span>Spring</span>-->
+<!--									<span class="ml-2 badge badge-warning">4</span>-->
+<!--								</button>-->
+<!--								<button class="btn btn-outline-primary btn-sm mt-2">-->
+<!--									<span>天上人间</span>-->
+<!--									<span class="ml-2 badge badge-warning">2</span>-->
+<!--								</button>-->
+<!--								<button class="btn btn-outline-primary btn-sm mt-2">-->
+<!--									<span>我是一只猫猫猫猫猫</span>-->
+<!--									<span class="ml-2 badge badge-warning">100</span>-->
+<!--								</button>-->
+<!--								<button class="btn btn-outline-primary btn-sm mt-2">-->
+<!--									<span>JavaScript</span>-->
+<!--									<span class="ml-2 badge badge-warning">1000</span>-->
+<!--								</button>-->
+								<span id="cidList" th:each="t,cStat:${tags}">
+									<a th:href="'/tag/'+${t.tid}" class="btn btn-outline-primary btn-sm mt-2">
+										<span th:text="${t.name}"></span>
+										<span class="ml-2 badge badge-warning" th:text="${t.count}"></span>
+									</a>
+								</span>
 							</div>
 						</div>
 
 						<div class="card card-blue card-outline mb-5">
-							<div class="card-body bg-hover-gray">
-								<div class="mb-1">
-									<a href="detail.html" target="_blank" class="text-lg text-bold link-title">我是一只猫，快乐的星猫，一起喵喵喵</a>
-									<span class="badge badge-info">原创</span>
+							<div class="block-thumb" th:each="content,arrayS:${contents}">
+								<div class="card-body bg-hover-gray">
+									<p>
+										<a th:href="'/c/'+${content.categorySlug}+'/'+${content.slug}">
+											<div class="block-thumb2" th:style="'background-image:url('+${content.thumb}+')'">
+												<div class="overlaya">
+													<div class="post-header-text-container">
+														<span class="post-title" th:text="${content.title}"></span>
+														<span class="badge badge-info" th:text="${content.contentType}"></span>
+														<div class="post-meta">
+															<div class="post-meta-detail post-meta-detail-time">
+																<i class="fa fa-clock-o" aria-hidden="true"></i>
+																<time>[[${#dates.format(content.createdTime, 'yyyy-MM-dd')}]]
+																</time>
+																<div class="post-meta-devide">|</div>
+																<div class="post-meta-detail post-meta-detail-views">
+																	<i class="fa fa-eye" aria-hidden="true"></i> [[${content.views}]]
+																</div>
+																<div class="post-meta-devide">|</div>
+																<div class="post-meta-detail post-meta-detail-views">
+																	<i class="fa fa-comments-o" aria-hidden="true"></i> [[${content.commentCount}]]
+																</div>
+															</div>
+														</div>
+														<p class="mb-0">
+															<object><a class="btn btn-success btn-xs category-a" th:href="'/category/'+${content.cgid}"><i class="fa fa-bookmark-o nav-item" aria-hidden="true" th:text="'&nbsp;'+${content.categoryName}"></i></a></object>
+															<span class="block-thumb" th:each="tags,arrayS:${content.tList}">
+																<object><a class="btn btn-outline-light btn-xs" th:href="'/tag/'+${tags.tid}" th:text="${tags.name}"></a></object>
+															</span>
+														</p>
+													</div>
+												</div>
+											</div>
+										</a>
+									</p>
+									<p th:text="${content.description}" class="description-content"></p>
 								</div>
-								<p>
-									Lorem ipsum represents a long-held tradition for designers,
-									typographers and the like. Some people hate it and argue for
-									its demise, but others ignore the hate as they create awesome
-									tools to help create filler text for everyone from bacon lovers
-									to Charlie Sheen fans.
-								</p>
-								<p>
-									<span class="text-sm mr-2"><i class="far fa-calendar-alt mr-1"></i> 2019-01-01 10:08</span>
-									<span class="text-sm"><i class="far fa-eye mr-1"></i> 10</span>
-								</p>
-								<p class="mb-0">
-									<button class="btn btn-outline-success btn-xs">Java</button>
-									<button class="btn btn-primary btn-xs">SpringBoot</button>
-									<button class="btn btn-outline-primary btn-xs">标签2</button>
-								</p>
-							</div><!-- /.card-body -->
-							<hr class="m-0">
-
-							<div class="card-body bg-hover-gray">
-								<div class="mb-1">
-									<a href="detail.html" target="_blank" class="text-lg text-bold link-title">我是一只猫，快乐的星猫，一起喵喵喵</a>
-									<span class="badge badge-info">原创</span>
-								</div>
-								<p>
-									Lorem ipsum represents a long-held tradition for designers,
-									typographers and the like. Some people hate it and argue for
-									its demise, but others ignore the hate as they create awesome
-									tools to help create filler text for everyone from bacon lovers
-									to Charlie Sheen fans.
-								</p>
-								<p>
-									<span class="text-sm mr-2"><i class="far fa-calendar-alt mr-1"></i> 2019-01-01 10:08</span>
-									<span class="text-sm"><i class="far fa-eye mr-1"></i> 10</span>
-								</p>
-								<p class="mb-0">
-									<button class="btn btn-outline-success btn-xs">Java</button>
-									<button class="btn btn-outline-primary btn-xs">标签2</button>
-									<button class="btn btn-primary btn-xs">SpringBoot</button>
-								</p>
-							</div><!-- /.card-body -->
-							<hr class="m-0">
-							<div class="card-body bg-hover-gray">
-								<div class="mb-1">
-									<a href="detail.html" target="_blank" class="text-lg text-bold link-title">我是一只猫，快乐的星猫，一起喵喵喵</a>
-									<span class="badge badge-info">原创</span>
-								</div>
-								<p>
-									Lorem ipsum represents a long-held tradition for designers,
-									typographers and the like. Some people hate it and argue for
-									its demise, but others ignore the hate as they create awesome
-									tools to help create filler text for everyone from bacon lovers
-									to Charlie Sheen fans.
-								</p>
-								<p>
-									<span class="text-sm mr-2"><i class="far fa-calendar-alt mr-1"></i> 2019-01-01 10:08</span>
-									<span class="text-sm"><i class="far fa-eye mr-1"></i> 10</span>
-								</p>
-								<p class="mb-0">
-									<button class="btn btn-outline-success btn-xs">Java</button>
-									<button class="btn btn-outline-primary btn-xs">标签1</button>
-									<button class="btn btn-outline-primary btn-xs">标签2</button>
-									<button class="btn btn-outline-primary btn-xs">标签3</button>
-									<button class="btn btn-primary btn-xs">SpringBoot</button>
-									<button class="btn btn-outline-primary btn-xs">标签4</button>
-								</p>
-							</div><!-- /.card-body -->
-							<hr class="m-0">
-							<div class="card-body bg-hover-gray">
-								<div class="mb-1">
-									<a href="detail.html" target="_blank" class="text-lg text-bold link-title">我是一只猫，快乐的星猫，一起喵喵喵</a>
-									<span class="badge badge-info">原创</span>
-								</div>
-								<p>
-									Lorem ipsum represents a long-held tradition for designers,
-									typographers and the like. Some people hate it and argue for
-									its demise, but others ignore the hate as they create awesome
-									tools to help create filler text for everyone from bacon lovers
-									to Charlie Sheen fans.
-								</p>
-								<p>
-									<span class="text-sm mr-2"><i class="far fa-calendar-alt mr-1"></i> 2019-01-01 10:08</span>
-									<span class="text-sm"><i class="far fa-eye mr-1"></i> 10</span>
-								</p>
-								<p class="mb-0">
-									<button class="btn btn-outline-success btn-xs">Java</button>
-									<button class="btn btn-primary btn-xs">SpringBoot</button>
-									<button class="btn btn-outline-primary btn-xs">标签2</button>
-								</p>
-							</div><!-- /.card-body -->
-							<hr class="m-0">
-							<div class="card-body bg-hover-gray">
-								<div class="mb-1">
-									<a href="detail.html" target="_blank" class="text-lg text-bold link-title">我是一只猫，快乐的星猫，一起喵喵喵</a>
-									<span class="badge badge-info">原创</span>
-								</div>
-								<p>
-									Lorem ipsum represents a long-held tradition for designers,
-									typographers and the like. Some people hate it and argue for
-									its demise, but others ignore the hate as they create awesome
-									tools to help create filler text for everyone from bacon lovers
-									to Charlie Sheen fans.
-								</p>
-								<p>
-									<span class="text-sm mr-2"><i class="far fa-calendar-alt mr-1"></i> 2019-01-01 10:08</span>
-									<span class="text-sm"><i class="far fa-eye mr-1"></i> 10</span>
-								</p>
-								<p class="mb-0">
-									<button class="btn btn-outline-success btn-xs">Java</button>
-									<button class="btn btn-primary btn-xs">SpringBoot</button>
-									<button class="btn btn-outline-primary btn-xs">标签2</button>
-								</p>
-							</div><!-- /.card-body -->
+								<hr class="m-0">
+							</div>
 							<hr class="m-0">
 
 
@@ -268,64 +199,56 @@
 						<div class="card widget-user sticky-top">
 							<!-- Add the bg color to the header using any of the bg-* classes -->
 							<div class="widget-user-header bg-info">
-								<h3 class="widget-user-username">YOYLING</h3>
-								<h5 class="widget-user-desc">Student &amp; Coder</h5>
+								<h3 class="widget-user-username" th:text="${optionsMap.websiteTitle}"></h3>
 							</div>
 							<div class="widget-user-image">
-								<img class="img-circle elevation-2" src="./upload/avatar.jpg" alt="User Avatar">
+								<img class="img-circle elevation-2" th:src="${optionsMap.avatar}" alt="Avatar">
 							</div>
 							<div class="card-body pt-5">
-								<p class="text-muted">
-									一个Java初学者，一个热爱编程的人，希望能在0与1的世界与您相遇，结伴而行！
-									一个Java初学者，一个热爱编程的人，希望能在0与1的世界与您相遇，结伴而行！
-									一个Java初学者，一个热爱编程的人，
+								<p class="text-muted" style="text-align: center" th:text="${optionsMap.description}">
 								</p>
 
 								<ul class="list-group list-group-unbordered">
-									<li class="list-group-item">
-										<strong><i class="far fa-bookmark mr-2"></i>推荐文章</strong>
-										<a href="" class="d-block link-title text-truncate">Java学习路线Java学习路线Java学习路线Java学习路线</a>
-										<a href="" class="d-block link-title">Java学习路线</a>
-										<a href="" class="d-block link-title">Java学习路线</a>
+									<li class="list-group-item" th:if="${!recommendContents.isEmpty()}">
+										<strong><i class="far fa-bookmark mr-2"></i>推荐</strong>
+										<div th:each="content,arrayS:${recommendContents}">
+											<a href="123" class="d-block link-title text-truncate" th:text="${content.title}"></a>
+										</div>
+									</li>
+
+									<li class="list-group-item" th:if="!${#strings.isEmpty(optionsMap.location)}">
+										<strong><i class="fas fa-map-marker-alt mr-2"></i>位置</strong>
+										<div class="text-muted" th:text="${optionsMap.location}"></div>
 									</li>
 
 									<li class="list-group-item">
-										<strong><i class="fa fa-map-marker-alt mr-2"></i>位置</strong>
-										<div class="text-muted">Malibu, California</div>
-									</li>
-
-									<li class="list-group-item">
-										<strong><i class="fa fa-pencil-alt mr-2"></i>技能</strong>
+										<strong><i class="fas fa-code-branch mr-2"></i>爱好</strong>
 										<div class="text-muted">
-											<span class="badge badge-success">UI Design</span>
-											<span class="badge badge-success">Coding</span>
-											<span class="badge badge-success">Javascript</span>
-											<span class="badge badge-success">PHP</span>
-											<span class="badge badge-success">Node.js</span>
+											<span class="badge badge-success">后端开发</span>
+											<span class="badge badge-success">极简化</span>
+											<span class="badge badge-success">写博客</span>
+											<span class="badge badge-success">去看海</span>
+											<span class="badge badge-success">摄影</span>
 										</div>
 									</li>
 
 									<li class="list-group-item">
-										<strong><i class="fa fa-lightbulb mr-2"></i>爱好</strong>
+										<strong><i class="fas fa-link mr-2"></i>链接</strong>
 										<div class="text-muted">
-											<span class="badge badge-warning">编程</span>
-											<span class="badge badge-warning">学习</span>
+											<a href="https://yoyling.com/link" target="_blank" class="badge badge-warning">Link</a>
+											<a href="https://yoyling.com/videos" target="_blank" class="badge badge-warning">Video</a>
 										</div>
 									</li>
 
 									<li class="list-group-item text-center">
-										<button class="btn btn-success btn-sm rounded-circle" data-toggle="tooltip" data-placement="top"
-												title="939234206">
-											<i class="fab fa-qq"></i>
-										</button>
-										<button class="btn btn-success btn-sm rounded-circle" data-toggle="tooltip" data-placement="top"
-												title="939234206">
-											<i class="fab fa-weixin"></i>
-										</button>
-										<a href="http://www.baidu.com" target="_blank"
-										   class="btn btn-success btn-sm rounded-circle" data-toggle="tooltip" data-placement="top"
-										   title="github">
-											<i class="fab fa-github text-white"></i>
+										<a th:href="${optionsMap.qqLink}" target="_blank" class="btn btn-success btn-sm rounded-circle" data-toggle="tooltip" data-placement="top" title="QQ">
+											<i class="fa fa-qq"></i>
+										</a>
+										<a th:href="${optionsMap.emailLink}" target="_blank" class="btn btn-success btn-sm rounded-circle" data-toggle="tooltip" data-placement="top" title="Email">
+											<i class="fa fa-envelope"></i>
+										</a>
+										<a th:href="${optionsMap.githubLink}" target="_blank" class="btn btn-success btn-sm rounded-circle" data-toggle="tooltip" data-placement="top" title="GitHub">
+											<i class="fa fa-github text-white"></i>
 										</a>
 									</li>
 								</ul>
@@ -342,10 +265,10 @@
 	<!-- /.content-wrapper -->
 	<footer class="main-footer">
 		<p class="text-center mb-1">
-			Copyright © 2020 YOYLING Designed by YOYLING Powered by AdminLTE
+			Copyright © 2020-2021 | THE HARDER, THE MORE FORTUNATE.
 		</p>
-		<p class="text-center">
-			<a href="">粤ICP备20040058号</a>
+		<p class="text-center" th:if="!${#strings.isEmpty(optionsMap.icp)}">
+			<a href="https://beian.miit.gov.cn/" th:text="${optionsMap.icp}"></a>
 		</p>
 	</footer>
 </div>
@@ -359,6 +282,15 @@
 <script th:src="@{/js/adminlte.min.js}"></script>
 <!--  -->
 <script th:src="@{/js/tooltip.init.js}"></script>
+
+<script>
+	var a = '[[${optionsMap.tagId}]]';
+	$('#cidList a').each(function(){
+		if (this.href.includes('tag/'+a)){
+			this.className = 'btn btn-primary btn-sm mt-2'
+		}
+	})
+</script>
 
 </body>
 </html>

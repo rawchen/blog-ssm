@@ -130,9 +130,11 @@ public class AdminController extends BaseController {
 		for (String s:blogTag) {
 			int i = tagService.findTagIdByName(s);
 			if (i != -1) {
+				//根据tagid增加1次count
+				tagService.updateTagCount(i);
 				tagListNew.add(String.valueOf(i));
 			} else {
-				tagService.insert(new Tag(null,s,0));
+				tagService.insert(new Tag(null,s,1));
 				tagListNew.add(String.valueOf(tagService.findTagIdByName(s)));
 			}
 			content.setTagList(listToString(tagListNew));

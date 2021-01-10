@@ -180,7 +180,7 @@ public class Content implements Serializable {
     }
 
     public void setContentText(String contentText) {
-        this.contentText = contentText == null ? null : contentText.trim();
+        this.contentText = contentText;
     }
 
     public String getThumb() {

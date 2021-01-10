@@ -30,4 +30,6 @@ public interface ContentMapper {
 	int selectContentCountByCgid(Integer cgid);
 
 	List<Content> selectContentListByCgid(int cgid);
+
+	List<Content> selectContentListByTid(String t);
 }

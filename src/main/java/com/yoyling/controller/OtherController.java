@@ -132,16 +132,177 @@ public class OtherController extends BaseController {
 		return "category";
 	}
 
-	@RequestMapping("/detail2")
-	public String toDetails2(Model model){
-		Content c = contentService.selectByPrimaryKey(1);
-		model.addAttribute("content",c);
+	@RequestMapping("/c/{categoryName}/{slugName}")
+	public String showContent(Model model, @PathVariable String categoryName, @PathVariable String slugName) {
+
+		String icp = optionsService.selectValueByName("icp");
+		String websiteTitle = optionsService.selectValueByName("website_title");
+		String websiteIco = optionsService.selectValueByName("website_ico");
+		String avatar = optionsService.selectValueByName("avatar");
+
+		Map<String, String> optionsMap = new HashMap<>();
+		optionsMap.put("icp",icp);
+		optionsMap.put("websiteTitle",websiteTitle);
+		optionsMap.put("avatar",avatar);
+		optionsMap.put("websiteIco",websiteIco);
+		model.addAttribute("optionsMap",optionsMap);
+		model.addAttribute("content",contentService.findContentBySlugName(slugName));
 		return "detail2";
 	}
 
-	@RequestMapping("/{categoryName}/{slugName}")
-	public String showContent() {
-		return "detail";
+	@RequestMapping("/tag")
+	public String tag(Model model) {
+
+		//查询所有category实体
+		List<Tag> tags = tagService.selectAllTag();
+		for (Tag t : tags) {
+
+		}
+		model.addAttribute("tags", tags);
+
+		//查询所有content实体
+		List<Content> contents = contentService.selectContentListByCgid(1);
+		for (Content c : contents) {
+
+			//查询设置评论数
+			c.setCommentCount(99);
+
+			c.setCategoryName(categoryService.selectByPrimaryKey(c.getCgid()).getCgName());
+			c.setCategorySlug(categoryService.selectByPrimaryKey(c.getCgid()).getCgSlug());
+
+			List<Tag> tagsList = new ArrayList<>();
+			List<String> strings = stringToList(c.getTagList());
+			for (String s : strings) {
+				tagsList.add(tagService.findTagById(Integer.parseInt(s)));
+			}
+			c.settList(tagsList);
+		}
+		model.addAttribute("contents", contents);
+
+		List<Content> recommendContents = contentService.selectRecommendContent();
+		model.addAttribute("recommendContents", recommendContents);
+
+		String qqLink = optionsService.selectValueByName("qq_link");
+		String emailLink = optionsService.selectValueByName("email_link");
+		String githubLink = optionsService.selectValueByName("github_link");
+		String location = optionsService.selectValueByName("location");
+		String icp = optionsService.selectValueByName("icp");
+		String description = optionsService.selectValueByName("description");
+		String websiteTitle = optionsService.selectValueByName("website_title");
+		String websiteIco = optionsService.selectValueByName("website_ico");
+		String avatar = optionsService.selectValueByName("avatar");
+
+		Map<String, String> optionsMap = new HashMap<>();
+		optionsMap.put("qqLink", qqLink);
+		optionsMap.put("emailLink", emailLink);
+		optionsMap.put("githubLink", githubLink);
+		optionsMap.put("location", location);
+		optionsMap.put("icp", icp);
+		optionsMap.put("description", description);
+		optionsMap.put("websiteTitle", websiteTitle);
+		optionsMap.put("avatar", avatar);
+		optionsMap.put("websiteIco", websiteIco);
+		optionsMap.put("tagId", "0");
+
+		model.addAttribute("optionsMap", optionsMap);
+
+		return "tag";
+	}
+
+	@RequestMapping("/tag/{tid}")
+	public String tag(@PathVariable int tid, Model model) {
+		//查询所有category实体
+		List<Tag> tags = tagService.selectAllTag();
+		for (Tag t : tags) {
+
+		}
+		model.addAttribute("tags", tags);
+
+		//查询所有content实体
+		List<Content> contents = contentService.selectContentListByTid(tid);
+		for (Content c : contents) {
+
+			//查询设置评论数
+			c.setCommentCount(99);
+
+			c.setCategoryName(categoryService.selectByPrimaryKey(c.getCgid()).getCgName());
+			c.setCategorySlug(categoryService.selectByPrimaryKey(c.getCgid()).getCgSlug());
+
+			List<Tag> tagList = new ArrayList<>();
+			List<String> strings = stringToList(c.getTagList());
+			for (String s : strings) {
+				tagList.add(tagService.findTagById(Integer.parseInt(s)));
+			}
+			c.settList(tagList);
+		}
+		model.addAttribute("contents", contents);
+
+		List<Content> recommendContents = contentService.selectRecommendContent();
+		model.addAttribute("recommendContents", recommendContents);
+
+		String qqLink = optionsService.selectValueByName("qq_link");
+		String emailLink = optionsService.selectValueByName("email_link");
+		String githubLink = optionsService.selectValueByName("github_link");
+		String location = optionsService.selectValueByName("location");
+		String icp = optionsService.selectValueByName("icp");
+		String description = optionsService.selectValueByName("description");
+		String websiteTitle = optionsService.selectValueByName("website_title");
+		String websiteIco = optionsService.selectValueByName("website_ico");
+		String avatar = optionsService.selectValueByName("avatar");
+
+		Map<String, String> optionsMap = new HashMap<>();
+		optionsMap.put("qqLink", qqLink);
+		optionsMap.put("emailLink", emailLink);
+		optionsMap.put("githubLink", githubLink);
+		optionsMap.put("location", location);
+		optionsMap.put("icp", icp);
+		optionsMap.put("description", description);
+		optionsMap.put("websiteTitle", websiteTitle);
+		optionsMap.put("avatar", avatar);
+		optionsMap.put("websiteIco", websiteIco);
+		if (!"".equals(String.valueOf(tid))) {
+			optionsMap.put("tagId", String.valueOf(tid));
+		} else {
+			optionsMap.put("tagId", "");
+		}
+
+		model.addAttribute("optionsMap", optionsMap);
+
+		return "tag";
+	}
+
+	@RequestMapping("/archive")
+	public String showArchive(Model model) {
+
+		List<Content> contents = contentService.selectAllContent();
+		model.addAttribute("contents",contents);
+
+		List<Content> recommendContents = contentService.selectRecommendContent();
+		model.addAttribute("recommendContents",recommendContents);
+
+		String qqLink = optionsService.selectValueByName("qq_link");
+		String emailLink = optionsService.selectValueByName("email_link");
+		String githubLink = optionsService.selectValueByName("github_link");
+		String location = optionsService.selectValueByName("location");
+		String icp = optionsService.selectValueByName("icp");
+		String description = optionsService.selectValueByName("description");
+		String websiteTitle = optionsService.selectValueByName("website_title");
+		String websiteIco = optionsService.selectValueByName("website_ico");
+		String avatar = optionsService.selectValueByName("avatar");
+
+		Map<String, String> optionsMap = new HashMap<>();
+		optionsMap.put("qqLink",qqLink);
+		optionsMap.put("emailLink",emailLink);
+		optionsMap.put("githubLink",githubLink);
+		optionsMap.put("location",location);
+		optionsMap.put("icp",icp);
+		optionsMap.put("description",description);
+		optionsMap.put("websiteTitle",websiteTitle);
+		optionsMap.put("avatar",avatar);
+		optionsMap.put("websiteIco",websiteIco);
+
+		model.addAttribute("optionsMap",optionsMap);
+		return "archive";
 	}
 
 	@RequestMapping("/{page}")
