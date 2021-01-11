@@ -2,6 +2,7 @@ package com.yoyling.controller;
 
 import com.yoyling.domain.Category;
 import com.yoyling.domain.Content;
+import com.yoyling.domain.Log;
 import com.yoyling.domain.Tag;
 import com.yoyling.utils.StringUtil;
 import org.springframework.stereotype.Controller;
@@ -25,9 +26,16 @@ public class OtherController extends BaseController {
 	@RequestMapping("/index")
 	public String index(Model model){
 
-		String ua = request.getHeader("User-Agent");
-		System.out.println(ua);
-		System.out.println(StringUtil.getIpAddr(request));
+		Log log = new Log();
+		log.setUa(request.getHeader("User-Agent"));
+		log.setBrowserName(StringUtil.getOsAndBrowserInfo(request).get("browser"));
+		log.setOsName(StringUtil.getOsAndBrowserInfo(request).get("os"));
+		log.setIp(StringUtil.getIpAddr(request));
+		log.setAccessTime(new Date());
+		log.setReferer(request.getHeader("Referer"));
+		log.setApiPath("/index");
+		int a = logService.insert(log);
+		System.out.println(a);
 
 		String qqLink = optionsService.selectValueByName("qq_link");
 		String emailLink = optionsService.selectValueByName("email_link");

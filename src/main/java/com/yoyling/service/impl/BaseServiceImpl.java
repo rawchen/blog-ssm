@@ -26,5 +26,8 @@ public class BaseServiceImpl {
 	@Resource
 	protected UserMapper userMapper;
 
+	@Resource
+	protected LogMapper logMapper;
+
 
 }
