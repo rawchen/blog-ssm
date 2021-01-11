@@ -17,7 +17,7 @@ $(function () {
 		width: "100%",
 		height: 580,
 		htmlDecode: true,
-		tex: true,
+		tex: false,
 		flowChart:true,
 		sequenceDiagram:true,
 		imageUpload : true,

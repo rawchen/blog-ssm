@@ -4,12 +4,21 @@
 }
 .linenums {
 	padding-left: 29px;
-	margin-bottom: 9px;
-	margin-top: 9px;
+	/*margin-bottom: 5px;*/
+}
+
+pre ol {
+	margin-top: revert;
+}
+
+pre ol li::marker {
+	margin-top: revert;
+	content: counter(list-item) "  ";
 }
 
 pre {
 	font-size: 1em;
+	margin: 20px 0px;
 	color: #999999;
 	background-color: #2d2d2d;
 }
@@ -247,5 +256,37 @@ pre code {
 	word-wrap: break-word;
 	word-break: break-word;
 }
+
+#blog-content table {
+	font-size: 14px;
+	overflow: auto;
+	width: 100%;
+	border-spacing: 0;
+	border-collapse: collapse;
+	word-wrap: normal;
+	word-break: break-all;
+	margin: 20px 0;
+}
+
+#blog-content table thead tr {
+	background-color: #f7f7f7;
+}
+
+#blog-content table tr {
+	border-top: 1px solid #ccc;
+	background-color: #fff;
+}
+
+#blog-content table td, table th {
+	padding: 6px 13px;
+	border: 1px solid #ddd;
+	text-align: center;
+}
+
+#blog-content table th {
+	font-weight: 700;
+}
+
+
 
 

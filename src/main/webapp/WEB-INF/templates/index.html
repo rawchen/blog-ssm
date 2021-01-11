@@ -3,10 +3,10 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title th:text="${optionsMap.websiteTitle}"></title>
+	<title th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle}"></title>
 
-	<link rel="shortcut icon" th:href="${optionsMap.websiteIco}">
-	<link rel="apple-touch-icon" th:href="${optionsMap.websiteIco}">
+	<link rel="shortcut icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
+	<link rel="apple-touch-icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
 
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,8 +53,8 @@
 		<!-- Brand Logo -->
 		<h1>
 			<a href="/index" class="brand-link">
-				<img th:src="${optionsMap.avatar}" class="brand-image img-circle elevation-3">
-				<span class="brand-text font-weight-light" th:text="${optionsMap.websiteTitle}">websiteTitle</span>
+				<img th:src="${#servletContext.getAttribute('applicationOptionsMap').avatar}" class="brand-image img-circle elevation-3">
+				<span class="brand-text font-weight-light" th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle}">websiteTitle</span>
 			</a>
 		</h1>
 
@@ -179,13 +179,13 @@
 						<div class="card widget-user sticky-top">
 							<!-- Add the bg color to the header using any of the bg-* classes -->
 							<div class="widget-user-header bg-info">
-								<h3 class="widget-user-username" th:text="${optionsMap.websiteTitle}"></h3>
+								<h3 class="widget-user-username" th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle}"></h3>
 							</div>
 							<div class="widget-user-image">
-								<img class="img-circle elevation-2" th:src="${optionsMap.avatar}" alt="Avatar">
+								<img class="img-circle elevation-2" th:src="${#servletContext.getAttribute('applicationOptionsMap').avatar}" alt="Avatar">
 							</div>
 							<div class="card-body pt-5">
-								<p class="text-muted" style="text-align: center" th:text="${optionsMap.description}">
+								<p class="text-muted" style="text-align: center" th:text="${#servletContext.getAttribute('applicationOptionsMap').description}">
 								</p>
 
 								<ul class="list-group list-group-unbordered">
@@ -196,9 +196,9 @@
 										</div>
 									</li>
 
-									<li class="list-group-item" th:if="!${#strings.isEmpty(optionsMap.location)}">
+									<li class="list-group-item" th:if="!${#strings.isEmpty(#servletContext.getAttribute('applicationOptionsMap').location)}">
 										<strong><i class="fas fa-map-marker-alt mr-2"></i>位置</strong>
-										<div class="text-muted" th:text="${optionsMap.location}"></div>
+										<div class="text-muted" th:text="${#servletContext.getAttribute('applicationOptionsMap').location}"></div>
 									</li>
 
 									<li class="list-group-item">
@@ -221,13 +221,13 @@
 									</li>
 
 									<li class="list-group-item text-center">
-										<a th:href="${optionsMap.qqLink}" target="_blank" class="btn btn-success btn-sm rounded-circle" data-toggle="tooltip" data-placement="top" title="QQ">
+										<a th:href="${#servletContext.getAttribute('applicationOptionsMap').qqLink}" target="_blank" class="btn btn-success btn-sm rounded-circle" data-toggle="tooltip" data-placement="top" title="QQ">
 											<i class="fa fa-qq"></i>
 										</a>
-										<a th:href="${optionsMap.emailLink}" target="_blank" class="btn btn-success btn-sm rounded-circle" data-toggle="tooltip" data-placement="top" title="Email">
+										<a th:href="${#servletContext.getAttribute('applicationOptionsMap').emailLink}" target="_blank" class="btn btn-success btn-sm rounded-circle" data-toggle="tooltip" data-placement="top" title="Email">
 											<i class="fa fa-envelope"></i>
 										</a>
-										<a th:href="${optionsMap.githubLink}" target="_blank" class="btn btn-success btn-sm rounded-circle" data-toggle="tooltip" data-placement="top" title="GitHub">
+										<a th:href="${#servletContext.getAttribute('applicationOptionsMap').githubLink}" target="_blank" class="btn btn-success btn-sm rounded-circle" data-toggle="tooltip" data-placement="top" title="GitHub">
 											<i class="fa fa-github text-white"></i>
 										</a>
 									</li>
@@ -247,8 +247,8 @@
 		<p class="text-center mb-1">
 			Copyright © 2020-2021 | THE HARDER, THE MORE FORTUNATE.
 		</p>
-		<p class="text-center" th:if="!${#strings.isEmpty(optionsMap.icp)}">
-			<a href="https://beian.miit.gov.cn/" th:text="${optionsMap.icp}"></a>
+		<p class="text-center" th:if="!${#strings.isEmpty(#servletContext.getAttribute('applicationOptionsMap').icp)}">
+			<a href="https://beian.miit.gov.cn/" th:text="${#servletContext.getAttribute('applicationOptionsMap').icp}"></a>
 		</p>
 	</footer>
 </div>

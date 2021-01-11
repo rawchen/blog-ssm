@@ -25,6 +25,29 @@ public class OtherController extends BaseController {
 	@RequestMapping("/index")
 	public String index(Model model){
 
+		String qqLink = optionsService.selectValueByName("qq_link");
+		String emailLink = optionsService.selectValueByName("email_link");
+		String githubLink = optionsService.selectValueByName("github_link");
+		String location = optionsService.selectValueByName("location");
+		String icp = optionsService.selectValueByName("icp");
+		String description = optionsService.selectValueByName("description");
+		String websiteTitle = optionsService.selectValueByName("website_title");
+		String websiteIco = optionsService.selectValueByName("website_ico");
+		String avatar = optionsService.selectValueByName("avatar");
+
+		Map<String, String> optionsMap = new HashMap<>();
+		optionsMap.put("qqLink",qqLink);
+		optionsMap.put("emailLink",emailLink);
+		optionsMap.put("githubLink",githubLink);
+		optionsMap.put("location",location);
+		optionsMap.put("icp",icp);
+		optionsMap.put("description",description);
+		optionsMap.put("websiteTitle",websiteTitle);
+		optionsMap.put("avatar",avatar);
+		optionsMap.put("websiteIco",websiteIco);
+
+		request.getServletContext().setAttribute("applicationOptionsMap", optionsMap);
+
 		int numberOfArticles = contentService.selectNumberOfArticles();
 		model.addAttribute("numberOfArticles",numberOfArticles);
 
@@ -48,30 +71,6 @@ public class OtherController extends BaseController {
 
 		List<Content> recommendContents = contentService.selectRecommendContent();
 		model.addAttribute("recommendContents",recommendContents);
-
-		String qqLink = optionsService.selectValueByName("qq_link");
-		String emailLink = optionsService.selectValueByName("email_link");
-		String githubLink = optionsService.selectValueByName("github_link");
-		String location = optionsService.selectValueByName("location");
-		String icp = optionsService.selectValueByName("icp");
-		String description = optionsService.selectValueByName("description");
-		String websiteTitle = optionsService.selectValueByName("website_title");
-		String websiteIco = optionsService.selectValueByName("website_ico");
-		String avatar = optionsService.selectValueByName("avatar");
-
-		Map<String, String> optionsMap = new HashMap<>();
-		optionsMap.put("qqLink",qqLink);
-		optionsMap.put("emailLink",emailLink);
-		optionsMap.put("githubLink",githubLink);
-		optionsMap.put("location",location);
-		optionsMap.put("icp",icp);
-		optionsMap.put("description",description);
-		optionsMap.put("websiteTitle",websiteTitle);
-		optionsMap.put("avatar",avatar);
-		optionsMap.put("websiteIco",websiteIco);
-
-
-		model.addAttribute("optionsMap",optionsMap);
 
 		return "index";
 	}
@@ -108,47 +107,14 @@ public class OtherController extends BaseController {
 		List<Content> recommendContents = contentService.selectRecommendContent();
 		model.addAttribute("recommendContents", recommendContents);
 
-		String qqLink = optionsService.selectValueByName("qq_link");
-		String emailLink = optionsService.selectValueByName("email_link");
-		String githubLink = optionsService.selectValueByName("github_link");
-		String location = optionsService.selectValueByName("location");
-		String icp = optionsService.selectValueByName("icp");
-		String description = optionsService.selectValueByName("description");
-		String websiteTitle = optionsService.selectValueByName("website_title");
-		String websiteIco = optionsService.selectValueByName("website_ico");
-		String avatar = optionsService.selectValueByName("avatar");
-
 		Map<String, String> optionsMap = new HashMap<>();
-		optionsMap.put("qqLink", qqLink);
-		optionsMap.put("emailLink", emailLink);
-		optionsMap.put("githubLink", githubLink);
-		optionsMap.put("location", location);
-		optionsMap.put("icp", icp);
-		optionsMap.put("description", description);
-		optionsMap.put("websiteTitle", websiteTitle);
-		optionsMap.put("avatar", avatar);
-		optionsMap.put("websiteIco", websiteIco);
 		optionsMap.put("categoryId", String.valueOf(cgid));
-
 		model.addAttribute("optionsMap", optionsMap);
-
 		return "category";
 	}
 
 	@RequestMapping("/c/{categoryName}/{slugName}")
 	public String showContent(Model model, @PathVariable String categoryName, @PathVariable String slugName) {
-
-		String icp = optionsService.selectValueByName("icp");
-		String websiteTitle = optionsService.selectValueByName("website_title");
-		String websiteIco = optionsService.selectValueByName("website_ico");
-		String avatar = optionsService.selectValueByName("avatar");
-
-		Map<String, String> optionsMap = new HashMap<>();
-		optionsMap.put("icp",icp);
-		optionsMap.put("websiteTitle",websiteTitle);
-		optionsMap.put("avatar",avatar);
-		optionsMap.put("websiteIco",websiteIco);
-		model.addAttribute("optionsMap",optionsMap);
 		model.addAttribute("content",contentService.findContentBySlugName(slugName));
 		return "detail2";
 	}
@@ -185,26 +151,7 @@ public class OtherController extends BaseController {
 		List<Content> recommendContents = contentService.selectRecommendContent();
 		model.addAttribute("recommendContents", recommendContents);
 
-		String qqLink = optionsService.selectValueByName("qq_link");
-		String emailLink = optionsService.selectValueByName("email_link");
-		String githubLink = optionsService.selectValueByName("github_link");
-		String location = optionsService.selectValueByName("location");
-		String icp = optionsService.selectValueByName("icp");
-		String description = optionsService.selectValueByName("description");
-		String websiteTitle = optionsService.selectValueByName("website_title");
-		String websiteIco = optionsService.selectValueByName("website_ico");
-		String avatar = optionsService.selectValueByName("avatar");
-
 		Map<String, String> optionsMap = new HashMap<>();
-		optionsMap.put("qqLink", qqLink);
-		optionsMap.put("emailLink", emailLink);
-		optionsMap.put("githubLink", githubLink);
-		optionsMap.put("location", location);
-		optionsMap.put("icp", icp);
-		optionsMap.put("description", description);
-		optionsMap.put("websiteTitle", websiteTitle);
-		optionsMap.put("avatar", avatar);
-		optionsMap.put("websiteIco", websiteIco);
 		optionsMap.put("tagId", "0");
 
 		model.addAttribute("optionsMap", optionsMap);
@@ -216,9 +163,6 @@ public class OtherController extends BaseController {
 	public String tag(@PathVariable int tid, Model model) {
 		//查询所有category实体
 		List<Tag> tags = tagService.selectAllTag();
-		for (Tag t : tags) {
-
-		}
 		model.addAttribute("tags", tags);
 
 		//查询所有content实体
@@ -243,34 +187,13 @@ public class OtherController extends BaseController {
 		List<Content> recommendContents = contentService.selectRecommendContent();
 		model.addAttribute("recommendContents", recommendContents);
 
-		String qqLink = optionsService.selectValueByName("qq_link");
-		String emailLink = optionsService.selectValueByName("email_link");
-		String githubLink = optionsService.selectValueByName("github_link");
-		String location = optionsService.selectValueByName("location");
-		String icp = optionsService.selectValueByName("icp");
-		String description = optionsService.selectValueByName("description");
-		String websiteTitle = optionsService.selectValueByName("website_title");
-		String websiteIco = optionsService.selectValueByName("website_ico");
-		String avatar = optionsService.selectValueByName("avatar");
-
 		Map<String, String> optionsMap = new HashMap<>();
-		optionsMap.put("qqLink", qqLink);
-		optionsMap.put("emailLink", emailLink);
-		optionsMap.put("githubLink", githubLink);
-		optionsMap.put("location", location);
-		optionsMap.put("icp", icp);
-		optionsMap.put("description", description);
-		optionsMap.put("websiteTitle", websiteTitle);
-		optionsMap.put("avatar", avatar);
-		optionsMap.put("websiteIco", websiteIco);
 		if (!"".equals(String.valueOf(tid))) {
 			optionsMap.put("tagId", String.valueOf(tid));
 		} else {
 			optionsMap.put("tagId", "");
 		}
-
 		model.addAttribute("optionsMap", optionsMap);
-
 		return "tag";
 	}
 
@@ -285,29 +208,6 @@ public class OtherController extends BaseController {
 
 		List<Content> recommendContents = contentService.selectRecommendContent();
 		model.addAttribute("recommendContents",recommendContents);
-
-		String qqLink = optionsService.selectValueByName("qq_link");
-		String emailLink = optionsService.selectValueByName("email_link");
-		String githubLink = optionsService.selectValueByName("github_link");
-		String location = optionsService.selectValueByName("location");
-		String icp = optionsService.selectValueByName("icp");
-		String description = optionsService.selectValueByName("description");
-		String websiteTitle = optionsService.selectValueByName("website_title");
-		String websiteIco = optionsService.selectValueByName("website_ico");
-		String avatar = optionsService.selectValueByName("avatar");
-
-		Map<String, String> optionsMap = new HashMap<>();
-		optionsMap.put("qqLink",qqLink);
-		optionsMap.put("emailLink",emailLink);
-		optionsMap.put("githubLink",githubLink);
-		optionsMap.put("location",location);
-		optionsMap.put("icp",icp);
-		optionsMap.put("description",description);
-		optionsMap.put("websiteTitle",websiteTitle);
-		optionsMap.put("avatar",avatar);
-		optionsMap.put("websiteIco",websiteIco);
-
-		model.addAttribute("optionsMap",optionsMap);
 		return "archive";
 	}
 

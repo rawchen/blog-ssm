@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title th:text="${optionsMap.websiteTitle} + '&nbsp;|&nbsp;Dashboard'"></title>
-	<link rel="shortcut icon" th:href="${optionsMap.websiteIco}">
-	<link rel="apple-touch-icon" th:href="${optionsMap.websiteIco}">
+	<title th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle} + '&nbsp;|&nbsp;Dashboard'"></title>
+	<link rel="shortcut icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
+	<link rel="apple-touch-icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -44,8 +44,8 @@
 		<!-- Brand Logo -->
 		<h1>
 			<a href="admin" class="brand-link">
-				<img th:src="${optionsMap.avatar}" class="brand-image img-circle elevation-3">
-				<span class="brand-text font-weight-light" th:text="${optionsMap.websiteTitle}">websiteTitle</span>
+				<img th:src="${#servletContext.getAttribute('applicationOptionsMap').avatar}" class="brand-image img-circle elevation-3">
+				<span class="brand-text font-weight-light" th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle}">websiteTitle</span>
 			</a>
 		</h1>
 

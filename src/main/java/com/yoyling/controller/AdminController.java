@@ -3,6 +3,7 @@ package com.yoyling.controller;
 import com.yoyling.domain.Category;
 import com.yoyling.domain.Content;
 import com.yoyling.domain.Tag;
+import com.yoyling.domain.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,18 +30,6 @@ public class AdminController extends BaseController {
 		model.addAttribute("totalCategory",categoryService.selectCountOfCategory());
 		model.addAttribute("totalTag",tagService.selectCountOfTag());
 		model.addAttribute("totalComment",99);
-
-		String websiteTitle = optionsService.selectValueByName("website_title");
-		String websiteIco = optionsService.selectValueByName("website_ico");
-		String avatar = optionsService.selectValueByName("avatar");
-
-		Map<String, String> optionsMap = new HashMap<>();
-		optionsMap.put("websiteTitle",websiteTitle);
-		optionsMap.put("avatar",avatar);
-		optionsMap.put("websiteIco",websiteIco);
-
-		model.addAttribute("optionsMap",optionsMap);
-
 		return "dashboard";
 	}
 
@@ -52,12 +41,6 @@ public class AdminController extends BaseController {
 	@RequestMapping("/adminEdit")
 	public String adminEdit(Model model) {
 		model.addAttribute("serverName",request.getServerName());
-		String websiteTitle = optionsService.selectValueByName("website_title");
-		String websiteIco = optionsService.selectValueByName("website_ico");
-		String avatar = optionsService.selectValueByName("avatar");
-		model.addAttribute("websiteTitle",websiteTitle);
-		model.addAttribute("websiteIco",websiteIco);
-		model.addAttribute("avatar",avatar);
 
 		List<Category> categories = categoryService.selectAllCategory();
 		model.addAttribute("categories",categories);
@@ -114,8 +97,8 @@ public class AdminController extends BaseController {
 		content.setModifiedTime(new Date());
 		content.setContentText(blogContent);
 		content.setContentOrder(Integer.parseInt(blogContentsOrder));
-//		content.setAuthorId(Integer.parseInt((String) session.getAttribute("authorId")));
-		content.setAuthorId(1);
+		User user = (User) session.getAttribute("USER_SESSION");
+		content.setAuthorId(user.getUid());
 		content.setContentType(blogType);
 		content.setContentStatus(blogContentStatus);
 		content.setContentStatus(blogContentStatus);

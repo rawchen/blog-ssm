@@ -20,12 +20,6 @@ public class UserController extends BaseController {
 	 */
 	@RequestMapping("/login")
 	public String toLogin(Model model) {
-		String websiteTitle = optionsService.selectValueByName("website_title");
-		String websiteIco = optionsService.selectValueByName("website_ico");
-		Map<String, String> optionsMap = new HashMap<>();
-		optionsMap.put("websiteTitle",websiteTitle);
-		optionsMap.put("websiteIco",websiteIco);
-		model.addAttribute("optionsMap",optionsMap);
 		return "login";
 	}
 

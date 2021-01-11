@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title th:text="${websiteTitle} + '&nbsp;|&nbsp;EditBlog'"></title>
-	<link rel="shortcut icon" th:href="${websiteIco}">
-	<link rel="apple-touch-icon" th:href="${websiteIco}">
+	<title th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle} + '&nbsp;|&nbsp;EditBlog'"></title>
+	<link rel="shortcut icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
+	<link rel="apple-touch-icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
 
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -38,8 +38,8 @@
 	<nav class="main-header navbar navbar-expand-md navbar-dark navbar-dark">
 		<div class="container-fluid pl-5 pr-5">
 			<a href="admin" class="navbar-brand">
-				<img th:src="${avatar}" class="brand-image img-circle elevation-3">
-				<span class="brand-text font-weight-light" th:text="${websiteTitle}">websiteTitle</span>
+				<img th:src="${#servletContext.getAttribute('applicationOptionsMap').avatar}" class="brand-image img-circle elevation-3">
+				<span class="brand-text font-weight-light" th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle}">websiteTitle</span>
 			</a>
 
 			<button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
