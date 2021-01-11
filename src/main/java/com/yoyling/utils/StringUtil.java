@@ -70,9 +70,9 @@ public class StringUtil {
 		} else if (userAgent.toLowerCase().contains("android" )) {
 			os = "Android";
 		} else if (userAgent.toLowerCase().contains("iphone" )) {
-			os = "IPhone";
+			os = "iPhone";
 		} else {
-			os = "UnKnown, More-Info: " + userAgent;
+			os = "UnKnown";
 		}
 		//===============Browser===========================
 		if (user.contains("edge" )) {
@@ -104,7 +104,7 @@ public class StringUtil {
 			String IEVersion = (userAgent.substring(userAgent.indexOf("rv" )).split(" " )[0]).replace("rv:" , "-" );
 			browser = "IE" + IEVersion.substring(0, IEVersion.length() - 1);
 		} else {
-			browser = "UnKnown, More-Info: " + userAgent;
+			browser = "UnKnown";
 		}
 		map.put("os" , os);
 		map.put("browser" , browser);
