@@ -64,4 +64,9 @@ public class ContentServiceImpl extends BaseServiceImpl implements ContentServic
 		String t = String.valueOf(tid);
 		return contentMapper.selectContentListByTid(t);
 	}
+
+	@Override
+	public int updateContentViewsBySlug(String slugName) {
+		return contentMapper.updateContentViewsBySlug(slugName);
+	}
 }

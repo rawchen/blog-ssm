@@ -23,4 +23,6 @@ public interface ContentService {
 	List<Content> selectContentListByCgid(int cgid);
 
 	List<Content> selectContentListByTid(int tid);
+
+	int updateContentViewsBySlug(String slugName);
 }

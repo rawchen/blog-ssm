@@ -42,6 +42,10 @@
     where cid = #{cid,jdbcType=INTEGER}
   </select>
 
+	<update id="updateContentViewsBySlug" parameterType="string">
+		update content set views = views + 1 where slug = #{slug};
+	</update>
+
   <select id="selectContentListByCgid" parameterType="int" resultMap="BaseResultMap">
     select * from content where cgid = #{cgid};
   </select>

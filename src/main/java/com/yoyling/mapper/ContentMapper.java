@@ -32,4 +32,6 @@ public interface ContentMapper {
 	List<Content> selectContentListByCgid(int cgid);
 
 	List<Content> selectContentListByTid(String t);
+
+	int updateContentViewsBySlug(String slugName);
 }

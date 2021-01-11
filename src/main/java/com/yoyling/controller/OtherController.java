@@ -25,6 +25,10 @@ public class OtherController extends BaseController {
 	@RequestMapping("/index")
 	public String index(Model model){
 
+		String ua = request.getHeader("User-Agent");
+		System.out.println(ua);
+		System.out.println(StringUtil.getIpAddr(request));
+
 		String qqLink = optionsService.selectValueByName("qq_link");
 		String emailLink = optionsService.selectValueByName("email_link");
 		String githubLink = optionsService.selectValueByName("github_link");
@@ -115,6 +119,7 @@ public class OtherController extends BaseController {
 
 	@RequestMapping("/c/{categoryName}/{slugName}")
 	public String showContent(Model model, @PathVariable String categoryName, @PathVariable String slugName) {
+		int a = contentService.updateContentViewsBySlug(slugName);
 		model.addAttribute("content",contentService.findContentBySlugName(slugName));
 		return "detail2";
 	}
