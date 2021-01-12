@@ -184,6 +184,13 @@
 			<version>2.9.5</version>
 		</dependency>
 
+		<!-- UserAgentUtils -->
+		<dependency>
+			<groupId>eu.bitwalker</groupId>
+			<artifactId>UserAgentUtils</artifactId>
+			<version>1.21</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

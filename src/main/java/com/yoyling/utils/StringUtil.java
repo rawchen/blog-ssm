@@ -111,6 +111,14 @@ public class StringUtil {
 		return map;
 	}
 
+	public static String randomContentThumb() {
+		int m = 0;
+		int n = 9;
+		int temp=m+(int)(Math.random()*(n+1-m));
+		return "https://cdn.jsdelivr.net/gh/yoyling/JsDelivr/ContentThumb/"+temp+".jpg";
+	}
+
+
 	public static List<String> stringToList(String string) {
 		List<String> items = new ArrayList<>();
 		if (string != null) {

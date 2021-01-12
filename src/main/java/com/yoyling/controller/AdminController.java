@@ -4,6 +4,7 @@ import com.yoyling.domain.Category;
 import com.yoyling.domain.Content;
 import com.yoyling.domain.Tag;
 import com.yoyling.domain.User;
+import com.yoyling.utils.StringUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -105,7 +106,7 @@ public class AdminController extends BaseController {
 		content.setPassword(blogPassword);
 		content.setViews(0);
 		if ("".equals(blogThumb) || blogThumb == null) {
-			content.setThumb("/img/default.jpg");
+			content.setThumb(StringUtil.randomContentThumb());
 		}
 		content.setDescription(blogDescription);
 
