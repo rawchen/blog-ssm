@@ -75,10 +75,15 @@ span.post-title {
 	display: inline-block;
 }
 
-.overlaya:hover {
-	opacity: 0.9;
+.overlaya {
 	background-color: #0000005e;
-	transition: opacity .2s ease-out;
+	border-radius: 5px;
+}
+
+.overlaya:hover {
+	-webkit-transition-duration: .3s;
+	transition-duration: .3s;
+	background-color: #0000007e;
 	border-radius: 5px;
 }
 
