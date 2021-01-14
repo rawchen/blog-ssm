@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle} + '&nbsp;|&nbsp;'+${content.title}"></title>
+	<link rel="shortcut icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
+	<link rel="apple-touch-icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Theme style -->
+	<link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+
+	<link rel="stylesheet" th:href="@{/plugins/tocbot/css/tocbot.css}">
+	<link rel="stylesheet" th:href="@{/plugins/prism/css/prism.css}">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+	<!-- Navbar -->
+	<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+		<!-- Left navbar links -->
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
+			</li>
+		</ul>
+
+		<!-- SEARCH FORM -->
+		<form class="form-inline ml-3">
+			<div class="input-group input-group-sm">
+				<input class="form-control form-control-navbar" type="search" placeholder="博客搜索..." aria-label="Search">
+				<div class="input-group-append">
+					<button class="btn btn-navbar" type="submit">
+						<i class="fa fa-search"></i>
+					</button>
+				</div>
+			</div>
+		</form>
+	</nav>
+	<!-- /.navbar -->
+
+	<!-- Main Sidebar Container -->
+	<aside class="main-sidebar sidebar-dark-primary elevation-4">
+		<!-- Brand Logo -->
+		<h1>
+			<a href="/index" class="brand-link">
+				<img th:src="${#servletContext.getAttribute('applicationOptionsMap').avatar}" class="brand-image img-circle elevation-3">
+				<span class="brand-text font-weight-light" th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle}">websiteTitle</span>
+			</a>
+		</h1>
+
+		<!-- Sidebar -->
+		<div class="sidebar">
+			<!-- Sidebar Menu -->
+			<nav class="mt-2">
+				<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+					<!-- Add icons to the links using the .nav-icon class
+						 with font-awesome or any other icon font library -->
+					<li class="nav-header">读万卷书</li>
+					<li class="nav-item">
+						<a href="/index" class="nav-link">
+							<i class="fa fa-home nav-icon"></i>
+							<p>首页</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="/category/1" class="nav-link">
+							<i class="fa fa-bookmark nav-icon"></i>
+							<p>分类</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="/tag" class="nav-link">
+							<i class="fa fa-tags nav-icon"></i>
+							<p>标签</p>
+						</a>
+					</li>
+
+					<li class="nav-header">行万里路</li>
+					<li class="nav-item">
+						<a href="/archive" class="nav-link">
+							<i class="fa fa-archive nav-icon"></i>
+							<p>归档</p>
+						</a>
+					</li>
+					<li class="nav-header">点滴记录</li>
+					<li class="nav-item">
+						<a href="/guestbook" class="nav-link">
+							<i class="fa fa-comments nav-icon"></i>
+							<p>留言</p>
+						</a>
+					</li>
+				</ul>
+			</nav>
+			<!-- /.sidebar-menu -->
+		</div>
+		<!-- /.sidebar -->
+	</aside>
+
+	<!-- Content Wrapper. Contains page content -->
+	<div class="content-wrapper mt-3">
+		<!-- Main content -->
+		<section class="content">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-9">
+						<div class="card card-teal card-outline mb-5 bg-color-ea">
+							<div class="card-header">
+								<div>
+									<span class="text-xl" th:text="${content.title}"></span>
+									<span class="badge badge-info" th:text="${content.contentType}"></span>
+								</div>
+								<div>
+									<span class="text-sm mr-1"><i class="far fa-calendar-alt mr-1"></i>[[${#dates.format(content.createdTime, 'yyyy-MM-dd HH:mm')}]]</span>
+									<span class="text-sm"><i class="far fa-eye mr-1"></i>[[${content.views}]]</span>
+								</div>
+
+							</div><!-- /.card-header -->
+							<textarea id="mdtext" th:text="${content.contentText}" style="display: none;"></textarea>
+							<div class="card-body" id="blog-content">
+							</div>
+							<hr class="m-0">
+							<div class="card-body position-relative p-3">
+								<div class="text-lg text-bold mb-3">
+									<i class="far fa-comments mr-2"></i>
+									评&nbsp;&nbsp;论
+								</div>
+								<!-- Conversations are loaded here -->
+								<!-- Message. Default to the left -->
+								<div class="direct-chat-msg">
+									<div class="direct-chat-infos clearfix">
+										<span class="direct-chat-name float-left">YOYLING</span>
+										<span class="badge badge-warning float-left ml-1">博主</span>
+										<span class="direct-chat-timestamp float-left ml-2">23 Jan 2:00 pm</span>
+									</div>
+									<!-- /.direct-chat-infos -->
+									<img class="direct-chat-img position-absolute border" th:src="@{/upload/avatar.jpg}" alt="message user image">
+									<!-- /.direct-chat-img -->
+									<div class="direct-chat-text float-left">
+										Is this template really for free? That's unbelievable!
+										<a class="badge" href="#">回复</a>
+									</div>
+									<!-- /.direct-chat-text -->
+								</div>
+								<!-- /.direct-chat-msg -->
+								<!-- Message to the right -->
+								<div class="direct-chat-msg right">
+									<div class="direct-chat-infos clearfix">
+										<span class="direct-chat-timestamp float-right ml-2">23 Jan 2:00 pm</span>
+										<span class="badge badge-warning float-right ml-1">博主</span>
+										<span class="direct-chat-name float-right">Lee</span>
+									</div>
+									<!-- /.direct-chat-infos -->
+									<img class="direct-chat-img border position-absolute r-2" th:src="@{/upload/avatar.jpg}" alt="message user image">
+									<!-- /.direct-chat-img -->
+									<div class="direct-chat-text float-right">
+										You better believe it!
+										<a class="badge" href="#">回复</a>
+									</div>
+									<!-- /.direct-chat-text -->
+								</div>
+								<!-- /.direct-chat-msg -->
+								<!-- Message to the right -->
+								<div class="direct-chat-msg right">
+									<div class="direct-chat-infos clearfix">
+										<span class="direct-chat-timestamp float-right ml-2">23 Jan 2:00 pm</span>
+										<span class="direct-chat-name float-right text-green ml-2">
+                      回复<span>@Lee</span>
+                    </span>
+										<span class="badge badge-warning float-right ml-1">博主</span>
+										<span class="direct-chat-name float-right">YOYLING</span>
+									</div>
+									<!-- /.direct-chat-infos -->
+									<img class="direct-chat-img border position-absolute r-2" th:src="@{/img/user3-128x128.jpg}" alt="message user image">
+									<!-- /.direct-chat-img -->
+									<div class="direct-chat-text float-right">
+										You better believe it!
+										<a class="badge" href="#">回复</a>
+									</div>
+									<!-- /.direct-chat-text -->
+								</div>
+								<!-- /.direct-chat-msg -->
+								<!-- Message to the right -->
+								<div class="direct-chat-msg right">
+									<div class="direct-chat-infos clearfix">
+										<span class="direct-chat-timestamp float-right ml-2">23 Jan 2:00 pm</span>
+										<span class="direct-chat-name float-right text-green ml-2">
+                      回复<span>@Lee</span>
+                    </span>
+										<span class="direct-chat-name float-right">YOYLING</span>
+									</div>
+									<!-- /.direct-chat-infos -->
+									<img class="direct-chat-img border position-absolute r-2" src="./img/user3-128x128.jpg" alt="message user image">
+									<!-- /.direct-chat-img -->
+									<div class="direct-chat-text float-right">
+										You better believe it!
+										<a class="badge" href="#">回复</a>
+									</div>
+									<!-- /.direct-chat-text -->
+								</div>
+								<!-- /.direct-chat-msg -->
+							</div>
+							<div class="card-footer">
+								<form action="#" method="post">
+									<div class="input-group">
+										<input type="text" name="message" placeholder="Type Message ..." class="form-control">
+										<span class="input-group-append">
+                      <button type="button" class="btn btn-primary">Send</button>
+                    </span>
+									</div>
+								</form>
+							</div>
+							<!-- /.card-body -->
+						</div>
+						<!-- /.nav-tabs-custom -->
+					</div>
+					<!-- /.col -->
+
+					<div class="col-md-3 d-none d-md-block">
+						<!-- Profile Image -->
+						<div class="card card-primary card-outline bg-color-ea sticky-top">
+							<div class="card-header text-center text-lg">
+								目录
+							</div><!-- /.card-header -->
+							<div class="card-body toc p-2" id="toc">
+							</div>
+							<!-- /.card-body -->
+						</div>
+						<!-- /.card -->
+					</div>
+					<!-- /.col -->
+				</div>
+				<!-- /.row -->
+			</div><!-- /.container-fluid -->
+		</section>
+		<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
+	<footer class="main-footer">
+		<p class="text-center mb-1">
+			Copyright © 2020-2021 | THE HARDER, THE MORE FORTUNATE.
+		</p>
+		<p class="text-center" th:if="!${#strings.isEmpty(#servletContext.getAttribute('applicationOptionsMap').icp)}">
+			<a href="https://beian.miit.gov.cn/" th:text="${#servletContext.getAttribute('applicationOptionsMap').icp}"></a>
+		</p>
+	</footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/js/adminlte.min.js}"></script>
+
+<script th:src="@{/plugins/tocbot/js/tocbot.min.js}"></script>
+<script th:src="@{/plugins/prism/js/prism.js}"></script>
+
+<script th:src="@{/js/detail.js}"></script>
+
+<script th:src="@{/plugins/editor.md/lib/marked.min.js}"></script>
+<script th:src="@{/plugins/editor.md/lib/prettify.min.js}"></script>
+<script th:src="@{/plugins/editor.md/lib/raphael.min.js}"></script>
+<script th:src="@{/plugins/editor.md/lib/underscore.min.js}"></script>
+<script th:src="@{/plugins/editor.md/lib/flowchart.min.js}"></script>
+<script th:src="@{/plugins/editor.md/lib/jquery.flowchart.min.js}"></script>
+<script th:src="@{/plugins/editor.md/lib/sequence-diagram.min.js}"></script>
+
+<script th:src="@{/plugins/editor.md/js/editormd.js}"></script>
+
+<script type="text/javascript">
+	//markDown转HTMl的方法
+	//先对容器初始化，在需要展示的容器中创建textarea隐藏标签，
+	$("#blog-content").html('<textarea id="appendTest"></textarea>');
+	var content=$("#mdtext").val();//获取需要转换的内容;//获取需要转换的内容
+
+	$("#appendTest").val(content);//将需要转换的内容加到转换后展示容器的textarea隐藏标签中
+
+	//转换开始,第一个参数是上面的div的id
+	editormd.markdownToHTML("blog-content", {
+		htmlDecode: "style,script,iframe", //可以过滤标签解码
+		emoji: true,
+		taskList:true,
+		tex: false,
+		flowChart:true,
+		sequenceDiagram:true
+	});
+
+	// $(function(){
+	// 	$('table').each(function(){
+	// 		$(this).addClass('table table-striped table-dark')
+	// 	});
+	// });
+</script>
+
+
+</body>
+</html>
