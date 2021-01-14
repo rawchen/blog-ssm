@@ -121,7 +121,7 @@ public class OtherController extends BaseController {
 	public String showContent(Model model, @PathVariable String categoryName, @PathVariable String slugName) {
 		int a = contentService.updateContentViewsBySlug(slugName);
 		model.addAttribute("content",contentService.findContentBySlugName(slugName));
-		return "detail2";
+		return "detail";
 	}
 
 	@RequestMapping("/tag")
