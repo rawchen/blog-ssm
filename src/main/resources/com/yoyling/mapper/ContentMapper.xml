@@ -67,7 +67,7 @@
   </select>
 
   <select id="selectRecommendContent" resultMap="BaseResultMap">
-    select * from content where content_order = 1;
+    select * from content where content_order = 1 order by created_time limit 5;
   </select>
 
   <select id="selectContentListByTid" parameterType="string" resultMap="ResultMapWithBLOBs">
