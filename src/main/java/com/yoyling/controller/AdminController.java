@@ -115,7 +115,7 @@ public class AdminController extends BaseController {
 			int i = tagService.findTagIdByName(s);
 			if (i != -1) {
 				//根据tagid增加1次count
-				tagService.updateTagCount(i);
+				//tagService.updateTagCount(i);
 				tagListNew.add(String.valueOf(i));
 			} else {
 				tagService.insert(new Tag(null,s,1));
@@ -127,6 +127,24 @@ public class AdminController extends BaseController {
 		System.out.println(content);
 		int result =  contentService.insert(content);
 		if (result == 1) {
+			//全局修正tag数量
+			List<Content> contents = contentService.selectAllContent();
+			StringBuilder a = new StringBuilder();
+			for (Content c : contents) {
+				a.append(",").append(c.getTagList());
+			}
+			String[] b = a.toString().split(",");
+			List<Tag> tags = tagService.selectAllTag();
+			for (Tag tag : tags) {
+				int tagCount = 0;
+				for (String s : b) {
+					if (s.equals(String.valueOf(tag.getTid()))) {
+						tagCount++;
+					}
+				}
+				tagService.updateTagCount(tag.getTid(),tagCount);
+			}
+
 			model.addAttribute("message", "1");
 		} else {
 			model.addAttribute("message", "0");

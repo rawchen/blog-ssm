@@ -1,6 +1,7 @@
 package com.yoyling.mapper;
 
 import com.yoyling.domain.Tag;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -26,4 +27,6 @@ public interface TagMapper {
 	Tag findTagById(int tagId);
 
 	int selectCountOfTag();
+
+	int updateTagCount(@Param("tid") int tagId,@Param("count") int count);
 }

@@ -129,15 +129,11 @@ public class OtherController extends BaseController {
 
 		//查询所有category实体
 		List<Tag> tags = tagService.selectAllTag();
-		for (Tag t : tags) {
-
-		}
 		model.addAttribute("tags", tags);
 
 		//查询所有content实体
-		List<Content> contents = contentService.selectContentListByCgid(1);
+		List<Content> contents = contentService.selectAllContent();
 		for (Content c : contents) {
-
 			//查询设置评论数
 			c.setCommentCount(99);
 

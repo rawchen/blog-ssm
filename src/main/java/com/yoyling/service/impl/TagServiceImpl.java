@@ -44,9 +44,7 @@ public class TagServiceImpl extends BaseServiceImpl implements TagService {
 	}
 
 	@Override
-	public int updateTagCount(int tagId) {
-		Tag tag = tagMapper.selectByPrimaryKey(tagId);
-		tag.setCount(tag.getCount()+1);
-		return tagMapper.updateByPrimaryKey(tag);
+	public int updateTagCount(int tagId,int count) {
+		return tagMapper.updateTagCount(tagId,count);
 	}
 }

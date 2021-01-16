@@ -37,6 +37,10 @@
     select count(*) from tag;
   </select>
 
+  <update id="updateTagCount" parameterType="int">
+    update tag set count = #{count} where tid = #{tid};
+  </update>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from tag
     where tid = #{tid,jdbcType=INTEGER}

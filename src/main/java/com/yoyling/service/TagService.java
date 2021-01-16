@@ -18,5 +18,5 @@ public interface TagService {
 
 	int selectCountOfTag();
 
-	int updateTagCount(int tagId);
+	int updateTagCount(int tagId,int count);
 }
