@@ -127,7 +127,8 @@ public class AdminController extends BaseController {
 		System.out.println(content);
 		int result =  contentService.insert(content);
 		if (result == 1) {
-			//全局修正tag数量
+
+			//插入文章后全局修正tag数量
 			List<Content> contents = contentService.selectAllContent();
 			StringBuilder a = new StringBuilder();
 			for (Content c : contents) {

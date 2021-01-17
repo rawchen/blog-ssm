@@ -113,7 +113,7 @@
       <if test="modifiedTime != null">
         modified_time,
       </if>
-      <if test="contentOrder != null">
+      <if test="contentOrder !  = null">
         content_order,
       </if>
       <if test="authorId != null">
