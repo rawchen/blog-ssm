@@ -29,5 +29,7 @@ public class BaseServiceImpl {
 	@Resource
 	protected LogMapper logMapper;
 
+	@Resource
+	protected CommentMapper commentMapper;
 
 }

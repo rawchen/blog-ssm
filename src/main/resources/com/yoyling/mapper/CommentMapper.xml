@@ -22,8 +22,17 @@
   <sql id="Blob_Column_List">
     agent, text
   </sql>
+
+  <select id="selectCommentListByContentId" parameterType="int" resultMap="ResultMapWithBLOBs">
+    select * from comment where cid = #{cid};
+  </select>
+
+  <select id="selectCommentAuthorById" parameterType="int" resultType="String">
+    select author from comment where coid = #{coid};
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
+    select
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -35,13 +44,13 @@
     where coid = #{coid,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.yoyling.domain.Comment">
-    insert into comment (coid, cid, created, 
-      author, authorId, mail, 
-      url, ip, parent, agent, 
+    insert into comment (coid, cid, created,
+      author, authorId, mail,
+      url, ip, parent, agent,
       text)
-    values (#{coid,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP}, 
-      #{author,jdbcType=VARCHAR}, #{authorid,jdbcType=INTEGER}, #{mail,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{parent,jdbcType=INTEGER}, #{agent,jdbcType=LONGVARCHAR}, 
+    values (#{coid,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP},
+      #{author,jdbcType=VARCHAR}, #{authorid,jdbcType=INTEGER}, #{mail,jdbcType=VARCHAR},
+      #{url,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{parent,jdbcType=INTEGER}, #{agent,jdbcType=LONGVARCHAR},
       #{text,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yoyling.domain.Comment">

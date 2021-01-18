@@ -141,7 +141,7 @@
 							<div class="block-thumb" th:each="content,arrayS:${contents}">
 								<div class="card-body bg-hover-gray">
 									<p>
-										<a th:href="'/c/'+${content.categorySlug}+'/'+${content.slug}">
+										<a th:href="'/articles/'+${content.slug}">
 											<div class="block-thumb2" th:style="'background-image:url('+${content.thumb}+')'">
 												<div class="overlaya">
 													<div class="post-header-text-container">
@@ -286,7 +286,8 @@
 <script>
 	var a = '[[${optionsMap.tagId}]]';
 	$('#cidList a').each(function(){
-		if (this.href.includes('tag/'+a)){
+		var b = this.href;
+		if (b.substring(b.lastIndexOf('\/')+1,b.length)==a){
 			this.className = 'btn btn-primary btn-sm mt-2'
 		}
 	})

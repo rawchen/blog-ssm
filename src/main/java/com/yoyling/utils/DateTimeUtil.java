@@ -8,7 +8,6 @@ import java.util.Scanner;
 public class DateTimeUtil {
 	public static String dateWord(Date from){
 		long diff = new Date().getTime()/1000 - from.getTime()/1000;
-		System.out.println(diff);
 
 		/* 如果是一天 */
 		if (diff >= 0 && diff < 86400) {

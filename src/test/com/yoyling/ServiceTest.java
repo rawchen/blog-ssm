@@ -1,9 +1,6 @@
 package com.yoyling;
 
-import com.yoyling.domain.Category;
-import com.yoyling.domain.Content;
-import com.yoyling.domain.Tag;
-import com.yoyling.domain.User;
+import com.yoyling.domain.*;
 import com.yoyling.service.*;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -117,6 +114,17 @@ public class ServiceTest {
 		t.setPassword("yoyling");
 		User user = userService.selectUserByNameAndPassword(t);
 		System.out.println(user);
+	}
+
+	@Test
+	public void run12() {
+		ApplicationContext ac = new
+				ClassPathXmlApplicationContext("classpath:spring-context.xml");
+		CommentService commentService = (CommentService) ac.getBean("commentService");
+		List<Comment> comments = commentService.selectCommentListByContentId(1);
+		for (Comment comment : comments) {
+			System.out.println(comment);
+		}
 	}
 
 }

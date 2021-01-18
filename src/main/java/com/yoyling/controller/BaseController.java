@@ -42,6 +42,9 @@ public class BaseController {
 	@Resource
 	protected LogService logService;
 
+	@Resource
+	protected CommentService commentService;
+
 	@ModelAttribute
 	public void setReqAndRes(HttpServletRequest request, HttpServletResponse response) {
 		this.request = request;

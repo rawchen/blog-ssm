@@ -10,6 +10,8 @@ public class Comment implements Serializable {
 
     private Date created;
 
+    private String createdDisplay;
+
     private String author;
 
     private Integer authorid;
@@ -25,6 +27,8 @@ public class Comment implements Serializable {
     private String agent;
 
     private String text;
+
+    private String parentNickName;
 
     private static final long serialVersionUID = 1L;
 
@@ -50,6 +54,14 @@ public class Comment implements Serializable {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public String getCreatedDisplay() {
+        return createdDisplay;
+    }
+
+    public void setCreatedDisplay(String createdDisplay) {
+        this.createdDisplay = createdDisplay;
     }
 
     public String getAuthor() {
@@ -114,5 +126,32 @@ public class Comment implements Serializable {
 
     public void setText(String text) {
         this.text = text == null ? null : text.trim();
+    }
+
+    public String getParentNickName() {
+        return parentNickName;
+    }
+
+    public void setParentNickName(String parentNickName) {
+        this.parentNickName = parentNickName;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "coid=" + coid +
+                ", cid=" + cid +
+                ", created=" + created +
+                ", createdDisplay='" + createdDisplay + '\'' +
+                ", author='" + author + '\'' +
+                ", authorid=" + authorid +
+                ", mail='" + mail + '\'' +
+                ", url='" + url + '\'' +
+                ", ip='" + ip + '\'' +
+                ", parent=" + parent +
+                ", agent='" + agent + '\'' +
+                ", text='" + text + '\'' +
+                ", parentNickName='" + parentNickName + '\'' +
+                '}';
     }
 }

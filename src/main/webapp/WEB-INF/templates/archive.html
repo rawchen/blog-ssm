@@ -122,7 +122,7 @@
 												<li class="list-group-item bg-hover-gray"
 													th:date="${#dates.format((c.createdTime), 'yyyy,MM')}"
 													th:each="c,arrayS:${contents}">
-													<a th:href="'/c/'+${c.categorySlug}+'/'+${c.slug}"
+													<a th:href="'/articles/'+${c.slug}"
 													   class="d-block link-title text-truncate"
 													   th:text="${c.title}"></a>
 												</li>

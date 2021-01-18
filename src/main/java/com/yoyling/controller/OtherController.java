@@ -1,10 +1,10 @@
 package com.yoyling.controller;
 
 import com.yoyling.domain.Category;
+import com.yoyling.domain.Comment;
 import com.yoyling.domain.Content;
 import com.yoyling.domain.Tag;
-import com.yoyling.utils.LogUtil;
-import com.yoyling.utils.StringUtil;
+import com.yoyling.utils.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+import static com.yoyling.utils.StringUtil.getIpAddr;
 import static com.yoyling.utils.StringUtil.stringToList;
 
 @Controller
@@ -117,10 +118,18 @@ public class OtherController extends BaseController {
 		return "category";
 	}
 
-	@RequestMapping("/c/{categoryName}/{slugName}")
-	public String showContent(Model model, @PathVariable String categoryName, @PathVariable String slugName) {
+	@RequestMapping("/articles/{slugName}")
+	public String showContent(Model model, @PathVariable String slugName) {
 		int a = contentService.updateContentViewsBySlug(slugName);
-		model.addAttribute("content",contentService.findContentBySlugName(slugName));
+		Content content =  contentService.findContentBySlugName(slugName);
+		model.addAttribute("content",content);
+		List<Comment> comments = commentService.selectCommentListByContentId(content.getCid());
+		for (Comment comment : comments) {
+			comment.setMail(GravatarUtil.getGravatarUrlByEmail(comment.getMail()));
+			comment.setCreatedDisplay(DateTimeUtil.dateWord(comment.getCreated()));
+			comment.setParentNickName(commentService.selectCommentAuthorById(comment.getParent()));
+		}
+		model.addAttribute("comments",comments);
 		return "detail";
 	}
 
@@ -239,6 +248,35 @@ public class OtherController extends BaseController {
 		}
 		return resultJs;
 	}
+
+	@RequestMapping("/comment")
+	public String comment() {
+		String commentText = request.getParameter("commentText");
+		commentText = SmileUtil.StringConvertSmile(commentText);
+		String author = request.getParameter("author");
+		String mail = request.getParameter("mail");
+		String url = request.getParameter("url");
+		int contentId =  Integer.valueOf(request.getParameter("contentId"));
+
+		System.out.println(contentId);
+		Comment comment = new Comment();
+
+		comment.setCid(contentId);
+		comment.setCreated(new Date());
+		comment.setAuthor(author);
+		comment.setAuthorid(0);
+		comment.setMail(mail);
+		comment.setUrl(url);
+		comment.setIp(getIpAddr(request));
+		comment.setAgent(request.getHeader("User-Agent"));
+		comment.setText(commentText);
+
+		//暂时不设置二级评论
+		comment.setParent(0);
+		int a = commentService.insert(comment);
+		return "redirect:/articles/"+contentService.selectByPrimaryKey(contentId).getSlug();
+	}
+
 
 	@RequestMapping("/{page}")
 	public String test(@PathVariable String page) {
