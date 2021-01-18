@@ -274,6 +274,8 @@ public class OtherController extends BaseController {
 		//暂时不设置二级评论
 		comment.setParent(0);
 		int a = commentService.insert(comment);
+		CookieUtil.setUserLoginCookie(author, mail, url, request, response);
+
 		return "redirect:/articles/"+contentService.selectByPrimaryKey(contentId).getSlug();
 	}
 

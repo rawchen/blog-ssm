@@ -1,5 +1,5 @@
-/* PrismJS 1.22.0
-https://prismjs.com/download.html#themes=prism-okaidia&languages=markup+css+clike+javascript+bash+c+csharp+cpp+cmake+css-extras+docker+git+go+http+hpkp+hsts+java+javadoc+javadoclike+javastacktrace+jq+jsdoc+js-extras+json+json5+jsonp+js-templates+kotlin+latex+less+makefile+markdown+matlab+nginx+objectivec+opencl+perl+plsql+powershell+properties+python+r+regex+ruby+sass+scss+scala+scheme+shell-session+sql+swift+typescript+vim+xml-doc+yaml&plugins=line-numbers+show-language+toolbar+copy-to-clipboard */
+/* PrismJS 1.23.0
+https://prismjs.com/download.html#themes=prism-okaidia&languages=markup+css+clike+javascript+bash+c+csharp+cpp+cmake+css-extras+docker+git+go+http+hpkp+hsts+java+javadoc+javadoclike+javastacktrace+jq+jsdoc+js-extras+json+json5+jsonp+js-templates+kotlin+latex+less+makefile+markdown+matlab+nginx+objectivec+opencl+perl+plsql+powershell+properties+python+r+regex+ruby+sass+scss+scala+scheme+shell-session+sql+swift+typescript+vim+xml-doc+yaml&plugins=line-numbers+toolbar */
 /**
  * okaidia theme for JavaScript, CSS and HTML
  * Loosely based on Monokai textmate theme by http://www.monokai.nl/
@@ -40,14 +40,14 @@ pre[class*="language-"] {
 
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
-	/*background: #272822;*/
+	background: #272822;
 }
 
 /* Inline code */
 :not(pre) > code[class*="language-"] {
 	padding: .1em;
 	border-radius: .3em;
-	/*white-space: normal;*/
+	white-space: normal;
 }
 
 .token.comment,

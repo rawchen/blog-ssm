@@ -354,6 +354,7 @@
 <script th:src="@{/plugins/prism/js/prism.js}"></script>
 
 <script th:src="@{/js/detail.js}"></script>
+<script th:src="@{/js/getCookie.js}"></script>
 
 <script th:src="@{/plugins/editor.md/lib/marked.min.js}"></script>
 <script th:src="@{/plugins/editor.md/lib/prettify.min.js}"></script>
@@ -365,6 +366,11 @@
 
 <script th:src="@{/plugins/editor.md/js/editormd.js}"></script>
 
+<script type="text/javascript">
+	$("#author").val(getCookie('authorCookie'));
+	$("#mail").val(getCookie('mailCookie'));
+	$("#url").val(getCookie('urlCookie'));
+</script>
 <script type="text/javascript">
 	//markDown转HTMl的方法
 	//先对容器初始化，在需要展示的容器中创建textarea隐藏标签，
