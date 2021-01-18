@@ -14,4 +14,14 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		u.setPassword(StringUtil.passwordToMd5(pwd));
 		return userMapper.selectUserByNameAndPassword(u);
 	}
+
+	@Override
+	public int insert(User u) {
+		return userMapper.insert(u);
+	}
+
+	@Override
+	public User findUserByUserName(String userName) {
+		return userMapper.findUserByUserName(userName);
+	}
 }

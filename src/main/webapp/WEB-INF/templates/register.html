@@ -29,7 +29,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
 	<div class="login-logo">
-		<a href="/index">Blog · Login</a>
+		<a href="/index">Blog · Register</a>
 	</div>
 	<!-- /.login-logo -->
 	<div class="card">
@@ -37,10 +37,18 @@
 <!--			<form action="user/login" method="post" id="loginForm">-->
 			<form method="post" id="loginForm">
 				<div class="input-group mb-3">
-					<input type="text" id="userName" class="form-control" required placeholder="UserName">
+				<input type="text" id="userName" class="form-control" required placeholder="UserName">
+				<div class="input-group-append">
+					<div class="input-group-text">
+						<span class="fas fa-user"></span>
+					</div>
+				</div>
+				</div>
+				<div class="input-group mb-3">
+					<input type="email" id="Email" class="form-control" required placeholder="Email">
 					<div class="input-group-append">
 						<div class="input-group-text">
-							<span class="fas fa-user"></span>
+							<span class="fas fa-envelope"></span>
 						</div>
 					</div>
 				</div>
@@ -53,18 +61,22 @@
 					</div>
 				</div>
 				<div class="input-group mb-3">
-					<div class="icheck-success float-left">
-						<input type="checkbox" id="noLogin">
-						<label for="noLogin">7天免登陆</label>
+					<input type="password" id="VerifyPassword" class="form-control" required placeholder="VerifyPassword">
+					<div class="input-group-append">
+						<div class="input-group-text">
+							<span class="fas fa-lock"></span>
+						</div>
 					</div>
-					<input type="button" onclick="subForm()" class="btn btn-success btn-block" value="登录">
+				</div>
+				<div class="input-group mb-3">
+					<input type="button" onclick="subForm()" class="btn btn-success btn-block" value="注册">
 				</div>
 			</form>
 
 			<div class="social-auth-links text-center mb-3">
 				<p>- OR -</p>
-				<a href="/register" class="btn btn-block btn-primary">
-					注册
+				<a href="/login" class="btn btn-block btn-primary">
+					登录
 				</a>
 			</div>
 			<!-- /.social-auth-links -->
@@ -90,7 +102,30 @@
 		timer: 1500
 	});
 
+	$('#userName').blur(function () {
+		var userName = $(this).val();
+		if (userName != '') {
+			$.get("/findUserByUserName",{userName:userName},function (data) {
+				if (data.userExist) {
+					Toast.fire({
+						icon: 'error',
+						title: '用户名已存在！'
+					});
+					$('#userName').val("");
+					$('#userName').focus();
+				}
+			});
+		}
+	});
+
 	$('#userName').bind('keydown', function (event) {
+		var event = window.event || arguments.callee.caller.arguments[0];
+		if (event.keyCode == 13){
+			$('#Email').focus();
+		}
+	});
+
+	$('#Email').bind('keydown', function (event) {
 		var event = window.event || arguments.callee.caller.arguments[0];
 		if (event.keyCode == 13){
 			$('#password').focus();
@@ -98,6 +133,13 @@
 	});
 
 	$('#password').bind('keydown', function (event) {
+		var event = window.event || arguments.callee.caller.arguments[0];
+		if (event.keyCode == 13){
+			$('#VerifyPassword').focus();
+		}
+	});
+
+	$('#VerifyPassword').bind('keydown', function (event) {
 		var event = window.event || arguments.callee.caller.arguments[0];
 		if (event.keyCode == 13){
 			subForm();
@@ -110,7 +152,9 @@
 
 	function validateBlogForm() {
 		var userName = $('#userName').val();
+		var email = $('#Email').val();
 		var password = $('#password').val();
+		var VerifyPassword = $('#VerifyPassword').val();
 
 		if (isNull(userName)) {
 			Toast.fire({
@@ -120,7 +164,14 @@
 			$('#userName').focus();
 			return false;
 		}
-
+		if (!/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/.test(email)) {
+			Toast.fire({
+				icon: 'error',
+				title: '注意邮箱格式哦'
+			});
+			$('#Email').focus();
+			return false;
+		}
 		if (isNull(password)) {
 			Toast.fire({
 				icon: 'error',
@@ -129,27 +180,35 @@
 			$('#password').focus();
 			return false;
 		}
+		if (isNull(VerifyPassword) || VerifyPassword!==password) {
+			Toast.fire({
+				icon: 'error',
+				title: '密码貌似不一致哦'
+			});
+			$('#VerifyPassword').focus();
+			return false;
+		}
 		return true;
 	}
 
 	function subForm() {
 		if (validateBlogForm()) {
-			//请求登入接口
+			//请求注册接口
 			$.ajax({
 				type: 'post',
-				url: '/userLogin',
-				data: {'name': $('#userName').val(), 'password': $('#password').val(), 'remember': $('#noLogin').val()},
+				url: '/userRegister',
+				data: {'name': $('#userName').val(),'mail': $('#Email').val(), 'password': $('#password').val()},
 				success: function (res) {
 					if (res.data == "success") {
 						Toast.fire({
 							icon: 'success',
-							title: '正在进入后台！'
+							title: '注册成功！'
 						});
-						location.href = 'admin'; //后台主页
+						location.href = '/login'; //后台主页
 					} else if (res.data == "error") {
 						Toast.fire({
 							icon: 'error',
-							title: '帐号或密码错误！'
+							title: '系统错误！'
 						});
 						$('#userName').val("");
 						$('#password').val("");

@@ -16,4 +16,6 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     User selectUserByNameAndPassword(User u);
+
+    User findUserByUserName(String userName);
 }

@@ -27,6 +27,10 @@
     select * from user where name = #{name,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
   </select>
 
+  <select id="findUserByUserName" parameterType="string" resultMap="BaseResultMap">
+    select * from user where name = #{name,jdbcType=VARCHAR};
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user
     where uid = #{uid,jdbcType=INTEGER}
