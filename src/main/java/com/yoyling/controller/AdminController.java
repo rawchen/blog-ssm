@@ -150,7 +150,7 @@ public class AdminController extends BaseController {
 		} else {
 			model.addAttribute("message", "0");
 		}
-		return "blog-mgr";
+		return "redirect:/adminBlog";
 
 	}
 
@@ -199,6 +199,11 @@ public class AdminController extends BaseController {
 		return map;
 	}
 
+	/**
+	 * 跳转blog-mgr.html页面
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/adminBlog")
 	public String adminBlog(Model model) {
 		return "blog-mgr";

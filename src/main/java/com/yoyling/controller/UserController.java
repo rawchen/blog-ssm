@@ -43,7 +43,7 @@ public class UserController extends BaseController {
 	@RequestMapping("/logout")
 	public String toLogout(Model model) {
 		session.invalidate();
-		return "redirect:index";
+		return "redirect:/index";
 	}
 
 	/**

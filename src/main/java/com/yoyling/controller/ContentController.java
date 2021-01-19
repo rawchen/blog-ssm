@@ -31,13 +31,13 @@ public class ContentController extends BaseController {
 	@RequestMapping("/deleteContent/{cid}")
 	public String deleteContent(@PathVariable int cid) {
 		int a = contentService.deleteByPrimaryKey(cid);
-		return "blog-mgr";
+		return "redirect:/adminBlog";
 	}
 
 	@RequestMapping("/deleteSelectContent")
 	public String deleteSelectContent() {
-		String[] sids = request.getParameterValues("sid");
+		String[] sids = request.getParameterValues("cid");
 		int a = contentService.deleteSelectContent(sids);
-		return "blog-mgr";
+		return "redirect:/adminBlog";
 	}
 }

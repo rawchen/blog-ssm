@@ -37,7 +37,7 @@
 		<ul class="navbar-nav ml-auto">
 			<!-- Messages Dropdown Menu -->
 			<li class="nav-item dropdown">
-				<a class="nav-link" href="index.html">
+				<a class="nav-link" href="/index">
 					<i class="fa fa-paper-plane"></i>
 					<span>博客前台首页</span>
 				</a>
@@ -265,7 +265,7 @@
 				{
 					render: function (data, type, row, meta) {
 						// return '<a href=\"' + '/deleteContent/' + row.cid +'\"' + 'class="btn btn-danger btn-xs">删除</a> <button class="btn btn-success btn-xs">修改</button>'
-						return '<button onclick="deleteContent(' + row.cid +');" class="btn btn-danger btn-xs">删除</button> <button class="btn btn-success btn-xs">修改</button>'
+						return '<button onclick="deleteContent(' + row.cid +');" class="btn btn-danger btn-xs">删除</button> <button class="btn btn-success btn-xs">修改</button> <a class="btn btn-info btn-xs" target="_blank" href="/articles/' + row.slug +'">预览</a>'
 					}
 				}
 			],
@@ -300,7 +300,7 @@
 			//var topPlugin='<button id="addButton" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addUser" style="display:block;">' +
 			// '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加用户</button>';
 			//删除用户按钮的HTMLDOM
-			var topPlugin = '<button id="deleteSelectContent" class="btn btn-danger btn-sm">批量删除</button> <button class="btn btn-primary btn-sm">新增</button> <button class="btn btn-info btn-sm">导出全部</button>';
+			var topPlugin = '<button id="deleteSelectContent" class="btn btn-danger btn-sm">批量删除</button> <button class="btn btn-info btn-sm">导出(未实现)</button>';
 			$("#topPlugin").append(topPlugin);//在表格上方topPlugin DIV中追加HTML
 			//$("#expCsv").on("click", exp1);//给下方按钮绑定事件
 		}
@@ -333,33 +333,33 @@
 		if (confirm("你确定删除该文章吗？")) {
 			location.href = "/deleteContent/" + cid;
 		}
-	};
-
-	document.getElementById("firstCheckBox").onclick = function () {
-		var cbs = document.getElementsByName("cid");
-		for (var i = 0; i < cbs.length; i++) {
-			cbs[i].checked = this.checked;
-		}
 	}
+	window.onload = function () {
+		document.getElementById("deleteSelectContent").onclick = function () {
+			var flag = false;
+			var cbs = document.getElementsByName("cid");
+			for (var i = 0; i < cbs.length; i++) {
+				if (cbs[i].checked) {
+					//有一个条目选中了,那么就不显示提示删除框
+					//且不提交
+					flag = true;
+					break;
+				}
+			}
 
-	document.getElementById("deleteSelectContent").onclick = function () {
-		var flag = false;
-		var cbs = document.getElementsByName("cid");
-		for (var i = 0; i < cbs.length; i++) {
-			if (cbs[i].checked) {
-				//有一个条目选中了,那么就不显示提示删除框
-				//且不提交
-				flag = true;
-				break;
+			if (flag) {
+				if (confirm("你确定要删除选中条目吗？")) {
+					document.getElementById("selectContent").submit();
+				}
 			}
 		}
 
-		if (flag) {
-			if (confirm("你确定要删除选中条目吗？")) {
-				document.getElementById("selectContent").submit();
+		document.getElementById("firstCheckBox").onclick = function () {
+			var cbs = document.getElementsByName("cid");
+			for (var i = 0; i < cbs.length; i++) {
+				cbs[i].checked = this.checked;
 			}
 		}
-
 	}
 
 
