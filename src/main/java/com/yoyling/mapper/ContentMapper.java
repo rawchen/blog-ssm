@@ -34,4 +34,8 @@ public interface ContentMapper {
 	List<Content> selectContentListByTid(String t);
 
 	int updateContentViewsBySlug(String slugName);
+
+	int selectContentauthorIdBycontentId(int contentId);
+
+	int selectCommentCountByCid(Integer cid);
 }

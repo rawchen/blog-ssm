@@ -25,4 +25,8 @@ public interface ContentService {
 	List<Content> selectContentListByTid(int tid);
 
 	int updateContentViewsBySlug(String slugName);
+
+	Integer selectContentauthorIdBycontentId(int contentId);
+
+	int selectCommentCountByCid(Integer cid);
 }

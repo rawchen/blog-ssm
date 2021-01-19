@@ -1,9 +1,6 @@
 package com.yoyling.controller;
 
-import com.yoyling.domain.Category;
-import com.yoyling.domain.Comment;
-import com.yoyling.domain.Content;
-import com.yoyling.domain.Tag;
+import com.yoyling.domain.*;
 import com.yoyling.utils.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,7 +57,7 @@ public class OtherController extends BaseController {
 		for (Content c : contents) {
 
 			//查询设置评论数
-			c.setCommentCount(99);
+			c.setCommentCount(contentService.selectCommentCountByCid(c.getCid()));
 
 			c.setCategoryName(categoryService.selectByPrimaryKey(c.getCgid()).getCgName());
 			c.setCategorySlug(categoryService.selectByPrimaryKey(c.getCgid()).getCgSlug());
@@ -95,7 +92,7 @@ public class OtherController extends BaseController {
 		for (Content c : contents) {
 
 			//查询设置评论数
-			c.setCommentCount(99);
+			c.setCommentCount(contentService.selectCommentCountByCid(c.getCid()));
 
 			c.setCategoryName(categoryService.selectByPrimaryKey(c.getCgid()).getCgName());
 			c.setCategorySlug(categoryService.selectByPrimaryKey(c.getCgid()).getCgSlug());
@@ -144,7 +141,7 @@ public class OtherController extends BaseController {
 		List<Content> contents = contentService.selectAllContent();
 		for (Content c : contents) {
 			//查询设置评论数
-			c.setCommentCount(99);
+			c.setCommentCount(contentService.selectCommentCountByCid(c.getCid()));
 
 			c.setCategoryName(categoryService.selectByPrimaryKey(c.getCgid()).getCgName());
 			c.setCategorySlug(categoryService.selectByPrimaryKey(c.getCgid()).getCgSlug());
@@ -180,7 +177,7 @@ public class OtherController extends BaseController {
 		for (Content c : contents) {
 
 			//查询设置评论数
-			c.setCommentCount(99);
+			c.setCommentCount(contentService.selectCommentCountByCid(c.getCid()));
 
 			c.setCategoryName(categoryService.selectByPrimaryKey(c.getCgid()).getCgName());
 			c.setCategorySlug(categoryService.selectByPrimaryKey(c.getCgid()).getCgSlug());
@@ -256,27 +253,72 @@ public class OtherController extends BaseController {
 		String author = request.getParameter("author");
 		String mail = request.getParameter("mail");
 		String url = request.getParameter("url");
-		int contentId =  Integer.valueOf(request.getParameter("contentId"));
+		int contentId = Integer.valueOf(request.getParameter("contentId"));
 
-		System.out.println(contentId);
 		Comment comment = new Comment();
-
 		comment.setCid(contentId);
 		comment.setCreated(new Date());
-		comment.setAuthor(author);
-		comment.setAuthorid(0);
-		comment.setMail(mail);
-		comment.setUrl(url);
+
+		User sessionUser = (User) session.getAttribute("USER_SESSION");
+		if (sessionUser == null) {
+			comment.setAuthorid(0);
+			comment.setMail(mail);
+			comment.setUrl(url);
+			comment.setAuthor(author);
+
+		} else {
+			comment.setAuthorid(sessionUser.getUid());
+			comment.setMail(sessionUser.getMail());
+			comment.setUrl(sessionUser.getUrl());
+			comment.setAuthor(sessionUser.getScreenname());
+		}
+
 		comment.setIp(getIpAddr(request));
 		comment.setAgent(request.getHeader("User-Agent"));
 		comment.setText(commentText);
 
-		//暂时不设置二级评论
 		comment.setParent(0);
 		int a = commentService.insert(comment);
 		CookieUtil.setUserLoginCookie(author, mail, url, request, response);
 
 		return "redirect:/articles/"+contentService.selectByPrimaryKey(contentId).getSlug();
+	}
+
+	@RequestMapping("/comment/{cid}/{coid}")
+	public String commentReply(@PathVariable int cid,@PathVariable int coid) {
+		System.out.println(coid);
+		String commentText = request.getParameter("commentText");
+		commentText = SmileUtil.StringConvertSmile(commentText);
+		String author = request.getParameter("author");
+		String mail = request.getParameter("mail");
+		String url = request.getParameter("url");
+
+		Comment comment = new Comment();
+
+		comment.setCid(cid);
+		comment.setParent(coid);
+		comment.setCreated(new Date());
+		User sessionUser = (User) session.getAttribute("USER_SESSION");
+		if (sessionUser == null) {
+			comment.setAuthorid(0);
+			comment.setMail(mail);
+			comment.setUrl(url);
+			comment.setAuthor(author);
+
+		} else {
+			comment.setAuthorid(sessionUser.getUid());
+			comment.setMail(sessionUser.getMail());
+			comment.setUrl(sessionUser.getUrl());
+			comment.setAuthor(sessionUser.getScreenname());
+		}
+		comment.setIp(getIpAddr(request));
+		comment.setAgent(request.getHeader("User-Agent"));
+		comment.setText(commentText);
+
+		int a = commentService.insert(comment);
+		CookieUtil.setUserLoginCookie(author, mail, url, request, response);
+
+		return "redirect:/articles/"+contentService.selectByPrimaryKey(cid).getSlug();
 	}
 
 

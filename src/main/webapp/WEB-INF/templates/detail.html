@@ -68,6 +68,24 @@
 			border-radius: 30px;
 			background-color: #f7f7f7;
 		}
+		.comment-form .submit2 {
+			font-size: 13px;
+			position: absolute;
+			right: 31px;
+			bottom: 70px;
+			display: block;
+			line-height: 24px;
+			height: 28px;
+			margin: 0 auto;
+			padding: 0 20px;
+			-webkit-transition-duration: .4s;
+			transition-duration: .4s;
+			text-align: center;
+			color: #aeaeae;
+			border: 1px solid #dedede;
+			border-radius: 30px;
+			background-color: #f7f7f7;
+		}
 		span#smiliesbutton {
 			position: absolute;
 			left: 31px;
@@ -94,6 +112,12 @@
 			box-shadow:1px 3px 15px #bbb;
 		}
 		.comment-form .submit:hover, .submit:active, .submit:active:focus, .submit:focus {
+			color: #eb5055;
+			border: 1px solid #eb5055;
+			outline-style: none;
+			background-color: #fafafa;
+		}
+		.comment-form .submit2:hover, .submit:active, .submit:active:focus, .submit:focus {
 			color: #eb5055;
 			border: 1px solid #eb5055;
 			outline-style: none;
@@ -224,7 +248,7 @@
 								<!-- Conversations are loaded here -->
 								<!-- Message to the right -->
 								<div th:each="comment,arrayS:${comments}">
-									<div class="direct-chat-msg" th:if="${comment.authorid == 1}">
+									<div class="direct-chat-msg" th:if="${comment.authorid == content.authorId}">
 										<div class="direct-chat-infos clearfix">
 											<span class="direct-chat-name float-left" th:text="${comment.author}"></span>
 											<span class="badge badge-warning float-left ml-1" th:if="${comment.authorid == 1}">博主</span>
@@ -236,11 +260,11 @@
 										<!-- /.direct-chat-infos -->
 										<img class="direct-chat-img position-absolute border" th:src="${comment.mail}" alt="message user image">
 										<!-- /.direct-chat-img -->
-										<div class="direct-chat-text float-left"><span th:utext="${comment.text}"/><a class="badge" href="#">回复</a>
+										<div class="direct-chat-text float-left"><span th:utext="${comment.text}"/><a class="badge" th:href="'javascript:reply(\''+'/comment/'+${content.cid}+'/'+${comment.coid}+'\''+',\''+${comment.author}+'\')'">回复</a>
 										</div>
 										<!-- /.direct-chat-text -->
 									</div>
-									<div class="direct-chat-msg right" th:if="${comment.authorid != 1}">
+									<div class="direct-chat-msg right" th:if="${comment.authorid != content.authorId}">
 										<div class="direct-chat-infos clearfix">
 											<span class="direct-chat-timestamp float-right ml-2" th:text="${comment.createdDisplay}"></span>
 											<span class="direct-chat-name float-right text-green ml-2" th:if="${comment.parent != 0}">回复
@@ -252,7 +276,7 @@
 										<!-- /.direct-chat-infos -->
 										<img class="direct-chat-img border position-absolute r-2" th:src="${comment.mail}" alt="message user image">
 										<!-- /.direct-chat-img -->
-										<div class="direct-chat-text float-right"><span th:utext="${comment.text}"/><a class="badge" href="#">回复</a>
+										<div class="direct-chat-text float-right"><span th:utext="${comment.text}"/><a class="badge" th:href="'javascript:reply(\''+'/comment/'+${content.cid}+'/'+${comment.coid}+'\''+',\''+${comment.author}+'\')'">回复</a>
 										</div>
 										<!-- /.direct-chat-text -->
 									</div>
@@ -269,16 +293,17 @@
 <!--									</div>-->
 <!--								</form>-->
 								<form method="post" action="/comment" id="comment-form" class="comment-form" role="form" onsubmit="getElementById('misubmit').disabled=true;return true;">
-									<div>
+									<div th:if="${#session.getAttribute('USER_SESSION')}==null">
 										<input type="text" name="author" maxlength="12" id="author" class="form-control input-control clearfix" placeholder="昵称 (必填哦)" value="" required="">
 										<input type="email" name="mail" id="mail" class="form-control input-control clearfix" placeholder="邮箱 (必填哦)" value="" required="">
 										<input type="url" name="url" id="url" class="form-control input-control clearfix" placeholder="博客地址 (https://)" value="">
-										<input type="hidden" name="contentId" th:value="${content.cid}">
 									</div>
+									<input type="hidden" name="contentId" th:value="${content.cid}">
 
 									<textarea name="commentText" id="textarea" class="form-control" placeholder="来都来了，看都看了，想说点什么吗 0_o" required="required"></textarea>
 
 									<button type="submit" class="submit" id="misubmit">提交</button>
+									<button type="button" class="submit2" id="cancelReply" style="display: none" onclick="javascript:cancelR()">取消</button>
 									<div id="smiliesbox">
     									<span style="cursor:pointer;" data-tag=" :mrgreen: " title=":mrgreen:"><img style="margin:2px;max-width:30px;display:inline-block;" src="https://yoyling.com/usr/plugins/Smilies/tieba/icon_mrgreen.png" alt="icon_mrgreen.png"></span>
 										<span style="cursor:pointer;" data-tag=" :neutral: " title=":neutral:"><img style="margin:2px;max-width:30px;display:inline-block;" src="https://yoyling.com/usr/plugins/Smilies/tieba/icon_neutral.png" alt="icon_neutral.png"></span>
@@ -443,7 +468,22 @@
 		})
 	});
 </script>
+<script>
+	function reply(date,author) {
+		$('#textarea').attr('placeholder','@'+author);
 
+		$('#textarea').focus();
+		$('#cancelReply').css('display','');
+		$('#comment-form').attr('action',date);
+
+	}
+	function cancelR() {
+		$('#comment-form').attr('action','/comment');
+		$('#cancelReply').css('display','none');
+		$('#textarea').attr('placeholder','来都来了，看都看了，想说点什么吗 0_o');
+		$('#textarea').val('');
+	}
+</script>
 
 </body>
 </html>

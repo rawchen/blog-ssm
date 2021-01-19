@@ -51,15 +51,23 @@
   </select>
 
   <select id="selectContentCountByCgid" parameterType="int" resultType="int">
-    select count(*) from content where cgid = #{cgid};
+    select count(cid) from content where cgid = #{cgid};
   </select>
 
   <select id="selectAllContent" resultMap="BaseResultMap">
     select * from content order by created_time DESC;
   </select>
 
+  <select id="selectContentauthorIdBycontentId" parameterType="int" resultType="int">
+    select author_id from content where cid = #{cid};
+  </select>
+
   <select id="selectNumberOfArticles" resultType="int">
-    select count(*) from content;
+    select count(cid) from content;
+  </select>
+
+  <select id="selectCommentCountByCid" parameterType="int" resultType="int">
+    select count(coid) from comment where cid = #{cid};
   </select>
 
   <select id="findContentBySlugName" parameterType="string" resultMap="ResultMapWithBLOBs">

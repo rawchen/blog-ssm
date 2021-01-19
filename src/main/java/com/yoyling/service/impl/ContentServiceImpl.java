@@ -69,4 +69,14 @@ public class ContentServiceImpl extends BaseServiceImpl implements ContentServic
 	public int updateContentViewsBySlug(String slugName) {
 		return contentMapper.updateContentViewsBySlug(slugName);
 	}
+
+	@Override
+	public Integer selectContentauthorIdBycontentId(int contentId) {
+		return contentMapper.selectContentauthorIdBycontentId(contentId);
+	}
+
+	@Override
+	public int selectCommentCountByCid(Integer cid) {
+		return contentMapper.selectCommentCountByCid(cid);
+	}
 }

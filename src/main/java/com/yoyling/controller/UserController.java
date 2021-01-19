@@ -76,15 +76,17 @@ public class UserController extends BaseController {
 	 */
 	@RequestMapping("/userRegister")
 	@ResponseBody
-	public Map<String,Object> userLogin(User u) {
+	public Map<String,Object> userRegister(User u) {
+		User user = u;
 		Map<String, Object> map = new HashMap<>();
 		String pwd = u.getPassword();
-		u.setPassword(StringUtil.passwordToMd5(pwd));
-		u.setCreated(new Date());
-		u.setScreenname(u.getName());
-		u.setActivated(new Date());
-		u.setRole("user");
-		u.setPhoto(GravatarUtil.getGravatarUrlByEmail(u.getMail()));
+		user.setPassword(StringUtil.passwordToMd5(pwd));
+		user.setCreated(new Date());
+		user.setScreenname(u.getName());
+		user.setActivated(new Date());
+		user.setRole("user");
+		user.setPhoto(GravatarUtil.getGravatarUrlByEmail(u.getMail()));
+		System.out.println(user);
 		int value = userService.insert(u);
 		if (value == 0) {
 			map.put("data","error");
