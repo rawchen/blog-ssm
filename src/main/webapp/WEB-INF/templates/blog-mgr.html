@@ -3,7 +3,10 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>AdminLTE 3 | User Profile</title>
+	<title th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle} + '&nbsp;|&nbsp;Blog-Mgr'"></title>
+	<link rel="shortcut icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
+	<link rel="apple-touch-icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
+
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -47,9 +50,9 @@
 	<aside class="main-sidebar sidebar-dark-primary elevation-4">
 		<!-- Brand Logo -->
 		<h1>
-			<a href="index.html" class="brand-link">
-				<img src="./upload/avatar.jpg" class="brand-image img-circle elevation-3">
-				<span class="brand-text font-weight-light">YOYLING's Blog</span>
+			<a href="/index" class="brand-link">
+				<img th:src="${#servletContext.getAttribute('applicationOptionsMap').avatar}" class="brand-image img-circle elevation-3">
+				<span class="brand-text font-weight-light" th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle}">websiteTitle</span>
 			</a>
 		</h1>
 
@@ -62,39 +65,39 @@
 						 with font-awesome or any other icon font library -->
 					<li class="nav-header">仪表盘</li>
 					<li class="nav-item">
-						<a href="admin" class="nav-link">
+						<a href="/admin" class="nav-link">
 							<i class="nav-icon fas fa-tachometer-alt"></i>
 							<p>仪表盘</p>
 						</a>
 					</li>
 					<li class="nav-header">博客编辑</li>
 					<li class="nav-item">
-						<a href="adminEdit" class="nav-link">
+						<a href="/adminEdit" class="nav-link">
 							<i class="nav-icon fas fa-edit"></i>
 							<p>发布博客</p>
 						</a>
 					</li>
 					<li class="nav-header">管理模块</li>
 					<li class="nav-item">
-						<a href="adminBlog" class="nav-link active">
+						<a href="/adminBlog" class="nav-link active">
 							<i class="fa fa-list-alt nav-icon" aria-hidden="true"></i>
 							<p>博客管理</p>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="adminCategory" class="nav-link">
+						<a href="/adminCategory" class="nav-link">
 							<i class="fa fa-bookmark nav-icon" aria-hidden="true"></i>
 							<p>分类管理</p>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="adminTag" class="nav-link">
+						<a href="/adminTag" class="nav-link">
 							<i class="fa fa-tags nav-icon" aria-hidden="true"></i>
 							<p>标签管理</p>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="adminComment" class="nav-link">
+						<a href="/adminComment" class="nav-link">
 							<i class="fa fa-comments nav-icon" aria-hidden="true"></i>
 							<p>评论管理</p>
 						</a>
@@ -108,7 +111,7 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="index.html" class="nav-link">
+						<a href="/logout" class="nav-link">
 							<i class="fa fa-sign-out-alt nav-icon"></i>
 							<p>安全退出</p>
 						</a>
@@ -137,20 +140,22 @@
 							<hr class="m-0">
 							<!-- /.card-header -->
 							<div class="card-body table-responsive">
-								<table id="testTable" class="table table-bordered table-hover text-nowrap">
-									<thead>
-									<tr>
-										<th><input type="checkbox" value="' + data + '" name="id"/></th>
-										<th>标题</th>
-										<th>分类</th>
-										<th>发布</th>
-										<th>浏览量</th>
-										<th>发布时间</th>
-										<th>更新时间</th>
-										<th>操作</th>
-									</tr>
-									</thead>
-								</table>
+								<form id="selectContent" action="/deleteSelectContent" method="post">
+									<table id="testTable" class="table table-bordered table-hover text-nowrap">
+										<thead>
+										<tr>
+											<th><input type="checkbox" id="firstCheckBox" name="id"/></th>
+											<th>标题</th>
+											<th>缩略名</th>
+											<th>分类</th>
+											<th>推荐</th>
+											<th>浏览量</th>
+											<th>发布时间</th>
+											<th>操作</th>
+										</tr>
+										</thead>
+									</table>
+								</form>
 							</div>
 							<!-- /.card-body -->
 						</div>
@@ -166,10 +171,10 @@
 	<!-- /.content-wrapper -->
 	<footer class="main-footer">
 		<p class="text-center mb-1">
-			Copyright © 2020 YOYLING Designed by YOYLING Powered by AdminLTE
+			Copyright © 2020-2021 | THE HARDER, THE MORE FORTUNATE.
 		</p>
-		<p class="text-center">
-			<a href="">粤ICP备20040058号</a>
+		<p class="text-center" th:if="!${#strings.isEmpty(#servletContext.getAttribute('applicationOptionsMap').icp)}">
+			<a href="https://beian.miit.gov.cn/" th:text="${#servletContext.getAttribute('applicationOptionsMap').icp}"></a>
 		</p>
 	</footer>
 </div>
@@ -195,7 +200,7 @@
 <script>
 	$(function () {
 		$('#testTable').DataTable({
-			ajax: './data/blog.json', // 从一个ajax数据源读取数据给表格内容
+			ajax: '/adminGetContentList', // 从一个ajax数据源读取数据给表格内容
 			lengthMenu: [10, 20, 30, 60], // 定义在每页显示记录数的select中显示的选项
 			// displayLength: 20, //
 			// displayStart: 1, //初始化显示的时候从第几条数据开始显示(一开始显示第几页)
@@ -214,30 +219,53 @@
 			ordering: false,
 			columns: [
 				{
-					data: "blogId",
+					data: "cid",
 					render: function (data, type, row, meta) {
-						return '<input type="checkbox" value="' + data + '" name="id"/>';
+						return '<input type="checkbox" value="' + data + '" name="cid"/>';
 					}
 				},
-				{data: "blogTitle"},
-				{data: "blogCategoryName"},
+				{data: "title"},
+				{data: "slug"},
+				{data: "categoryName"},
 				{
-					data: "blogStatus",
+					data: "contentOrder",
 					render: function (data, type, row, meta) {
 						if (data === 1) {
-							data = '<div class="custom-control custom-switch custom-switch-on-success"><input type="checkbox" id="customSwitch' + row.blogId + '" class="custom-control-input" checked><label class="custom-control-label" for="customSwitch' + row.blogId + '"></label></div>';
+							data = '<div class="custom-control custom-switch custom-switch-on-success"><input type="checkbox" id="customSwitch' + row.cid + '" class="custom-control-input" checked><label class="custom-control-label" for="customSwitch' + row.cid + '"></label></div>';
 						} else {
-							data = '<div class="custom-control custom-switch custom-switch-on-success"><input type="checkbox" id="customSwitch' + row.blogId + '" class="custom-control-input"><label class="custom-control-label" for="customSwitch' + row.blogId + '"></label></div>';
+							data = '<div class="custom-control custom-switch custom-switch-on-success"><input type="checkbox" id="customSwitch' + row.cid + '" class="custom-control-input"><label class="custom-control-label" for="customSwitch' + row.cid + '"></label></div>';
 						}
 						return data;
 					}
 				},
-				{data: "blogViews"},
-				{data: "createTime"},
-				{data: "updateTime"},
+				{data: "views"},
+				{data: "createdTime",
+					render: function (data, type, row, meta) {
+						function getMyDate(time){
+							var oDate = new Date(time),
+								oYear = oDate.getFullYear(),
+								oMonth = oDate.getMonth()+1,
+								oDay = oDate.getDate(),
+								oHour = oDate.getHours(),
+								oMin = oDate.getMinutes(),
+								oSen = oDate.getSeconds(),
+								oTime = oYear +'-'+ getzf(oMonth) +'-'+ getzf(oDay) +' '+ getzf(oHour) +':'+ getzf(oMin) +':'+getzf(oSen);//最后拼接时间
+							return oTime;
+						}
+						function getzf(num){
+							if(parseInt(num) < 10){
+								num = '0'+num;
+							}
+							return num;
+						}
+
+						return getMyDate(data);
+					}
+				},
 				{
 					render: function (data, type, row, meta) {
-						return '<button class="btn btn-danger btn-xs">删除</button> <button class="btn btn-success btn-xs">修改</button>'
+						// return '<a href=\"' + '/deleteContent/' + row.cid +'\"' + 'class="btn btn-danger btn-xs">删除</a> <button class="btn btn-success btn-xs">修改</button>'
+						return '<button onclick="deleteContent(' + row.cid +');" class="btn btn-danger btn-xs">删除</button> <button class="btn btn-success btn-xs">修改</button>'
 					}
 				}
 			],
@@ -272,7 +300,7 @@
 			//var topPlugin='<button id="addButton" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addUser" style="display:block;">' +
 			// '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加用户</button>';
 			//删除用户按钮的HTMLDOM
-			var topPlugin = '<button class="btn btn-danger btn-sm">批量删除</button> <button class="btn btn-primary btn-sm">新增</button> <button class="btn btn-info btn-sm">导出全部</button>';
+			var topPlugin = '<button id="deleteSelectContent" class="btn btn-danger btn-sm">批量删除</button> <button class="btn btn-primary btn-sm">新增</button> <button class="btn btn-info btn-sm">导出全部</button>';
 			$("#topPlugin").append(topPlugin);//在表格上方topPlugin DIV中追加HTML
 			//$("#expCsv").on("click", exp1);//给下方按钮绑定事件
 		}
@@ -300,6 +328,41 @@
 			title: '文章发表失败！'
 		});
 	}
+
+	function deleteContent(cid) {
+		if (confirm("你确定删除该文章吗？")) {
+			location.href = "/deleteContent/" + cid;
+		}
+	};
+
+	document.getElementById("firstCheckBox").onclick = function () {
+		var cbs = document.getElementsByName("cid");
+		for (var i = 0; i < cbs.length; i++) {
+			cbs[i].checked = this.checked;
+		}
+	}
+
+	document.getElementById("deleteSelectContent").onclick = function () {
+		var flag = false;
+		var cbs = document.getElementsByName("cid");
+		for (var i = 0; i < cbs.length; i++) {
+			if (cbs[i].checked) {
+				//有一个条目选中了,那么就不显示提示删除框
+				//且不提交
+				flag = true;
+				break;
+			}
+		}
+
+		if (flag) {
+			if (confirm("你确定要删除选中条目吗？")) {
+				document.getElementById("selectContent").submit();
+			}
+		}
+
+	}
+
+
 </script>
 
 </body>

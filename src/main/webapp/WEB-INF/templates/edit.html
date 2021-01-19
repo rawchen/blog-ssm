@@ -37,7 +37,7 @@
 	<!-- Navbar -->
 	<nav class="main-header navbar navbar-expand-md navbar-dark navbar-dark">
 		<div class="container-fluid pl-5 pr-5">
-			<a href="admin" class="navbar-brand">
+			<a href="/admin" class="navbar-brand">
 				<img th:src="${#servletContext.getAttribute('applicationOptionsMap').avatar}" class="brand-image img-circle elevation-3">
 				<span class="brand-text font-weight-light" th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle}">websiteTitle</span>
 			</a>
@@ -51,25 +51,25 @@
 				<!-- Left navbar links -->
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a href="admin" class="nav-link">
+						<a href="/admin" class="nav-link">
 							<i class="nav-icon fas fa-tachometer-alt"></i>
 							仪表盘
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="adminBlog" class="nav-link">
+						<a href="/adminBlog" class="nav-link">
 							<i class="fa fa-list-alt nav-icon"></i>
 							博客管理
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="adminCategory" class="nav-link">
+						<a href="/adminCategory" class="nav-link">
 							<i class="fa fa-bookmark nav-icon"></i>
 							分类管理
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="adminTag" class="nav-link">
+						<a href="/adminTag" class="nav-link">
 							<i class="fa fa-tags nav-icon"></i>
 							标签管理
 						</a>
@@ -81,7 +81,7 @@
 	<!-- /.navbar -->
 
 	<div class="container-fluid pl-5 pr-5 mt-3">
-		<form id="blogForm" action="adminEditBlog" onkeydown="if(event.keyCode==13)return false;" method="post">
+		<form id="blogForm" action="/adminEditBlog" onkeydown="if(event.keyCode==13)return false;" method="post">
 			<!-- /.card-body -->
 			<div class="card card-teal card-outline">
 				<div class="card-header">
@@ -182,11 +182,11 @@
 								<i class="fa fa-edit"></i>
 								发布
 							</button>
-							<a href="adminTag" target="_blank" class="btn btn-sm btn-info float-left ml-1">
+							<a href="/adminTag" target="_blank" class="btn btn-sm btn-info float-left ml-1">
 								<i class="fas fa fa-plus"></i>
 								标签
 							</a>
-							<a href="adminCategory" target="_blank" class="btn btn-sm btn-primary float-left ml-1">
+							<a href="/adminCategory" target="_blank" class="btn btn-sm btn-primary float-left ml-1">
 								<i class="fa fa-plus"></i>
 								分类
 							</a>
@@ -318,7 +318,7 @@
 		load: function(query, callback) {
 			if (!query.length) return callback();
 			$.ajax({
-				url: 'adminGetTagList',
+				url: '/adminGetTagList',
 				type: 'GET',
 				error: function() {
 					callback();

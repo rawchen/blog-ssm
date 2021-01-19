@@ -22,4 +22,6 @@ public interface CategoryMapper {
 	Integer selectCategoryBySlug(String blogCategory);
 
 	int selectCountOfCategory();
+
+	String selectCategoryNameById(Integer cgid);
 }

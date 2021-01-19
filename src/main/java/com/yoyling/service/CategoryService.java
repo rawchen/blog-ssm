@@ -13,4 +13,6 @@ public interface CategoryService {
 	Category selectByPrimaryKey(Integer cgid);
 
 	int selectCountOfCategory();
+
+	String selectCategoryNameById(Integer cgid);
 }

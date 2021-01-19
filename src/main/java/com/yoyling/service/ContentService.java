@@ -29,4 +29,8 @@ public interface ContentService {
 	Integer selectContentauthorIdBycontentId(int contentId);
 
 	int selectCommentCountByCid(Integer cid);
+
+	int deleteByPrimaryKey(int cid);
+
+	int deleteSelectContent(String[] sids);
 }

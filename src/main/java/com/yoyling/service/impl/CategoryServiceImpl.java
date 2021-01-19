@@ -32,4 +32,9 @@ public class CategoryServiceImpl extends BaseServiceImpl implements CategoryServ
 			return 0;
 		}
 	}
+
+	@Override
+	public String selectCategoryNameById(Integer cgid) {
+		return categoryMapper.selectCategoryNameById(cgid);
+	}
 }

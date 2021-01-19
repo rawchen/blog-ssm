@@ -79,4 +79,24 @@ public class ContentServiceImpl extends BaseServiceImpl implements ContentServic
 	public int selectCommentCountByCid(Integer cid) {
 		return contentMapper.selectCommentCountByCid(cid);
 	}
+
+	@Override
+	public int deleteByPrimaryKey(int cid) {
+		return contentMapper.deleteByPrimaryKey(cid);
+	}
+
+	@Override
+	public int deleteSelectContent(String[] sids) {
+		try {
+			if (sids != null && sids.length > 0) {
+				for (String sid: sids) {
+					contentMapper.deleteByPrimaryKey(Integer.parseInt(sid));
+				}
+			}
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
 }

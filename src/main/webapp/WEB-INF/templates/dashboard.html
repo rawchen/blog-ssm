@@ -43,7 +43,7 @@
 	<aside class="main-sidebar sidebar-dark-primary elevation-4">
 		<!-- Brand Logo -->
 		<h1>
-			<a href="admin" class="brand-link">
+			<a href="/admin" class="brand-link">
 				<img th:src="${#servletContext.getAttribute('applicationOptionsMap').avatar}" class="brand-image img-circle elevation-3">
 				<span class="brand-text font-weight-light" th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle}">websiteTitle</span>
 			</a>
@@ -65,39 +65,39 @@
 					</li>
 					<li class="nav-header">博客编辑</li>
 					<li class="nav-item">
-						<a href="adminEdit" class="nav-link">
+						<a href="/adminEdit" class="nav-link">
 							<i class="nav-icon fas fa-edit"></i>
 							<p>发布博客</p>
 						</a>
 					</li>
 					<li class="nav-header">管理模块</li>
 					<li class="nav-item">
-						<a href="adminBlog" class="nav-link">
+						<a href="/adminBlog" class="nav-link">
 							<i class="fa fa-list-alt nav-icon" aria-hidden="true"></i>
 							<p>博客管理</p>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="adminCategory" class="nav-link">
+						<a href="/adminCategory" class="nav-link">
 							<i class="fa fa-bookmark nav-icon" aria-hidden="true"></i>
 							<p>分类管理</p>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="adminTag" class="nav-link">
+						<a href="/adminTag" class="nav-link">
 							<i class="fa fa-tags nav-icon" aria-hidden="true"></i>
 							<p>标签管理</p>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="adminComment" class="nav-link">
+						<a href="/adminComment" class="nav-link">
 							<i class="fa fa-comments nav-icon" aria-hidden="true"></i>
 							<p>评论管理</p>
 						</a>
 					</li>
 					<li class="nav-header">系统管理</li>
 					<li class="nav-item">
-						<a href="adminConfig"
+						<a href="/adminConfig"
 						   class="nav-link">
 							<i class="fa fa-wrench nav-icon"></i>
 							<p>系统配置</p>
@@ -131,7 +131,7 @@
 							<div class="icon">
 								<i class="fa fa-pen-square"></i>
 							</div>
-							<a href="adminEdit" class="small-box-footer">Let's go <i class="fa fa-arrow-circle-right"></i></a>
+							<a href="/adminEdit" class="small-box-footer">Let's go <i class="fa fa-arrow-circle-right"></i></a>
 						</div>
 					</div>
 					<!-- ./col -->

@@ -24,6 +24,10 @@
     select cgid from category where cg_slug = #{cgSlug};
   </select>
 
+  <select id="selectCategoryNameById" parameterType="int" resultType="string">
+    select cg_name from category where cgid = #{cgid};
+  </select>
+
   <select id="selectCountOfCategory" resultType="int">
     select count(*) from category;
   </select>
