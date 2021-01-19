@@ -47,6 +47,10 @@
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
 
+  <listener>
+    <listener-class>com.yoyling.listener.StartupListener</listener-class>
+  </listener>
+
   <!-- 配置加载类路径的配置文件 -->
   <context-param>
     <param-name>contextConfigLocation</param-name>

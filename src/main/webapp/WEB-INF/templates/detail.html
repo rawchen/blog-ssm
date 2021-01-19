@@ -38,14 +38,15 @@
 			margin-bottom: 10px;
 			font-size: 13px;
 			display: block;
-			width: 33%;
+			width: 33.33%;
 			height: 34px;
 			color: #313131;
 			outline: 0;
 		}
 		textarea#textarea {
+			font-size: 16px;
 			height: 150px;
-			padding: 10px 5px;
+			padding: 10px 11px;
 			resize: none;
 			width: 100%;
 		}
@@ -100,6 +101,12 @@
 		}
 		img.smile-img {
 			width: 40px;
+		}
+		@media (max-width: 700px) {
+			.comment-form .form-control {
+				width: 100%;
+				max-width: 100%;
+			}
 		}
 	</style>
 </head>
