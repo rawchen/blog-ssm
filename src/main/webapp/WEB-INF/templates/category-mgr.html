@@ -245,7 +245,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<p class="m-0">你确定要删除吗？(暂未设置外键级联删除，后面逻辑应为全部改为默认分类)</p>
+				<p class="m-0">你确定要删除吗？(将该分类下所有文章移动到默认分类)</p>
 			</div>
 			<div class="modal-footer">
 				<input type="hidden" id="valueOfCategory2">
@@ -295,6 +295,28 @@
 			}
 		});
 	})
+
+	$('#addCategoryBtn').click(function () {
+		var insertName = $('#categoryInputName').val();
+		var insertSlug = $('#categoryInputSlug').val();
+		if (insertName === "" || insertSlug === "") {
+			alert("你好像忘记输入什么了");
+		} else {
+			$.ajax({
+				url: '/insertCategory',
+				type: 'post',
+				data:{'cgName':insertName,'cgSlug':insertSlug},
+				success: function(res) {
+					// alert(res.data)
+					$('#addCategoryModal').modal('hide');
+					location.href = '/adminCategory'
+				},
+				error: function() {
+					alert("系统错误")
+				}
+			});
+		}
+	});
 
 	$('#updateCategoryBtn').click(function () {
 		var valueOfCategory = $('#valueOfCategory').val();

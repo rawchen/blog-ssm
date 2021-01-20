@@ -37,4 +37,6 @@ public interface ContentService {
 	int selectContentOrderByCid(int parseInt);
 
 	int changeContentOrderByCid(int parseInt);
+
+	int updateContentCgidDefaultByCid(Integer cid);
 }

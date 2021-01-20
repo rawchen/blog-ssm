@@ -47,4 +47,9 @@ public class CategoryServiceImpl extends BaseServiceImpl implements CategoryServ
 	public int deleteCategory(int parseInt) {
 		return categoryMapper.deleteByPrimaryKey(parseInt);
 	}
+
+	@Override
+	public int insertCategory(Category category) {
+		return categoryMapper.insert(category);
+	}
 }

@@ -208,6 +208,10 @@
     </trim>
   </insert>
 
+  <update id="updateContentCgidDefaultByCid" parameterType="int">
+    update content set cgid = 1 where cid = #{cid};
+  </update>
+
   <update id="changeContentOrderByCid" parameterType="int">
     update  content set content_order = case content_order when 0 then 1 when 1 then 0 end where cid = #{cid};
   </update>

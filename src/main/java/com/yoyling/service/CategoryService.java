@@ -19,4 +19,6 @@ public interface CategoryService {
 	int updateCategory(Category category);
 
 	int deleteCategory(int parseInt);
+
+	int insertCategory(Category category);
 }

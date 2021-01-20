@@ -109,4 +109,9 @@ public class ContentServiceImpl extends BaseServiceImpl implements ContentServic
 	public int changeContentOrderByCid(int parseInt) {
 		return contentMapper.changeContentOrderByCid(parseInt);
 	}
+
+	@Override
+	public int updateContentCgidDefaultByCid(Integer cid) {
+		return contentMapper.updateContentCgidDefaultByCid(cid);
+	}
 }
