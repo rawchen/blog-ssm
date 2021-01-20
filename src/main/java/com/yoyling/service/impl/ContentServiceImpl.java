@@ -71,8 +71,8 @@ public class ContentServiceImpl extends BaseServiceImpl implements ContentServic
 	}
 
 	@Override
-	public Integer selectContentauthorIdBycontentId(int contentId) {
-		return contentMapper.selectContentauthorIdBycontentId(contentId);
+	public Integer selectContentAuthorIdBycontentId(int contentId) {
+		return contentMapper.selectContentAuthorIdBycontentId(contentId);
 	}
 
 	@Override
@@ -98,5 +98,15 @@ public class ContentServiceImpl extends BaseServiceImpl implements ContentServic
 			return 0;
 		}
 		return 1;
+	}
+
+	@Override
+	public int selectContentOrderByCid(int parseInt) {
+		return contentMapper.selectContentOrderByCid(parseInt);
+	}
+
+	@Override
+	public int changeContentOrderByCid(int parseInt) {
+		return contentMapper.changeContentOrderByCid(parseInt);
 	}
 }

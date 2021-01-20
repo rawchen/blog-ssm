@@ -35,7 +35,11 @@ public interface ContentMapper {
 
 	int updateContentViewsBySlug(String slugName);
 
-	int selectContentauthorIdBycontentId(int contentId);
+	int selectContentAuthorIdBycontentId(int contentId);
 
 	int selectCommentCountByCid(Integer cid);
+
+	int selectContentOrderByCid(int parseInt);
+
+	int changeContentOrderByCid(int parseInt);
 }

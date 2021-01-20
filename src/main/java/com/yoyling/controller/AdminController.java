@@ -209,4 +209,14 @@ public class AdminController extends BaseController {
 		return "blog-mgr";
 	}
 
+	/**
+	 * 跳转category-mgr.html页面
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/adminCategory")
+	public String adminCategory(Model model) {
+		return "category-mgr";
+	}
+
 }

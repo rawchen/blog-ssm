@@ -198,6 +198,38 @@
 <script th:src="@{/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
 
 <script>
+	function deleteContent(cid) {
+		if (confirm("你确定删除该文章吗？")) {
+			location.href = "/deleteContent/" + cid;
+		}
+	}
+
+	function changeContentOrder(id) {
+		$.ajax({
+			url: '/changeContentOrder',
+			type: 'post',
+			data:{'contentId':id},
+			success: function(res) {
+				// alert(res.data)
+			},
+			error: function() {
+				alert("系统错误")
+			}
+		});
+
+
+			// $.get("/changeContentOrder/",{contentOrder:id},function (data) {
+			// 	if (data.slugExist) {
+			// 		Toast2.fire({
+			// 			icon: 'error',
+			// 			title: 'slug已存在！'
+			// 		});
+			// 		$('#slug').val("");
+			// 		$('#slug').focus();
+			// 	}
+			// });
+	}
+
 	$(function () {
 		$('#testTable').DataTable({
 			ajax: '/adminGetContentList', // 从一个ajax数据源读取数据给表格内容
@@ -231,9 +263,9 @@
 					data: "contentOrder",
 					render: function (data, type, row, meta) {
 						if (data === 1) {
-							data = '<div class="custom-control custom-switch custom-switch-on-success"><input type="checkbox" id="customSwitch' + row.cid + '" class="custom-control-input" checked><label class="custom-control-label" for="customSwitch' + row.cid + '"></label></div>';
+							data = '<div class="custom-control custom-switch custom-switch-on-success"><input type="checkbox" onchange="changeContentOrder(' + row.cid + ')" id="customSwitch' + row.cid + '" class="custom-control-input" checked><label class="custom-control-label" for="customSwitch' + row.cid + '"></label></div>';
 						} else {
-							data = '<div class="custom-control custom-switch custom-switch-on-success"><input type="checkbox" id="customSwitch' + row.cid + '" class="custom-control-input"><label class="custom-control-label" for="customSwitch' + row.cid + '"></label></div>';
+							data = '<div class="custom-control custom-switch custom-switch-on-success"><input type="checkbox" onchange="changeContentOrder(' + row.cid + ')" id="customSwitch' + row.cid + '" class="custom-control-input"><label class="custom-control-label" for="customSwitch' + row.cid + '"></label></div>';
 						}
 						return data;
 					}
@@ -264,8 +296,7 @@
 				},
 				{
 					render: function (data, type, row, meta) {
-						// return '<a href=\"' + '/deleteContent/' + row.cid +'\"' + 'class="btn btn-danger btn-xs">删除</a> <button class="btn btn-success btn-xs">修改</button>'
-						return '<button onclick="deleteContent(' + row.cid +');" class="btn btn-danger btn-xs">删除</button> <button class="btn btn-success btn-xs">修改</button> <a class="btn btn-info btn-xs" target="_blank" href="/articles/' + row.slug +'">预览</a>'
+						return '<a href="javascript:void(0);" onclick="deleteContent(' + row.cid +');" class="btn btn-danger btn-xs">删除</a> <button class="btn btn-success btn-xs">修改</button> <a class="btn btn-info btn-xs" target="_blank" href="/articles/' + row.slug +'">预览</a>'
 					}
 				}
 			],
@@ -300,70 +331,58 @@
 			//var topPlugin='<button id="addButton" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addUser" style="display:block;">' +
 			// '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加用户</button>';
 			//删除用户按钮的HTMLDOM
-			var topPlugin = '<button id="deleteSelectContent" class="btn btn-danger btn-sm">批量删除</button> <button class="btn btn-info btn-sm">导出(未实现)</button>';
+			var topPlugin = '<a href="javascript:void(0);" id="deleteSelectContent" class="btn btn-danger btn-sm">批量删除</a> <a href="javascript:void(0);" class="btn btn-info btn-sm">导出(未实现)</a>';
 			$("#topPlugin").append(topPlugin);//在表格上方topPlugin DIV中追加HTML
 			//$("#expCsv").on("click", exp1);//给下方按钮绑定事件
+
+			document.getElementById("firstCheckBox").onclick = function () {
+				var cbs = document.getElementsByName("cid");
+				for (var i = 0; i < cbs.length; i++) {
+					cbs[i].checked = this.checked;
+				}
+			};
+
+
+			document.getElementById("deleteSelectContent").onclick = function () {
+				var flag = false;
+				var cbs = document.getElementsByName("cid");
+				for (var i = 0; i < cbs.length; i++) {
+					if (cbs[i].checked) {
+						flag = true;
+						break;
+					}
+				}
+
+				if (flag) {
+					if (confirm("你确定要删除选中条目吗？")) {
+						document.getElementById("selectContent").submit();
+					}
+				}
+			};
+		}
+
+		var Toast = Swal.mixin({
+			toast: true,
+			position: 'top-end',
+			showConfirmButton: false,
+			timer: 1500
+		});
+
+		var t = "[[${message}]]";
+		if (t === '1') {
+			Toast.fire({
+				icon: 'success',
+				title: '文章发表了哦！'
+			});
+		}
+
+		if (t === '0') {
+			Toast.fire({
+				icon: 'error',
+				title: '文章发表失败！'
+			});
 		}
 	});
 </script>
-<script>
-	var Toast = Swal.mixin({
-		toast: true,
-		position: 'top-end',
-		showConfirmButton: false,
-		timer: 1500
-	});
-
-	var t = "[[${message}]]";
-	if (t === '1') {
-		Toast.fire({
-			icon: 'success',
-			title: '文章发表了哦！'
-		});
-	}
-
-	if (t === '0') {
-		Toast.fire({
-			icon: 'error',
-			title: '文章发表失败！'
-		});
-	}
-
-	function deleteContent(cid) {
-		if (confirm("你确定删除该文章吗？")) {
-			location.href = "/deleteContent/" + cid;
-		}
-	}
-	window.onload = function () {
-		document.getElementById("deleteSelectContent").onclick = function () {
-			var flag = false;
-			var cbs = document.getElementsByName("cid");
-			for (var i = 0; i < cbs.length; i++) {
-				if (cbs[i].checked) {
-					//有一个条目选中了,那么就不显示提示删除框
-					//且不提交
-					flag = true;
-					break;
-				}
-			}
-
-			if (flag) {
-				if (confirm("你确定要删除选中条目吗？")) {
-					document.getElementById("selectContent").submit();
-				}
-			}
-		}
-
-		document.getElementById("firstCheckBox").onclick = function () {
-			var cbs = document.getElementsByName("cid");
-			for (var i = 0; i < cbs.length; i++) {
-				cbs[i].checked = this.checked;
-			}
-		}
-	}
-
-
-</script>
-
 </body>
 </html>

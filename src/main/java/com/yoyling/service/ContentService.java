@@ -26,11 +26,15 @@ public interface ContentService {
 
 	int updateContentViewsBySlug(String slugName);
 
-	Integer selectContentauthorIdBycontentId(int contentId);
+	Integer selectContentAuthorIdBycontentId(int contentId);
 
 	int selectCommentCountByCid(Integer cid);
 
 	int deleteByPrimaryKey(int cid);
 
 	int deleteSelectContent(String[] sids);
+
+	int selectContentOrderByCid(int parseInt);
+
+	int changeContentOrderByCid(int parseInt);
 }

@@ -58,7 +58,7 @@
     select * from content order by created_time DESC;
   </select>
 
-  <select id="selectContentauthorIdBycontentId" parameterType="int" resultType="int">
+  <select id="selectContentAuthorIdBycontentId" parameterType="int" resultType="int">
     select author_id from content where cid = #{cid};
   </select>
 
@@ -80,6 +80,10 @@
 
   <select id="selectContentListByTid" parameterType="string" resultMap="ResultMapWithBLOBs">
     select * from content where FIND_IN_SET(#{tid}, tag_list);
+  </select>
+
+  <select id="selectContentOrderByCid" parameterType="int" resultType="int">
+    select content_order from content where cid = #{cid};
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -203,6 +207,11 @@
       </if>
     </trim>
   </insert>
+
+  <update id="changeContentOrderByCid" parameterType="int">
+    update  content set content_order = case content_order when 0 then 1 when 1 then 0 end where cid = #{cid};
+  </update>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.yoyling.domain.Content">
     update content
     <set>

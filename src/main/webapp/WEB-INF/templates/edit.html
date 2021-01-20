@@ -338,7 +338,7 @@
 	$('#slug').blur(function () {
 		var slugName = $(this).val();
 		if (slugName != '') {
-			$.get("findContentBySlugName",{slugName:slugName},function (data) {
+			$.get("/findContentBySlugName",{slugName:slugName},function (data) {
 				if (data.slugExist) {
 					Toast2.fire({
 						icon: 'error',
