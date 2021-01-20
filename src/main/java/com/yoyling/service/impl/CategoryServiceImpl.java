@@ -37,4 +37,14 @@ public class CategoryServiceImpl extends BaseServiceImpl implements CategoryServ
 	public String selectCategoryNameById(Integer cgid) {
 		return categoryMapper.selectCategoryNameById(cgid);
 	}
+
+	@Override
+	public int updateCategory(Category category) {
+		return categoryMapper.updateByPrimaryKey(category);
+	}
+
+	@Override
+	public int deleteCategory(int parseInt) {
+		return categoryMapper.deleteByPrimaryKey(parseInt);
+	}
 }

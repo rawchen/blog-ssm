@@ -216,6 +216,8 @@ public class AdminController extends BaseController {
 	 */
 	@RequestMapping("/adminCategory")
 	public String adminCategory(Model model) {
+		List<Category> categories = categoryService.selectAllCategory();
+		model.addAttribute("categories",categories);
 		return "category-mgr";
 	}
 

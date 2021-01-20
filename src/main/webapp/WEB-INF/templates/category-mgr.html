@@ -3,7 +3,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>AdminLTE 3 | User Profile</title>
+	<title th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle} + '&nbsp;|&nbsp;Category-Mgr'"></title>
+	<link rel="shortcut icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
+	<link rel="apple-touch-icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -30,7 +32,7 @@
 		<ul class="navbar-nav ml-auto">
 			<!-- Messages Dropdown Menu -->
 			<li class="nav-item dropdown">
-				<a class="nav-link" href="index.html">
+				<a class="nav-link" href="/index">
 					<i class="fa fa-paper-plane"></i>
 					<span>博客前台首页</span>
 				</a>
@@ -43,9 +45,9 @@
 	<aside class="main-sidebar sidebar-dark-primary elevation-4">
 		<!-- Brand Logo -->
 		<h1>
-			<a href="index.html" class="brand-link">
-				<img src="./upload/avatar.jpg" class="brand-image img-circle elevation-3">
-				<span class="brand-text font-weight-light">YOYLING's Blog</span>
+			<a href="/index" class="brand-link">
+				<img th:src="${#servletContext.getAttribute('applicationOptionsMap').avatar}" class="brand-image img-circle elevation-3">
+				<span class="brand-text font-weight-light" th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle}">websiteTitle</span>
 			</a>
 		</h1>
 
@@ -58,7 +60,7 @@
 						 with font-awesome or any other icon font library -->
 					<li class="nav-header">仪表盘</li>
 					<li class="nav-item">
-						<a href="admin" class="nav-link">
+						<a href="/admin" class="nav-link">
 							<i class="nav-icon fas fa-tachometer-alt"></i>
 							<p>仪表盘</p>
 						</a>
@@ -97,14 +99,14 @@
 					</li>
 					<li class="nav-header">系统管理</li>
 					<li class="nav-item">
-						<a href="adminConfig"
+						<a href="/adminConfig"
 						   class="nav-link">
 							<i class="fa fa-wrench nav-icon"></i>
 							<p>系统配置</p>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="index.html" class="nav-link">
+						<a href="/logout" class="nav-link">
 							<i class="fa fa-sign-out-alt nav-icon"></i>
 							<p>安全退出</p>
 						</a>
@@ -134,6 +136,7 @@
 								<tr>
 									<th width="5%"></th>
 									<th>分类名称</th>
+									<th>分类缩写</th>
 									<th class="text-center" width="15%">
 										操作
 										<button class="btn btn-xs btn-info ml-2" data-toggle="modal" data-target="#addCategoryModal">
@@ -144,15 +147,16 @@
 								</tr>
 								</thead>
 								<tbody>
-								<tr>
-									<td class="text-center">1</td>
-									<td>前端</td>
+								<tr th:each="category,arrayS:${categories}">
+									<td class="text-center" th:text="${arrayS.index + 1}"></td>
+									<td th:text="${category.cgName}"></td>
+									<td th:text="${category.cgSlug}"></td>
 									<td class="text-center">
-										<button class="btn btn-xs btn-success" data-toggle="modal" data-target="#updateCategoryModal">
+										<button class="btn btn-xs btn-success" data-toggle="modal" data-target="#updateCategoryModal" th:onclick="valuesToInput([[${category.cgid}]],[[${category.cgName}]],[[${category.cgSlug}]])">
 											<i class="fa fa-edit"></i>
 											修改
 										</button>
-										<button class="btn btn-xs btn-danger ml-2" data-toggle="modal" data-target="#deleteCategoryModal">
+										<button th:if="${category.cgid != 1}" class="btn btn-xs btn-danger ml-2" data-toggle="modal" data-target="#deleteCategoryModal" th:onclick="deleteCategory([[${category.cgid}]])">
 											<i class="fa fa-trash"></i>
 											删除
 										</button>
@@ -162,15 +166,6 @@
 							</table>
 						</div>
 						<!-- /.card-body -->
-						<div class="card-footer clearfix">
-							<ul class="pagination pagination-sm m-0 float-right">
-								<li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
-								<li class="page-item active"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
-							</ul>
-						</div>
 					</div>
 					<!-- /.card -->
 				</div>
@@ -182,17 +177,17 @@
 	<!-- /.content-wrapper -->
 	<footer class="main-footer">
 		<p class="text-center mb-1">
-			Copyright © 2020 YOYLING Designed by YOYLING Powered by AdminLTE
+			Copyright © 2020-2021 | THE HARDER, THE MORE FORTUNATE.
 		</p>
-		<p class="text-center">
-			<a href="">粤ICP备20040058号</a>
+		<p class="text-center" th:if="!${#strings.isEmpty(#servletContext.getAttribute('applicationOptionsMap').icp)}">
+			<a href="https://beian.miit.gov.cn/" th:text="${#servletContext.getAttribute('applicationOptionsMap').icp}"></a>
 		</p>
 	</footer>
 </div>
 <!-- ./wrapper -->
 
 <div class="modal fade" id="addCategoryModal">
-	<div class="modal-dialog modal-lg">
+	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">新增分类</h4>
@@ -201,7 +196,9 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<input type="text" id="categoryInput" name="category" value="前端,后台">
+				<input class="form-control" type="text" placeholder="分类中文名" id="categoryInputName">
+				<br>
+				<input class="form-control" type="text" placeholder="分类缩略名" id="categoryInputSlug">
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
@@ -223,7 +220,10 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<input class="form-control" type="text" id="" name="category" value="前端">
+				<input class="form-control" type="hidden" id="valueOfCategory">
+				<input class="form-control" type="text" placeholder="分类中文名" id="updateName"  name="category" value="前端">
+				<br>
+				<input class="form-control" type="text" placeholder="分类缩略名" id="updateSlug" name="category" value="slug">
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
@@ -245,9 +245,10 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<p class="m-0">你确定要删除吗？</p>
+				<p class="m-0">你确定要删除吗？(暂未设置外键级联删除，后面逻辑应为全部改为默认分类)</p>
 			</div>
 			<div class="modal-footer">
+				<input type="hidden" id="valueOfCategory2">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
 				<button id="deleteCategoryBtn" type="button" class="btn btn-danger">删除</button>
 			</div>
@@ -266,8 +267,59 @@
 
 <!-- AdminLTE App -->
 <script th:src="@{/js/adminlte.min.js}"></script>
-<script src="./js/categoryinput.init.js"></script>
 
+<script>
+	function deleteCategory(cgid) {
+		$('#valueOfCategory2').val(cgid);
+	}
+
+	function valuesToInput(cgid,name,slug) {
+		$('#valueOfCategory').val(cgid);
+		$('#updateName').val(name);
+		$('#updateSlug').val(slug);
+	}
+
+	$('#deleteCategoryBtn').click(function () {
+		var valueOfCategory = $('#valueOfCategory2').val();
+		$.ajax({
+			url: '/deleteCategory',
+			type: 'post',
+			data:{'cgid':valueOfCategory},
+			success: function(res) {
+				// alert(res.data)
+				$('#deleteCategoryModal').modal('hide');
+				location.href = '/adminCategory'
+			},
+			error: function() {
+				alert("系统错误")
+			}
+		});
+	})
+
+	$('#updateCategoryBtn').click(function () {
+		var valueOfCategory = $('#valueOfCategory').val();
+		var updateName = $('#updateName').val();
+		var updateSlug = $('#updateSlug').val();
+		if (valueOfCategory === "" || updateName === "" || updateSlug === "") {
+			alert("你好像忘记输入什么了");
+		} else {
+			$.ajax({
+				url: '/updateCategory',
+				type: 'post',
+				data:{'cgid':valueOfCategory,'cgName':updateName,'cgSlug':updateSlug},
+				success: function(res) {
+					// alert(res.data)
+					$('#updateCategoryModal').modal('hide');
+					location.href = '/adminCategory'
+				},
+				error: function() {
+					alert("系统错误")
+				}
+			});
+		}
+	})
+
+</script>
 
 </body>
 </html>

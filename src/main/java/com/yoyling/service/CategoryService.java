@@ -15,4 +15,8 @@ public interface CategoryService {
 	int selectCountOfCategory();
 
 	String selectCategoryNameById(Integer cgid);
+
+	int updateCategory(Category category);
+
+	int deleteCategory(int parseInt);
 }
