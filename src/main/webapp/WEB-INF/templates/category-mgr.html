@@ -45,7 +45,7 @@
 	<aside class="main-sidebar sidebar-dark-primary elevation-4">
 		<!-- Brand Logo -->
 		<h1>
-			<a href="/index" class="brand-link">
+			<a href="/admin" class="brand-link">
 				<img th:src="${#servletContext.getAttribute('applicationOptionsMap').avatar}" class="brand-image img-circle elevation-3">
 				<span class="brand-text font-weight-light" th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle}">websiteTitle</span>
 			</a>
@@ -203,7 +203,7 @@
 				<input class="form-control" type="text" placeholder="分类缩略名" id="categoryInputSlug">
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
 				<button id="addCategoryBtn" type="button" class="btn btn-success">新增</button>
 			</div>
 		</div>
@@ -228,7 +228,7 @@
 				<input class="form-control" type="text" placeholder="分类缩略名" id="updateSlug" name="category" value="slug">
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
 				<button id="updateCategoryBtn" type="button" class="btn btn-success">修改</button>
 			</div>
 		</div>
@@ -251,7 +251,7 @@
 			</div>
 			<div class="modal-footer">
 				<input type="hidden" id="valueOfCategory2">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
 				<button id="deleteCategoryBtn" type="button" class="btn btn-danger">删除</button>
 			</div>
 		</div>

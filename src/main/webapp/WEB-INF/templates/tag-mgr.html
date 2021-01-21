@@ -45,7 +45,7 @@
 	<aside class="main-sidebar sidebar-dark-primary elevation-4">
 		<!-- Brand Logo -->
 		<h1>
-			<a href="/index" class="brand-link">
+			<a href="/admin" class="brand-link">
 				<img th:src="${#servletContext.getAttribute('applicationOptionsMap').avatar}" class="brand-image img-circle elevation-3">
 				<span class="brand-text font-weight-light" th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle}">websiteTitle</span>
 			</a>
@@ -195,7 +195,7 @@
 				<input class="form-control" type="text" id="updateName" name="tag" value="前端">
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
 				<button id="updateTagBtn" type="button" class="btn btn-success">修改</button>
 			</div>
 		</div>
@@ -218,7 +218,7 @@
 			</div>
 			<div class="modal-footer">
 				<input type="hidden" id="valueOfTag2">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
 				<button id="deleteTagBtn" type="button" class="btn btn-danger">删除</button>
 			</div>
 		</div>
