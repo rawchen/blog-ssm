@@ -114,4 +114,39 @@ public class UserController extends BaseController {
 		map.put("userExist", userExist);
 		return map;
 	}
+
+	@RequestMapping("/updateUserInfo")
+	public String updateUserInfo() {
+		String screenName = request.getParameter("screenName");
+		String email = request.getParameter("email");
+		String url = request.getParameter("url");
+		User u = (User) session.getAttribute("USER_SESSION");
+		u.setScreenname(screenName);
+		u.setMail(email);
+		u.setPhoto(GravatarUtil.getGravatarUrlByEmail(email));
+		u.setUrl(url);
+		int a = userService.updateScreenNameAndMailAndUrl(u);
+
+		return "redirect:/adminConfig";
+	}
+
+	@RequestMapping("/updateUserPassword")
+	@ResponseBody
+	public Map<String,Object> updateUserPassword(String oldPwd,String newPwd) {
+		Map<String, Object> map = new HashMap<>();
+		String newOldPwd = StringUtil.passwordToMd5(oldPwd);
+		User u = (User) session.getAttribute("USER_SESSION");
+		if (u.getPassword().equals(newOldPwd)) {
+			u.setPassword(StringUtil.passwordToMd5(newPwd));
+			int a = userService.updatePassword(u);
+			if (a == 1) {
+				map.put("data", "success");
+			} else {
+				map.put("data", "fail");
+			}
+		} else {
+			map.put("data", "pwdfail");
+		}
+		return map;
+	}
 }

@@ -158,4 +158,19 @@
       photo = #{photo,jdbcType=VARCHAR}
     where uid = #{uid,jdbcType=INTEGER}
   </update>
+
+  <update id="updateScreenNameAndMailAndUrl" parameterType="com.yoyling.domain.User">
+    update user
+    set mail = #{mail,jdbcType=VARCHAR},
+        photo = #{photo,jdbcType=VARCHAR},
+        url = #{url,jdbcType=VARCHAR},
+        screenName = #{screenname,jdbcType=VARCHAR}
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
+
+  <update id="updatePassword">
+    update user
+    set password = #{password,jdbcType=VARCHAR}
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
 </mapper>

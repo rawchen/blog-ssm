@@ -24,4 +24,14 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 	public User findUserByUserName(String userName) {
 		return userMapper.findUserByUserName(userName);
 	}
+
+	@Override
+	public int updateScreenNameAndMailAndUrl(User u) {
+		return userMapper.updateScreenNameAndMailAndUrl(u);
+	}
+
+	@Override
+	public int updatePassword(User u) {
+		return userMapper.updatePassword(u);
+	}
 }

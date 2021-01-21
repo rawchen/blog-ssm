@@ -168,24 +168,17 @@
 										<div class="text-muted" th:text="${#servletContext.getAttribute('applicationOptionsMap').location}"></div>
 									</li>
 
-									<li class="list-group-item">
+									<li class="list-group-item" th:if="!${#strings.isEmpty(#servletContext.getAttribute('applicationOptionsMap').hobbyList)}">
 										<strong><i class="fas fa-code-branch mr-2"></i>爱好</strong>
-										<div class="text-muted">
-											<span class="badge badge-success">后端开发</span>
-											<span class="badge badge-success">极简化</span>
-											<span class="badge badge-success">写博客</span>
-											<span class="badge badge-success">去看海</span>
-											<span class="badge badge-success">摄影</span>
+										<div class="text-muted" >
+											<span class="badge badge-success mr-1" th:each="hobby,arrayS:${#servletContext.getAttribute('applicationOptionsMap').hobbyList}" th:text="${hobby}"> </span>
 										</div>
 									</li>
 
 									<li class="list-group-item">
 										<strong><i class="fas fa-link mr-2"></i>链接</strong>
 										<div class="text-muted">
-											<a href="https://yoyling.com/link" target="_blank"
-											   class="badge badge-warning">Link</a>
-											<a href="https://yoyling.com/videos" target="_blank"
-											   class="badge badge-warning">Video</a>
+											<a href="/index" target="_blank" class="badge badge-warning">Link</a>
 										</div>
 									</li>
 

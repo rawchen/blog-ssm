@@ -27,29 +27,6 @@ public class OtherController extends BaseController {
 		//插入日志
 		logService.insert(LogUtil.insertLog(request,"/index"));
 
-		String qqLink = optionsService.selectValueByName("qq_link");
-		String emailLink = optionsService.selectValueByName("email_link");
-		String githubLink = optionsService.selectValueByName("github_link");
-		String location = optionsService.selectValueByName("location");
-		String icp = optionsService.selectValueByName("icp");
-		String description = optionsService.selectValueByName("description");
-		String websiteTitle = optionsService.selectValueByName("website_title");
-		String websiteIco = optionsService.selectValueByName("website_ico");
-		String avatar = optionsService.selectValueByName("avatar");
-
-		Map<String, String> optionsMap = new HashMap<>();
-		optionsMap.put("qqLink",qqLink);
-		optionsMap.put("emailLink",emailLink);
-		optionsMap.put("githubLink",githubLink);
-		optionsMap.put("location",location);
-		optionsMap.put("icp",icp);
-		optionsMap.put("description",description);
-		optionsMap.put("websiteTitle",websiteTitle);
-		optionsMap.put("avatar",avatar);
-		optionsMap.put("websiteIco",websiteIco);
-
-		request.getServletContext().setAttribute("applicationOptionsMap", optionsMap);
-
 		int numberOfArticles = contentService.selectNumberOfArticles();
 		model.addAttribute("numberOfArticles",numberOfArticles);
 

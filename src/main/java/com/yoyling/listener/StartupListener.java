@@ -1,6 +1,7 @@
 package com.yoyling.listener;
 
 import com.yoyling.service.OptionsService;
+import com.yoyling.utils.StringUtil;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -17,6 +19,7 @@ public class StartupListener implements ServletContextListener, ApplicationConte
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
+		System.out.println(123);
 		OptionsService optionsService = applicationContext.getBean(OptionsService.class);
 		String qqLink = optionsService.selectValueByName("qq_link");
 		String emailLink = optionsService.selectValueByName("email_link");
@@ -27,8 +30,10 @@ public class StartupListener implements ServletContextListener, ApplicationConte
 		String websiteTitle = optionsService.selectValueByName("website_title");
 		String websiteIco = optionsService.selectValueByName("website_ico");
 		String avatar = optionsService.selectValueByName("avatar");
+		String postsListSize = optionsService.selectValueByName("posts_list_size");
+		String hobby = optionsService.selectValueByName("hobby");
 
-		Map<String, String> optionsMap = new HashMap<>();
+		Map<String, Object> optionsMap = new HashMap<>();
 		optionsMap.put("qqLink",qqLink);
 		optionsMap.put("emailLink",emailLink);
 		optionsMap.put("githubLink",githubLink);
@@ -38,6 +43,10 @@ public class StartupListener implements ServletContextListener, ApplicationConte
 		optionsMap.put("websiteTitle",websiteTitle);
 		optionsMap.put("avatar",avatar);
 		optionsMap.put("websiteIco",websiteIco);
+		optionsMap.put("postsListSize",postsListSize);
+		List<String> hobbyList = StringUtil.stringToList(hobby);
+		optionsMap.put("hobby",hobby);
+		optionsMap.put("hobbyList",hobbyList);
 		sce.getServletContext().setAttribute("applicationOptionsMap", optionsMap);
 	}
 

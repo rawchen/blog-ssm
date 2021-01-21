@@ -3,16 +3,20 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>AdminLTE 3 | User Profile</title>
+	<title th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle} + '&nbsp;|&nbsp;Config-Mgr'"></title>
+	<link rel="shortcut icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
+	<link rel="apple-touch-icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" th:href="@{/plugins/selectize/css/selectize.bootstrap3.css}">
 
+	<!-- SweetAlert2 -->
+	<link rel="stylesheet" th:href="@{/plugins/sweetalert2/sweetalert2.min.css}">
 	<!-- Theme style -->
 	<link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
 	<!-- Font Awesome -->
-	<link rel="stylesheet" th:href="@{/plugins/fontawesome/css/font-awesome.min.css}">
+	<link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -30,7 +34,7 @@
 		<ul class="navbar-nav ml-auto">
 			<!-- Messages Dropdown Menu -->
 			<li class="nav-item dropdown">
-				<a class="nav-link" href="index.html">
+				<a class="nav-link" href="/index">
 					<i class="fa fa-paper-plane"></i>
 					<span>博客前台首页</span>
 				</a>
@@ -43,9 +47,9 @@
 	<aside class="main-sidebar sidebar-dark-primary elevation-4">
 		<!-- Brand Logo -->
 		<h1>
-			<a href="index.html" class="brand-link">
-				<img src="./upload/avatar.jpg" class="brand-image img-circle elevation-3">
-				<span class="brand-text font-weight-light">YOYLING's Blog</span>
+			<a href="/index" class="brand-link">
+				<img th:src="${#servletContext.getAttribute('applicationOptionsMap').avatar}" class="brand-image img-circle elevation-3">
+				<span class="brand-text font-weight-light" th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle}">websiteTitle</span>
 			</a>
 		</h1>
 
@@ -103,7 +107,7 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="index.html" class="nav-link">
+						<a href="/logout" class="nav-link">
 							<i class="fa fa-sign-out-alt nav-icon"></i>
 							<p>安全退出</p>
 						</a>
@@ -128,91 +132,26 @@
 							</div>
 							<!-- /.card-header -->
 							<!-- form start -->
-							<form role="form">
+							<form role="form" action="/updateUserInfo" method="post">
 								<div class="card-body">
 									<div class="form-group">
-										<label for="username">用户名</label>
-										<input type="text" class="form-control" id="username" value="YOYLING." placeholder="用户名">
+										<label for="screenName">昵称</label>
+										<input type="text" required="required" class="form-control" id="screenName" name="screenName" th:value="${session.USER_SESSION.screenname}" placeholder="昵称">
 									</div>
 									<div class="form-group">
 										<label for="email">邮箱</label>
-										<input type="email" class="form-control" id="email" value="2221999792@qq.com" placeholder="邮箱">
+										<input type="email" required="required" class="form-control" id="email" name="email" placeholder="邮箱" th:value="${session.USER_SESSION.mail}">
 									</div>
 									<div class="form-group">
-										<label for="avatar">头像</label>
-										<div class="input-group">
-											<input type="file" name="" value="" id="avatar" class="w-100 border">
-										</div>
+										<label for="url">URL</label>
+										<input type="text" class="form-control" id="url" name="url" placeholder="博客地址" th:value="${session.USER_SESSION.url}">
 									</div>
-									<div class="form-group">
-										<label for="resume">个人简介</label>
-										<textarea class="form-control" rows="8" id="resume" name="resume" placeholder="个人简介（200字内）..." maxlength="200" style="resize:none"></textarea>
-									</div>
-									<div class="form-group">
-										<label for="position">位置</label>
-										<input type="text" class="form-control" id="position" value="中国, 沈阳" placeholder="position">
-									</div>
-									<div class="form-group">
-										<label for="job">职业</label>
-										<input type="text" class="form-control" id="job" placeholder="job">
-									</div>
-									<div class="form-group">
-										<label for="skill">技能</label>
-										<input type="text"  id="skill" value="前端,后台" placeholder="skill">
-									</div>
-									<div class="form-group">
-										<label for="hobby">爱好</label>
-										<input type="text" id="hobby" value="编程,学习" placeholder="hobby">
-									</div>
-									<div class="form-group">
-										<label for="github">github</label>
-										<input type="text" class="form-control" id="github" placeholder="github">
-									</div>
-									<div class="form-group">
-										<label for="QQ">QQ</label>
-										<input type="text" class="form-control" id="QQ" placeholder="QQ">
-									</div>
-									<div class="form-group">
-										<label for="WeChat">微信</label>
-										<input type="text" class="form-control" id="WeChat" placeholder="WeChat">
-									</div>
-								</div>
-								<!-- /.card-body -->
-								<div class="card-footer">
-									<button type="submit" class="btn btn-primary float-right">确认修改</button>
-								</div>
-							</form>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="card card-teal card-outline">
-							<div class="card-header">
-								<h3 class="card-title">站点信息</h3>
-							</div>
-							<!-- /.card-header -->
-							<!-- form start -->
-							<form role="form">
-								<div class="card-body">
-									<div class="form-group">
-										<label for="websiteName">站点名</label>
-										<input type="text" class="form-control" id="websiteName" value="YOYLING' Blog" placeholder="website name">
-									</div>
-									<div class="form-group">
-										<label for="favicon">站点图标</label>
-										<input type="text" class="form-control" id="favicon"  placeholder="favicon.ico">
-									</div>
-									<div class="form-group">
-										<label for="icp">备案号</label>
-										<input type="text" class="form-control" id="icp"  placeholder="ICP">
-									</div>
-									<div class="form-group">
-										<label for="description">站点描述</label>
-										<input type="text" class="form-control" id="description" placeholder="description">
-									</div>
-									<div class="form-group">
-										<label for="keywords">站点关键词</label>
-										<input type="text" class="form-control" id="keywords" placeholder="keywords">
-									</div>
+<!--									<div class="form-group">-->
+<!--										<label for="avatar">头像</label>-->
+<!--										<div class="input-group">-->
+<!--											<input type="file" name="" value="" id="avatar" class="w-100 border">-->
+<!--										</div>-->
+<!--									</div>-->
 								</div>
 								<!-- /.card-body -->
 								<div class="card-footer">
@@ -230,23 +169,85 @@
 								<div class="card-body">
 									<div class="form-group">
 										<label for="oldPwd">旧密码</label>
-										<input type="password" class="form-control" id="oldPwd"  placeholder="old password">
+										<input type="password" class="form-control" id="oldPwd" name="oldPwd" placeholder="old password">
 									</div>
 									<div class="form-group">
 										<label for="newPwd">新密码</label>
-										<input type="password" class="form-control" id="newPwd"  placeholder="new password">
+										<input type="password" class="form-control" id="newPwd" name="newPwd" placeholder="new password">
 									</div>
 									<div class="form-group">
 										<label for="confirmPwd">新密码</label>
-										<input type="password" class="form-control" id="confirmPwd"  placeholder="confirm password">
+										<input type="password" class="form-control" id="confirmPwd" name="confirmPwd" placeholder="confirm password">
 									</div>
 								</div>
 								<!-- /.card-body -->
 								<div class="card-footer">
-									<button type="submit" class="btn btn-danger float-right">确认修改</button>
+									<button type="button" onclick="updatePwd()" class="btn btn-danger float-right">确认修改</button>
 								</div>
 							</form>
 						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card card-teal card-outline">
+							<div class="card-header">
+								<h3 class="card-title">站点信息</h3>
+							</div>
+							<!-- /.card-header -->
+							<!-- form start -->
+							<form role="form" action="/updateOptions" method="post">
+								<div class="card-body">
+									<div class="form-group">
+										<label for="websiteName">站点标题</label>
+										<input type="text" class="form-control" id="websiteName" name="websiteName" th:value="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle}" placeholder="website name">
+									</div>
+									<div class="form-group">
+										<label for="favicon">站点图标</label>
+										<input type="text" class="form-control" id="ico" name="ico" th:value="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}" placeholder="favicon.ico">
+									</div>
+									<div class="form-group">
+										<label for="favicon">站点图标</label>
+										<input type="text" class="form-control" id="favicon" name="favicon" th:value="${#servletContext.getAttribute('applicationOptionsMap').avatar}" placeholder="favicon.png">
+									</div>
+									<div class="form-group">
+										<label for="icp">备案号</label>
+										<input type="text" class="form-control" id="icp" name="icp" th:value="${#servletContext.getAttribute('applicationOptionsMap').icp}" placeholder="ICP">
+									</div>
+									<div class="form-group">
+										<label for="description">站点描述</label>
+										<input type="text" class="form-control" id="description" name="description" th:value="${#servletContext.getAttribute('applicationOptionsMap').description}" placeholder="description">
+									</div>
+									<div class="form-group">
+										<label for="location">位置</label>
+										<input type="text" class="form-control" id="location" name="location" th:value="${#servletContext.getAttribute('applicationOptionsMap').location}" placeholder="position">
+									</div>
+									<div class="form-group">
+										<label for="postsListSize">单页文章数</label>
+										<input type="text" class="form-control" id="postsListSize" name="postsListSize" th:value="${#servletContext.getAttribute('applicationOptionsMap').postsListSize}" placeholder="">
+									</div>
+									<div class="form-group">
+										<label for="hobby">爱好</label>
+										<input type="text" id="hobby" name="hobby" th:value="${#servletContext.getAttribute('applicationOptionsMap').hobby}" placeholder="hobby">
+									</div>
+									<div class="form-group">
+										<label for="qqLink">QQLink</label>
+										<input type="text" class="form-control" id="qqLink" name="qqLink" th:value="${#servletContext.getAttribute('applicationOptionsMap').qqLink}" placeholder="QQ">
+									</div>
+									<div class="form-group">
+										<label for="emailLink">EmailLink</label>
+										<input type="text" class="form-control" id="emailLink" name="emailLink" th:value="${#servletContext.getAttribute('applicationOptionsMap').emailLink}" placeholder="WeChat">
+									</div>
+									<div class="form-group">
+										<label for="githubLink">GitHubLink</label>
+										<input type="text" class="form-control" id="githubLink" name="githubLink" th:value="${#servletContext.getAttribute('applicationOptionsMap').githubLink}" placeholder="GitHubLink">
+									</div>
+								</div>
+								<!-- /.card-body -->
+								<div class="card-footer">
+									<button type="submit" class="btn btn-primary float-right">确认修改</button>
+								</div>
+							</form>
+						</div>
+
 					</div>
 				</div>
 			</div>
@@ -257,10 +258,10 @@
 	<!-- /.content-wrapper -->
 	<footer class="main-footer">
 		<p class="text-center mb-1">
-			Copyright © 2020 YOYLING Designed by YOYLING Powered by AdminLTE
+			Copyright © 2020-2021 | THE HARDER, THE MORE FORTUNATE.
 		</p>
-		<p class="text-center">
-			<a href="">粤ICP备20040058号</a>
+		<p class="text-center" th:if="!${#strings.isEmpty(#servletContext.getAttribute('applicationOptionsMap').icp)}">
+			<a href="https://beian.miit.gov.cn/" th:text="${#servletContext.getAttribute('applicationOptionsMap').icp}"></a>
 		</p>
 	</footer>
 </div>
@@ -274,7 +275,80 @@
 <script th:src="@{/plugins/selectize/js/standalone/selectize.min.js}"></script>
 <!-- AdminLTE App -->
 <script th:src="@{/js/adminlte.min.js}"></script>
+<!-- SweetAlert2 -->
+<script th:src="@{/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
 
 <script th:src="@{/js/configuration.js}"></script>
+
+<script>
+
+	var Toast = Swal.mixin({
+		toast: true,
+		position: 'top-end',
+		showConfirmButton: false,
+		timer: 1500
+	});
+
+	function updatePwd() {
+		var oldPwd = $('#oldPwd').val();
+		var newPwd = $('#newPwd').val();
+		var confirmPwd = $('#confirmPwd').val();
+		if (oldPwd === "" || newPwd === "" || confirmPwd === "") {
+			Toast.fire({
+				icon: 'error',
+				title: '你好像忘记填写什么了！'
+			});
+			$('#oldPwd').focus();
+		}else {
+			if (newPwd !== confirmPwd) {
+				Toast.fire({
+					icon: 'error',
+					title: '密码确定错误！'
+				});
+				$('#confirmPwd').val("");
+			} else {
+				$.ajax({
+					url: '/updateUserPassword',
+					type: 'post',
+					data:{'oldPwd':oldPwd,'newPwd':newPwd},
+					success: function(res) {
+						// alert(res.data)
+						if (res.data == "success") {
+							Toast.fire({
+								icon: 'success',
+								title: '修改成功！'
+							});
+							$('#oldPwd').val("");
+							$('#newPwd').val("");
+							$('#confirmPwd').val("");
+						} else if (res.data == "pwdfail") {
+							Toast.fire({
+								icon: 'error',
+								title: '旧密码输错咯！'
+							});
+							$('#newPwd').val("");
+							$('#confirmPwd').val("");
+						} else {
+							Toast.fire({
+								icon: 'error',
+								title: '修改失败！'
+							});
+							$('#oldPwd').val("");
+							$('#newPwd').val("");
+							$('#confirmPwd').val("");
+						}
+
+					},
+					error: function() {
+						Toast.fire({
+							icon: 'error',
+							title: '系统错误！'
+						});
+					}
+				});
+			}
+		}
+	}
+</script>
 </body>
 </html>

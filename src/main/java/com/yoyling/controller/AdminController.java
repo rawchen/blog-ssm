@@ -245,4 +245,14 @@ public class AdminController extends BaseController {
 		return "comment-mgr";
 	}
 
+	/**
+	 * 跳转configuration.html页面
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/adminConfig")
+	public String adminConfig(Model model) {
+		return "configuration";
+	}
+
 }

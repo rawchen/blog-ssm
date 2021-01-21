@@ -8,4 +8,8 @@ public interface UserService {
 	int insert(User u);
 
 	User findUserByUserName(String userName);
+
+	int updateScreenNameAndMailAndUrl(User u);
+
+	int updatePassword(User u);
 }
