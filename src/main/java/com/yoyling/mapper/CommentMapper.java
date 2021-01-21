@@ -22,4 +22,6 @@ public interface CommentMapper {
     List<Comment> selectCommentListByContentId(int cid);
 
     String selectCommentAuthorById(Integer coid);
+
+	List<Comment> selectAllCommment();
 }

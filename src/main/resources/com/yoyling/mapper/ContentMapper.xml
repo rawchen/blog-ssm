@@ -78,6 +78,10 @@
     select * from content where content_order = 1 order by created_time limit 5;
   </select>
 
+  <select id="selectSlugByCid" parameterType="int" resultType="string">
+    select slug from content where cid = #{cid};
+  </select>
+
   <select id="selectContentListByTid" parameterType="string" resultMap="ResultMapWithBLOBs">
     select * from content where FIND_IN_SET(#{tid}, tag_list);
   </select>
@@ -214,6 +218,10 @@
 
   <update id="changeContentOrderByCid" parameterType="int">
     update  content set content_order = case content_order when 0 then 1 when 1 then 0 end where cid = #{cid};
+  </update>
+
+  <update id="updateContentTagListByCid" parameterType="com.yoyling.domain.Content">
+    update  content set tag_list = #{tagList} where cid = #{cid};
   </update>
 
   <update id="updateByPrimaryKeySelective" parameterType="com.yoyling.domain.Content">

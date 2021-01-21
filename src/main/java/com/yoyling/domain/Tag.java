@@ -22,6 +22,9 @@ public class Tag implements Serializable {
         this.count = count;
     }
 
+    public Tag(){
+    }
+
     public Integer getTid() {
         return tid;
     }

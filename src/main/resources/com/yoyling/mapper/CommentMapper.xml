@@ -23,6 +23,10 @@
     agent, text
   </sql>
 
+  <select id="selectAllCommment" resultMap="ResultMapWithBLOBs">
+    select * from comment order by created desc;
+  </select>
+
   <select id="selectCommentListByContentId" parameterType="int" resultMap="ResultMapWithBLOBs">
     select * from comment where cid = #{cid};
   </select>

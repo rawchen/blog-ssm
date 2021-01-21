@@ -10,4 +10,10 @@ public interface CommentService {
 	String selectCommentAuthorById(Integer coid);
 
 	int insert(Comment comment);
+
+	List<Comment> selectAllComment();
+
+	int deleteByPrimaryKey(int coid);
+
+	int deleteSelectComment(String[] coids);
 }

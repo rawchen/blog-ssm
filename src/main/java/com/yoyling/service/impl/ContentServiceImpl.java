@@ -114,4 +114,14 @@ public class ContentServiceImpl extends BaseServiceImpl implements ContentServic
 	public int updateContentCgidDefaultByCid(Integer cid) {
 		return contentMapper.updateContentCgidDefaultByCid(cid);
 	}
+
+	@Override
+	public int updateContentTagListByCid(Content content) {
+		return contentMapper.updateContentTagListByCid(content);
+	}
+
+	@Override
+	public String selectSlugByCid(Integer cid) {
+		return contentMapper.selectSlugByCid(cid);
+	}
 }

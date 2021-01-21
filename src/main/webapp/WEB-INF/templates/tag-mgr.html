@@ -3,7 +3,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>AdminLTE 3 | User Profile</title>
+	<title th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle} + '&nbsp;|&nbsp;Tag-Mgr'"></title>
+	<link rel="shortcut icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
+	<link rel="apple-touch-icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -30,7 +32,7 @@
 		<ul class="navbar-nav ml-auto">
 			<!-- Messages Dropdown Menu -->
 			<li class="nav-item dropdown">
-				<a class="nav-link" href="index.html">
+				<a class="nav-link" href="/index">
 					<i class="fa fa-paper-plane"></i>
 					<span>博客前台首页</span>
 				</a>
@@ -43,9 +45,9 @@
 	<aside class="main-sidebar sidebar-dark-primary elevation-4">
 		<!-- Brand Logo -->
 		<h1>
-			<a href="index.html" class="brand-link">
-				<img src="./upload/avatar.jpg" class="brand-image img-circle elevation-3">
-				<span class="brand-text font-weight-light">YOYLING's Blog</span>
+			<a href="/index" class="brand-link">
+				<img th:src="${#servletContext.getAttribute('applicationOptionsMap').avatar}" class="brand-image img-circle elevation-3">
+				<span class="brand-text font-weight-light" th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle}">websiteTitle</span>
 			</a>
 		</h1>
 
@@ -58,7 +60,7 @@
 						 with font-awesome or any other icon font library -->
 					<li class="nav-header">仪表盘</li>
 					<li class="nav-item">
-						<a href="admin" class="nav-link">
+						<a href="/admin" class="nav-link">
 							<i class="nav-icon fas fa-tachometer-alt"></i>
 							<p>仪表盘</p>
 						</a>
@@ -97,14 +99,14 @@
 					</li>
 					<li class="nav-header">系统管理</li>
 					<li class="nav-item">
-						<a href="adminConfig"
+						<a href="/adminConfig"
 						   class="nav-link">
 							<i class="fa fa-wrench nav-icon"></i>
 							<p>系统配置</p>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="index.html" class="nav-link">
+						<a href="/logout" class="nav-link">
 							<i class="fa fa-sign-out-alt nav-icon"></i>
 							<p>安全退出</p>
 						</a>
@@ -134,25 +136,23 @@
 								<tr>
 									<th width="5%"></th>
 									<th>标签名称</th>
+									<th>文章数量</th>
 									<th class="text-center" width="15%">
 										操作
-										<button class="btn btn-xs btn-info ml-2" data-toggle="modal" data-target="#addTagModal">
-											<i class="fa fa-plus"></i>
-											新增
-										</button>
 									</th>
 								</tr>
 								</thead>
 								<tbody>
-								<tr>
-									<td class="text-center">1</td>
-									<td>HTML</td>
+								<tr th:each="tag,arrayS:${tags}">
+									<td class="text-center" th:text="${arrayS.index + 1}"></td>
+									<td th:text="${tag.name}"></td>
+									<td th:text="${tag.count}"></td>
 									<td class="text-center">
-										<button class="btn btn-xs btn-success" data-toggle="modal" data-target="#updateTagModal">
+										<button class="btn btn-xs btn-success" data-toggle="modal" data-target="#updateTagModal" th:onclick="valuesToInput([[${tag.tid}]],[[${tag.name}]])">
 											<i class="fa fa-edit"></i>
 											修改
 										</button>
-										<button class="btn btn-xs btn-danger ml-2" data-toggle="modal" data-target="#deleteTagModal">
+										<button class="btn btn-xs btn-danger ml-2" data-toggle="modal" data-target="#deleteTagModal" th:onclick="deleteTag([[${tag.tid}]])">
 											<i class="fa fa-trash"></i>
 											删除
 										</button>
@@ -162,15 +162,6 @@
 							</table>
 						</div>
 						<!-- /.card-body -->
-						<div class="card-footer clearfix">
-							<ul class="pagination pagination-sm m-0 float-right">
-								<li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
-								<li class="page-item active"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
-							</ul>
-						</div>
 					</div>
 					<!-- /.card -->
 				</div>
@@ -182,37 +173,14 @@
 	<!-- /.content-wrapper -->
 	<footer class="main-footer">
 		<p class="text-center mb-1">
-			Copyright © 2020 YOYLING Designed by YOYLING Powered by AdminLTE
+			Copyright © 2020-2021 | THE HARDER, THE MORE FORTUNATE.
 		</p>
-		<p class="text-center">
-			<a href="">粤ICP备20040058号</a>
+		<p class="text-center" th:if="!${#strings.isEmpty(#servletContext.getAttribute('applicationOptionsMap').icp)}">
+			<a href="https://beian.miit.gov.cn/" th:text="${#servletContext.getAttribute('applicationOptionsMap').icp}"></a>
 		</p>
 	</footer>
 </div>
 <!-- ./wrapper -->
-
-<div class="modal fade" id="addTagModal">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">新增标签</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<input type="text" id="tagInput" name="tag" value="前端,后台">
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-				<button id="addTagBtn" type="button" class="btn btn-success">新增</button>
-			</div>
-		</div>
-		<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
-</div>
-
 <div class="modal fade" id="updateTagModal">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -223,7 +191,8 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<input class="form-control" type="text" id="" name="tag" value="前端">
+				<input class="form-control" type="hidden" id="valueOfTag">
+				<input class="form-control" type="text" id="updateName" name="tag" value="前端">
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
@@ -248,6 +217,7 @@
 				<p class="m-0">你确定要删除吗？</p>
 			</div>
 			<div class="modal-footer">
+				<input type="hidden" id="valueOfTag2">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
 				<button id="deleteTagBtn" type="button" class="btn btn-danger">删除</button>
 			</div>
@@ -268,6 +238,56 @@
 <script th:src="@{/js/adminlte.min.js}"></script>
 <script th:src="@{/js/taginput.init.js}"></script>
 
+<script>
+	function deleteTag(cgid) {
+		$('#valueOfTag2').val(cgid);
+	}
+
+	$('#deleteTagBtn').click(function () {
+		var valueOfTag = $('#valueOfTag2').val();
+		alert(valueOfTag)
+		$.ajax({
+			url: '/deleteTag',
+			type: 'post',
+			data:{'tid':valueOfTag},
+			success: function(res) {
+				// alert(res.data)
+				$('#deleteTagModal').modal('hide');
+				location.href = '/adminTag'
+			},
+			error: function() {
+				alert("系统错误")
+			}
+		});
+	})
+
+	function valuesToInput(tid,name) {
+		$('#valueOfTag').val(tid);
+		$('#updateName').val(name);
+	}
+
+	$('#updateTagBtn').click(function () {
+		var valueOfTag = $('#valueOfTag').val();
+		var updateName = $('#updateName').val();
+		if (valueOfTag === "" || updateName === "") {
+			alert("你好像忘记输入什么了");
+		} else {
+			$.ajax({
+				url: '/updateTag',
+				type: 'post',
+				data:{'tid':valueOfTag,'name':updateName},
+				success: function(res) {
+					// alert(res.data)
+					$('#updateTagModal').modal('hide');
+					location.href = '/adminTag'
+				},
+				error: function() {
+					alert("系统错误")
+				}
+			});
+		}
+	})
+</script>
 
 </body>
 </html>

@@ -29,4 +29,7 @@ public interface TagMapper {
 	int selectCountOfTag();
 
 	int updateTagCount(@Param("tid") int tagId,@Param("count") int count);
+
+	int updateTagName(Tag tag);
+
 }

@@ -30,7 +30,17 @@ public class Comment implements Serializable {
 
     private String parentNickName;
 
+    private String contentSlug;
+
     private static final long serialVersionUID = 1L;
+
+    public String getContentSlug() {
+        return contentSlug;
+    }
+
+    public void setContentSlug(String contentSlug) {
+        this.contentSlug = contentSlug;
+    }
 
     public Integer getCoid() {
         return coid;
@@ -152,6 +162,7 @@ public class Comment implements Serializable {
                 ", agent='" + agent + '\'' +
                 ", text='" + text + '\'' +
                 ", parentNickName='" + parentNickName + '\'' +
+                ", contentSlug='" + contentSlug + '\'' +
                 '}';
     }
 }

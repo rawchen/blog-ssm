@@ -19,7 +19,7 @@ public class ContentController extends BaseController {
 	 */
 	@RequestMapping("/adminGetContentList")
 	@ResponseBody
-	public Map<String,Object> adminGetTagList() {
+	public Map<String,Object> adminGetContentList() {
 		Map<String, Object> map = new HashMap<>();
 		List<Content> contents = contentService.selectAllContent();
 		for (Content content : contents) {

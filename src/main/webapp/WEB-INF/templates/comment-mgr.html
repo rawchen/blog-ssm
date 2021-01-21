@@ -3,14 +3,25 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>AdminLTE 3 | User Profile</title>
+	<title th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle} + '&nbsp;|&nbsp;Comment-Mgr'"></title>
+	<link rel="shortcut icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
+	<link rel="apple-touch-icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- DataTables -->
+	<link rel="stylesheet" th:href="@{/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css}">
+	<link rel="stylesheet" th:href="@{/plugins/datatables-responsive/css/responsive.bootstrap4.min.css}">
 
 	<!-- Theme style -->
 	<link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
 	<!-- Font Awesome -->
 	<link rel="stylesheet" th:href="@{/plugins/fontawesome/css/font-awesome.min.css}">
+	<style type="text/css">
+		img.smile-img {
+			width: 29px;
+		}
+	</style>
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -28,7 +39,7 @@
 		<ul class="navbar-nav ml-auto">
 			<!-- Messages Dropdown Menu -->
 			<li class="nav-item dropdown">
-				<a class="nav-link" href="index.html">
+				<a class="nav-link" href="/index">
 					<i class="fa fa-paper-plane"></i>
 					<span>博客前台首页</span>
 				</a>
@@ -41,9 +52,9 @@
 	<aside class="main-sidebar sidebar-dark-primary elevation-4">
 		<!-- Brand Logo -->
 		<h1>
-			<a href="index.html" class="brand-link">
-				<img src="./upload/avatar.jpg" class="brand-image img-circle elevation-3">
-				<span class="brand-text font-weight-light">YOYLING's Blog</span>
+			<a href="/index" class="brand-link">
+				<img th:src="${#servletContext.getAttribute('applicationOptionsMap').avatar}" class="brand-image img-circle elevation-3">
+				<span class="brand-text font-weight-light" th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle}">websiteTitle</span>
 			</a>
 		</h1>
 
@@ -56,7 +67,7 @@
 						 with font-awesome or any other icon font library -->
 					<li class="nav-header">仪表盘</li>
 					<li class="nav-item">
-						<a href="admin" class="nav-link">
+						<a href="/admin" class="nav-link">
 							<i class="nav-icon fas fa-tachometer-alt"></i>
 							<p>仪表盘</p>
 						</a>
@@ -95,14 +106,14 @@
 					</li>
 					<li class="nav-header">系统管理</li>
 					<li class="nav-item">
-						<a href="adminConfig"
+						<a href="/adminConfig"
 						   class="nav-link">
 							<i class="fa fa-wrench nav-icon"></i>
 							<p>系统配置</p>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="index.html" class="nav-link">
+						<a href="/logout" class="nav-link">
 							<i class="fa fa-sign-out-alt nav-icon"></i>
 							<p>安全退出</p>
 						</a>
@@ -120,61 +131,51 @@
 		<section class="content">
 			<div class="container-fluid">
 				<!-- /.col -->
-				<div class="col-12">
-					<div class="card">
-						<div class="card-header">
-							<h3 class="card-title">评论列表</h3>
+				<div class="row">
+					<div class="col-12">
+						<div class="card card-teal card-outline">
+							<div class="card-header">
+								<h3 class="card-title">评论列表</h3>
+							</div>
+							<div class="card-body">
+
+							</div>
+							<hr class="m-0">
+							<!-- /.card-header -->
+							<div class="card-body table-responsive">
+								<form id="selectComment" action="/deleteSelectComment" method="post">
+									<table id="testTable" class="table table-hover text-nowrap table-bordered">
+										<thead>
+										<tr>
+											<th><input type="checkbox" id="firstCheckBox"/></th>
+											<th>评论人</th>
+											<th>回复内容</th>
+											<th>邮箱</th>
+											<th>评论时间</th>
+											<th>前台地址</th>
+											<th class="text-center">操作</th>
+										</tr>
+										</thead>
+	<!--									<tbody>-->
+	<!--										<td>456</td>-->
+	<!--										<td class="text-center">-->
+	<!--											<button class="btn btn-xs btn-success" data-toggle="modal" data-target="#replyCommentModal">-->
+	<!--												<i class="fa fa-edit"></i>-->
+	<!--												回复-->
+	<!--											</button>-->
+	<!--											<button class="btn btn-xs btn-danger ml-2" data-toggle="modal" data-target="#deleteCommentModal">-->
+	<!--												<i class="fa fa-trash"></i>-->
+	<!--												删除-->
+	<!--											</button>-->
+	<!--										</td>-->
+	<!--									</tbody>-->
+									</table>
+								</form>
+							</div>
+							<!-- /.card-body -->
 						</div>
-						<!-- /.card-header -->
-						<div class="card-body table-responsive p-0">
-							<table class="table table-hover text-nowrap table-bordered">
-								<thead>
-								<tr>
-									<th width="5%"></th>
-									<th>评论人</th>
-									<th>评论人Github账号</th>
-									<th>评论人内容</th>
-									<th>评论时间</th>
-									<th>前台地址</th>
-									<th>回复内容</th>
-									<th class="text-center" width="15%">操作</th>
-								</tr>
-								</thead>
-								<tbody>
-								<tr>
-									<td class="text-center">1</td>
-									<td>xiaoming</td>
-									<td>123@163.com</td>
-									<td>123</td>
-									<td>2020.6.24</td>
-									<td><a target="_blank" href="detail.html">博客标题</a></td>
-									<td>456</td>
-									<td class="text-center">
-										<button class="btn btn-xs btn-success" data-toggle="modal" data-target="#replyCommentModal">
-											<i class="fa fa-edit"></i>
-											回复
-										</button>
-										<button class="btn btn-xs btn-danger ml-2" data-toggle="modal" data-target="#deleteCommentModal">
-											<i class="fa fa-trash"></i>
-											删除
-										</button>
-									</td>
-								</tr>
-								</tbody>
-							</table>
-						</div>
-						<!-- /.card-body -->
-						<div class="card-footer clearfix">
-							<ul class="pagination pagination-sm m-0 float-right">
-								<li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
-								<li class="page-item active"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
-							</ul>
-						</div>
+						<!-- /.card -->
 					</div>
-					<!-- /.card -->
 				</div>
 			</div>
 			<!-- /.row -->
@@ -184,10 +185,10 @@
 	<!-- /.content-wrapper -->
 	<footer class="main-footer">
 		<p class="text-center mb-1">
-			Copyright © 2020 YOYLING Designed by YOYLING Powered by AdminLTE
+			Copyright © 2020-2021 | THE HARDER, THE MORE FORTUNATE.
 		</p>
-		<p class="text-center">
-			<a href="">粤ICP备20040058号</a>
+		<p class="text-center" th:if="!${#strings.isEmpty(#servletContext.getAttribute('applicationOptionsMap').icp)}">
+			<a href="https://beian.miit.gov.cn/" th:text="${#servletContext.getAttribute('applicationOptionsMap').icp}"></a>
 		</p>
 	</footer>
 </div>
@@ -203,11 +204,13 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<input class="form-control" type="text">
+				<input class="form-control" type="hidden" id="replyCommentHiddenId">
+				<input class="form-control" type="hidden" id="replyCommentHiddenId2">
+				<input class="form-control" type="text" id="replyCommentText">
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-				<button id="updateCategoryBtn" type="button" class="btn btn-success">确认</button>
+				<button id="replyCommentBtn" type="button" class="btn btn-success">确认</button>
 			</div>
 		</div>
 		<!-- /.modal-content -->
@@ -242,9 +245,159 @@
 <!-- Bootstrap 4 -->
 <script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
+<!-- DataTables -->
+<script th:src="@{/plugins/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js}"></script>
+<script th:src="@{/plugins/datatables-responsive/js/dataTables.responsive.min.js}"></script>
+<script th:src="@{/plugins/datatables-responsive/js/responsive.bootstrap4.min.js}"></script>
+
 <!-- AdminLTE App -->
 <script th:src="@{/js/adminlte.min.js}"></script>
+<script>
+	function deleteComment(coid) {
+		if (confirm("你确定删除该评论吗？")) {
+			location.href = "/deleteComment/" + coid;
+		}
+	}
 
+	function replyComment(coid,cid) {
+		$('#replyCommentHiddenId').val(coid);
+		$('#replyCommentHiddenId2').val(cid);
+	}
+	$('#replyCommentBtn').click(function () {
+		var replyCommentHiddenId = $('#replyCommentHiddenId').val();
+		var replyCommentHiddenId2 = $('#replyCommentHiddenId2').val();
+		var replyCommentText = $('#replyCommentText').val();
+		if (replyCommentHiddenId === "" || replyCommentText === "" || replyCommentHiddenId2 ==="") {
+			alert("你好像忘记输入什么了");
+		} else {
+			$.ajax({
+				url: '/replyComment',
+				type: 'post',
+				data:{'coid':replyCommentHiddenId,'cid':replyCommentHiddenId2,"text":replyCommentText},
+				success: function(res) {
+					// alert(res.data)
+					$('#replyCommentModal').modal('hide');
+					location.href = '/adminComment'
+				},
+				error: function() {
+					alert("系统错误")
+				}
+			});
+		}
+	})
+
+	function valuesToInput(tid,name) {
+		alert(tid);
+		alert(name);
+		// $('#valueOfTag').val(tid);
+		// $('#updateName').val(name);
+	}
+
+	$(function () {
+		$('#testTable').DataTable({
+			ajax: '/adminGetCommentList', // 从一个ajax数据源读取数据给表格内容
+			lengthMenu: [10, 20, 30, 60], // 定义在每页显示记录数的select中显示的选项
+			// displayLength: 20, //
+			// displayStart: 1, //初始化显示的时候从第几条数据开始显示(一开始显示第几页)
+			// lengthChange: false, // 是否允许用户改变表格每页显示的记录数
+			searching: false,
+			responsive: false,
+			// info: false,
+			processing: true, // 是否显示处理状态
+			// serverSide: true, // 是否开启服务器模式
+			autoWidth: false, // 控制Datatables是否自适应宽度
+			deferRender: true, // 控制Datatables的延迟渲染，可以提高初始化的速度
+			stateSave: true, //保存状态 - 在页面重新加载的时候恢复状态（页码等内容）
+			// dom: '<"top"i>rt<ip>',
+			dom: '<"row"<"col-md-12"<"float-left"l><"#topPlugin.float-right">>>irt<"mt-3 pagination-sm"p>',
+			initComplete: renderTopPlugin, // 初始化结束后的回调函数
+			ordering: false,
+			columns: [
+				{
+					data: "coid",
+					render: function (data, type, row, meta) {
+						return '<input type="checkbox" value="' + data + '" name="coid"/>';
+					}
+				},
+				{data: "author"},
+				{data: "text"},
+				{data: "mail"},
+				{data: "createdDisplay"},
+				{
+					data: "contentSlug",
+					render: function (data, type, row, meta) {
+						return '<a target="_blank" href="'+'/articles/'+data+'">'+'/articles/'+data+'</a>';
+					}
+				},
+				{
+					render: function (data, type, row, meta) {
+						return '<a href="javascript:void(0);" onclick="deleteComment(' + row.coid +');" class="btn btn-danger btn-xs">删除</a> <button type="button" class="btn btn-info btn-xs" onclick="replyComment(' + row.coid +','+row.cid+');" data-toggle="modal" data-target="#replyCommentModal">回复</button>'
+					}
+				}
+			],
+			language: { // 国际化配置
+				decimal: "",
+				emptyTable: "表格为空",
+				info: "显示从_START_到_END_条记录 (总记录数为_TOTAL_条)",
+				infoEmpty: "记录数为0",
+				infoFiltered: "(从_MAX_条记录过滤)",
+				infoPostFix: "",
+				thousands: ",",
+				lengthMenu: "显示 _MENU_ 条",
+				loadingRecords: "Loading...",
+				processing: "正在获取数据，请稍后...",
+				sSearch: "搜索",
+				zeroRecords: "没有找到数据",
+				paginate: {
+					previous: "上一页",
+					first: "第一页",
+					next: "下一页",
+					last: "最后一页"
+				}
+			},
+		});
+
+		/**
+		 * 表格加载渲染完毕后执行的方法
+		 * @param data
+		 */
+		function renderTopPlugin(data) {
+			//上方topPlugin DIV中追加HTML
+			//var topPlugin='<button id="addButton" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addUser" style="display:block;">' +
+			// '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加用户</button>';
+			//删除用户按钮的HTMLDOM
+			var topPlugin = '<a href="javascript:void(0);" id="deleteSelectComment" class="btn btn-danger btn-sm">批量删除</a> <a href="javascript:void(0);" class="btn btn-info btn-sm">导出(未实现)</a>';
+			$("#topPlugin").append(topPlugin);//在表格上方topPlugin DIV中追加HTML
+			//$("#expCsv").on("click", exp1);//给下方按钮绑定事件
+
+			document.getElementById("firstCheckBox").onclick = function () {
+				var cbs = document.getElementsByName("coid");
+				for (var i = 0; i < cbs.length; i++) {
+					cbs[i].checked = this.checked;
+				}
+			};
+
+
+			document.getElementById("deleteSelectComment").onclick = function () {
+				var flag = false;
+				var cbs = document.getElementsByName("coid");
+				for (var i = 0; i < cbs.length; i++) {
+					if (cbs[i].checked) {
+						flag = true;
+						break;
+					}
+				}
+
+				if (flag) {
+					if (confirm("你确定要删除选中条目吗？")) {
+						document.getElementById("selectComment").submit();
+					}
+				}
+			};
+		}
+	});
+</script>
 
 </body>
 </html>

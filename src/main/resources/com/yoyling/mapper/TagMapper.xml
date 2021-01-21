@@ -41,6 +41,10 @@
     update tag set count = #{count} where tid = #{tid};
   </update>
 
+  <update id="updateTagName" parameterType="com.yoyling.domain.Tag">
+    update tag set name = #{name} where tid = #{tid};
+  </update>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from tag
     where tid = #{tid,jdbcType=INTEGER}
@@ -88,10 +92,12 @@
     </set>
     where tid = #{tid,jdbcType=INTEGER}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="com.yoyling.domain.Tag">
     update tag
     set name = #{name,jdbcType=VARCHAR},
       count = #{count,jdbcType=INTEGER}
     where tid = #{tid,jdbcType=INTEGER}
   </update>
+
 </mapper>

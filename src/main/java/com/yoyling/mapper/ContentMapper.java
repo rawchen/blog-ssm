@@ -44,4 +44,8 @@ public interface ContentMapper {
 	int changeContentOrderByCid(int parseInt);
 
 	int updateContentCgidDefaultByCid(Integer cid);
+
+	int updateContentTagListByCid(Content content);
+
+	String selectSlugByCid(Integer cid);
 }

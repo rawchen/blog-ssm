@@ -1,9 +1,6 @@
 package com.yoyling.controller;
 
-import com.yoyling.domain.Category;
-import com.yoyling.domain.Content;
-import com.yoyling.domain.Tag;
-import com.yoyling.domain.User;
+import com.yoyling.domain.*;
 import com.yoyling.utils.StringUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -217,8 +214,35 @@ public class AdminController extends BaseController {
 	@RequestMapping("/adminCategory")
 	public String adminCategory(Model model) {
 		List<Category> categories = categoryService.selectAllCategory();
+		for (Category c : categories) {
+			c.setCount(contentService.selectContentCountByCgid(c.getCgid()));
+		}
 		model.addAttribute("categories",categories);
 		return "category-mgr";
+	}
+
+	/**
+	 * 跳转tag-mgr.html页面
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/adminTag")
+	public String adminTag(Model model) {
+		List<Tag> tags = tagService.selectAllTag();
+		model.addAttribute("tags",tags);
+		return "tag-mgr";
+	}
+
+	/**
+	 * 跳转comment-mgr.html页面
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/adminComment")
+	public String adminComment(Model model) {
+		List<Comment> comments = commentService.selectAllComment();
+		model.addAttribute("comments",comments);
+		return "comment-mgr";
 	}
 
 }
