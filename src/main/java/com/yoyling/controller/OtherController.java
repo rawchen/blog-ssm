@@ -1,5 +1,6 @@
 package com.yoyling.controller;
 
+import com.github.pagehelper.PageHelper;
 import com.yoyling.domain.*;
 import com.yoyling.utils.*;
 import org.springframework.stereotype.Controller;
@@ -22,7 +23,8 @@ import static com.yoyling.utils.StringUtil.stringToList;
 public class OtherController extends BaseController {
 
 	@RequestMapping("/index")
-	public String index(Model model){
+	public String index(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+						Model model){
 
 		//插入日志
 		logService.insert(LogUtil.insertLog(request,"/index"));
@@ -30,6 +32,8 @@ public class OtherController extends BaseController {
 		int numberOfArticles = contentService.selectNumberOfArticles();
 		model.addAttribute("numberOfArticles",numberOfArticles);
 
+		int postsListSize = Integer.parseInt((String) ((Map) request.getServletContext().getAttribute("applicationOptionsMap")).get("postsListSize"));
+		PageHelper.startPage(pageNum, postsListSize);
 		List<Content> contents = contentService.selectAllContent();
 		for (Content c : contents) {
 
@@ -46,6 +50,47 @@ public class OtherController extends BaseController {
 			}
 			c.settList(tags);
 		}
+
+		model.addAttribute("contents",contents);
+		long totalPages = PageHelper.count(()->contentService.selectAllContent());
+		totalPages = totalPages / postsListSize + 1;
+		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("currentPage", pageNum);
+		model.addAttribute("pageHelper", 1);
+
+		List<Content> recommendContents = contentService.selectRecommendContent();
+		model.addAttribute("recommendContents",recommendContents);
+
+		return "index";
+	}
+
+	@RequestMapping("/searchContent")
+	public String searchContent(@RequestParam(value = "searchWord", defaultValue = "") String searchWord, Model model){
+
+		model.addAttribute("totalPages", 0);
+		model.addAttribute("currentPage", 0);
+		model.addAttribute("pageHelper", 0);
+
+		int numberOfArticles = contentService.selectNumberOfArticles();
+		model.addAttribute("numberOfArticles",numberOfArticles);
+
+		List<Content> contents = contentService.selectContentListByLike(searchWord);
+		for (Content c : contents) {
+
+			//查询设置评论数
+			c.setCommentCount(contentService.selectCommentCountByCid(c.getCid()));
+
+			c.setCategoryName(categoryService.selectByPrimaryKey(c.getCgid()).getCgName());
+			c.setCategorySlug(categoryService.selectByPrimaryKey(c.getCgid()).getCgSlug());
+
+			List<Tag> tags = new ArrayList<>();
+			List<String> strings = stringToList(c.getTagList());
+			for (String s : strings) {
+				tags.add(tagService.findTagById(Integer.parseInt(s)));
+			}
+			c.settList(tags);
+		}
+
 		model.addAttribute("contents",contents);
 
 		List<Content> recommendContents = contentService.selectRecommendContent();

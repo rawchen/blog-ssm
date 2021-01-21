@@ -124,4 +124,9 @@ public class ContentServiceImpl extends BaseServiceImpl implements ContentServic
 	public String selectSlugByCid(Integer cid) {
 		return contentMapper.selectSlugByCid(cid);
 	}
+
+	@Override
+	public List<Content> selectContentListByLike(String searchWord) {
+		return contentMapper.selectContentListByLike(searchWord);
+	}
 }

@@ -43,4 +43,6 @@ public interface ContentService {
 	int updateContentTagListByCid(Content content);
 
 	String selectSlugByCid(Integer cid);
+
+	List<Content> selectContentListByLike(String searchWord);
 }

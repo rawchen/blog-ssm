@@ -35,9 +35,9 @@
 		</ul>
 
 		<!-- SEARCH FORM -->
-		<form class="form-inline ml-3">
+		<form class="form-inline ml-3" action="/searchContent" method="post">
 			<div class="input-group input-group-sm">
-				<input class="form-control form-control-navbar" type="search" placeholder="博客搜索..." aria-label="Search">
+				<input class="form-control form-control-navbar" id="searchWord" name="searchWord" type="search" placeholder="博客搜索..." aria-label="Search">
 				<div class="input-group-append">
 					<button class="btn btn-navbar" type="submit">
 						<i class="fa fa-search"></i>
@@ -160,13 +160,14 @@
 								<hr class="m-0">
 							</div>
 
-							<div class="card-footer clearfix">
+							<div class="card-footer clearfix" th:if="${pageHelper == 1}">
 								<ul class="pagination m-0 float-right">
-									<li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
-									<li class="page-item active"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
+									<li class="page-item" th:if="${currentPage != 1}"><a class="page-link" th:href="'/index?pageNum='+(${currentPage}-1)"><i class="fa fa-angle-left"></i></a></li>
+									<span th:each="i:${#numbers.sequence(1,totalPages)}">
+										<li class="page-item active" th:if="${i eq currentPage}"><a class="page-link" th:href="'/index?pageNum='+(${i})" th:text="${i}"></a></li>
+										<li class="page-item" th:if="${i != currentPage}"><a class="page-link" th:href="'/index?pageNum='+(${i})" th:text="${i}"></a></li>
+									</span>
+									<li class="page-item" th:if="${currentPage != totalPages}"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
 								</ul>
 							</div><!-- /.card-footer -->
 						</div>

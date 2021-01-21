@@ -55,7 +55,7 @@
   </select>
 
   <select id="selectAllContent" resultMap="BaseResultMap">
-    select * from content order by created_time DESC;
+    select * from content order by created_time DESC
   </select>
 
   <select id="selectContentAuthorIdBycontentId" parameterType="int" resultType="int">
@@ -64,6 +64,11 @@
 
   <select id="selectNumberOfArticles" resultType="int">
     select count(cid) from content;
+  </select>
+
+  <select id="selectContentListByLike" parameterType="string" resultMap="BaseResultMap">
+    select * from content where content_text like '%${value}%' or title like '%${value}%';
+
   </select>
 
   <select id="selectCommentCountByCid" parameterType="int" resultType="int">
