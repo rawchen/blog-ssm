@@ -115,7 +115,11 @@
 					<div class="col-md-8">
 						<div class="card card-teal card-outline mb-5">
 							<div class="card-header">
-								<h3 class="card-title float-right">
+								<h3 class="card-title float-right" th:if="${pageHelper} == 0">
+									搜到 <span class="text-teal text-xl" th:text="${numberOfArticles}">?</span> 篇包含『<span style="color: #4891d8" th:text="${searchWord}"></span>』的博客
+								</h3>
+
+								<h3 class="card-title float-right" th:if="${pageHelper} == 1">
 									共 <span class="text-teal text-xl" th:text="${numberOfArticles}">?</span> 篇博客
 								</h3>
 							</div>
@@ -163,11 +167,11 @@
 							<div class="card-footer clearfix" th:if="${pageHelper == 1}">
 								<ul class="pagination m-0 float-right">
 									<li class="page-item" th:if="${currentPage != 1}"><a class="page-link" th:href="'/index?pageNum='+(${currentPage}-1)"><i class="fa fa-angle-left"></i></a></li>
-									<span th:each="i:${#numbers.sequence(1,totalPages)}">
+									<a th:each="i:${#numbers.sequence(1,totalPages)}">
 										<li class="page-item active" th:if="${i eq currentPage}"><a class="page-link" th:href="'/index?pageNum='+(${i})" th:text="${i}"></a></li>
 										<li class="page-item" th:if="${i != currentPage}"><a class="page-link" th:href="'/index?pageNum='+(${i})" th:text="${i}"></a></li>
-									</span>
-									<li class="page-item" th:if="${currentPage != totalPages}"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
+									</a>
+									<li class="page-item" th:if="${currentPage != totalPages}"><a class="page-link" th:href="'/index?pageNum='+(${currentPage}+1)"><i class="fa fa-angle-right"></i></a></li>
 								</ul>
 							</div><!-- /.card-footer -->
 						</div>

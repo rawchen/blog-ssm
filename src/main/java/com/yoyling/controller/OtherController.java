@@ -53,7 +53,7 @@ public class OtherController extends BaseController {
 
 		model.addAttribute("contents",contents);
 		long totalPages = PageHelper.count(()->contentService.selectAllContent());
-		totalPages = totalPages / postsListSize + 1;
+		totalPages = (totalPages % postsListSize) == 0 ? totalPages/postsListSize : (totalPages/postsListSize) + 1;
 		model.addAttribute("totalPages", totalPages);
 		model.addAttribute("currentPage", pageNum);
 		model.addAttribute("pageHelper", 1);
@@ -71,9 +71,6 @@ public class OtherController extends BaseController {
 		model.addAttribute("currentPage", 0);
 		model.addAttribute("pageHelper", 0);
 
-		int numberOfArticles = contentService.selectNumberOfArticles();
-		model.addAttribute("numberOfArticles",numberOfArticles);
-
 		List<Content> contents = contentService.selectContentListByLike(searchWord);
 		for (Content c : contents) {
 
@@ -90,6 +87,11 @@ public class OtherController extends BaseController {
 			}
 			c.settList(tags);
 		}
+
+		int numberOfArticles = contents.size();
+		model.addAttribute("numberOfArticles",numberOfArticles);
+
+		model.addAttribute("searchWord",searchWord);
 
 		model.addAttribute("contents",contents);
 
@@ -240,6 +242,29 @@ public class OtherController extends BaseController {
 		return "archive";
 	}
 
+	@RequestMapping("/guestbook")
+	public String showGuestbook(Model model) {
+
+		List<Content> contents = contentService.selectAllContent();
+		for (Content c : contents) {
+			c.setCategorySlug(categoryService.selectByPrimaryKey(c.getCgid()).getCgSlug());
+		}
+		model.addAttribute("contents",contents);
+
+		List<Content> recommendContents = contentService.selectRecommendContent();
+		model.addAttribute("recommendContents",recommendContents);
+
+		List<Comment> comments = commentService.selectCommentListByContentId(0);
+		for (Comment comment : comments) {
+			comment.setMail(GravatarUtil.getGravatarUrlByEmail(comment.getMail()));
+			comment.setCreatedDisplay(DateTimeUtil.dateWord(comment.getCreated()));
+			comment.setParentNickName(commentService.selectCommentAuthorById(comment.getParent()));
+		}
+		model.addAttribute("comments",comments);
+
+		return "guestbook";
+	}
+
 	@ResponseBody
 	@RequestMapping("/upFile")
 
@@ -275,7 +300,7 @@ public class OtherController extends BaseController {
 		String author = request.getParameter("author");
 		String mail = request.getParameter("mail");
 		String url = request.getParameter("url");
-		int contentId = Integer.valueOf(request.getParameter("contentId"));
+		int contentId = 0;
 
 		Comment comment = new Comment();
 		comment.setCid(contentId);
@@ -302,13 +327,11 @@ public class OtherController extends BaseController {
 		comment.setParent(0);
 		int a = commentService.insert(comment);
 		CookieUtil.setUserLoginCookie(author, mail, url, request, response);
-
-		return "redirect:/articles/"+contentService.selectByPrimaryKey(contentId).getSlug();
+		return "redirect:/guestbook";
 	}
 
 	@RequestMapping("/comment/{cid}/{coid}")
 	public String commentReply(@PathVariable int cid,@PathVariable int coid) {
-		System.out.println(coid);
 		String commentText = request.getParameter("commentText");
 		commentText = SmileUtil.StringConvertSmile(commentText);
 		String author = request.getParameter("author");
@@ -340,7 +363,7 @@ public class OtherController extends BaseController {
 		int a = commentService.insert(comment);
 		CookieUtil.setUserLoginCookie(author, mail, url, request, response);
 
-		return "redirect:/articles/"+contentService.selectByPrimaryKey(cid).getSlug();
+		return "redirect:/guestbook";
 	}
 
 

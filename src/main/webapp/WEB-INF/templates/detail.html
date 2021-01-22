@@ -244,57 +244,57 @@
 							</div>
 							<hr class="m-0">
 							<div class="card-body position-relative p-3">
-								<div class="text-lg text-bold mb-3">
-									<i class="far fa-comments mr-2"></i>
-									评&nbsp;&nbsp;论
-								</div>
-								<!-- Conversations are loaded here -->
-								<!-- Message to the right -->
-								<div th:each="comment,arrayS:${comments}">
-									<div class="direct-chat-msg" th:if="${comment.authorid == content.authorId}">
-										<div class="direct-chat-infos clearfix">
-											<span class="direct-chat-name float-left" th:text="${comment.author}"></span>
-											<span class="badge badge-warning float-left ml-1" th:if="${comment.authorid == 1}">博主</span>
-											<span class="direct-chat-name float-left text-green ml-2" th:if="${comment.parent != 0}">回复
-												<span th:text="'@'+${comment.parentNickName}"></span>
-											</span>
-											<span class="direct-chat-timestamp float-left ml-2" th:text="${comment.createdDisplay}"></span>
-										</div>
-										<!-- /.direct-chat-infos -->
-										<img class="direct-chat-img position-absolute border" th:src="${comment.mail}" alt="message user image">
-										<!-- /.direct-chat-img -->
-										<div class="direct-chat-text float-left"><span th:utext="${comment.text}"/><a class="badge" th:href="'javascript:reply(\''+'/comment/'+${content.cid}+'/'+${comment.coid}+'\''+',\''+${comment.author}+'\')'">回复</a>
-										</div>
-										<!-- /.direct-chat-text -->
-									</div>
-									<div class="direct-chat-msg right" th:if="${comment.authorid != content.authorId}">
-										<div class="direct-chat-infos clearfix">
-											<span class="direct-chat-timestamp float-right ml-2" th:text="${comment.createdDisplay}"></span>
-											<span class="direct-chat-name float-right text-green ml-2" th:if="${comment.parent != 0}">回复
-												<span th:text="'@'+${comment.parentNickName}"></span>
-											</span>
-											<span class="badge badge-warning float-right ml-1" th:if="${comment.authorid == 1}">博主</span>
-											<span class="direct-chat-name float-right" th:text="${comment.author}"></span>
-										</div>
-										<!-- /.direct-chat-infos -->
-										<img class="direct-chat-img border position-absolute r-2" th:src="${comment.mail}" alt="message user image">
-										<!-- /.direct-chat-img -->
-										<div class="direct-chat-text float-right"><span th:utext="${comment.text}"/><a class="badge" th:href="'javascript:reply(\''+'/comment/'+${content.cid}+'/'+${comment.coid}+'\''+',\''+${comment.author}+'\')'">回复</a>
-										</div>
-										<!-- /.direct-chat-text -->
-									</div>
-								</div>
-								<!-- /.direct-chat-msg -->
+							<div class="text-lg text-bold mb-3">
+								<i class="far fa-comments mr-2"></i>
+								评&nbsp;&nbsp;论
 							</div>
+							<!-- Conversations are loaded here -->
+							<!-- Message to the right -->
+							<div th:each="comment,arrayS:${comments}">
+								<div class="direct-chat-msg" th:if="${comment.authorid == content.authorId}">
+									<div class="direct-chat-infos clearfix">
+										<span class="direct-chat-name float-left" th:text="${comment.author}"></span>
+										<span class="badge badge-warning float-left ml-1" th:if="${comment.authorid == 1}">博主</span>
+										<span class="direct-chat-name float-left text-green ml-2" th:if="${comment.parent != 0}">回复
+												<span th:text="'@'+${comment.parentNickName}"></span>
+											</span>
+										<span class="direct-chat-timestamp float-left ml-2" th:text="${comment.createdDisplay}"></span>
+									</div>
+									<!-- /.direct-chat-infos -->
+									<img class="direct-chat-img position-absolute border" th:src="${comment.mail}" alt="message user image">
+									<!-- /.direct-chat-img -->
+									<div class="direct-chat-text float-left"><span th:utext="${comment.text}"/><a class="badge" th:href="'javascript:reply(\''+'/comment/'+${content.cid}+'/'+${comment.coid}+'\''+',\''+${comment.author}+'\')'">回复</a>
+									</div>
+									<!-- /.direct-chat-text -->
+								</div>
+								<div class="direct-chat-msg right" th:if="${comment.authorid != content.authorId}">
+									<div class="direct-chat-infos clearfix">
+										<span class="direct-chat-timestamp float-right ml-2" th:text="${comment.createdDisplay}"></span>
+										<span class="direct-chat-name float-right text-green ml-2" th:if="${comment.parent != 0}">回复
+												<span th:text="'@'+${comment.parentNickName}"></span>
+											</span>
+										<span class="badge badge-warning float-right ml-1" th:if="${comment.authorid == 1}">博主</span>
+										<span class="direct-chat-name float-right" th:text="${comment.author}"></span>
+									</div>
+									<!-- /.direct-chat-infos -->
+									<img class="direct-chat-img border position-absolute r-2" th:src="${comment.mail}" alt="message user image">
+									<!-- /.direct-chat-img -->
+									<div class="direct-chat-text float-right"><span th:utext="${comment.text}"/><a class="badge" th:href="'javascript:reply(\''+'/comment/'+${content.cid}+'/'+${comment.coid}+'\''+',\''+${comment.author}+'\')'">回复</a>
+									</div>
+									<!-- /.direct-chat-text -->
+								</div>
+							</div>
+							<!-- /.direct-chat-msg -->
+						</div>
 							<div class="card-footer">
-<!--								<form action="#" method="post">-->
-<!--									<div class="input-group">-->
-<!--										<input type="text" name="message" placeholder="Type Message ..." class="form-control">-->
-<!--										<span class="input-group-append">-->
-<!--                      						<button type="button" class="btn btn-primary">Send</button>-->
-<!--                    					</span>-->
-<!--									</div>-->
-<!--								</form>-->
+								<!--								<form action="#" method="post">-->
+								<!--									<div class="input-group">-->
+								<!--										<input type="text" name="message" placeholder="Type Message ..." class="form-control">-->
+								<!--										<span class="input-group-append">-->
+								<!--                      						<button type="button" class="btn btn-primary">Send</button>-->
+								<!--                    					</span>-->
+								<!--									</div>-->
+								<!--								</form>-->
 								<form method="post" action="/comment" id="comment-form" class="comment-form" role="form" onsubmit="getElementById('misubmit').disabled=true;return true;">
 									<div th:if="${#session.getAttribute('USER_SESSION')}==null">
 										<input type="text" name="author" maxlength="12" id="author" class="form-control input-control clearfix" placeholder="昵称 (必填哦)" value="" required="">
@@ -308,7 +308,7 @@
 									<button type="submit" class="submit" id="misubmit">提交</button>
 									<button type="button" class="submit2" id="cancelReply" style="display: none" onclick="javascript:cancelR()">取消</button>
 									<div id="smiliesbox">
-    									<span style="cursor:pointer;" data-tag=" :mrgreen: " title=":mrgreen:"><img style="margin:2px;max-width:30px;display:inline-block;" src="https://yoyling.com/usr/plugins/Smilies/tieba/icon_mrgreen.png" alt="icon_mrgreen.png"></span>
+										<span style="cursor:pointer;" data-tag=" :mrgreen: " title=":mrgreen:"><img style="margin:2px;max-width:30px;display:inline-block;" src="https://yoyling.com/usr/plugins/Smilies/tieba/icon_mrgreen.png" alt="icon_mrgreen.png"></span>
 										<span style="cursor:pointer;" data-tag=" :neutral: " title=":neutral:"><img style="margin:2px;max-width:30px;display:inline-block;" src="https://yoyling.com/usr/plugins/Smilies/tieba/icon_neutral.png" alt="icon_neutral.png"></span>
 										<span style="cursor:pointer;" data-tag=" :twisted: " title=":twisted:"><img style="margin:2px;max-width:30px;display:inline-block;" src="https://yoyling.com/usr/plugins/Smilies/tieba/icon_twisted.png" alt="icon_twisted.png"></span>
 										<span style="cursor:pointer;" data-tag=" :arrow: " title=":arrow:"><img style="margin:2px;max-width:30px;display:inline-block;" src="https://yoyling.com/usr/plugins/Smilies/tieba/icon_arrow.png" alt="icon_arrow.png"></span>
