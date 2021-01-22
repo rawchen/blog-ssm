@@ -5,15 +5,10 @@ import com.yoyling.domain.*;
 import com.yoyling.utils.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 import static com.yoyling.utils.StringUtil.getIpAddr;
@@ -266,27 +261,27 @@ public class OtherController extends BaseController {
 	}
 
 	@ResponseBody
-	@RequestMapping("/upFile")
-
-	public Map<String,Object> articleUpFile(HttpServletRequest req, @RequestParam("editormd-image-file") MultipartFile picpaths) {
-		String url = "blog/" + StringUtil.getDateToString(new Date()) + "/";
-		String realPath = req.getServletContext().getRealPath("/upload/");
-// TomcatEmbeddedContext
-		File file = new File(realPath, url);
-		if (!file.exists() && file.mkdirs()) {
-		}
+	@RequestMapping(value = "/upFile", method = RequestMethod.POST)
+	public Map<String,Object> articleUpFile(HttpServletRequest req, @RequestParam(value = "editormd-image-file", required = false) MultipartFile picpaths) {
+		System.out.println("进入函数");
+//		String url = "blog/" + StringUtil.getDateToString(new Date()) + "/";
+//		String realPath = req.getServletContext().getRealPath("/upload/");
+//
+//		File file = new File(realPath, url);
+//		if (!file.exists() && file.mkdirs()) {
+//		}
 		Map<String, Object> resultJs = new HashMap<>();
-		String upPicFileName = System.currentTimeMillis() + ".jpg";
-		file = new File(file, upPicFileName);
-		String contextPath = req.getServletContext().getContextPath();
-		url = contextPath + "/upload/" + url + upPicFileName;
+//		String upPicFileName = System.currentTimeMillis() + ".jpg";
+//		file = new File(file, upPicFileName);
+//		String contextPath = req.getServletContext().getContextPath();
+//		url = contextPath + "/upload/" + url + upPicFileName;
 		try {
-			picpaths.transferTo(file);
-			/* resultJs.put("success", "1");此处不要写 字符串的"1"，只是写为数字不要带引号 */
+//			picpaths.transferTo(file);
 			resultJs.put("success", 1);
 			resultJs.put("message", "上传成功");
-			resultJs.put("url", url);// 拼接自己的地址
-		} catch (IllegalStateException | IOException e) {
+//			resultJs.put("url", url);// 拼接自己的地址
+			resultJs.put("url", "1234");// 拼接自己的地址
+		} catch (Exception e) {
 			resultJs.put("success", 0);
 			resultJs.put("message", "上传失败");
 		}

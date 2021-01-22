@@ -127,6 +127,9 @@
 		img.smile-img {
 			width: 40px;
 		}
+        span.comm-text {
+            white-space: pre;
+        }
 		@media (max-width: 700px) {
 			.comment-form .form-control {
 				width: 100%;
@@ -221,7 +224,7 @@
 								<div th:each="comment,arrayS:${comments}">
 									<div class="direct-chat-msg" th:if="${comment.authorid == 1}">
 										<div class="direct-chat-infos clearfix">
-											<span class="direct-chat-name float-left" th:text="${comment.author}"></span>
+											<a th:href="${comment.url}" target="_blank" class="direct-chat-name float-left" th:text="${comment.author}"></a>
 											<span class="direct-chat-name float-left text-green ml-2" th:if="${comment.parent != 0}">回复
 												<span th:text="'@'+${comment.parentNickName}"></span>
 											</span>
@@ -230,7 +233,7 @@
 										<!-- /.direct-chat-infos -->
 										<img class="direct-chat-img position-absolute border" th:src="${comment.mail}" alt="message user image">
 										<!-- /.direct-chat-img -->
-										<div class="direct-chat-text float-left"><span th:utext="${comment.text}"/><a class="badge" th:href="'javascript:reply(\''+'/comment/'+0+'/'+${comment.coid}+'\''+',\''+${comment.author}+'\')'">回复</a>
+										<div class="direct-chat-text float-left"><span class="comm-text" th:utext="${comment.text}"/><a class="badge" th:href="'javascript:reply(\''+'/comment/'+0+'/'+${comment.coid}+'\''+',\''+${comment.author}+'\')'">回复</a>
 										</div>
 										<!-- /.direct-chat-text -->
 									</div>
@@ -240,12 +243,12 @@
 											<span class="direct-chat-name float-right text-green ml-2" th:if="${comment.parent != 0}">回复
 												<span th:text="'@'+${comment.parentNickName}"></span>
 											</span>
-											<span class="direct-chat-name float-right" th:text="${comment.author}"></span>
+											<a th:href="${comment.url}" target="_blank" class="direct-chat-name float-right" th:text="${comment.author}"></a>
 										</div>
 										<!-- /.direct-chat-infos -->
 										<img class="direct-chat-img border position-absolute r-2" th:src="${comment.mail}" alt="message user image">
 										<!-- /.direct-chat-img -->
-										<div class="direct-chat-text float-right"><span th:utext="${comment.text}"/><a class="badge" th:href="'javascript:reply(\''+'/comment/'+0+'/'+${comment.coid}+'\''+',\''+${comment.author}+'\')'">回复</a>
+										<div class="direct-chat-text float-right"><span class="comm-text" th:utext="${comment.text}"/><a class="badge" th:href="'javascript:reply(\''+'/comment/'+0+'/'+${comment.coid}+'\''+',\''+${comment.author}+'\')'">回复</a>
 										</div>
 										<!-- /.direct-chat-text -->
 									</div>
