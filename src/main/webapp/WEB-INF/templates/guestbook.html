@@ -25,6 +25,9 @@
 			-webkit-box-shadow: 0 1px 4px rgba(0,0,0,.04);
 			box-shadow: 0 1px 4px rgba(0,0,0,.04);
 		}
+        .card-footer {
+            background-color: unset;
+        }
 		.comment-form .input-control {
 			border: 0;
 			float: left;
@@ -99,7 +102,7 @@
 			z-index:9999;
 			width:355px;
 			margin-top:-114px;
-			margin-left:-15px;
+            margin-left: -26px;
 			padding:5px;
 			background-color:#fff;
 			border:1px solid #bbb;
@@ -136,6 +139,15 @@
 				width: 100%;
 				max-width: 100%;
 			}
+            .card-footer {
+                padding: 0;
+            }
+            #comment-form {
+                margin: 0;
+                border-radius: .25rem;
+                -webkit-box-shadow: none;
+                box-shadow: none;
+            }
 		}
 	</style>
 </head>
@@ -177,7 +189,7 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="/category" class="nav-link">
+						<a href="/category/1" class="nav-link">
 							<i class="fa fa-bookmark nav-icon"></i>
 							<p>分类</p>
 						</a>
@@ -217,9 +229,9 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-md-8">
-						<div class="card">
+						<div class="card card-teal card-outline mb-5 bg-color-ea">
 							<!-- /.card-header -->
-							<div class="card-body position-relative p-3">
+							<div class="card-body">
 								<!-- Conversations are loaded here -->
 								<!-- Message to the right -->
 								<div th:each="comment,arrayS:${comments}">

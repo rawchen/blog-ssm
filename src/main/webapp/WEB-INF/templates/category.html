@@ -144,19 +144,18 @@
 									</p>
 									<p th:text="${content.description}" class="description-content"></p>
 								</div>
-								<hr class="m-0">
+								<hr class="m-0" th:if="${arrayS.size!=arrayS.index+1}">
 							</div>
-							<hr class="m-0">
-
-							<div class="card-footer clearfix">
-								<ul class="pagination m-0 float-right">
-									<li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
-									<li class="page-item active"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
-								</ul>
-							</div><!-- /.card-footer -->
+<!--							<div class="card-footer clearfix">-->
+<!--								<ul class="pagination m-0 float-right">-->
+<!--									<li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>-->
+<!--									<li class="page-item active"><a class="page-link" href="#">1</a></li>-->
+<!--									<li class="page-item"><a class="page-link" href="#">2</a></li>-->
+<!--									<li class="page-item"><a class="page-link" href="#">3</a></li>-->
+<!--									<li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>-->
+<!--								</ul>-->
+<!--							</div>-->
+							<!-- /.card-footer -->
 						</div>
 						<!-- /.nav-tabs-custom -->
 					</div>

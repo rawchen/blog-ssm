@@ -129,4 +129,9 @@ public class ContentServiceImpl extends BaseServiceImpl implements ContentServic
 	public List<Content> selectContentListByLike(String searchWord) {
 		return contentMapper.selectContentListByLike(searchWord);
 	}
+
+	@Override
+	public List<Content> selectPostSizeContentWithHot(int postsListSize) {
+		return contentMapper.selectPostSizeContentWithHot(postsListSize);
+	}
 }

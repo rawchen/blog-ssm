@@ -152,12 +152,16 @@ public class OtherController extends BaseController {
 	@RequestMapping("/tag")
 	public String tag(Model model) {
 
+		//设置热门文字
+		model.addAttribute("tagHot", 1);
+
 		//查询所有category实体
 		List<Tag> tags = tagService.selectAllTag();
 		model.addAttribute("tags", tags);
 
-		//查询所有content实体
-		List<Content> contents = contentService.selectAllContent();
+		//查询默认热门postsListSize个帖子
+		int postsListSize = Integer.parseInt((String) ((Map) request.getServletContext().getAttribute("applicationOptionsMap")).get("postsListSize"));
+		List<Content> contents = contentService.selectPostSizeContentWithHot(postsListSize);
 		for (Content c : contents) {
 			//查询设置评论数
 			c.setCommentCount(contentService.selectCommentCountByCid(c.getCid()));
@@ -187,6 +191,9 @@ public class OtherController extends BaseController {
 
 	@RequestMapping("/tag/{tid}")
 	public String tag(@PathVariable int tid, Model model) {
+		//不设置热门文字
+		model.addAttribute("tagHot", 0);
+
 		//查询所有category实体
 		List<Tag> tags = tagService.selectAllTag();
 		model.addAttribute("tags", tags);

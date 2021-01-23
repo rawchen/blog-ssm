@@ -50,4 +50,6 @@ public interface ContentMapper {
 	String selectSlugByCid(Integer cid);
 
 	List<Content> selectContentListByLike(String searchWord);
+
+	List<Content> selectPostSizeContentWithHot(int postsListSize);
 }

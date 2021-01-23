@@ -126,6 +126,11 @@
 						</div>
 
 						<div class="card card-blue card-outline mb-5">
+							<div class="card-header" th:if="${tagHot == 1}">
+								<h3 class="card-title float-right">
+									热门博客 <span class="text-teal text-xl" th:text="${#servletContext.getAttribute('applicationOptionsMap').postsListSize}"></span> 篇
+								</h3>
+							</div>
 							<div class="block-thumb" th:each="content,arrayS:${contents}">
 								<div class="card-body bg-hover-gray">
 									<p>
@@ -163,20 +168,19 @@
 									</p>
 									<p th:text="${content.description}" class="description-content"></p>
 								</div>
-								<hr class="m-0">
+								<hr class="m-0" th:if="${arrayS.size!=arrayS.index+1}">
 							</div>
-							<hr class="m-0">
-
-
-							<div class="card-footer clearfix">
-								<ul class="pagination m-0 float-right">
-									<li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>
-									<li class="page-item active"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>
-								</ul>
-							</div><!-- /.card-footer -->
+<!--							<hr class="m-0">-->
+<!--							<div class="card-footer clearfix">-->
+<!--								<ul class="pagination m-0 float-right">-->
+<!--									<li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a></li>-->
+<!--									<li class="page-item active"><a class="page-link" href="#">1</a></li>-->
+<!--									<li class="page-item"><a class="page-link" href="#">2</a></li>-->
+<!--									<li class="page-item"><a class="page-link" href="#">3</a></li>-->
+<!--									<li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a></li>-->
+<!--								</ul>-->
+<!--							</div>-->
+							<!-- /.card-footer -->
 						</div>
 						<!-- /.nav-tabs-custom -->
 					</div>

@@ -58,6 +58,10 @@
     select * from content order by created_time DESC
   </select>
 
+  <select id="selectPostSizeContentWithHot" parameterType="int" resultMap="BaseResultMap">
+    select * from content order by views DESC limit #{value}
+  </select>
+
   <select id="selectContentAuthorIdBycontentId" parameterType="int" resultType="int">
     select author_id from content where cid = #{cid};
   </select>
