@@ -1,6 +1,7 @@
 package com.yoyling.controller;
 
 import com.yoyling.domain.Content;
+import com.yoyling.domain.Tag;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,14 +32,50 @@ public class ContentController extends BaseController {
 
 	@RequestMapping("/deleteContent/{cid}")
 	public String deleteContent(@PathVariable int cid) {
-		int a = contentService.deleteByPrimaryKey(cid);
+		int res = contentService.deleteByPrimaryKey(cid);
+
+		//删除文章后全局修正tag数量
+		List<Content> contents = contentService.selectAllContent();
+		StringBuilder a = new StringBuilder();
+		for (Content c : contents) {
+			a.append(",").append(c.getTagList());
+		}
+		String[] b = a.toString().split(",");
+		List<Tag> tags = tagService.selectAllTag();
+		for (Tag tag : tags) {
+			int tagCount = 0;
+			for (String s : b) {
+				if (s.equals(String.valueOf(tag.getTid()))) {
+					tagCount++;
+				}
+			}
+			tagService.updateTagCount(tag.getTid(),tagCount);
+		}
 		return "redirect:/adminBlog";
 	}
 
 	@RequestMapping("/deleteSelectContent")
 	public String deleteSelectContent() {
 		String[] sids = request.getParameterValues("cid");
-		int a = contentService.deleteSelectContent(sids);
+		int res = contentService.deleteSelectContent(sids);
+
+		//删除文章后全局修正tag数量
+		List<Content> contents = contentService.selectAllContent();
+		StringBuilder a = new StringBuilder();
+		for (Content c : contents) {
+			a.append(",").append(c.getTagList());
+		}
+		String[] b = a.toString().split(",");
+		List<Tag> tags = tagService.selectAllTag();
+		for (Tag tag : tags) {
+			int tagCount = 0;
+			for (String s : b) {
+				if (s.equals(String.valueOf(tag.getTid()))) {
+					tagCount++;
+				}
+			}
+			tagService.updateTagCount(tag.getTid(),tagCount);
+		}
 		return "redirect:/adminBlog";
 	}
 

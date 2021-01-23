@@ -82,7 +82,15 @@ public class ContentServiceImpl extends BaseServiceImpl implements ContentServic
 
 	@Override
 	public int deleteByPrimaryKey(int cid) {
-		return contentMapper.deleteByPrimaryKey(cid);
+		int a = contentMapper.deleteByPrimaryKey(cid);
+		if (a == 1) {
+			int b = commentMapper.deleteByCid(cid);
+			return 1;
+		} else {
+			return 0;
+		}
+
+
 	}
 
 	@Override
@@ -90,7 +98,9 @@ public class ContentServiceImpl extends BaseServiceImpl implements ContentServic
 		try {
 			if (sids != null && sids.length > 0) {
 				for (String sid: sids) {
-					contentMapper.deleteByPrimaryKey(Integer.parseInt(sid));
+					int a = contentMapper.deleteByPrimaryKey(Integer.parseInt(sid));
+					//删除所属的评论
+					int b = commentMapper.deleteByCid(Integer.parseInt(sid));
 				}
 			}
 		} catch (NumberFormatException e) {

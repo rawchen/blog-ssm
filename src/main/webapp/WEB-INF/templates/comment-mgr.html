@@ -321,13 +321,22 @@
 					}
 				},
 				{data: "author"},
-				{data: "text"},
+				{data: "text",
+					"render": function (data, type, full, meta) {
+						return '<p style="width:470px;overflow:hidden;text-overflow:ellipsis;">' + data + '</p>'
+					}
+				},
 				{data: "mail"},
 				{data: "createdDisplay"},
 				{
 					data: "contentSlug",
 					render: function (data, type, row, meta) {
-						return '<a target="_blank" href="'+'/articles/'+data+'">'+'/articles/'+data+'</a>';
+						if (data != null) {
+							return '<a target="_blank" href="' + '/articles/' + data + '">' + '/articles/' + data + '</a>';
+						} else {
+							return '<a target="_blank" href="/guestbook">/guestbook</a>';
+						}
+
 					}
 				},
 				{

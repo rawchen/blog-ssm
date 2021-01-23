@@ -24,4 +24,6 @@ public interface CommentMapper {
     String selectCommentAuthorById(Integer coid);
 
 	List<Comment> selectAllCommment();
+
+	int deleteByCid(int parseInt);
 }

@@ -104,6 +104,8 @@ public class AdminController extends BaseController {
 		content.setViews(0);
 		if ("".equals(blogThumb) || blogThumb == null) {
 			content.setThumb(StringUtil.randomContentThumb());
+		} else {
+			content.setThumb(blogThumb);
 		}
 		content.setDescription(blogDescription);
 
@@ -121,7 +123,6 @@ public class AdminController extends BaseController {
 			content.setTagList(listToString(tagListNew));
 		}
 
-		System.out.println(content);
 		int result =  contentService.insert(content);
 		if (result == 1) {
 

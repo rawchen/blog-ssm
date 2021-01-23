@@ -47,6 +47,11 @@
     delete from comment
     where coid = #{coid,jdbcType=INTEGER}
   </delete>
+
+  <delete id="deleteByCid" parameterType="int">
+    delete from comment where cid = #{cid}
+  </delete>
+
   <insert id="insert" parameterType="com.yoyling.domain.Comment">
     insert into comment (coid, cid, created,
       author, authorId, mail,
