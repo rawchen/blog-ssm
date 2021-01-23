@@ -295,7 +295,12 @@ public class OtherController extends BaseController {
 		String author = request.getParameter("author");
 		String mail = request.getParameter("mail");
 		String url = request.getParameter("url");
+		boolean isHaveAuthorAndMail = author == null || "".equals(author) || mail == null || "".equals(mail);
 		int contentId = 0;
+		if (request.getParameter("contentId") == null || "".equals(request.getParameter("contentId"))) {
+		} else {
+			contentId = Integer.parseInt(request.getParameter("contentId"));
+		}
 
 		Comment comment = new Comment();
 		comment.setCid(contentId);
@@ -303,11 +308,14 @@ public class OtherController extends BaseController {
 
 		User sessionUser = (User) session.getAttribute("USER_SESSION");
 		if (sessionUser == null) {
-			comment.setAuthorid(0);
-			comment.setMail(mail);
-			comment.setUrl(url);
-			comment.setAuthor(author);
-
+			if (isHaveAuthorAndMail) {
+				return "redirect:/index";
+			} else {
+				comment.setAuthorid(0);
+				comment.setMail(mail);
+				comment.setUrl(url);
+				comment.setAuthor(author);
+			}
 		} else {
 			comment.setAuthorid(sessionUser.getUid());
 			comment.setMail(sessionUser.getMail());
@@ -322,7 +330,11 @@ public class OtherController extends BaseController {
 		comment.setParent(0);
 		int a = commentService.insert(comment);
 		CookieUtil.setUserLoginCookie(author, mail, url, request, response);
-		return "redirect:/guestbook";
+		if (contentId == 0) {
+			return "redirect:/guestbook";
+		} else {
+			return "redirect:/articles/"+contentService.selectByPrimaryKey(contentId).getSlug();
+		}
 	}
 
 	@RequestMapping("/comment/{cid}/{coid}")
@@ -332,14 +344,22 @@ public class OtherController extends BaseController {
 		String author = request.getParameter("author");
 		String mail = request.getParameter("mail");
 		String url = request.getParameter("url");
+		boolean isHaveAuthorAndMail = author == null || "".equals(author) || mail == null || "".equals(mail);
 
 		Comment comment = new Comment();
-
 		comment.setCid(cid);
 		comment.setParent(coid);
 		comment.setCreated(new Date());
 		User sessionUser = (User) session.getAttribute("USER_SESSION");
 		if (sessionUser == null) {
+			if (isHaveAuthorAndMail) {
+				return "redirect:/index";
+			} else {
+				comment.setAuthorid(0);
+				comment.setMail(mail);
+				comment.setUrl(url);
+				comment.setAuthor(author);
+			}
 			comment.setAuthorid(0);
 			comment.setMail(mail);
 			comment.setUrl(url);
@@ -358,7 +378,11 @@ public class OtherController extends BaseController {
 		int a = commentService.insert(comment);
 		CookieUtil.setUserLoginCookie(author, mail, url, request, response);
 
-		return "redirect:/guestbook";
+		if (cid != 0) {
+			return "redirect:/articles/"+contentService.selectByPrimaryKey(cid).getSlug();
+		} else {
+			return "redirect:/guestbook";
+		}
 	}
 
 

@@ -128,6 +128,7 @@
 			width: 40px;
 		}
         span.comm-text {
+            word-break: break-all;
             white-space: pre-line;
         }
 		@media (max-width: 700px) {
@@ -225,6 +226,7 @@
 									<div class="direct-chat-msg" th:if="${comment.authorid == 1}">
 										<div class="direct-chat-infos clearfix">
 											<a th:href="${comment.url}" target="_blank" class="direct-chat-name float-left" th:text="${comment.author}"></a>
+											<span class="badge badge-warning float-left ml-1">站长</span>
 											<span class="direct-chat-name float-left text-green ml-2" th:if="${comment.parent != 0}">回复
 												<span th:text="'@'+${comment.parentNickName}"></span>
 											</span>
@@ -239,11 +241,11 @@
 									</div>
 									<div class="direct-chat-msg right" th:if="${comment.authorid != 1}">
 										<div class="direct-chat-infos clearfix">
-											<span class="direct-chat-timestamp float-right ml-2" th:text="${comment.createdDisplay}"></span>
-											<span class="direct-chat-name float-right text-green ml-2" th:if="${comment.parent != 0}">回复
+											<a th:href="${comment.url}" target="_blank" class="direct-chat-name float-right" th:text="${comment.author}"></a>
+											<span class="direct-chat-name float-right text-green mr-2" th:if="${comment.parent != 0}">回复
 												<span th:text="'@'+${comment.parentNickName}"></span>
 											</span>
-											<a th:href="${comment.url}" target="_blank" class="direct-chat-name float-right" th:text="${comment.author}"></a>
+											<span class="direct-chat-timestamp float-right mr-2" th:text="${comment.createdDisplay}"></span>
 										</div>
 										<!-- /.direct-chat-infos -->
 										<img class="direct-chat-img border position-absolute r-2" th:src="${comment.mail}" alt="message user image">
@@ -351,7 +353,7 @@
 									<li class="list-group-item">
 										<strong><i class="fas fa-link mr-2"></i>链接</strong>
 										<div class="text-muted">
-											<a href="/index" target="_blank" class="badge badge-warning">Link</a>
+											<a href="https://github.com/yoyling/blog-ssm" target="_blank" class="badge badge-warning">GitHub</a>
 										</div>
 									</li>
 
