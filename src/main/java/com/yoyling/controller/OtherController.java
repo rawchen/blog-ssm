@@ -1,5 +1,6 @@
 package com.yoyling.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.pagehelper.PageHelper;
 import com.yoyling.domain.*;
 import com.yoyling.utils.*;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.*;
 
 import static com.yoyling.utils.StringUtil.getIpAddr;
@@ -269,25 +271,62 @@ public class OtherController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping(value = "/upFile", method = RequestMethod.POST)
-	public Map<String,Object> articleUpFile(HttpServletRequest req, @RequestParam(value = "editormd-image-file", required = false) MultipartFile picpaths) {
+	public Map<String,Object> articleUpFile(HttpServletRequest req, @RequestParam("editormd-image-file") MultipartFile picpaths) throws JsonProcessingException {
 		System.out.println("进入函数");
-//		String url = "blog/" + StringUtil.getDateToString(new Date()) + "/";
-//		String realPath = req.getServletContext().getRealPath("/upload/");
-//
-//		File file = new File(realPath, url);
-//		if (!file.exists() && file.mkdirs()) {
-//		}
-		Map<String, Object> resultJs = new HashMap<>();
-//		String upPicFileName = System.currentTimeMillis() + ".jpg";
-//		file = new File(file, upPicFileName);
-//		String contextPath = req.getServletContext().getContextPath();
-//		url = contextPath + "/upload/" + url + upPicFileName;
+		Map<String, Object> map = new HashMap<>();
+
+		String url = "blog/" + StringUtil.getDateToString(new Date()) + "/";
+		String realPath = req.getServletContext().getRealPath("/upload/");
+
+		File file = new File(realPath, url);
+		if (!file.exists() && file.mkdirs()) {
+		}
+		String originalFileName = picpaths.getOriginalFilename();
+		String newFileSName = "";
+		if (originalFileName.indexOf(".") != -1) {
+			newFileSName = originalFileName.substring(originalFileName.lastIndexOf("."));
+		}
+		String upPicFileName = System.currentTimeMillis() + newFileSName;
+		file = new File(file, upPicFileName);
+		String contextPath = req.getServletContext().getContextPath();
+		url = contextPath + "/upload/" + url + upPicFileName;
 		try {
-//			picpaths.transferTo(file);
+			picpaths.transferTo(file);
+			map.put("success", 1);
+			map.put("message", "上传成功");
+			map.put("url", url);// 拼接自己的地址
+		} catch (Exception e) {
+			map.put("success", 0);
+			map.put("message", "上传失败");
+		}
+		return map;
+	}
+
+	@ResponseBody
+	@RequestMapping(value="/fileupload")
+	public Map<String,Object> fileupload(HttpServletRequest request,@RequestParam("editormd-image-file") MultipartFile upload) throws Exception {
+		System.out.println("SpringMVC方式的文件上传...");
+		Map<String, Object> resultJs = new HashMap<>();
+		// 先获取到要上传的文件目录
+		String path = request.getSession().getServletContext().getRealPath("/upload");
+		// 创建File对象，一会向该路径下上传文件
+		File file = new File(path);
+		// 判断路径是否存在，如果不存在，创建该路径
+		if(!file.exists()) {
+			file.mkdirs();
+		}
+		// 获取到上传文件的名称
+		String filename = upload.getOriginalFilename();
+		String uuid = UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
+		// 把文件的名称唯一化
+		filename = uuid+"_"+filename;
+		// 上传文件
+
+		try {
+			upload.transferTo(new File(file,filename));
 			resultJs.put("success", 1);
 			resultJs.put("message", "上传成功");
-//			resultJs.put("url", url);// 拼接自己的地址
-			resultJs.put("url", "1234");// 拼接自己的地址
+			resultJs.put("url", path);// 拼接自己的地址
 		} catch (Exception e) {
 			resultJs.put("success", 0);
 			resultJs.put("message", "上传失败");

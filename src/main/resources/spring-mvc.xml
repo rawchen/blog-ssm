@@ -40,6 +40,11 @@
 		<property name="characterEncoding"  value="UTF-8" />
 	</bean>
 
+	<!-- 配置文件解析器对象，要求id名称必须是multipartResolver -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10485760"/>
+	</bean>
+
 	<!-- 设置静态资源不过滤 -->
 	<mvc:resources location="/css/" mapping="/css/**" />
 	<mvc:resources location="/data/" mapping="/data/**" />
