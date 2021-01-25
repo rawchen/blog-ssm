@@ -127,4 +127,15 @@ public class ServiceTest {
 		}
 	}
 
+	@Test
+	public void run13() {
+		ApplicationContext ac = new
+				ClassPathXmlApplicationContext("classpath:spring-context.xml");
+		LogService logService = (LogService) ac.getBean("logService");
+		List<Integer> ys = logService.selectYesterdayPvUvVvIv();
+		for (Integer y : ys) {
+			System.out.println(y);
+		}
+	}
+
 }

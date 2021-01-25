@@ -1,5 +1,6 @@
 package com.yoyling;
 
+import com.yoyling.utils.DateTimeUtil;
 import com.yoyling.utils.GravatarUtil;
 import com.yoyling.utils.StringUtil;
 import org.junit.Test;
@@ -41,4 +42,8 @@ public class StringTest {
 		System.out.println(StringUtil.passwordToMd5("yoyling"));
 	}
 
+	@Test
+	public void run5() {
+		System.out.println(DateTimeUtil.yesterdayDateConvertString());
+	}
 }

@@ -1,9 +1,9 @@
 package com.yoyling.controller;
 
 import com.yoyling.domain.Comment;
+import com.yoyling.domain.Content;
 import com.yoyling.domain.User;
-import com.yoyling.utils.DateTimeUtil;
-import com.yoyling.utils.StringUtil;
+import com.yoyling.utils.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,8 +15,107 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.yoyling.utils.StringUtil.getIpAddr;
+
 @Controller
 public class CommentController extends BaseController {
+
+	@RequestMapping("/comment")
+	public String comment() {
+		String commentText = request.getParameter("commentText");
+		commentText = SmileUtil.StringConvertSmile(commentText);
+		String author = request.getParameter("author");
+		String mail = request.getParameter("mail");
+		String url = request.getParameter("url");
+		boolean isHaveAuthorAndMail = author == null || "".equals(author) || mail == null || "".equals(mail);
+		int contentId = 0;
+		if (request.getParameter("contentId") == null || "".equals(request.getParameter("contentId"))) {
+		} else {
+			contentId = Integer.parseInt(request.getParameter("contentId"));
+		}
+
+		Comment comment = new Comment();
+		comment.setCid(contentId);
+		comment.setCreated(new Date());
+
+		User sessionUser = (User) session.getAttribute("USER_SESSION");
+		if (sessionUser == null) {
+			if (isHaveAuthorAndMail) {
+				return "redirect:/index";
+			} else {
+				comment.setAuthorid(0);
+				comment.setMail(mail);
+				comment.setUrl(url);
+				comment.setAuthor(author);
+			}
+		} else {
+			comment.setAuthorid(sessionUser.getUid());
+			comment.setMail(sessionUser.getMail());
+			comment.setUrl(sessionUser.getUrl());
+			comment.setAuthor(sessionUser.getScreenname());
+		}
+
+		comment.setIp(getIpAddr(request));
+		comment.setAgent(request.getHeader("User-Agent"));
+		comment.setText(commentText);
+
+		comment.setParent(0);
+		int a = commentService.insert(comment);
+		CookieUtil.setUserLoginCookie(author, mail, url, request, response);
+		if (contentId == 0) {
+			return "redirect:/guestbook";
+		} else {
+			return "redirect:/articles/"+contentService.selectByPrimaryKey(contentId).getSlug();
+		}
+	}
+
+	@RequestMapping("/comment/{cid}/{coid}")
+	public String commentReply(@PathVariable int cid,@PathVariable int coid) {
+		String commentText = request.getParameter("commentText");
+		commentText = SmileUtil.StringConvertSmile(commentText);
+		String author = request.getParameter("author");
+		String mail = request.getParameter("mail");
+		String url = request.getParameter("url");
+		boolean isHaveAuthorAndMail = author == null || "".equals(author) || mail == null || "".equals(mail);
+
+		Comment comment = new Comment();
+		comment.setCid(cid);
+		comment.setParent(coid);
+		comment.setCreated(new Date());
+		User sessionUser = (User) session.getAttribute("USER_SESSION");
+		if (sessionUser == null) {
+			if (isHaveAuthorAndMail) {
+				return "redirect:/index";
+			} else {
+				comment.setAuthorid(0);
+				comment.setMail(mail);
+				comment.setUrl(url);
+				comment.setAuthor(author);
+			}
+			comment.setAuthorid(0);
+			comment.setMail(mail);
+			comment.setUrl(url);
+			comment.setAuthor(author);
+
+		} else {
+			comment.setAuthorid(sessionUser.getUid());
+			comment.setMail(sessionUser.getMail());
+			comment.setUrl(sessionUser.getUrl());
+			comment.setAuthor(sessionUser.getScreenname());
+		}
+		comment.setIp(getIpAddr(request));
+		comment.setAgent(request.getHeader("User-Agent"));
+		comment.setText(commentText);
+
+		int a = commentService.insert(comment);
+		CookieUtil.setUserLoginCookie(author, mail, url, request, response);
+
+		if (cid != 0) {
+			return "redirect:/articles/"+contentService.selectByPrimaryKey(cid).getSlug();
+		} else {
+			return "redirect:/guestbook";
+		}
+	}
 
 	/**
 	 * 获取博客列表
@@ -34,6 +133,29 @@ public class CommentController extends BaseController {
 		}
 		map.put("data", comments);
 		return map;
+	}
+
+	@RequestMapping("/guestbook")
+	public String showGuestbook(Model model) {
+
+		List<Content> contents = contentService.selectAllContent();
+		for (Content c : contents) {
+			c.setCategorySlug(categoryService.selectByPrimaryKey(c.getCgid()).getCgSlug());
+		}
+		model.addAttribute("contents",contents);
+
+		List<Content> recommendContents = contentService.selectRecommendContent();
+		model.addAttribute("recommendContents",recommendContents);
+
+		List<Comment> comments = commentService.selectCommentListByContentId(0);
+		for (Comment comment : comments) {
+			comment.setMail(GravatarUtil.getGravatarUrlByEmail(comment.getMail()));
+			comment.setCreatedDisplay(DateTimeUtil.dateWord(comment.getCreated()));
+			comment.setParentNickName(commentService.selectCommentAuthorById(comment.getParent()));
+		}
+		model.addAttribute("comments",comments);
+
+		return "guestbook";
 	}
 
 	@RequestMapping("/deleteComment/{coid}")

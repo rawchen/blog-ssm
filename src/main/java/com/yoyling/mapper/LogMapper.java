@@ -16,4 +16,8 @@ public interface LogMapper {
     int updateByPrimaryKeyWithBLOBs(Log record);
 
     int updateByPrimaryKey(Log record);
+
+	Integer selectYesterdayUv();
+
+    Integer selectYesterdayPv();
 }

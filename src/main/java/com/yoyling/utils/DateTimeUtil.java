@@ -2,10 +2,12 @@ package com.yoyling.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
 public class DateTimeUtil {
+
 	public static String dateWord(Date from){
 		long diff = new Date().getTime()/1000 - from.getTime()/1000;
 
@@ -63,6 +65,18 @@ public class DateTimeUtil {
 		}
 
 		return new SimpleDateFormat("yyyy年MM月dd日").format(from);
+	}
+
+	public static String yesterdayDateConvertString() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());
+		calendar.add(Calendar.DATE, -1);
+		Date time = calendar.getTime();
+		return new SimpleDateFormat("yyyyMMdd").format(time);
+	}
+
+	public static String todayDateConvertString() {
+		return new SimpleDateFormat("yyyyMMdd").format(new Date());
 	}
 
 	public static void main(String[] args) {

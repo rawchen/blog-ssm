@@ -14,6 +14,8 @@
 	<!-- Font Awesome -->
 	<link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
 
+	<link rel="stylesheet" th:href="@{/plugins/chartjs/css/Chart.min.css}">
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -206,6 +208,9 @@
 					</div>
 					<!-- ./col -->
 				</div>
+				<div class="row">
+					<canvas id="myChart" style="width: 1000px;height:250px;"></canvas>
+				</div>
 				<!-- /.col -->
 			</div>
 			<!-- /.row -->
@@ -227,6 +232,181 @@
 <script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
 <!-- AdminLTE App -->
 <script th:src="@{/js/adminlte.min.js}"></script>
+<!-- Chartjs -->
+<script th:src="@{/plugins/chartjs/js/Chart.min.js}"></script>
 
+<script>
+	//站点统计
+	$.ajax({
+		type: "GET",
+		data: { type: "core_data" },
+		url: "/getTodayYesterdayAccess",
+		success: function (res) {
+			const data = res;
+			if (data.info === "success") {
+				//数据调整
+				let datasets = [];
+				for (let key in data.data) {
+					let arr = [];
+					let obj = data.data[key];
+					for (let key in obj) {
+						arr.push(obj[key] * 1);
+					}
+					datasets.push(arr);
+				};
+				//初始化
+				initStatistics(datasets);
+
+			} else {
+				console.log("获取站点统计发生错误", res);
+			}
+		},
+		error: function (err) {
+			console.log("获取站点统计发生错误", err);
+		}
+	});
+	//初始化站点统计
+	function initStatistics(data) {
+		//数据
+		let statisticsData = {
+			labels: ["浏览量", "独立用户", "访问次数", "独立IP"], //项目数量
+			datasets: [  //数据组
+				{
+					label: "今天",
+					backgroundColor: "#0acf97",  //填充色
+					data: data[1] ? data[1] : [65, 59, 80, 81],
+					barPercentage: .8,
+					categoryPercentage: .3,
+				},
+				{
+					label: "昨天",
+					backgroundColor: "#fa5c7c",  //填充色
+					data: data[0] ? data[0] : [28, 48, 40, 19],
+					barPercentage: .8,
+					categoryPercentage: .3,
+				}
+			]
+		};
+
+		//配置
+		const options = {
+			maintainAspectRatio: true, //不保持比例
+			scales: {
+				xAxes: [{
+					gridLines: {
+						display: true,
+						drawBorder: true,
+						drawOnChartArea: false
+					}
+				}]
+			}
+		};
+
+		//渲染
+
+		let myBarChart = new Chart($("#myChart").get(0), {
+		// var myBarChart = new Chart(ctx, {
+			type: 'bar',
+			data: statisticsData,
+			options: options
+		});
+
+	};
+
+	//当天每小时小时数据
+	$.ajax({
+		type: "GET",
+		data: { type: "by_hour" },
+		url: "https://www.mulingyuer.com/usr/themes/Lay/API.php",
+		success: function (res) {
+			const data = JSON.parse(res);
+			if (data.info === "success") {
+				//数据调整
+				let labels = [];
+				let datasets = {
+					pv: [],
+					uv: [],
+					vv: [],
+					iv: []
+				};
+				data.data.reverse().forEach(item => {
+					labels.push(item.date);
+					datasets["pv"].push(item.pv);
+					datasets["uv"].push(item.uv);
+					datasets["vv"].push(item.vv);
+					datasets["iv"].push(item.iv);
+				});
+
+				//初始化
+				initByHour(labels, datasets);
+
+			} else {
+				console.log("获取站点24小时数据发生错误", res);
+			}
+		},
+		error: function (err) {
+			console.log("获取站点24小时数据发生错误", err);
+		}
+	});
+
+	//24小时数据初始化
+	function initByHour(labe, datas) {
+		//数据
+		const byHourData = {
+			labels: labe ? labe : ["00:00", "01:00", "02:00", "03:00", "04:00"],  //小时
+			datasets: [
+				{
+					label: "浏览量",
+					borderColor: "#fa5c7c",
+					backgroundColor: "rgba(0,0,0,0)",
+					borderWidth: 2,
+					fill: false,
+					data: datas.pv ? datas.pv : [4, 3, 0, 0]
+				},
+				{
+					label: "独立用户",
+					borderColor: "#39afd1",
+					backgroundColor: "rgba(0,0,0,0)",
+					borderWidth: 2,
+					fill: false,
+					data: datas.uv ? datas.uv : [7, 6, 0, 1, 9]
+				},
+				{
+					label: "访问次数",
+					borderColor: "#727cf5",
+					backgroundColor: "rgba(0,0,0,0)",
+					borderWidth: 2,
+					fill: false,
+					data: datas.vv ? datas.vv : [4, 3, 0, 0, 1]
+				},
+				{
+					label: "独立ip",
+					borderColor: "#0acf97",
+					backgroundColor: "rgba(0,0,0,0)",
+					borderWidth: 2,
+					fill: false,
+					data: datas.iv ? datas.iv : [4, 5, 0, 1, 3]
+				},
+			]
+		};
+
+		//配置
+		const options = {
+			maintainAspectRatio: false, //不保持比例
+			tooltips: {
+				mode: 'index',
+				intersect: false,
+			},
+		};
+
+		//渲染
+		let myBarChart = new Chart($("#todaydata").get(0), {
+			type: 'line',
+			data: byHourData,
+			options: options
+		});
+
+	};
+</script>
 </body>
 </html>

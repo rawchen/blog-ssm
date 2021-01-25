@@ -28,6 +28,17 @@
     from log
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="selectYesterdayUv" resultType="int">
+    SELECT count(id) FROM log WHERE TO_DAYS(NOW()) - TO_DAYS(access_time) &lt;= 1
+    <!-- SELECT count(id) FROM log WHERE DATEDIFF(access_time,NOW()) = -1;-->
+  </select>
+
+  <select id="selectYesterdayPv" resultType="int">
+    SELECT count(distinct ip) FROM log WHERE TO_DAYS(NOW()) - TO_DAYS(access_time) &lt;= 1
+    <!-- SELECT count(id) FROM log WHERE DATEDIFF(access_time,NOW()) = -1;-->
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from log
     where id = #{id,jdbcType=INTEGER}
