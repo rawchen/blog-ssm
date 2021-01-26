@@ -328,7 +328,7 @@
 					uv: []
 				};
 				data.data.forEach(item => {
-					labels.push(item.date);
+					labels.push(item.date.substr(4,2)+'月'+item.date.substr(6,2)+'日');
 				});
 				data.data.reverse().forEach(item => {
 					datasets["pv"].push(item.pv);
