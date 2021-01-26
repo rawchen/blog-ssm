@@ -5,6 +5,7 @@ import com.yoyling.domain.Content;
 import com.yoyling.domain.Tag;
 import com.yoyling.utils.DateTimeUtil;
 import com.yoyling.utils.GravatarUtil;
+import com.yoyling.utils.LogUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -125,6 +126,9 @@ public class ContentController extends BaseController {
 
 	@RequestMapping("/articles/{slugName}")
 	public String showContent(Model model, @PathVariable String slugName) {
+		//插入日志
+		logService.insert(LogUtil.insertLog(request,"/articles/" + slugName));
+
 		int a = contentService.updateContentViewsBySlug(slugName);
 		Content content =  contentService.findContentBySlugName(slugName);
 		model.addAttribute("content",content);

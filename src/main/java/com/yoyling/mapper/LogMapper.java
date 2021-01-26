@@ -20,4 +20,20 @@ public interface LogMapper {
 	Integer selectYesterdayUv();
 
     Integer selectYesterdayPv();
+
+    Integer selectTodayUv();
+
+    Integer selectTodayPv();
+
+    Integer selectYesterdayAccessByApi(String s);
+
+    Integer selectTodayAccessByApi(String s);
+
+    Integer selectYesterdayAccessLikeApi(String s);
+
+    Integer selectTodayAccessLikeApi(String s);
+
+    int selectApartDaysPv(int i);
+
+    int selectApartDaysUv(int i);
 }

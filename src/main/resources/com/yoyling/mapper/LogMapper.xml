@@ -30,13 +30,44 @@
   </select>
 
   <select id="selectYesterdayUv" resultType="int">
-    SELECT count(id) FROM log WHERE TO_DAYS(NOW()) - TO_DAYS(access_time) &lt;= 1
+    SELECT count(id) FROM log WHERE TO_DAYS(NOW()) - TO_DAYS(access_time) &lt; 1
     <!-- SELECT count(id) FROM log WHERE DATEDIFF(access_time,NOW()) = -1;-->
   </select>
 
   <select id="selectYesterdayPv" resultType="int">
-    SELECT count(distinct ip) FROM log WHERE TO_DAYS(NOW()) - TO_DAYS(access_time) &lt;= 1
-    <!-- SELECT count(id) FROM log WHERE DATEDIFF(access_time,NOW()) = -1;-->
+    SELECT count(distinct ip) FROM log WHERE TO_DAYS(NOW()) - TO_DAYS(access_time) &lt; 1
+  </select>
+
+  <select id="selectYesterdayAccessByApi" parameterType="string" resultType="int">
+    SELECT count(id) FROM log WHERE TO_DAYS(NOW()) - TO_DAYS(access_time) &lt; 1 and api_path = #{value}
+  </select>
+
+  <select id="selectYesterdayAccessLikeApi" parameterType="string" resultType="int">
+    select count(id) FROM log WHERE TO_DAYS(NOW()) - TO_DAYS(access_time) &lt; 1 and api_path like '%${value}%'
+  </select>
+
+  <select id="selectTodayUv" resultType="int">
+    SELECT count(id) FROM log WHERE TO_DAYS(NOW()) = TO_DAYS(access_time)
+  </select>
+
+  <select id="selectTodayPv" resultType="int">
+    SELECT count(distinct ip) FROM log WHERE TO_DAYS(NOW()) = TO_DAYS(access_time)
+  </select>
+
+  <select id="selectTodayAccessByApi" parameterType="string" resultType="int">
+    select count(id) FROM log WHERE TO_DAYS(NOW()) = TO_DAYS(access_time) and api_path = #{value}
+  </select>
+
+  <select id="selectTodayAccessLikeApi" parameterType="string" resultType="int">
+    select count(id) FROM log WHERE TO_DAYS(NOW()) = TO_DAYS(access_time) and api_path like '%${value}%'
+  </select>
+
+  <select id="selectApartDaysPv" parameterType="int" resultType="int">
+    select count(id) FROM log WHERE TO_DAYS(NOW())-#{value} = TO_DAYS(access_time)
+  </select>
+
+  <select id="selectApartDaysUv" parameterType="int" resultType="int">
+    select count(distinct ip) FROM log WHERE TO_DAYS(NOW())-#{value} = TO_DAYS(access_time)
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

@@ -79,6 +79,14 @@ public class DateTimeUtil {
 		return new SimpleDateFormat("yyyyMMdd").format(new Date());
 	}
 
+	public static String calculateApartDayConvertString(int x) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());
+		calendar.add(Calendar.DATE, -x);
+		Date time = calendar.getTime();
+		return new SimpleDateFormat("yyyyMMdd").format(time);
+	}
+
 	public static void main(String[] args) {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 

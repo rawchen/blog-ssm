@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.yoyling.utils.DateTimeUtil.calculateApartDayConvertString;
 import static com.yoyling.utils.StringUtil.listToString;
 import static com.yoyling.utils.StringUtil.stringToList;
 
@@ -45,5 +46,10 @@ public class StringTest {
 	@Test
 	public void run5() {
 		System.out.println(DateTimeUtil.yesterdayDateConvertString());
+	}
+
+	@Test
+	public void run6() {
+		System.out.println(calculateApartDayConvertString(1));
 	}
 }

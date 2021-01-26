@@ -138,6 +138,9 @@ public class CommentController extends BaseController {
 	@RequestMapping("/guestbook")
 	public String showGuestbook(Model model) {
 
+		//插入日志
+		logService.insert(LogUtil.insertLog(request,"/guestbook"));
+
 		List<Content> contents = contentService.selectAllContent();
 		for (Content c : contents) {
 			c.setCategorySlug(categoryService.selectByPrimaryKey(c.getCgid()).getCgSlug());

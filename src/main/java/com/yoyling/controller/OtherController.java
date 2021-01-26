@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.pagehelper.PageHelper;
 import com.yoyling.domain.Content;
 import com.yoyling.domain.Tag;
-import com.yoyling.utils.DateTimeUtil;
 import com.yoyling.utils.LogUtil;
 import com.yoyling.utils.StringUtil;
 import org.springframework.stereotype.Controller;
@@ -19,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.*;
 
-import static com.yoyling.utils.DateTimeUtil.todayDateConvertString;
+import static com.yoyling.utils.DateTimeUtil.*;
 import static com.yoyling.utils.StringUtil.stringToList;
 
 @Controller
@@ -107,25 +106,52 @@ public class OtherController extends BaseController {
 		Map<String, Object> dataMap = new HashMap<>();
 		Map<String, Object> mapYesterday = new HashMap<>();
 		Map<String, Object> mapToday = new HashMap<>();
-		List<Integer> y = logService.selectYesterdayPvUvVvIv();
-		mapYesterday.put("pv",24);
-		mapYesterday.put("uv",y.get(1));
-		mapYesterday.put("vv",y.get(0));
-		mapYesterday.put("iv",y.get(0));
+		List<Integer> y = logService.selectYesterdayPvUvIndexGuestbook();
+		mapYesterday.put("a",y.get(0));
+		mapYesterday.put("b",y.get(1));
+		mapYesterday.put("c",y.get(2));
+		mapYesterday.put("d",y.get(3));
+		mapYesterday.put("e",y.get(4));
 
-		List<Integer> t = logService.selectYesterdayPvUvVvIv();
-		mapToday.put("pv",y.get(0));
-		mapToday.put("uv",y.get(1));
-		mapToday.put("vv",y.get(0));
-		mapToday.put("iv",y.get(0));
+		List<Integer> t = logService.selectTodayPvUvIndexGuestbook();
+		mapToday.put("a",t.get(0));
+		mapToday.put("b",t.get(1));
+		mapToday.put("c",t.get(2));
+		mapToday.put("d",t.get(3));
+		mapToday.put("e",t.get(4));
 
 		map.put("code", 0);
 		map.put("info", "success");
 
-		dataMap.put(DateTimeUtil.yesterdayDateConvertString(),mapYesterday);
+		dataMap.put(yesterdayDateConvertString(),mapYesterday);
 		dataMap.put(todayDateConvertString(),mapToday);
 
 		map.put("data",dataMap);
+
+		return map;
+	}
+
+	@ResponseBody
+	@RequestMapping("/getLastWeekendAccess")
+	public Map<String,Object> getLastWeekendAccess() {
+		Map<String, Object> map = new HashMap<>();
+
+		List<Integer> pv = logService.selectLastWeekPvList();
+		List<Integer> uv = logService.selectLastWeekUvList();
+
+		List<Map<String,Object>> l = new ArrayList<>();
+		for (int i = 7; i > 0; i--) {
+			Map<String, Object> mapLastWeek = new HashMap<>();
+			mapLastWeek.put("date",calculateApartDayConvertString(i));
+			mapLastWeek.put("pv",pv.get(i-1));
+			mapLastWeek.put("uv",uv.get(i-1));
+			l.add(mapLastWeek);
+		}
+
+		map.put("code", 0);
+		map.put("info", "success");
+
+		map.put("data",l);
 
 		return map;
 	}
