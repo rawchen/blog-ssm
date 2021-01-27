@@ -338,15 +338,15 @@
 				initByHour(labels, datasets);
 
 			} else {
-				console.log("获取站点24小时数据发生错误", res);
+				console.log("获取站点数据发生错误", res);
 			}
 		},
 		error: function (err) {
-			console.log("获取站点24小时数据发生错误", err);
+			console.log("获取站点数据发生错误", err);
 		}
 	});
 
-	//24小时数据初始化
+	//数据初始化
 	function initByHour(labe, datas) {
 		//数据
 		const byHourData = {
@@ -358,7 +358,7 @@
 					backgroundColor: "rgba(0,0,0,0)",
 					borderWidth: 2,
 					fill: false,
-					data: datas.pv ? datas.pv : [4, 3, 0, 0]
+					data: datas.pv
 				},
 				{
 					label: "独立用户",
@@ -366,7 +366,7 @@
 					backgroundColor: "rgba(0,0,0,0)",
 					borderWidth: 2,
 					fill: false,
-					data: datas.uv ? datas.uv : [7, 6, 0, 1, 9]
+					data: datas.uv
 				}
 			]
 		};
