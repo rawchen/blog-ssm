@@ -44,7 +44,13 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 
 	@Override
 	public int deleteByPrimaryKey(int uid) {
-		return userMapper.deleteByPrimaryKey(uid);
+		int a = userMapper.deleteByPrimaryKey(uid);
+		if (a == 1) {
+			int b = contentMapper.deleteByAuthorId(uid);
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 
 	@Override

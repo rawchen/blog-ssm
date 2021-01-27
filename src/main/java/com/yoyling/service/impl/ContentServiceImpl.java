@@ -89,8 +89,6 @@ public class ContentServiceImpl extends BaseServiceImpl implements ContentServic
 		} else {
 			return 0;
 		}
-
-
 	}
 
 	@Override

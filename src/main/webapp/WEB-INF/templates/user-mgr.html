@@ -214,7 +214,7 @@
 
 <script>
 	function deleteUser(uid) {
-		if (confirm("你确定删除该用户吗？")) {
+		if (confirm("你确定删除该用户以及所属文章吗？")) {
 			location.href = "/deleteUser/" + uid;
 		}
 	}
@@ -367,7 +367,7 @@
 				}
 
 				if (flag) {
-					if (confirm("你确定要删除选中条目吗？")) {
+					if (confirm("你确定要删除选中用户以及所属文章吗？")) {
 						document.getElementById("selectUser").submit();
 					}
 				}
