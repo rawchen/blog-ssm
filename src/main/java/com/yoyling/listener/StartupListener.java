@@ -19,7 +19,6 @@ public class StartupListener implements ServletContextListener, ApplicationConte
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		System.out.println(123);
 		OptionsService optionsService = applicationContext.getBean(OptionsService.class);
 		String qqLink = optionsService.selectValueByName("qq_link");
 		String emailLink = optionsService.selectValueByName("email_link");

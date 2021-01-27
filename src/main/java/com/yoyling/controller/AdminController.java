@@ -208,6 +208,16 @@ public class AdminController extends BaseController {
 	}
 
 	/**
+	 * 跳转user-mgr.html页面
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/adminUser")
+	public String adminUser(Model model) {
+		return "user-mgr";
+	}
+
+	/**
 	 * 跳转category-mgr.html页面
 	 * @param model
 	 * @return

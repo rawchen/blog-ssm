@@ -116,7 +116,6 @@ public class TagController extends BaseController {
 	@RequestMapping("/deleteTag")
 	@ResponseBody
 	public Map<String,Object> deleteTag(int tid){
-		System.out.println(tid);
 		Map<String, Object> map = new HashMap<>();
 
 		//将所有文章的这个tig从tag_list中删除

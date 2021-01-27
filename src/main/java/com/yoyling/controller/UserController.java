@@ -86,7 +86,6 @@ public class UserController extends BaseController {
 		user.setActivated(new Date());
 		user.setRole("user");
 		user.setPhoto(GravatarUtil.getGravatarUrlByEmail(u.getMail()));
-		System.out.println(user);
 		int value = userService.insert(u);
 		if (value == 0) {
 			map.put("data","error");

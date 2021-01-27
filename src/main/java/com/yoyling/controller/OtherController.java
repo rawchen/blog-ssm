@@ -69,7 +69,6 @@ public class OtherController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/upFile", method = RequestMethod.POST)
 	public Map<String,Object> articleUpFile(HttpServletRequest req, @RequestParam("editormd-image-file") MultipartFile picpaths) throws JsonProcessingException {
-		System.out.println("进入函数");
 		Map<String, Object> map = new HashMap<>();
 
 		String url = "blog/" + StringUtil.getDateToString(new Date()) + "/";
