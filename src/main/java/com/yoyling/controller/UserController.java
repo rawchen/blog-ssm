@@ -5,12 +5,14 @@ import com.yoyling.utils.GravatarUtil;
 import com.yoyling.utils.StringUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -95,7 +97,6 @@ public class UserController extends BaseController {
 		return map;
 	}
 
-
 	/**
 	 * 通过用户名查找用户
 	 * @param userName
@@ -146,6 +147,35 @@ public class UserController extends BaseController {
 		} else {
 			map.put("data", "pwdfail");
 		}
+		return map;
+	}
+
+	@RequestMapping("/deleteUser/{uid}")
+	public String deleteUser(@PathVariable int uid) {
+		int a = userService.deleteByPrimaryKey(uid);
+		return "redirect:/adminUser";
+	}
+
+	@RequestMapping("/deleteSelectUser")
+	public String deleteSelectUser() {
+		String[] uids = request.getParameterValues("uid");
+		int a = userService.deleteSelectUser(uids);
+		return "redirect:/adminUser";
+	}
+
+	/**
+	 * 获取用户列表
+	 * @return
+	 */
+	@RequestMapping("/adminGetUserList")
+	@ResponseBody
+	public Map<String,Object> adminGetUserList() {
+		Map<String, Object> map = new HashMap<>();
+		List<User> users = userService.selectAllUser();
+		for (User user : users) {
+
+		}
+		map.put("data",users);
 		return map;
 	}
 }

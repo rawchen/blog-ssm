@@ -3,9 +3,10 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle} + '&nbsp;|&nbsp;Comment-Mgr'"></title>
+	<title th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle} + '&nbsp;|&nbsp;User-Mgr'"></title>
 	<link rel="shortcut icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
 	<link rel="apple-touch-icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
+
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -17,9 +18,11 @@
 	<link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
 	<!-- Font Awesome -->
 	<link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
-	<style type="text/css">
-		img.smile-img {
-			width: 29px;
+	<!-- SweetAlert2 -->
+	<link rel="stylesheet" th:href="@{/plugins/sweetalert2/sweetalert2.min.css}">
+	<style>
+		.gravatar-photo {
+			width: 36px;
 		}
 	</style>
 
@@ -82,30 +85,30 @@
 					<li class="nav-header">管理模块</li>
 					<li class="nav-item">
 						<a href="/adminBlog" class="nav-link">
-							<i class="fa fa-list-alt nav-icon"></i>
+							<i class="fa fa-list-alt nav-icon" aria-hidden="true"></i>
 							<p>博客管理</p>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a href="/adminCategory" class="nav-link">
-							<i class="fa fa-bookmark nav-icon"></i>
+							<i class="fa fa-bookmark nav-icon" aria-hidden="true"></i>
 							<p>分类管理</p>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a href="/adminTag" class="nav-link">
-							<i class="fa fa-tags nav-icon"></i>
+							<i class="fa fa-tags nav-icon" aria-hidden="true"></i>
 							<p>标签管理</p>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="/adminComment" class="nav-link active">
-							<i class="fa fa-comments nav-icon"></i>
+						<a href="/adminComment" class="nav-link">
+							<i class="fa fa-comments nav-icon" aria-hidden="true"></i>
 							<p>评论管理</p>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="/adminUser" class="nav-link">
+						<a href="/adminUser" class="nav-link active">
 							<i class="fa fa-user nav-icon" aria-hidden="true"></i>
 							<p>用户管理</p>
 						</a>
@@ -118,7 +121,7 @@
 					</li>
 					<li class="nav-header">系统管理</li>
 					<li class="nav-item">
-						<a href="/adminConfig"
+						<a href="adminConfig"
 						   class="nav-link">
 							<i class="fa fa-wrench nav-icon"></i>
 							<p>系统配置</p>
@@ -142,41 +145,30 @@
 		<!-- Main content -->
 		<section class="content">
 			<div class="container-fluid">
-				<!-- /.col -->
 				<div class="row">
 					<div class="col-12">
 						<div class="card card-teal card-outline">
 							<div class="card-header">
-								<h3 class="card-title">评论列表</h3>
+								<h3 class="card-title">用户列表</h3>
 							</div>
 							<!-- /.card-header -->
 							<div class="card-body table-responsive">
-								<form id="selectComment" action="/deleteSelectComment" method="post">
-									<table id="testTable" class="table table-hover text-nowrap table-bordered">
+								<form id="selectUser" action="/deleteSelectUser" method="post">
+									<table id="testTable" class="table table-bordered table-hover text-nowrap">
 										<thead>
 										<tr>
 											<th><input type="checkbox" id="firstCheckBox"/></th>
-											<th>评论人</th>
-											<th>回复内容</th>
+											<th>用户名</th>
+											<th>昵称</th>
 											<th>邮箱</th>
-											<th>评论时间</th>
-											<th>前台地址</th>
-											<th class="text-center">操作</th>
+											<th>博客链接</th>
+											<th>创建时间</th>
+											<th>最后活跃</th>
+											<th>角色</th>
+											<th>头像</th>
+											<th>操作</th>
 										</tr>
 										</thead>
-	<!--									<tbody>-->
-	<!--										<td>456</td>-->
-	<!--										<td class="text-center">-->
-	<!--											<button class="btn btn-xs btn-success" data-toggle="modal" data-target="#replyCommentModal">-->
-	<!--												<i class="fa fa-edit"></i>-->
-	<!--												回复-->
-	<!--											</button>-->
-	<!--											<button class="btn btn-xs btn-danger ml-2" data-toggle="modal" data-target="#deleteCommentModal">-->
-	<!--												<i class="fa fa-trash"></i>-->
-	<!--												删除-->
-	<!--											</button>-->
-	<!--										</td>-->
-	<!--									</tbody>-->
 									</table>
 								</form>
 							</div>
@@ -184,9 +176,10 @@
 						</div>
 						<!-- /.card -->
 					</div>
+					<!-- /.col -->
 				</div>
+
 			</div>
-			<!-- /.row -->
 		</section>
 		<!-- /.content -->
 	</div>
@@ -202,52 +195,6 @@
 </div>
 <!-- ./wrapper -->
 
-<div class="modal fade" id="replyCommentModal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">回复</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<input class="form-control" type="hidden" id="replyCommentHiddenId">
-				<input class="form-control" type="hidden" id="replyCommentHiddenId2">
-				<input class="form-control" type="text" id="replyCommentText">
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-				<button id="replyCommentBtn" type="button" class="btn btn-success">确认</button>
-			</div>
-		</div>
-		<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
-</div>
-
-<div class="modal fade" id="deleteCommentModal">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">删除评论</h4>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<p class="m-0">你确定要删除吗？</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-				<button id="deleteCategoryBtn" type="button" class="btn btn-danger">删除</button>
-			</div>
-		</div>
-		<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
-</div>
-
 <!-- jQuery -->
 <script th:src="@{/plugins/jquery/jquery.min.js}"></script>
 <!-- Bootstrap 4 -->
@@ -259,97 +206,110 @@
 <script th:src="@{/plugins/datatables-responsive/js/dataTables.responsive.min.js}"></script>
 <script th:src="@{/plugins/datatables-responsive/js/responsive.bootstrap4.min.js}"></script>
 
+
 <!-- AdminLTE App -->
 <script th:src="@{/js/adminlte.min.js}"></script>
+<!-- SweetAlert2 -->
+<script th:src="@{/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
+
 <script>
-	function deleteComment(coid) {
-		if (confirm("你确定删除该评论吗？")) {
-			location.href = "/deleteComment/" + coid;
+	function deleteUser(uid) {
+		if (confirm("你确定删除该用户吗？")) {
+			location.href = "/deleteUser/" + uid;
 		}
 	}
 
-	function replyComment(coid,cid) {
-		$('#replyCommentHiddenId').val(coid);
-		$('#replyCommentHiddenId2').val(cid);
-	}
-	$('#replyCommentBtn').click(function () {
-		var replyCommentHiddenId = $('#replyCommentHiddenId').val();
-		var replyCommentHiddenId2 = $('#replyCommentHiddenId2').val();
-		var replyCommentText = $('#replyCommentText').val();
-		if (replyCommentHiddenId === "" || replyCommentText === "" || replyCommentHiddenId2 ==="") {
-			alert("你好像忘记输入什么了");
-		} else {
-			$.ajax({
-				url: '/replyComment',
-				type: 'post',
-				data:{'coid':replyCommentHiddenId,'cid':replyCommentHiddenId2,"text":replyCommentText},
-				success: function(res) {
-					// alert(res.data)
-					$('#replyCommentModal').modal('hide');
-					location.href = '/adminComment'
-				},
-				error: function() {
-					alert("系统错误")
-				}
-			});
-		}
-	})
-
-	function valuesToInput(tid,name) {
-		alert(tid);
-		alert(name);
-		// $('#valueOfTag').val(tid);
-		// $('#updateName').val(name);
+	function changeContentOrder(id) {
+		$.ajax({
+			url: '/changeContentOrder',
+			type: 'post',
+			data:{'contentId':id},
+			success: function(res) {
+				// alert(res.data)
+			},
+			error: function() {
+				alert("系统错误")
+			}
+		});
 	}
 
 	$(function () {
 		$('#testTable').DataTable({
-			ajax: '/adminGetCommentList', // 从一个ajax数据源读取数据给表格内容
-			lengthMenu: [10, 20, 30, 60], // 定义在每页显示记录数的select中显示的选项
-			// displayLength: 20, //
-			// displayStart: 1, //初始化显示的时候从第几条数据开始显示(一开始显示第几页)
-			// lengthChange: false, // 是否允许用户改变表格每页显示的记录数
+			ajax: '/adminGetUserList',
+			lengthMenu: [5, 10, 50, 100],
 			searching: false,
 			responsive: false,
-			// info: false,
-			processing: true, // 是否显示处理状态
-			// serverSide: true, // 是否开启服务器模式
-			autoWidth: false, // 控制Datatables是否自适应宽度
-			deferRender: true, // 控制Datatables的延迟渲染，可以提高初始化的速度
-			stateSave: true, //保存状态 - 在页面重新加载的时候恢复状态（页码等内容）
-			// dom: '<"top"i>rt<ip>',
+			processing: true,
+			autoWidth: false,
+			deferRender: true,
+			stateSave: true,
 			dom: '<"row"<"col-md-12"<"float-left"l><"#topPlugin.float-right">>>irt<"mt-3 pagination-sm"p>',
 			initComplete: renderTopPlugin, // 初始化结束后的回调函数
 			ordering: false,
 			columns: [
 				{
-					data: "coid",
+					data: "uid",
 					render: function (data, type, row, meta) {
-						return '<input type="checkbox" value="' + data + '" name="coid"/>';
+						return '<input type="checkbox" value="' + data + '" name="uid"/>';
 					}
 				},
-				{data: "author"},
-				{data: "text",
-					"render": function (data, type, full, meta) {
-						return '<p style="width:470px;overflow:hidden;text-overflow:ellipsis;">' + data + '</p>'
-					}
-				},
+				{data: "name"},
+				{data: "screenname"},
 				{data: "mail"},
-				{data: "createdDisplay"},
-				{
-					data: "contentSlug",
+				{data: "url"},
+				{data: "created",
 					render: function (data, type, row, meta) {
-						if (data != null) {
-							return '<a target="_blank" href="' + '/articles/' + data + '">' + '/articles/' + data + '</a>';
-						} else {
-							return '<a target="_blank" href="/guestbook">/guestbook</a>';
+						function getMyDate(time){
+							var oDate = new Date(time),
+								oYear = oDate.getFullYear(),
+								oMonth = oDate.getMonth()+1,
+								oDay = oDate.getDate(),
+								oHour = oDate.getHours(),
+								oMin = oDate.getMinutes(),
+								oTime = oYear +'-'+ getzf(oMonth) +'-'+ getzf(oDay) +' '+ getzf(oHour) +':'+ getzf(oMin);//最后拼接时间
+							return oTime;
+						}
+						function getzf(num){
+							if(parseInt(num) < 10){
+								num = '0'+num;
+							}
+							return num;
 						}
 
+						return getMyDate(data);
+					}
+				},
+				{data: "activated",
+					render: function (data, type, row, meta) {
+						function getMyDate(time){
+							var oDate = new Date(time),
+								oYear = oDate.getFullYear(),
+								oMonth = oDate.getMonth()+1,
+								oDay = oDate.getDate(),
+								oHour = oDate.getHours(),
+								oMin = oDate.getMinutes(),
+								oTime = oYear +'-'+ getzf(oMonth) +'-'+ getzf(oDay) +' '+ getzf(oHour) +':'+ getzf(oMin);//最后拼接时间
+							return oTime;
+						}
+						function getzf(num){
+							if(parseInt(num) < 10){
+								num = '0'+num;
+							}
+							return num;
+						}
+
+						return getMyDate(data);
+					}
+				},
+				{data: "role"},
+				{data: "photo",
+					render: function (data, type, row, meta) {
+						return '<img class="gravatar-photo" src=\''+data+'\'>'
 					}
 				},
 				{
 					render: function (data, type, row, meta) {
-						return '<a href="javascript:void(0);" onclick="deleteComment(' + row.coid +');" class="btn btn-danger btn-xs">删除</a> <button type="button" class="btn btn-info btn-xs" onclick="replyComment(' + row.coid +','+row.cid+');" data-toggle="modal" data-target="#replyCommentModal">回复</button>'
+						return '<a href="javascript:void(0);" onclick="deleteUser(' + row.uid +');" class="btn btn-danger btn-xs">删除</a> <button class="btn btn-success btn-xs">修改</button>'
 					}
 				}
 			],
@@ -384,21 +344,21 @@
 			//var topPlugin='<button id="addButton" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addUser" style="display:block;">' +
 			// '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加用户</button>';
 			//删除用户按钮的HTMLDOM
-			var topPlugin = '<a href="javascript:void(0);" id="deleteSelectComment" class="btn btn-danger btn-sm">批量删除</a> <a href="javascript:void(0);" class="btn btn-info btn-sm">导出(未实现)</a>';
+			var topPlugin = '<a href="javascript:void(0);" id="deleteSelectUser" class="btn btn-danger btn-sm">批量删除</a> <a href="javascript:void(0);" class="btn btn-info btn-sm">导出(未实现)</a>';
 			$("#topPlugin").append(topPlugin);//在表格上方topPlugin DIV中追加HTML
 			//$("#expCsv").on("click", exp1);//给下方按钮绑定事件
 
 			document.getElementById("firstCheckBox").onclick = function () {
-				var cbs = document.getElementsByName("coid");
+				var cbs = document.getElementsByName("uid");
 				for (var i = 0; i < cbs.length; i++) {
 					cbs[i].checked = this.checked;
 				}
 			};
 
 
-			document.getElementById("deleteSelectComment").onclick = function () {
+			document.getElementById("deleteSelectUser").onclick = function () {
 				var flag = false;
-				var cbs = document.getElementsByName("coid");
+				var cbs = document.getElementsByName("uid");
 				for (var i = 0; i < cbs.length; i++) {
 					if (cbs[i].checked) {
 						flag = true;
@@ -408,13 +368,34 @@
 
 				if (flag) {
 					if (confirm("你确定要删除选中条目吗？")) {
-						document.getElementById("selectComment").submit();
+						document.getElementById("selectUser").submit();
 					}
 				}
 			};
 		}
+
+		var Toast = Swal.mixin({
+			toast: true,
+			position: 'top-end',
+			showConfirmButton: false,
+			timer: 1500
+		});
+
+		var t = "[[${message}]]";
+		if (t === '1') {
+			Toast.fire({
+				icon: 'success',
+				title: '文章发表了哦！'
+			});
+		}
+
+		if (t === '0') {
+			Toast.fire({
+				icon: 'error',
+				title: '文章发表失败！'
+			});
+		}
 	});
 </script>
-
 </body>
 </html>

@@ -2,6 +2,8 @@ package com.yoyling.service;
 
 import com.yoyling.domain.User;
 
+import java.util.List;
+
 public interface UserService {
 	User selectUserByNameAndPassword(User u);
 
@@ -12,4 +14,10 @@ public interface UserService {
 	int updateScreenNameAndMailAndUrl(User u);
 
 	int updatePassword(User u);
+
+	List<User> selectAllUser();
+
+	int deleteByPrimaryKey(int uid);
+
+	int deleteSelectUser(String[] uids);
 }

@@ -5,6 +5,8 @@ import com.yoyling.service.UserService;
 import com.yoyling.utils.StringUtil;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("userService")
 public class UserServiceImpl extends BaseServiceImpl implements UserService {
 
@@ -33,5 +35,32 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 	@Override
 	public int updatePassword(User u) {
 		return userMapper.updatePassword(u);
+	}
+
+	@Override
+	public List<User> selectAllUser() {
+		return userMapper.selectAllUser();
+	}
+
+	@Override
+	public int deleteByPrimaryKey(int uid) {
+		return userMapper.deleteByPrimaryKey(uid);
+	}
+
+	@Override
+	public int deleteSelectUser(String[] uids) {
+		try {
+			if (uids != null && uids.length > 0) {
+				for (String uid: uids) {
+					int a = userMapper.deleteByPrimaryKey(Integer.parseInt(uid));
+					//删除所属的帖子
+					int b = contentMapper.deleteByAuthorId(Integer.parseInt(uid));
+				}
+			}
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
 	}
 }

@@ -2,6 +2,8 @@ package com.yoyling.mapper;
 
 import com.yoyling.domain.User;
 
+import java.util.List;
+
 public interface UserMapper {
     int deleteByPrimaryKey(Integer uid);
 
@@ -22,4 +24,6 @@ public interface UserMapper {
 	int updateScreenNameAndMailAndUrl(User u);
 
     int updatePassword(User u);
+
+    List<User> selectAllUser();
 }

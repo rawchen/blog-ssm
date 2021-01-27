@@ -103,6 +103,11 @@
     delete from content
     where cid = #{cid,jdbcType=INTEGER}
   </delete>
+
+  <delete id="deleteByAuthorId" parameterType="int">
+    delete from content where author_id = #{authorId}
+  </delete>
+
   <insert id="insert" parameterType="com.yoyling.domain.Content">
     insert into content (cid, cgid, title,
                          slug, created_time, modified_time,

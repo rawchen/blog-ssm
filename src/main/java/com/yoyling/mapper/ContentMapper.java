@@ -52,4 +52,6 @@ public interface ContentMapper {
 	List<Content> selectContentListByLike(String searchWord);
 
 	List<Content> selectPostSizeContentWithHot(int postsListSize);
+
+	int deleteByAuthorId(int parseInt);
 }

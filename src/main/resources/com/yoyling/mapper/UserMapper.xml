@@ -23,6 +23,10 @@
     where uid = #{uid,jdbcType=INTEGER}
   </select>
 
+  <select id="selectAllUser" resultMap="BaseResultMap">
+    select * from user;
+  </select>
+
   <select id="selectUserByNameAndPassword" parameterType="user" resultMap="BaseResultMap">
     select * from user where name = #{name,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
   </select>
