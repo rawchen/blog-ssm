@@ -37,7 +37,7 @@
 <!--			<form action="user/login" method="post" id="loginForm">-->
 			<form method="post" id="loginForm">
 				<div class="input-group mb-3">
-				<input type="text" id="userName" class="form-control" required placeholder="UserName">
+				<input type="text" id="userName" class="form-control" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9\-_]/g,'')" required placeholder="UserName">
 				<div class="input-group-append">
 					<div class="input-group-text">
 						<span class="fas fa-user"></span>
