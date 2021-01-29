@@ -18,6 +18,7 @@
 
 	<link rel="stylesheet" th:href="@{/plugins/tocbot/css/tocbot.css}">
 	<link rel="stylesheet" th:href="@{/plugins/prism/css/prism.css}">
+	<link rel="stylesheet" th:href="@{/plugins/lightbox/css/zoomify.min.css}">
 	<style type="text/css">
 		#comment-form {
 			position: relative;
@@ -403,6 +404,7 @@
 <script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
 <!-- AdminLTE App -->
 <script th:src="@{/js/adminlte.min.js}"></script>
+<script th:src="@{/plugins/lightbox/js/zoomify.min.js}"></script>
 
 <script th:src="@{/plugins/tocbot/js/tocbot.min.js}"></script>
 <script th:src="@{/plugins/prism/js/prism.js}"></script>
@@ -507,6 +509,8 @@
 		$('#textarea').val('');
 	}
 </script>
-
+<script>
+	$('#blog-content img').zoomify();
+</script>
 </body>
 </html>

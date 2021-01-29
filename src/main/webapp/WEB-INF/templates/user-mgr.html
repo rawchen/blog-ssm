@@ -309,7 +309,12 @@
 				},
 				{
 					render: function (data, type, row, meta) {
-						return '<a href="javascript:void(0);" onclick="deleteUser(' + row.uid +');" class="btn btn-danger btn-xs">删除</a> <button class="btn btn-success btn-xs">修改</button>'
+						if (row.uid == 1) {
+							return '<button class="btn btn-success btn-xs">修改</button>';
+						}else {
+							return '<a href="javascript:void(0);" onclick="deleteUser(' + row.uid +');" class="btn btn-danger btn-xs">删除</a> <button class="btn btn-success btn-xs">修改</button>';
+						}
+
 					}
 				}
 			],
