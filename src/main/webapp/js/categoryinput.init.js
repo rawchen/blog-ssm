@@ -4,8 +4,7 @@ $(function () {
 	 */
 	$('#categoryInput').selectize({
 		create: true,
-		createOnBlur: true,
-		maxItems: 10
+		createOnBlur: true
 	});
 
 	/**
