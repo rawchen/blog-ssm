@@ -173,12 +173,18 @@
 
 							<div class="card-footer clearfix" th:if="${pageHelper == 1}">
 								<ul class="pagination m-0 float-right">
-									<li class="page-item" th:if="${currentPage != 1}"><a class="page-link" th:href="'/index?pageNum='+(${currentPage}-1)"><i class="fa fa-angle-left"></i></a></li>
+									<li class="page-item">
+										<a class="page-link" th:if="${currentPage != 1}" th:href="'/index?pageNum='+(${currentPage}-1)"><i class="fa fa-angle-left"></i></a>
+										<a class="page-link" th:if="${currentPage == 1}"><i class="fa fa-angle-left" style="color: #9e9e9e"></i></a>
+									</li>
 									<a th:each="i:${#numbers.sequence(1,totalPages)}">
-										<li class="page-item active" th:if="${i eq currentPage}"><a class="page-link" th:href="'/index?pageNum='+(${i})" th:text="${i}"></a></li>
+										<li class="page-item active" th:if="${i eq currentPage}"><a class="page-link" style="user-select: none" th:text="${i}"></a></li>
 										<li class="page-item" th:if="${i != currentPage}"><a class="page-link" th:href="'/index?pageNum='+(${i})" th:text="${i}"></a></li>
 									</a>
-									<li class="page-item" th:if="${currentPage != totalPages}"><a class="page-link" th:href="'/index?pageNum='+(${currentPage}+1)"><i class="fa fa-angle-right"></i></a></li>
+									<li class="page-item">
+										<a class="page-link" th:if="${currentPage != totalPages}" th:href="'/index?pageNum='+(${currentPage}+1)"><i class="fa fa-angle-right"></i></a>
+										<a class="page-link" th:if="${currentPage == totalPages}" style="color: #9e9e9e"><i class="fa fa-angle-right"></i></a>
+									</li>
 								</ul>
 							</div><!-- /.card-footer -->
 						</div>
