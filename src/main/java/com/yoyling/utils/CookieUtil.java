@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 设置Cookie业务类
+ * 设置Cookie工具类
  */
 public class CookieUtil {
 
@@ -29,7 +29,7 @@ public class CookieUtil {
 		//获取是否保存Cookie（例如：复选框的值）
 
 		//保存Cookie的时间长度，单位为秒
-		authorCookie.setMaxAge(7 * 24 * 60 * 60);
+		authorCookie.setMaxAge(7 * 24 * 60 * 60);//7天
 		mailCookie.setMaxAge(7 * 24 * 60 * 60);
 		urlCookie.setMaxAge(7 * 24 * 60 * 60);
 
