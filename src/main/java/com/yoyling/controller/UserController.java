@@ -69,7 +69,6 @@ public class UserController extends BaseController {
 		} else {
 			map.put("data","success");
 			session.setAttribute("USER_SESSION", user);
-			System.out.println(remember);
 			if ("on".equals(remember)) {
 				Cookie cookie = new Cookie("JSESSIONID", req.getSession().getId());
 				cookie.setMaxAge(60 * 60 * 24 * 7);
