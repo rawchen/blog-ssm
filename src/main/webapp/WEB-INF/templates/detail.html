@@ -281,7 +281,7 @@
 									<!-- /.direct-chat-infos -->
 									<img class="direct-chat-img position-absolute border" th:src="${comment.mail}" alt="message user image">
 									<!-- /.direct-chat-img -->
-									<div class="direct-chat-text float-left"><span class="comm-text" th:utext="${comment.text}"/><a class="badge" th:href="'javascript:reply(\''+'/comment/'+${content.cid}+'/'+${comment.coid}+'\''+',\''+${comment.author}+'\')'">回复</a>
+									<div class="direct-chat-text float-right"><span class="comm-text" th:utext="${comment.text}"/><a class="badge" th:href="'javascript:reply(\''+'/comment/'+${content.cid}+'/'+${comment.coid}+'\''+',\''+${comment.author}+'\')'">回复</a>
 									</div>
 									<!-- /.direct-chat-text -->
 								</div>
