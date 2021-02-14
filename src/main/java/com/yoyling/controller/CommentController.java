@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.yoyling.utils.StringUtil.getIpAddr;
+import static com.yoyling.utils.StringUtil.*;
 
 @Controller
 public class CommentController extends BaseController {
@@ -28,6 +28,9 @@ public class CommentController extends BaseController {
 		String mail = request.getParameter("mail");
 		String url = request.getParameter("url");
 		boolean isHaveAuthorAndMail = author == null || "".equals(author) || mail == null || "".equals(mail);
+
+		//判断机器人评论则直接返回到首页，后期可以添加屏蔽敏感词汇、网址关键字、邮箱关键字、ip等。
+		boolean isRobot = !isContainChinese(commentText) && isLetter(author);
 		int contentId = 0;
 		if (request.getParameter("contentId") == null || "".equals(request.getParameter("contentId"))) {
 		} else {
@@ -40,7 +43,7 @@ public class CommentController extends BaseController {
 
 		User sessionUser = (User) session.getAttribute("USER_SESSION");
 		if (sessionUser == null) {
-			if (isHaveAuthorAndMail) {
+			if (isHaveAuthorAndMail || isRobot) {
 				return "redirect:/index";
 			} else {
 				comment.setAuthorid(0);
@@ -77,14 +80,14 @@ public class CommentController extends BaseController {
 		String mail = request.getParameter("mail");
 		String url = request.getParameter("url");
 		boolean isHaveAuthorAndMail = author == null || "".equals(author) || mail == null || "".equals(mail);
-
+		boolean isRobot = !isContainChinese(commentText) && isLetter(author);
 		Comment comment = new Comment();
 		comment.setCid(cid);
 		comment.setParent(coid);
 		comment.setCreated(new Date());
 		User sessionUser = (User) session.getAttribute("USER_SESSION");
 		if (sessionUser == null) {
-			if (isHaveAuthorAndMail) {
+			if (isHaveAuthorAndMail || isRobot) {
 				return "redirect:/index";
 			} else {
 				comment.setAuthorid(0);

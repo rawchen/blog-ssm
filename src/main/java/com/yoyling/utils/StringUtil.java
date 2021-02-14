@@ -5,6 +5,8 @@ import org.springframework.util.DigestUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StringUtil {
 
@@ -154,5 +156,20 @@ public class StringUtil {
 		return dateNowStr;
 	}
 
+	public static boolean isContainChinese(String str) {
+		Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
+		Matcher m = p.matcher(str);
+		if (m.find()) {
+			return true;
+		}
+		return false;
+	}
 
+	public static boolean isLetter(String str) {
+		if ("".equals(str)) {
+			return false;
+		}
+		String regex = "^[a-zA-Z]+$";
+		return str.matches(regex);
+	}
 }

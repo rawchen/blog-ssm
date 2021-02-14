@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.yoyling.utils.DateTimeUtil.calculateApartDayConvertString;
-import static com.yoyling.utils.StringUtil.listToString;
-import static com.yoyling.utils.StringUtil.stringToList;
+import static com.yoyling.utils.StringUtil.*;
 
 public class StringTest {
 	@Test
@@ -52,4 +51,15 @@ public class StringTest {
 	public void run6() {
 		System.out.println(calculateApartDayConvertString(1));
 	}
+
+	@Test
+	public void run7() {
+		System.out.println(isLetter("aaaasdsasdfsf1fasfasf"));
+	}
+
+	@Test
+	public void run8() {
+		System.out.println(isContainChinese("mypaydayloan relief  http://loanonlineiuw.com/#  advance payday loan  <a href=\"http://loanonlineiuw.com/# \">new payday loans </a> payday loan stores"));
+	}
+
 }
