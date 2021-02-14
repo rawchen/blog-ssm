@@ -145,10 +145,18 @@
 	function subForm() {
 		if (validateBlogForm()) {
 			//请求登入接口
+			var rememberText = '';
+
+			if ($('#noLogin').is(':checked')) {
+				rememberText = 'on';
+			} else {
+				rememberText = 'off';
+			}
+
 			$.ajax({
 				type: 'post',
 				url: '/userLogin',
-				data: {'name': $('#userName').val(), 'password': $('#password').val(), 'remember': $('#noLogin').val()},
+				data: {'name': $('#userName').val(), 'password': $('#password').val(), 'remember': rememberText},
 				success: function (res) {
 					if (res.data == "success") {
 						Toast.fire({

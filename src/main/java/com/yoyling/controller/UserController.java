@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -56,7 +59,9 @@ public class UserController extends BaseController {
 	 */
 	@RequestMapping("/userLogin")
 	@ResponseBody
-	public Map<String,Object> userLogin(User u, @RequestParam(value = "remember", required = false) String remember) {
+	public Map<String,Object> userLogin(User u,
+			@RequestParam(value = "remember", required = false) String remember,
+			HttpServletRequest req, HttpServletResponse resp) {
 		Map<String, Object> map = new HashMap<>();
 		User user = userService.selectUserByNameAndPassword(u);
 		if (user == null) {
@@ -64,8 +69,12 @@ public class UserController extends BaseController {
 		} else {
 			map.put("data","success");
 			session.setAttribute("USER_SESSION", user);
+			System.out.println(remember);
 			if ("on".equals(remember)) {
-				session.setMaxInactiveInterval(60*60*24*7);
+				Cookie cookie = new Cookie("JSESSIONID", req.getSession().getId());
+				cookie.setMaxAge(60 * 60 * 24 * 7);
+				session.setMaxInactiveInterval(60 * 60 * 24 * 7);
+				resp.addCookie(cookie);
 			}
 		}
 		return map;

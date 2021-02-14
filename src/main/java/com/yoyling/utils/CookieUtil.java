@@ -38,5 +38,10 @@ public class CookieUtil {
 		response.addCookie(mailCookie);
 		response.addCookie(urlCookie);
 	}
+
+	public static void setCookie(String author, String mail, String url
+			, HttpServletRequest request, HttpServletResponse response) {
+
+	}
 }
 
