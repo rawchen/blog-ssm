@@ -271,6 +271,9 @@
 				{
 					data: "contentOrder",
 					render: function (data, type, row, meta) {
+						if('[[${session.USER_SESSION.role}]]' != 'administrator') {
+							return '<div class="custom-control custom-switch custom-switch-on-success disabled"><input type="checkbox" disabled="disabled" id="customSwitch' + row.cid + '" class="custom-control-input disabled"><label class="custom-control-label" for="customSwitch' + row.cid + '"></label></div>';
+						}
 						if (data === 1) {
 							data = '<div class="custom-control custom-switch custom-switch-on-success"><input type="checkbox" onchange="changeContentOrder(' + row.cid + ')" id="customSwitch' + row.cid + '" class="custom-control-input" checked><label class="custom-control-label" for="customSwitch' + row.cid + '"></label></div>';
 						} else {
