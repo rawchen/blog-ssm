@@ -152,7 +152,11 @@
 									<th>文章数量</th>
 									<th class="text-center" width="15%">
 										操作
-										<button class="btn btn-xs btn-info ml-2" data-toggle="modal" data-target="#addCategoryModal">
+										<button th:if="${session.USER_SESSION.role eq 'administrator'}" class="btn btn-xs btn-info ml-2" data-toggle="modal" data-target="#addCategoryModal">
+											<i class="fa fa-plus"></i>
+											新增
+										</button>
+										<button th:if="${session.USER_SESSION.role ne 'administrator'}" class="btn btn-xs btn-info ml-2 disabled">
 											<i class="fa fa-plus"></i>
 											新增
 										</button>
@@ -166,14 +170,27 @@
 									<td th:text="${category.cgSlug}"></td>
 									<td th:text="${category.count}"></td>
 									<td class="text-center">
-										<button class="btn btn-xs btn-success" data-toggle="modal" data-target="#updateCategoryModal" th:onclick="valuesToInput([[${category.cgid}]],[[${category.cgName}]],[[${category.cgSlug}]])">
+										<button th:if="${session.USER_SESSION.role eq 'administrator'}" class="btn btn-xs btn-success" data-toggle="modal" data-target="#updateCategoryModal" th:onclick="valuesToInput([[${category.cgid}]],[[${category.cgName}]],[[${category.cgSlug}]])">
 											<i class="fa fa-edit"></i>
 											修改
 										</button>
-										<button th:if="${category.cgid != 1}" class="btn btn-xs btn-danger ml-2" data-toggle="modal" data-target="#deleteCategoryModal" th:onclick="deleteCategory([[${category.cgid}]])">
+
+										<button th:if="${session.USER_SESSION.role ne 'administrator'}" class="btn btn-xs btn-success disabled">
+											<i class="fa fa-edit"></i>
+											修改
+										</button>
+
+										<button th:if="${category.cgid != 1 && session.USER_SESSION.role eq 'administrator'}" class="btn btn-xs btn-danger ml-2" data-toggle="modal" data-target="#deleteCategoryModal" th:onclick="deleteCategory([[${category.cgid}]])">
 											<i class="fa fa-trash"></i>
 											删除
 										</button>
+
+										<button th:if="${category.cgid != 1 && session.USER_SESSION.role ne 'administrator'}" class="btn btn-xs btn-danger ml-2 disabled">
+											<i class="fa fa-trash"></i>
+											删除
+										</button>
+
+
 									</td>
 								</tr>
 								</tbody>

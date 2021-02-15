@@ -54,4 +54,6 @@ public interface ContentMapper {
 	List<Content> selectPostSizeContentWithHot(int postsListSize);
 
 	int deleteByAuthorId(int parseInt);
+
+	List<Content> selectContentListWithUid(int userId);
 }

@@ -47,4 +47,6 @@ public interface ContentService {
 	List<Content> selectContentListByLike(String searchWord);
 
 	List<Content> selectPostSizeContentWithHot(int postsListSize);
+
+	List<Content> selectContentListWithUid(int userId);
 }

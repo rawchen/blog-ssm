@@ -26,4 +26,6 @@ public interface CommentMapper {
 	List<Comment> selectAllCommment();
 
 	int deleteByCid(int parseInt);
+
+	List<Comment> selectCommentListWithUserId(int userId);
 }

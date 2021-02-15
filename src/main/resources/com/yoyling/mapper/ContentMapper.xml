@@ -58,6 +58,10 @@
     select * from content order by created_time DESC
   </select>
 
+  <select id="selectContentListWithUid" resultMap="BaseResultMap" parameterType="int">
+    select * from content where author_id = #{authorId} order by created_time DESC
+  </select>
+
   <select id="selectPostSizeContentWithHot" parameterType="int" resultMap="BaseResultMap">
     select * from content order by views DESC limit #{value}
   </select>

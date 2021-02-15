@@ -199,7 +199,7 @@
 							</form>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6" th:if="${session.USER_SESSION.role} == 'administrator'">
 						<div class="card card-teal card-outline">
 							<div class="card-header">
 								<h3 class="card-title">站点信息</h3>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
@@ -130,6 +131,24 @@ public class CommentController extends BaseController {
 	public Map<String, Object> adminGetCommentList() {
 		Map<String, Object> map = new HashMap<>();
 		List<Comment> comments = commentService.selectAllComment();
+		for (Comment comment : comments) {
+			comment.setContentSlug(contentService.selectSlugByCid(comment.getCid()));
+			comment.setCreatedDisplay(DateTimeUtil.dateWord(comment.getCreated()));
+		}
+		map.put("data", comments);
+		return map;
+	}
+
+	/**
+	 * 获取博客列表
+	 *
+	 * @return
+	 */
+	@RequestMapping("/userGetCommentList")
+	@ResponseBody
+	public Map<String, Object> userGetCommentList(@RequestParam(value="userId") int userId) {
+		Map<String, Object> map = new HashMap<>();
+		List<Comment> comments = commentService.selectCommentListWithUserId(userId);
 		for (Comment comment : comments) {
 			comment.setContentSlug(contentService.selectSlugByCid(comment.getCid()));
 			comment.setCreatedDisplay(DateTimeUtil.dateWord(comment.getCreated()));

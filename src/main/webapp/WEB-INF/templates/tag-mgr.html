@@ -160,11 +160,19 @@
 									<td th:text="${tag.name}"></td>
 									<td th:text="${tag.count}"></td>
 									<td class="text-center">
-										<button class="btn btn-xs btn-success" data-toggle="modal" data-target="#updateTagModal" th:onclick="valuesToInput([[${tag.tid}]],[[${tag.name}]])">
+										<button th:if="${session.USER_SESSION.role eq 'administrator'}" class="btn btn-xs btn-success" data-toggle="modal" data-target="#updateTagModal" th:onclick="valuesToInput([[${tag.tid}]],[[${tag.name}]])">
 											<i class="fa fa-edit"></i>
 											修改
 										</button>
-										<button class="btn btn-xs btn-danger ml-2" data-toggle="modal" data-target="#deleteTagModal" th:onclick="deleteTag([[${tag.tid}]])">
+										<button th:if="${session.USER_SESSION.role ne 'administrator'}" class="btn btn-xs btn-success disabled">
+											<i class="fa fa-edit"></i>
+											修改
+										</button>
+										<button th:if="${session.USER_SESSION.role eq 'administrator'}" class="btn btn-xs btn-danger ml-2" data-toggle="modal" data-target="#deleteTagModal" th:onclick="deleteTag([[${tag.tid}]])">
+											<i class="fa fa-trash"></i>
+											删除
+										</button>
+										<button th:if="${session.USER_SESSION.role ne 'administrator'}" class="btn btn-xs btn-danger ml-2 disabled">
 											<i class="fa fa-trash"></i>
 											删除
 										</button>

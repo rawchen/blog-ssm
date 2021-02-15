@@ -27,6 +27,10 @@
     select * from comment order by created desc;
   </select>
 
+  <select id="selectCommentListWithUserId" resultMap="ResultMapWithBLOBs" parameterType="int">
+    select * from comment where authorId = #{authorId} order by created desc;
+  </select>
+
   <select id="selectCommentListByContentId" parameterType="int" resultMap="ResultMapWithBLOBs">
     select * from comment where cid = #{cid};
   </select>

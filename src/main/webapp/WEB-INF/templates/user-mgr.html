@@ -233,9 +233,13 @@
 		});
 	}
 
+	var dataTableApi = '';
 	$(function () {
+		if ('[[${session.USER_SESSION.role}]]' === 'administrator') {
+			dataTableApi = '/adminGetUserList'
+		}
 		$('#testTable').DataTable({
-			ajax: '/adminGetUserList',
+			ajax: dataTableApi,
 			lengthMenu: [5, 10, 50, 100],
 			searching: false,
 			responsive: false,

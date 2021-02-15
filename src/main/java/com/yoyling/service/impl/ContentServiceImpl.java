@@ -142,4 +142,9 @@ public class ContentServiceImpl extends BaseServiceImpl implements ContentServic
 	public List<Content> selectPostSizeContentWithHot(int postsListSize) {
 		return contentMapper.selectPostSizeContentWithHot(postsListSize);
 	}
+
+	@Override
+	public List<Content> selectContentListWithUid(int userId) {
+		return contentMapper.selectContentListWithUid(userId);
+	}
 }

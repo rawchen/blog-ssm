@@ -16,4 +16,6 @@ public interface CommentService {
 	int deleteByPrimaryKey(int coid);
 
 	int deleteSelectComment(String[] coids);
+
+	List<Comment> selectCommentListWithUserId(int userId);
 }

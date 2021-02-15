@@ -194,39 +194,39 @@
 	function subForm() {
 		if (validateBlogForm()) {
 			//暂不提供注册
-			Toast.fire({
-				icon: 'error',
-				title: '暂时关闭注册功能！'
-			});
+			// Toast.fire({
+			// 	icon: 'error',
+			// 	title: '暂时关闭注册功能！'
+			// });
 
 			//请求注册接口
-			// $.ajax({
-			// 	type: 'post',
-			// 	url: '/userRegister',
-			// 	data: {'name': $('#userName').val(),'mail': $('#Email').val(), 'password': $('#password').val()},
-			// 	success: function (res) {
-			// 		if (res.data == "success") {
-			// 			Toast.fire({
-			// 				icon: 'success',
-			// 				title: '注册成功！'
-			// 			});
-			// 			location.href = '/login'; //后台主页
-			// 		} else if (res.data == "error") {
-			// 			Toast.fire({
-			// 				icon: 'error',
-			// 				title: '系统错误！'
-			// 			});
-			// 			$('#userName').val("");
-			// 			$('#password').val("");
-			// 			$('#userName').focus();
-			// 		} else {
-			// 			Toast.fire({
-			// 				icon: 'error',
-			// 				title: '未知错误！'
-			// 			});
-			// 		}
-			// 	}
-			// });
+			$.ajax({
+				type: 'post',
+				url: '/userRegister',
+				data: {'name': $('#userName').val(),'mail': $('#Email').val(), 'password': $('#password').val()},
+				success: function (res) {
+					if (res.data == "success") {
+						Toast.fire({
+							icon: 'success',
+							title: '注册成功！'
+						});
+						location.href = '/login'; //后台主页
+					} else if (res.data == "error") {
+						Toast.fire({
+							icon: 'error',
+							title: '系统错误！'
+						});
+						$('#userName').val("");
+						$('#password').val("");
+						$('#userName').focus();
+					} else {
+						Toast.fire({
+							icon: 'error',
+							title: '未知错误！'
+						});
+					}
+				}
+			});
 		}
 	}
 </script>

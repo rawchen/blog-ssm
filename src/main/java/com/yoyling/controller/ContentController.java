@@ -23,7 +23,7 @@ import static com.yoyling.utils.StringUtil.stringToList;
 @Controller
 public class ContentController extends BaseController {
 	/**
-	 * 获取博客列表
+	 * admin获取博客列表
 	 * @return
 	 */
 	@RequestMapping("/adminGetContentList")
@@ -31,6 +31,23 @@ public class ContentController extends BaseController {
 	public Map<String,Object> adminGetContentList() {
 		Map<String, Object> map = new HashMap<>();
 		List<Content> contents = contentService.selectAllContent();
+		for (Content content : contents) {
+			content.setCategoryName(categoryService.selectCategoryNameById(content.getCgid()));
+		}
+		map.put("data",contents);
+		return map;
+	}
+
+	/**
+	 * user获取博客列表
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping("/userGetContentList")
+	@ResponseBody
+	public Map<String,Object> userGetContentList(@RequestParam(value="userId") int userId) {
+		Map<String, Object> map = new HashMap<>();
+		List<Content> contents = contentService.selectContentListWithUid(userId);
 		for (Content content : contents) {
 			content.setCategoryName(categoryService.selectCategoryNameById(content.getCgid()));
 		}

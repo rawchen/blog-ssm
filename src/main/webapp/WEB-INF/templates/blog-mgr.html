@@ -227,9 +227,21 @@
 		});
 	}
 
+	var dataTableApi = '';
 	$(function () {
+		if ('[[${session.USER_SESSION.role}]]' === 'administrator') {
+			dataTableApi = '/adminGetContentList';
+		} else {
+			dataTableApi = '/userGetContentList';
+		}
+
 		$('#testTable').DataTable({
-			ajax: '/adminGetContentList', // 从一个ajax数据源读取数据给表格内容
+			ajax: {
+				url: dataTableApi, // 从一个ajax数据源读取数据给表格内容
+				data: function (param) {
+					param.userId = '[[${session.USER_SESSION.uid}]]';
+				}
+			},
 			lengthMenu: [10, 20, 30, 60], // 定义在每页显示记录数的select中显示的选项
 			// displayLength: 20, //
 			// displayStart: 1, //初始化显示的时候从第几条数据开始显示(一开始显示第几页)
