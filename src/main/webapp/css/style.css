@@ -55,6 +55,7 @@ span.post-title {
 	color: rgba(255,255,255,.95) !important;
 	text-shadow: 0px 3px 5px rgba(0,0,0,.3);
 	font-size: 26px;
+	font-weight: 900;
 	letter-spacing: .5px;
 	transition: all .35s ease;
 }
