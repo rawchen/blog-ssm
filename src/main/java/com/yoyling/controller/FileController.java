@@ -1,9 +1,6 @@
 package com.yoyling.controller;
 
-import com.yoyling.domain.Comment;
 import com.yoyling.domain.Content;
-import com.yoyling.utils.DateTimeUtil;
-import com.yoyling.utils.GravatarUtil;
 import com.yoyling.utils.LogUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,15 +24,7 @@ public class FileController extends BaseController {
 
 		List<Content> recommendContents = contentService.selectRecommendContent();
 		model.addAttribute("recommendContents",recommendContents);
+		return "file";
 
-		List<Comment> comments = commentService.selectCommentListByContentId(0);
-		for (Comment comment : comments) {
-			comment.setMail(GravatarUtil.getGravatarUrlByEmail(comment.getMail()));
-			comment.setCreatedDisplay(DateTimeUtil.dateWord(comment.getCreated()));
-			comment.setParentNickName(commentService.selectCommentAuthorById(comment.getParent()));
-		}
-		model.addAttribute("comments",comments);
-
-		return "guestbook";
 	}
 }
