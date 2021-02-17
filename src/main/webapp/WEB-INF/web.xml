@@ -57,4 +57,10 @@
     <param-value>classpath:spring-context.xml</param-value>
   </context-param>
 
+  <!-- 404页面 -->
+  <error-page>
+    <error-code>404</error-code>
+    <location>/WEB-INF/templates/404.html</location>
+  </error-page>
+
 </web-app>
