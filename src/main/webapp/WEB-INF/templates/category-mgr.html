@@ -210,7 +210,7 @@
 		<p class="text-center mb-1">
 			Copyright © 2020-2021 | THE HARDER, THE MORE FORTUNATE.
 		</p>
-		<p class="text-center" th:if="!${#strings.isEmpty(#servletContext.getAttribute('applicationOptionsMap').icp)}">
+		<p class="text-center mb-1" th:if="!${#strings.isEmpty(#servletContext.getAttribute('applicationOptionsMap').icp)}">
 			<a href="https://beian.miit.gov.cn/" th:text="${#servletContext.getAttribute('applicationOptionsMap').icp}"></a>
 		</p>
 	</footer>
