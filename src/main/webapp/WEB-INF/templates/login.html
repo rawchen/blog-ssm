@@ -163,7 +163,8 @@
 							icon: 'success',
 							title: '正在进入后台！'
 						});
-						location.href = '/admin'; //后台主页
+						setTimeout("location.href = '/admin';",1000);
+
 					} else if (res.data == "error") {
 						Toast.fire({
 							icon: 'error',

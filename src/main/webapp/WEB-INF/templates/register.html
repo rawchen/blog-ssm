@@ -210,7 +210,7 @@
 							icon: 'success',
 							title: '注册成功！'
 						});
-						location.href = '/login'; //后台主页
+						setTimeout("location.href = '/login';",1000);
 					} else if (res.data == "error") {
 						Toast.fire({
 							icon: 'error',
