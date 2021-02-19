@@ -149,4 +149,15 @@ public class ServiceTest {
 		}
 	}
 
+	@Test
+	public void run15() {
+		ApplicationContext ac = new
+				ClassPathXmlApplicationContext("classpath:spring-context.xml");
+		FileService fileService = (FileService) ac.getBean("fileService");
+		List<File> files = fileService.selectAllFile();
+		for (File f : files) {
+			System.out.println(f);
+		}
+	}
+
 }

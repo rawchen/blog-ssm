@@ -22,6 +22,11 @@
     from file
     where fid = #{fid,jdbcType=INTEGER}
   </select>
+
+  <select id="selectAllFile" resultMap="BaseResultMap">
+    select * from file order by created_time DESC
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from file
     where fid = #{fid,jdbcType=INTEGER}

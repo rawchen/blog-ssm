@@ -45,6 +45,9 @@ public class BaseController {
 	@Resource
 	protected CommentService commentService;
 
+	@Resource
+	protected FileService fileService;
+
 	@ModelAttribute
 	public void setReqAndRes(HttpServletRequest request, HttpServletResponse response) {
 		this.request = request;

@@ -95,4 +95,19 @@ public class File implements Serializable {
     public void setDownloadCount(Integer downloadCount) {
         this.downloadCount = downloadCount;
     }
+
+    @Override
+    public String toString() {
+        return "File{" +
+                "fid=" + fid +
+                ", path='" + path + '\'' +
+                ", authorId=" + authorId +
+                ", fileStatus='" + fileStatus + '\'' +
+                ", name='" + name + '\'' +
+                ", fileType='" + fileType + '\'' +
+                ", createdTime=" + createdTime +
+                ", modifiedTime=" + modifiedTime +
+                ", downloadCount=" + downloadCount +
+                '}';
+    }
 }

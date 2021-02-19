@@ -32,4 +32,7 @@ public class BaseServiceImpl {
 	@Resource
 	protected CommentMapper commentMapper;
 
+	@Resource
+	protected FileMapper fileMapper;
+
 }
