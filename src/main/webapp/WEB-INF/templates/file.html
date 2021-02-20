@@ -17,6 +17,33 @@
 	<!-- Font Awesome -->
 	<link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
 	<link rel="stylesheet" th:href="@{/plugins/font-awesome-4.7.0/css/font-awesome.min.css}">
+	<style type="text/css">
+		.ul-style {
+			display: block;
+		}
+		.li-style {
+			border: 1px solid rgba(0,0,0,.125);
+			list-style: none;
+			border-radius: .25rem;
+			margin: 9px;
+			float: left;
+			height: 100px;
+			width: 100px;
+			background: url(https://pannss.bdstatic.com/m-static/file-widget-1/common/ZIP_54_e01b06d.png) 50% 30% no-repeat;
+		}
+		.a-style {
+			display:block;
+			width:100%;
+			height:100%;
+			line-height:155px;
+			text-align:center;
+			text-decoration: none;
+
+			/*position: relative;*/
+			/*text-align: center;*/
+			/*top: 66px;*/
+		}
+	</style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -115,15 +142,10 @@
 								<div class="timeline-item">
 									<div class="card card-teal card-outline">
 										<div class="card-body p-0">
-											<ul class="list-group">
-												<li class="list-group-item bg-hover-gray"
-													th:date="${#dates.format((c.createdTime), 'yyyy,MM')}"
-													th:each="c,arrayS:${contents}">
-													<a th:href="'/articles/'+${c.slug}"
-													   class="d-block link-title text-truncate"
-													   th:text="${c.title}"></a>
+											<ul class="list-group ul-style">
+												<li class="bg-hover-gray li-style" th:date="${#dates.format((f.createdTime), 'yyyy,MM')}" th:each="f,arrayS:${files}">
+													<a th:href="${f.path}" class="d-block link-title text-truncate a-style" th:text="${f.name}"></a>
 												</li>
-
 											</ul>
 
 										</div>
@@ -237,7 +259,7 @@
 		if (Object.keys(arr).indexOf(date) == -1) {
 			arr[date] = [];
 		}
-		arr[date].push('<li class="list-group-item bg-hover-gray">' + item.innerHTML + '</li>');
+		arr[date].push('<li class="bg-hover-gray li-style">' + item.innerHTML + '</li>');
 		index != 0 && item.parentNode.removeChild(item);
 	});
 	document.getElementsByClassName('timeline')[0].innerHTML = '';
@@ -245,7 +267,7 @@
 		date = key.split(',');
 		var html = '<div class="time-label">\n' +
 			'<span class="bg-gradient-orange">' + date[0] + '年 ' + date[1] + '月</span>\n' +
-			'</div><div><div class="timeline-item"><div class="card card-teal card-outline"><div class="card-body p-0"><ul class="list-group">' +
+			'</div><div><div class="timeline-item"><div class="card card-teal card-outline"><div class="card-body p-0"><ul class="list-group ul-style">' +
 			arr[key].join(' ') +
 			'</ul></div></div></div></div>';
 		document.getElementsByClassName('timeline')[0].innerHTML += html;
