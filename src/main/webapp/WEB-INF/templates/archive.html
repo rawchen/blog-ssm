@@ -17,6 +17,14 @@
 	<!-- Font Awesome -->
 	<link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
 	<link rel="stylesheet" th:href="@{/plugins/font-awesome-4.7.0/css/font-awesome.min.css}">
+	<style type="text/css">
+		.timeline>div>.timeline-item {
+			box-shadow: none;
+		}
+		.bg-gradient-orange {
+			color: #ffffff;
+		}
+	</style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -244,7 +252,7 @@
 	for (key in arr) {
 		date = key.split(',');
 		var html = '<div class="time-label">\n' +
-			'<span class="bg-gradient-orange">' + date[0] + '年 ' + date[1] + '月</span>\n' +
+			'<span class="bg-gradient-orange">' + date[0] + ' . ' + date[1] + '</span>\n' +
 			'</div><div><div class="timeline-item"><div class="card card-teal card-outline"><div class="card-body p-0"><ul class="list-group">' +
 			arr[key].join(' ') +
 			'</ul></div></div></div></div>';

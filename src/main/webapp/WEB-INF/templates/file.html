@@ -38,10 +38,15 @@
 			line-height:155px;
 			text-align:center;
 			text-decoration: none;
-
-			/*position: relative;*/
-			/*text-align: center;*/
-			/*top: 66px;*/
+		}
+		.a-style:hover {
+			color: black;
+		}
+		.timeline>div>.timeline-item {
+			box-shadow: none;
+		}
+		.bg-gradient-orange {
+			color: #ffffff;
 		}
 	</style>
 </head>
@@ -144,7 +149,7 @@
 										<div class="card-body p-0">
 											<ul class="list-group ul-style">
 												<li class="bg-hover-gray li-style" th:date="${#dates.format((f.createdTime), 'yyyy,MM')}" th:each="f,arrayS:${files}">
-													<a th:href="${f.path}" class="d-block link-title text-truncate a-style" th:text="${f.name}"></a>
+													<a th:href="${#request.getContextPath()}+${f.path}" target="_blank" class="d-block link-title text-truncate a-style" th:text="${f.name}"></a>
 												</li>
 											</ul>
 
@@ -266,7 +271,7 @@
 	for (key in arr) {
 		date = key.split(',');
 		var html = '<div class="time-label">\n' +
-			'<span class="bg-gradient-orange">' + date[0] + '年 ' + date[1] + '月</span>\n' +
+			'<span class="bg-gradient-orange">' + date[0] + ' . ' + date[1] + '</span>\n' +
 			'</div><div><div class="timeline-item"><div class="card card-teal card-outline"><div class="card-body p-0"><ul class="list-group ul-style">' +
 			arr[key].join(' ') +
 			'</ul></div></div></div></div>';
