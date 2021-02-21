@@ -48,6 +48,8 @@
 	<!-- 设置静态资源不过滤 -->
 	<mvc:resources location="/css/" mapping="/css/**" />
 	<mvc:resources location="/js/" mapping="/js/**" />
+	<mvc:resources location="/img/" mapping="/img/**" />
+	<mvc:resources location="/upload/" mapping="/upload/**" />
 	<mvc:resources location="/plugins/" mapping="/plugins/**" />
 
 	<mvc:interceptors>
