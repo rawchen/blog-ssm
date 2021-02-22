@@ -6,8 +6,14 @@ import com.yoyling.utils.LogUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class FileController extends BaseController {
@@ -34,6 +40,38 @@ public class FileController extends BaseController {
 		model.addAttribute("recommendContents",recommendContents);
 		return "file";
 
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+	public Map<String,Object> uploadFile(HttpServletRequest req, MultipartFile picpaths) {
+		Map<String, Object> map = new HashMap<>();
+
+		String url = "file/";
+		String realPath = req.getServletContext().getRealPath("/upload/");
+
+		java.io.File file = new java.io.File(realPath, url);
+		if (!file.exists() && file.mkdirs()) {
+		}
+		String originalFileName = picpaths.getOriginalFilename();
+		String newFileSName = "";
+		if (originalFileName.indexOf(".") != -1) {
+			newFileSName = originalFileName.substring(originalFileName.lastIndexOf("."));
+		}
+		String upPicFileName = System.currentTimeMillis() + newFileSName;
+		file = new java.io.File(file, upPicFileName);
+		String contextPath = req.getServletContext().getContextPath();
+		url = contextPath + "/upload/" + url + upPicFileName;
+		try {
+			picpaths.transferTo(file);
+			map.put("success", 1);
+			map.put("message", "上传成功");
+			map.put("url", url);// 拼接自己的地址
+		} catch (Exception e) {
+			map.put("success", 0);
+			map.put("message", "上传失败");
+		}
+		return map;
 	}
 
 	@RequestMapping("/getFileList")
