@@ -58,7 +58,8 @@ public class FileController extends BaseController {
 		if (originalFileName.indexOf(".") != -1) {
 			newFileSName = originalFileName.substring(originalFileName.lastIndexOf("."));
 		}
-		String upPicFileName = System.currentTimeMillis() + newFileSName;
+//		String upPicFileName = System.currentTimeMillis() + newFileSName;
+		String upPicFileName = "" + newFileSName;
 		file = new java.io.File(file, upPicFileName);
 		String contextPath = req.getServletContext().getContextPath();
 		url = contextPath + "/upload/" + url + upPicFileName;
