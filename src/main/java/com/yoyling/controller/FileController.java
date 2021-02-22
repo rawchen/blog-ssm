@@ -56,7 +56,7 @@ public class FileController extends BaseController {
 		String originalFileName = picpaths.getOriginalFilename();
 		String newFileSName = "";
 		if (originalFileName.indexOf(".") != -1) {
-			newFileSName = originalFileName.substring(originalFileName.lastIndexOf("."));
+			newFileSName = originalFileName;
 		}
 //		String upPicFileName = System.currentTimeMillis() + newFileSName;
 		String upPicFileName = "" + newFileSName;
