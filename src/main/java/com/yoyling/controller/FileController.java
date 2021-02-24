@@ -58,6 +58,7 @@ public class FileController extends BaseController {
 		if (originalFileName.indexOf(".") != -1) {
 			newFileSName = originalFileName;
 		}
+
 //		String upPicFileName = System.currentTimeMillis() + newFileSName;
 		String upPicFileName = "" + newFileSName;
 		file = new java.io.File(file, upPicFileName);
