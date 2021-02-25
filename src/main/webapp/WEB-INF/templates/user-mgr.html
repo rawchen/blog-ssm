@@ -219,20 +219,6 @@
 		}
 	}
 
-	function changeContentOrder(id) {
-		$.ajax({
-			url: '/changeContentOrder',
-			type: 'post',
-			data:{'contentId':id},
-			success: function(res) {
-				// alert(res.data)
-			},
-			error: function() {
-				alert("系统错误")
-			}
-		});
-	}
-
 	var dataTableApi = '';
 	$(function () {
 		if ('[[${session.USER_SESSION.role}]]' === 'administrator') {
