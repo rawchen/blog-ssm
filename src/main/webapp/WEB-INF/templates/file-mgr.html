@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle} + '&nbsp;|&nbsp;User-Mgr'"></title>
+	<link rel="shortcut icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
+	<link rel="apple-touch-icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
+
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- DataTables -->
+	<link rel="stylesheet" th:href="@{/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css}">
+	<link rel="stylesheet" th:href="@{/plugins/datatables-responsive/css/responsive.bootstrap4.min.css}">
+
+	<!-- Theme style -->
+	<link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+	<!-- SweetAlert2 -->
+	<link rel="stylesheet" th:href="@{/plugins/sweetalert2/sweetalert2.min.css}">
+	<style>
+		.gravatar-photo {
+			width: 36px;
+		}
+	</style>
+
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+	<!-- Navbar -->
+	<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+		<!-- Left navbar links -->
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
+			</li>
+		</ul>
+
+		<!-- Right navbar links -->
+		<ul class="navbar-nav ml-auto">
+			<!-- Messages Dropdown Menu -->
+			<li class="nav-item dropdown">
+				<a class="nav-link" target="_blank" href="/index">
+					<i class="fa fa-paper-plane"></i>
+					<span>博客前台首页</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+	<!-- /.navbar -->
+
+	<!-- Main Sidebar Container -->
+	<aside class="main-sidebar sidebar-dark-primary elevation-4">
+		<!-- Brand Logo -->
+		<h1>
+			<a href="/admin" class="brand-link">
+				<img th:src="${#servletContext.getAttribute('applicationOptionsMap').avatar}" class="brand-image img-circle elevation-3">
+				<span class="brand-text font-weight-light" th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle}">websiteTitle</span>
+			</a>
+		</h1>
+
+		<!-- Sidebar -->
+		<div class="sidebar">
+			<!-- Sidebar Menu -->
+			<nav class="mt-2">
+				<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+					<!-- Add icons to the links using the .nav-icon class
+						 with font-awesome or any other icon font library -->
+					<li class="nav-header">仪表盘</li>
+					<li class="nav-item">
+						<a href="/admin" class="nav-link">
+							<i class="nav-icon fas fa-tachometer-alt"></i>
+							<p>仪表盘</p>
+						</a>
+					</li>
+					<li class="nav-header">博客编辑</li>
+					<li class="nav-item">
+						<a href="/adminEdit" class="nav-link">
+							<i class="nav-icon fas fa-edit"></i>
+							<p>发布博客</p>
+						</a>
+					</li>
+					<li class="nav-header">管理模块</li>
+					<li class="nav-item">
+						<a href="/adminBlog" class="nav-link">
+							<i class="fa fa-list-alt nav-icon" aria-hidden="true"></i>
+							<p>博客管理</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="/adminCategory" class="nav-link">
+							<i class="fa fa-bookmark nav-icon" aria-hidden="true"></i>
+							<p>分类管理</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="/adminTag" class="nav-link">
+							<i class="fa fa-tags nav-icon" aria-hidden="true"></i>
+							<p>标签管理</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="/adminComment" class="nav-link">
+							<i class="fa fa-comments nav-icon" aria-hidden="true"></i>
+							<p>评论管理</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="/adminUser" class="nav-link active">
+							<i class="fa fa-user nav-icon" aria-hidden="true"></i>
+							<p>用户管理</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="/adminFile" class="nav-link">
+							<i class="fa fa-file-code nav-icon" aria-hidden="true"></i>
+							<p>文件管理</p>
+						</a>
+					</li>
+					<li class="nav-header">系统管理</li>
+					<li class="nav-item">
+						<a href="adminConfig"
+						   class="nav-link">
+							<i class="fa fa-wrench nav-icon"></i>
+							<p>系统配置</p>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="/logout" class="nav-link">
+							<i class="fa fa-sign-out-alt nav-icon"></i>
+							<p>安全退出</p>
+						</a>
+					</li>
+				</ul>
+			</nav>
+			<!-- /.sidebar-menu -->
+		</div>
+		<!-- /.sidebar -->
+	</aside>
+
+	<!-- Content Wrapper. Contains page content -->
+	<div class="content-wrapper mt-3">
+		<!-- Main content -->
+		<section class="content">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12">
+						<div class="card card-teal card-outline">
+							<div class="card-header">
+								<h3 class="card-title">用户列表</h3>
+							</div>
+							<!-- /.card-header -->
+							<div class="card-body table-responsive">
+								<form id="selectUser" action="/deleteSelectUser" method="post">
+									<table id="testTable" class="table table-bordered table-hover text-nowrap">
+										<thead>
+										<tr>
+											<th><input type="checkbox" id="firstCheckBox"/></th>
+											<th>用户名</th>
+											<th>昵称</th>
+											<th>邮箱</th>
+											<th>博客链接</th>
+											<th>创建时间</th>
+											<th>最后活跃</th>
+											<th>角色</th>
+											<th>头像</th>
+											<th>操作</th>
+										</tr>
+										</thead>
+									</table>
+								</form>
+							</div>
+							<!-- /.card-body -->
+						</div>
+						<!-- /.card -->
+					</div>
+					<!-- /.col -->
+				</div>
+
+			</div>
+		</section>
+		<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
+	<footer class="main-footer">
+		<p class="text-center mb-1">
+			Copyright © 2020-2021 | THE HARDER, THE MORE FORTUNATE.
+		</p>
+		<p class="text-center mb-1" th:if="!${#strings.isEmpty(#servletContext.getAttribute('applicationOptionsMap').icp)}">
+			<a href="https://beian.miit.gov.cn/" th:text="${#servletContext.getAttribute('applicationOptionsMap').icp}"></a>
+		</p>
+	</footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+<!-- DataTables -->
+<script th:src="@{/plugins/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js}"></script>
+<script th:src="@{/plugins/datatables-responsive/js/dataTables.responsive.min.js}"></script>
+<script th:src="@{/plugins/datatables-responsive/js/responsive.bootstrap4.min.js}"></script>
+
+
+<!-- AdminLTE App -->
+<script th:src="@{/js/adminlte.min.js}"></script>
+<!-- SweetAlert2 -->
+<script th:src="@{/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
+
+<script>
+	function deleteUser(uid) {
+		if (confirm("你确定删除该用户以及所属文章吗？")) {
+			location.href = "/deleteUser/" + uid;
+		}
+	}
+
+	function changeContentOrder(id) {
+		$.ajax({
+			url: '/changeContentOrder',
+			type: 'post',
+			data:{'contentId':id},
+			success: function(res) {
+				// alert(res.data)
+			},
+			error: function() {
+				alert("系统错误")
+			}
+		});
+	}
+
+	var dataTableApi = '';
+	$(function () {
+		if ('[[${session.USER_SESSION.role}]]' === 'administrator') {
+			dataTableApi = '/adminGetUserList'
+		}
+		$('#testTable').DataTable({
+			ajax: dataTableApi,
+			lengthMenu: [10, 20, 50, 100],
+			searching: false,
+			responsive: false,
+			processing: true,
+			autoWidth: false,
+			deferRender: true,
+			stateSave: true,
+			dom: '<"row"<"col-md-12"<"float-left"l><"#topPlugin.float-right">>>irt<"mt-3 pagination-sm"p>',
+			initComplete: renderTopPlugin, // 初始化结束后的回调函数
+			ordering: false,
+			columns: [
+				{
+					data: "uid",
+					render: function (data, type, row, meta) {
+						return '<input type="checkbox" value="' + data + '" name="uid"/>';
+					}
+				},
+				{data: "name"},
+				{data: "screenname"},
+				{data: "mail"},
+				{data: "url"},
+				{data: "created",
+					render: function (data, type, row, meta) {
+						function getMyDate(time){
+							var oDate = new Date(time),
+								oYear = oDate.getFullYear(),
+								oMonth = oDate.getMonth()+1,
+								oDay = oDate.getDate(),
+								oHour = oDate.getHours(),
+								oMin = oDate.getMinutes(),
+								oTime = oYear +'-'+ getzf(oMonth) +'-'+ getzf(oDay) +' '+ getzf(oHour) +':'+ getzf(oMin);//最后拼接时间
+							return oTime;
+						}
+						function getzf(num){
+							if(parseInt(num) < 10){
+								num = '0'+num;
+							}
+							return num;
+						}
+
+						return getMyDate(data);
+					}
+				},
+				{data: "activated",
+					render: function (data, type, row, meta) {
+						function getMyDate(time){
+							var oDate = new Date(time),
+								oYear = oDate.getFullYear(),
+								oMonth = oDate.getMonth()+1,
+								oDay = oDate.getDate(),
+								oHour = oDate.getHours(),
+								oMin = oDate.getMinutes(),
+								oTime = oYear +'-'+ getzf(oMonth) +'-'+ getzf(oDay) +' '+ getzf(oHour) +':'+ getzf(oMin);//最后拼接时间
+							return oTime;
+						}
+						function getzf(num){
+							if(parseInt(num) < 10){
+								num = '0'+num;
+							}
+							return num;
+						}
+
+						return getMyDate(data);
+					}
+				},
+				{data: "role"},
+				{data: "photo",
+					render: function (data, type, row, meta) {
+						return '<img class="gravatar-photo" src=\''+data+'\'>'
+					}
+				},
+				{
+					render: function (data, type, row, meta) {
+						if (row.uid == 1) {
+							return '<button class="btn btn-success btn-xs">修改</button>';
+						}else {
+							return '<a href="javascript:void(0);" onclick="deleteUser(' + row.uid +');" class="btn btn-danger btn-xs">删除</a> <button class="btn btn-success btn-xs">修改</button>';
+						}
+
+					}
+				}
+			],
+			language: { // 国际化配置
+				decimal: "",
+				emptyTable: "表格为空",
+				info: "显示从_START_到_END_条记录 (总记录数为_TOTAL_条)",
+				infoEmpty: "记录数为0",
+				infoFiltered: "(从_MAX_条记录过滤)",
+				infoPostFix: "",
+				thousands: ",",
+				lengthMenu: "显示 _MENU_ 条",
+				loadingRecords: "Loading...",
+				processing: "正在获取数据，请稍后...",
+				sSearch: "搜索",
+				zeroRecords: "没有找到数据",
+				paginate: {
+					previous: "上一页",
+					first: "第一页",
+					next: "下一页",
+					last: "最后一页"
+				}
+			},
+		});
+
+		/**
+		 * 表格加载渲染完毕后执行的方法
+		 * @param data
+		 */
+		function renderTopPlugin(data) {
+			//上方topPlugin DIV中追加HTML
+			//var topPlugin='<button id="addButton" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addUser" style="display:block;">' +
+			// '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加用户</button>';
+			//删除用户按钮的HTMLDOM
+			var topPlugin = '<a href="javascript:void(0);" id="deleteSelectUser" class="btn btn-danger btn-sm">批量删除</a> <a href="javascript:void(0);" class="btn btn-info btn-sm">导出(未实现)</a>';
+			$("#topPlugin").append(topPlugin);//在表格上方topPlugin DIV中追加HTML
+			//$("#expCsv").on("click", exp1);//给下方按钮绑定事件
+
+			document.getElementById("firstCheckBox").onclick = function () {
+				var cbs = document.getElementsByName("uid");
+				for (var i = 0; i < cbs.length; i++) {
+					cbs[i].checked = this.checked;
+				}
+			};
+
+
+			document.getElementById("deleteSelectUser").onclick = function () {
+				var flag = false;
+				var cbs = document.getElementsByName("uid");
+				for (var i = 0; i < cbs.length; i++) {
+					if (cbs[i].checked) {
+						flag = true;
+						break;
+					}
+				}
+
+				if (flag) {
+					if (confirm("你确定要删除选中用户以及所属文章吗？")) {
+						document.getElementById("selectUser").submit();
+					}
+				}
+			};
+		}
+
+		var Toast = Swal.mixin({
+			toast: true,
+			position: 'top-end',
+			showConfirmButton: false,
+			timer: 1500
+		});
+
+		var t = "[[${message}]]";
+		if (t === '1') {
+			Toast.fire({
+				icon: 'success',
+				title: '文章发表了哦！'
+			});
+		}
+
+		if (t === '0') {
+			Toast.fire({
+				icon: 'error',
+				title: '文章发表失败！'
+			});
+		}
+	});
+</script>
+</body>
+</html>
