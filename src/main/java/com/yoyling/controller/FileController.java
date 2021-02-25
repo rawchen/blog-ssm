@@ -42,6 +42,16 @@ public class FileController extends BaseController {
 
 	}
 
+	/**
+	 * 跳转file-mgr.html页面
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/adminFile")
+	public String adminUser(Model model) {
+		return "file-mgr";
+	}
+
 	@ResponseBody
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
 	public Map<String,Object> uploadFile(HttpServletRequest req, MultipartFile picpaths) {
