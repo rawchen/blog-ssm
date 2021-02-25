@@ -382,28 +382,6 @@
 				}
 			};
 		}
-
-		var Toast = Swal.mixin({
-			toast: true,
-			position: 'top-end',
-			showConfirmButton: false,
-			timer: 1500
-		});
-
-		var t = "[[${message}]]";
-		if (t === '1') {
-			Toast.fire({
-				icon: 'success',
-				title: '文章发表了哦！'
-			});
-		}
-
-		if (t === '0') {
-			Toast.fire({
-				icon: 'error',
-				title: '文章发表失败！'
-			});
-		}
 	});
 </script>
 </body>
