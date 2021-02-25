@@ -12,4 +12,9 @@ public class FileServiceImpl extends BaseServiceImpl implements FileService {
 	public List<File> selectAllFile() {
 		return fileMapper.selectAllFile();
 	}
+
+	@Override
+	public List<File> selectFileListWithUid(int userId) {
+		return fileMapper.selectFileListWithUid(userId);
+	}
 }

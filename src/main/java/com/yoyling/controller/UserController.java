@@ -180,9 +180,6 @@ public class UserController extends BaseController {
 	public Map<String,Object> adminGetUserList() {
 		Map<String, Object> map = new HashMap<>();
 		List<User> users = userService.selectAllUser();
-		for (User user : users) {
-
-		}
 		map.put("data",users);
 		return map;
 	}

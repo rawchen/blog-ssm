@@ -108,13 +108,13 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="/adminUser" class="nav-link active">
+						<a href="/adminUser" class="nav-link">
 							<i class="fa fa-user nav-icon" aria-hidden="true"></i>
 							<p>用户管理</p>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="/adminFile" class="nav-link">
+						<a class="nav-link active">
 							<i class="fa fa-file-code nav-icon" aria-hidden="true"></i>
 							<p>文件管理</p>
 						</a>
@@ -158,14 +158,13 @@
 										<thead>
 										<tr>
 											<th><input type="checkbox" id="firstCheckBox"/></th>
-											<th>用户名</th>
-											<th>昵称</th>
-											<th>邮箱</th>
-											<th>博客链接</th>
-											<th>创建时间</th>
-											<th>最后活跃</th>
-											<th>角色</th>
-											<th>头像</th>
+											<th>文件名</th>
+											<th>类型</th>
+											<th>类型图标</th>
+											<th>上传用户</th>
+											<th>上传时间</th>
+											<th>状态</th>
+											<th>下载次数</th>
 											<th>操作</th>
 										</tr>
 										</thead>
@@ -219,27 +218,20 @@
 		}
 	}
 
-	function changeContentOrder(id) {
-		$.ajax({
-			url: '/changeContentOrder',
-			type: 'post',
-			data:{'contentId':id},
-			success: function(res) {
-				// alert(res.data)
-			},
-			error: function() {
-				alert("系统错误")
-			}
-		});
-	}
-
 	var dataTableApi = '';
 	$(function () {
 		if ('[[${session.USER_SESSION.role}]]' === 'administrator') {
-			dataTableApi = '/adminGetUserList'
+			dataTableApi = '/adminGetFileList';
+		} else {
+			dataTableApi = '/userGetFileList';
 		}
 		$('#testTable').DataTable({
-			ajax: dataTableApi,
+			ajax: {
+				url: dataTableApi,
+				data: function (param) {
+					param.userId = '[[${session.USER_SESSION.uid}]]';
+				}
+			},
 			lengthMenu: [10, 20, 50, 100],
 			searching: false,
 			responsive: false,
@@ -258,10 +250,14 @@
 					}
 				},
 				{data: "name"},
-				{data: "screenname"},
-				{data: "mail"},
-				{data: "url"},
-				{data: "created",
+				{data: "fileType"},
+				{data: "fileType",
+					render: function (data, type, row, meta) {
+						return '<img class="gravatar-photo" src="/img/'+data+'.png">'
+					}
+				},
+				{data: "authorId"},
+				{data: "createdTime",
 					render: function (data, type, row, meta) {
 						function getMyDate(time){
 							var oDate = new Date(time),
@@ -283,34 +279,8 @@
 						return getMyDate(data);
 					}
 				},
-				{data: "activated",
-					render: function (data, type, row, meta) {
-						function getMyDate(time){
-							var oDate = new Date(time),
-								oYear = oDate.getFullYear(),
-								oMonth = oDate.getMonth()+1,
-								oDay = oDate.getDate(),
-								oHour = oDate.getHours(),
-								oMin = oDate.getMinutes(),
-								oTime = oYear +'-'+ getzf(oMonth) +'-'+ getzf(oDay) +' '+ getzf(oHour) +':'+ getzf(oMin);//最后拼接时间
-							return oTime;
-						}
-						function getzf(num){
-							if(parseInt(num) < 10){
-								num = '0'+num;
-							}
-							return num;
-						}
-
-						return getMyDate(data);
-					}
-				},
-				{data: "role"},
-				{data: "photo",
-					render: function (data, type, row, meta) {
-						return '<img class="gravatar-photo" src=\''+data+'\'>'
-					}
-				},
+				{data: "fileStatus"},
+				{data: "downloadCount"},
 				{
 					render: function (data, type, row, meta) {
 						if (row.uid == 1) {

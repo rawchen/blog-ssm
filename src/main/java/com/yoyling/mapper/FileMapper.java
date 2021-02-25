@@ -18,4 +18,6 @@ public interface FileMapper {
     int updateByPrimaryKey(File record);
 
 	List<File> selectAllFile();
+
+	List<File> selectFileListWithUid(int userId);
 }

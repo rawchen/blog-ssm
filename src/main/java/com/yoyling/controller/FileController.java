@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -86,11 +87,30 @@ public class FileController extends BaseController {
 		return map;
 	}
 
-	@RequestMapping("/getFileList")
-	public String getFileList(Model model) {
+	/**
+	 * admin获取文件列表
+	 * @return
+	 */
+	@RequestMapping("/adminGetFileList")
+	@ResponseBody
+	public Map<String,Object> adminGetFileList() {
+		Map<String, Object> map = new HashMap<>();
+		List<File> files = fileService.selectAllFile();
+		map.put("data",files);
+		return map;
+	}
 
-
-		return "file";
-
+	/**
+	 * user获取文件列表
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping("/userGetFileList")
+	@ResponseBody
+	public Map<String,Object> userGetFileList(@RequestParam(value="userId") int userId) {
+		Map<String, Object> map = new HashMap<>();
+		List<File> files = fileService.selectFileListWithUid(userId);
+		map.put("data",files);
+		return map;
 	}
 }

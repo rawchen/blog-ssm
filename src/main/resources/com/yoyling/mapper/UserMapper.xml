@@ -24,7 +24,7 @@
   </select>
 
   <select id="selectAllUser" resultMap="BaseResultMap">
-    select * from user;
+    select * from user order by created
   </select>
 
   <select id="selectUserByNameAndPassword" parameterType="user" resultMap="BaseResultMap">
