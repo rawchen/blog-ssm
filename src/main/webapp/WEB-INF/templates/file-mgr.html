@@ -212,6 +212,57 @@
 <script th:src="@{/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
 
 <script>
+	window.onload = function () {
+		var xhr = new XMLHttpRequest();
+		var dz = document.getElementById('box');
+
+		function uploadFile(formData) {
+			xhr.open('POST', 'uploadFile', true);
+			xhr.send(formData);
+			xhr.onreadystatechange = ajaxFun;//设置响应回调函数
+		}
+
+		function ajaxFun() {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				var b = xhr.responseText;
+				if (b) {
+					$("#preview").append(b);
+				}
+			}
+		}
+
+		dz.ondragenter = function () {
+			dz.innerHTML = '请释放鼠标';
+		};
+		dz.ondragover = function () {
+			dz.innerHTML = '+';
+		};
+		dz.ondragend = function () {
+			dz.innerHTML = '+';
+		};
+		dz.ondragleave = function () {
+			dz.innerHTML = '请将文件拖拽到此区域';
+		};
+		dz.ondragover = function (ev) {
+			//阻止浏览器默认打开文件的操作
+			ev.preventDefault();
+			this.className = 'over';
+		};
+
+		dz.ondrop = function (ev) {
+			this.className = '';
+			//阻止浏览器默认打开文件的操作
+			ev.preventDefault();
+			//表单上传文件
+			var formData = new FormData();
+			formData.append('photoimg', ev.dataTransfer.files[0]);
+			uploadFile(formData);
+			dz.innerHTML = '请将文件拖拽到此区域';
+		}
+	};
+</script>
+
+<script>
 	function deleteUser(uid) {
 		if (confirm("你确定删除该用户以及所属文章吗？")) {
 			location.href = "/deleteUser/" + uid;
@@ -318,7 +369,9 @@
 			//var topPlugin='<button id="addButton" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addUser" style="display:block;">' +
 			// '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加用户</button>';
 			//删除用户按钮的HTMLDOM
-			var topPlugin = '<a href="javascript:void(0);" id="deleteSelectUser" class="btn btn-success btn-sm">上传</a>  <a href="javascript:void(0);" id="deleteSelectUser" class="btn btn-danger btn-sm">批量删除</a> <a href="javascript:void(0);" class="btn btn-info btn-sm">导出(未实现)</a>';
+			var topPlugin = '<div id="box" style="width: 200px; height: 100px; border: dashed 1px; text-align: center; padding-top: 36px;  float:left; margin-right: 15px;">\n' +
+				'     请将文件拖拽到此区域\n' +
+				'</div><a href="javascript:void(0);" id="deleteSelectUser" class="btn btn-success btn-sm">上传</a>  <a href="javascript:void(0);" id="deleteSelectUser" class="btn btn-danger btn-sm">批量删除</a> <a href="javascript:void(0);" class="btn btn-info btn-sm">导出(未实现)</a>';
 			$("#topPlugin").append(topPlugin);//在表格上方topPlugin DIV中追加HTML
 			//$("#expCsv").on("click", exp1);//给下方按钮绑定事件
 
