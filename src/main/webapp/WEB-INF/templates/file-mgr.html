@@ -283,12 +283,7 @@
 				{data: "downloadCount"},
 				{
 					render: function (data, type, row, meta) {
-						if (row.uid == 1) {
-							return '<button class="btn btn-success btn-xs">修改</button>';
-						}else {
-							return '<a href="javascript:void(0);" onclick="deleteUser(' + row.uid +');" class="btn btn-danger btn-xs">删除</a> <button class="btn btn-success btn-xs">修改</button>';
-						}
-
+						return '<a href="javascript:void(0);" onclick="deleteUser(' + row.uid +');" class="btn btn-danger btn-xs">删除</a> <button class="btn btn-success btn-xs">重命名</button>';
 					}
 				}
 			],
@@ -323,7 +318,7 @@
 			//var topPlugin='<button id="addButton" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addUser" style="display:block;">' +
 			// '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加用户</button>';
 			//删除用户按钮的HTMLDOM
-			var topPlugin = '<a href="javascript:void(0);" id="deleteSelectUser" class="btn btn-danger btn-sm">批量删除</a> <a href="javascript:void(0);" class="btn btn-info btn-sm">导出(未实现)</a>';
+			var topPlugin = '<a href="javascript:void(0);" id="deleteSelectUser" class="btn btn-success btn-sm">上传</a>  <a href="javascript:void(0);" id="deleteSelectUser" class="btn btn-danger btn-sm">批量删除</a> <a href="javascript:void(0);" class="btn btn-info btn-sm">导出(未实现)</a>';
 			$("#topPlugin").append(topPlugin);//在表格上方topPlugin DIV中追加HTML
 			//$("#expCsv").on("click", exp1);//给下方按钮绑定事件
 
