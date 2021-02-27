@@ -2,6 +2,7 @@ package com.yoyling.controller;
 
 import com.yoyling.domain.Content;
 import com.yoyling.domain.File;
+import com.yoyling.domain.User;
 import com.yoyling.utils.LogUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,53 +55,33 @@ public class FileController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping("/uploadFileList")
-	public Map<String,Object> uploadFileList(HttpServletRequest req, @RequestParam(value = "files[]") MultipartFile[] picpaths) {
+	public Map<String,Object> uploadFileList(HttpServletRequest req, @RequestParam(value = "files[]") MultipartFile[] files) {
 		Map<String, Object> map = new HashMap<>();
 
-		String url = "file/";
-		String realPath = req.getServletContext().getRealPath("/upload/");
+		User user = (User) session.getAttribute("USER_SESSION");
+		int uid = user.getUid();
 
+		String url = "file/" + uid + "/";
+		String realPath = req.getServletContext().getRealPath("/upload/");
 		java.io.File file = new java.io.File(realPath, url);
 		if (!file.exists() && file.mkdirs()) {
 		}
-//		String originalFileName = picpaths.getOriginalFilename();
-		System.out.println(picpaths);
-		System.out.println(picpaths.length);
-		for (MultipartFile picpath : picpaths) {
-			System.out.println(picpath);
-			System.out.println(picpath.getOriginalFilename());
-		}
-		String newFileSName = "";
-//		if (originalFileName.indexOf(".") != -1) {
-//			newFileSName = originalFileName;
-//		}
 
-//		String upPicFileName = System.currentTimeMillis() + newFileSName;
-		String upPicFileName = "" + newFileSName;
-		file = new java.io.File(file, upPicFileName);
-		String contextPath = req.getServletContext().getContextPath();
-		url = contextPath + "/upload/" + url + upPicFileName;
-		try {
-//			picpaths.transferTo(file);
-			map.put("success", 1);
-			map.put("message", "上传成功");
-			map.put("url", url);// 拼接自己的地址
-		} catch (Exception e) {
-			map.put("success", 0);
-			map.put("message", "上传失败");
+		for (MultipartFile mFile : files) {
+			try {
+				mFile.transferTo(new java.io.File(realPath,url + mFile.getOriginalFilename()));
+				map.put("success", 1);
+				map.put("message", "上传成功");
+			} catch (Exception e) {
+				e.printStackTrace();
+				map.put("success", 0);
+				map.put("message", "上传失败");
+
+			}
 		}
+
 		return map;
 	}
-
-//	@ResponseBody
-//	@RequestMapping(value = "/uploadFileList", method = RequestMethod.GET)
-//	public Map<String,Object> uploadFileList(MultipartFile[] picpaths) {
-//		Map<String, Object> map = new HashMap<String,Object>();
-//		for (MultipartFile picpath : picpaths) {
-//			System.out.println(picpath.getOriginalFilename());
-//		}
-//		return map;
-//	}
 
 	/**
 	 * admin获取文件列表
