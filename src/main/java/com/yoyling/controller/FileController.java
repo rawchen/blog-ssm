@@ -6,7 +6,6 @@ import com.yoyling.utils.LogUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -54,8 +53,8 @@ public class FileController extends BaseController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-	public Map<String,Object> uploadFile(HttpServletRequest req, MultipartFile picpaths) {
+	@RequestMapping("/uploadFileList")
+	public Map<String,Object> uploadFileList(HttpServletRequest req, @RequestParam(value = "files[]") MultipartFile[] picpaths) {
 		Map<String, Object> map = new HashMap<>();
 
 		String url = "file/";
@@ -64,11 +63,17 @@ public class FileController extends BaseController {
 		java.io.File file = new java.io.File(realPath, url);
 		if (!file.exists() && file.mkdirs()) {
 		}
-		String originalFileName = picpaths.getOriginalFilename();
-		String newFileSName = "";
-		if (originalFileName.indexOf(".") != -1) {
-			newFileSName = originalFileName;
+//		String originalFileName = picpaths.getOriginalFilename();
+		System.out.println(picpaths);
+		System.out.println(picpaths.length);
+		for (MultipartFile picpath : picpaths) {
+			System.out.println(picpath);
+			System.out.println(picpath.getOriginalFilename());
 		}
+		String newFileSName = "";
+//		if (originalFileName.indexOf(".") != -1) {
+//			newFileSName = originalFileName;
+//		}
 
 //		String upPicFileName = System.currentTimeMillis() + newFileSName;
 		String upPicFileName = "" + newFileSName;
@@ -76,7 +81,7 @@ public class FileController extends BaseController {
 		String contextPath = req.getServletContext().getContextPath();
 		url = contextPath + "/upload/" + url + upPicFileName;
 		try {
-			picpaths.transferTo(file);
+//			picpaths.transferTo(file);
 			map.put("success", 1);
 			map.put("message", "上传成功");
 			map.put("url", url);// 拼接自己的地址
@@ -86,6 +91,16 @@ public class FileController extends BaseController {
 		}
 		return map;
 	}
+
+//	@ResponseBody
+//	@RequestMapping(value = "/uploadFileList", method = RequestMethod.GET)
+//	public Map<String,Object> uploadFileList(MultipartFile[] picpaths) {
+//		Map<String, Object> map = new HashMap<String,Object>();
+//		for (MultipartFile picpath : picpaths) {
+//			System.out.println(picpath.getOriginalFilename());
+//		}
+//		return map;
+//	}
 
 	/**
 	 * admin获取文件列表

@@ -20,6 +20,8 @@
 	<link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
 	<!-- SweetAlert2 -->
 	<link rel="stylesheet" th:href="@{/plugins/sweetalert2/sweetalert2.min.css}">
+	<!-- imageuploader -->
+	<link rel="stylesheet" th:href="@{/plugins/imageuploader/css/styles.imageuploader.css}">
 	<style>
 		.gravatar-photo {
 			width: 36px;
@@ -191,13 +193,46 @@
 			<a href="https://beian.miit.gov.cn/" th:text="${#servletContext.getAttribute('applicationOptionsMap').icp}"></a>
 		</p>
 	</footer>
+	<!-- ./wrapper -->
+	<div class="modal fade" id="uploadFileList">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">上传文件</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+<!--					<input class="form-control" type="hidden" id="valueOfTag">-->
+<!--					<input class="form-control" type="text" id="updateName" name="tag" value="前端">-->
+					<section role="main" class="l-main">
+						<div class="uploader__box js-uploader__box l-center-box">
+							<form action="#" method="POST" enctype="multipart/form-data">
+								<div class="uploader__contents">
+									<label class="button button--secondary" for="fileinput">请选择文件</label>
+									<input id="fileinput" class="uploader__file-input" type="file" multiple value="Select Files">
+								</div>
+								<input class="button button--big-bottom" type="submit" value="Upload Selected Files">
+							</form>
+						</div>
+					</section>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
 </div>
 <!-- ./wrapper -->
 
 <!-- jQuery -->
 <script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<script th:src="@{/plugins/imageuploader/js/jquery-1.11.0.min.js}"></script>
 <!-- Bootstrap 4 -->
 <script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- imageuploader -->
+<script th:src="@{/plugins/imageuploader/js/jquery.imageuploader.js}"></script>
 
 <!-- DataTables -->
 <script th:src="@{/plugins/datatables/jquery.dataTables.min.js}"></script>
@@ -211,55 +246,40 @@
 <!-- SweetAlert2 -->
 <script th:src="@{/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
 
-<script>
-	window.onload = function () {
-		var xhr = new XMLHttpRequest();
-		var dz = document.getElementById('box');
-
-		function uploadFile(formData) {
-			xhr.open('POST', 'uploadFile', true);
-			xhr.send(formData);
-			xhr.onreadystatechange = ajaxFun;//设置响应回调函数
-		}
-
-		function ajaxFun() {
-			if (xhr.readyState == 4 && xhr.status == 200) {
-				var b = xhr.responseText;
-				if (b) {
-					$("#preview").append(b);
-				}
-			}
-		}
-
-		dz.ondragenter = function () {
-			dz.innerHTML = '请释放鼠标';
-		};
-		dz.ondragover = function () {
-			dz.innerHTML = '+';
-		};
-		dz.ondragend = function () {
-			dz.innerHTML = '+';
-		};
-		dz.ondragleave = function () {
-			dz.innerHTML = '请将文件拖拽到此区域';
-		};
-		dz.ondragover = function (ev) {
-			//阻止浏览器默认打开文件的操作
-			ev.preventDefault();
-			this.className = 'over';
-		};
-
-		dz.ondrop = function (ev) {
-			this.className = '';
-			//阻止浏览器默认打开文件的操作
-			ev.preventDefault();
-			//表单上传文件
-			var formData = new FormData();
-			formData.append('photoimg', ev.dataTransfer.files[0]);
-			uploadFile(formData);
-			dz.innerHTML = '请将文件拖拽到此区域';
-		}
+<!--<script>
+	$('.l-main')[0].ondragenter = function () {
+		$('.uploader__box').css("border","1px dashed #ff8598");
+		// alert("123");
 	};
+
+	$('.l-main')[0].ondragover = function () {
+		$('.uploader__box').css("border","none");
+		// alert("123");
+	};
+
+	$('.l-main')[0].ondrop = function () {
+		$('.uploader__box').css("border","none");
+		// alert("123");
+	};
+
+	$('.l-main')[0].ondragend = function () {
+		$('.uploader__box').css("border","none");
+		// alert("123");
+	};
+
+</script>-->
+
+<script type="text/javascript">
+	(function(){
+		var options = {};
+		$('.js-uploader__box').uploader({
+			'selectButtonCopy':'请选择或拖拽文件',
+			'instructionsCopy':'你可以选择或拖拽多个文件',
+			'submitButtonCopy':'',
+			'furtherInstructionsCopy':'你可以选择或拖拽更多的文件',
+			'secondarySelectButtonCopy':'选择更多的文件',
+		});
+	}());
 </script>
 
 <script>
@@ -369,9 +389,7 @@
 			//var topPlugin='<button id="addButton" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addUser" style="display:block;">' +
 			// '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加用户</button>';
 			//删除用户按钮的HTMLDOM
-			var topPlugin = '<div id="box" style="width: 200px; height: 100px; border: dashed 1px; text-align: center; padding-top: 36px;  float:left; margin-right: 15px;">\n' +
-				'     请将文件拖拽到此区域\n' +
-				'</div><a href="javascript:void(0);" id="deleteSelectUser" class="btn btn-success btn-sm">上传</a>  <a href="javascript:void(0);" id="deleteSelectUser" class="btn btn-danger btn-sm">批量删除</a> <a href="javascript:void(0);" class="btn btn-info btn-sm">导出(未实现)</a>';
+			var topPlugin = '<a href="" class="btn btn-success btn-sm" data-toggle="modal" data-target="#uploadFileList">上传</a>  <a href="javascript:void(0);" id="deleteSelectUser" class="btn btn-danger btn-sm">批量删除</a> <a href="javascript:void(0);" class="btn btn-info btn-sm">导出(未实现)</a>';
 			$("#topPlugin").append(topPlugin);//在表格上方topPlugin DIV中追加HTML
 			//$("#expCsv").on("click", exp1);//给下方按钮绑定事件
 
