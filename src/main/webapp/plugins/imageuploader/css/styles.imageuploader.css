@@ -431,12 +431,6 @@ textarea {
 .icon-button:hover, .uploader__icon-button:hover {
   color: #424242; }
 
-* {
-  box-sizing: border-box; }
-
-body {
-  background-color: #e6e6e6; }
-
 .site-header::after {
   content: '';
   clear: both;
