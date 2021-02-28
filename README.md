@@ -31,7 +31,7 @@ Spring+SpringMVC+MyBatis+Thymeleaf+JQuery+Js+Ajax+Json+PageHelper
 
 1. 导入结构和数据：blog_ssm.sql
 
-2. 解压下载zip重命名blog-ssm-master文件夹为blog-ssm，IDEA打开该sims项目
+2. 解压下载zip重命名blog-ssm-master文件夹为blog-ssm，IDEA打开该blog-ssm项目
 
 3. 修改配置数据库连接文件：druid.properties
 
