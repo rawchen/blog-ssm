@@ -1,4 +1,4 @@
-# Java博客项目
+# JavaWeb博客项目
 采用SSM框架的web博客项目——Spring、SpringMVC、MyBatis
 
 **演示地址：**[blog.yoyling.com](https://blog.yoyling.com)
