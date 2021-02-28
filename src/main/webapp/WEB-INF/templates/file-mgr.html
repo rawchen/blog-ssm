@@ -155,7 +155,7 @@
 							</div>
 							<!-- /.card-header -->
 							<div class="card-body table-responsive">
-								<form id="selectUser" action="/deleteSelectUser" method="post">
+								<form id="selectFile" action="/deleteSelectFile" method="post">
 									<table id="testTable" class="table table-bordered table-hover text-nowrap">
 										<thead>
 										<tr>
@@ -163,6 +163,7 @@
 											<th>文件名</th>
 											<th>类型</th>
 											<th>类型图标</th>
+											<th>文件大小</th>
 											<th>上传用户</th>
 											<th>上传时间</th>
 											<th>状态</th>
@@ -283,9 +284,10 @@
 </script>
 
 <script>
-	function deleteUser(uid) {
-		if (confirm("你确定删除该用户以及所属文章吗？")) {
-			location.href = "/deleteUser/" + uid;
+	function deleteFile(fid) {
+		alert(fid)
+		if (confirm("你确定删除该文件吗？")) {
+			location.href = "/deleteFile/" + fid;
 		}
 	}
 
@@ -315,9 +317,9 @@
 			ordering: false,
 			columns: [
 				{
-					data: "uid",
+					data: "fid",
 					render: function (data, type, row, meta) {
-						return '<input type="checkbox" value="' + data + '" name="uid"/>';
+						return '<input type="checkbox" value="' + data + '" name="fid"/>';
 					}
 				},
 				{data: "name"},
@@ -327,6 +329,7 @@
 						return '<img class="gravatar-photo" src="/img/'+data+'.png">'
 					}
 				},
+				{data: "fileSize"},
 				{data: "authorId"},
 				{data: "createdTime",
 					render: function (data, type, row, meta) {
@@ -354,7 +357,7 @@
 				{data: "downloadCount"},
 				{
 					render: function (data, type, row, meta) {
-						return '<a href="javascript:void(0);" onclick="deleteUser(' + row.uid +');" class="btn btn-danger btn-xs">删除</a> <button class="btn btn-success btn-xs">重命名</button>';
+						return '<a href="javascript:void(0);" onclick="deleteFile(' + row.fid +');" class="btn btn-danger btn-xs">删除</a>';
 					}
 				}
 			],
@@ -389,21 +392,21 @@
 			//var topPlugin='<button id="addButton" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addUser" style="display:block;">' +
 			// '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加用户</button>';
 			//删除用户按钮的HTMLDOM
-			var topPlugin = '<a href="" class="btn btn-success btn-sm" data-toggle="modal" data-target="#uploadFileList">上传</a>  <a href="javascript:void(0);" id="deleteSelectUser" class="btn btn-danger btn-sm">批量删除</a> <a href="javascript:void(0);" class="btn btn-info btn-sm">导出(未实现)</a>';
+			var topPlugin = '<a href="" class="btn btn-success btn-sm" data-toggle="modal" data-target="#uploadFileList">上传</a>  <a href="javascript:void(0);" id="deleteSelectFile" class="btn btn-danger btn-sm">批量删除</a> <a href="javascript:void(0);" class="btn btn-info btn-sm">导出(未实现)</a>';
 			$("#topPlugin").append(topPlugin);//在表格上方topPlugin DIV中追加HTML
 			//$("#expCsv").on("click", exp1);//给下方按钮绑定事件
 
 			document.getElementById("firstCheckBox").onclick = function () {
-				var cbs = document.getElementsByName("uid");
+				var cbs = document.getElementsByName("fid");
 				for (var i = 0; i < cbs.length; i++) {
 					cbs[i].checked = this.checked;
 				}
 			};
 
 
-			document.getElementById("deleteSelectUser").onclick = function () {
+			document.getElementById("deleteSelectFile").onclick = function () {
 				var flag = false;
-				var cbs = document.getElementsByName("uid");
+				var cbs = document.getElementsByName("fid");
 				for (var i = 0; i < cbs.length; i++) {
 					if (cbs[i].checked) {
 						flag = true;
@@ -412,8 +415,8 @@
 				}
 
 				if (flag) {
-					if (confirm("你确定要删除选中用户以及所属文章吗？")) {
-						document.getElementById("selectUser").submit();
+					if (confirm("你确定要删除选中的文件吗？")) {
+						document.getElementById("selectFile").submit();
 					}
 				}
 			};

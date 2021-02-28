@@ -22,6 +22,8 @@ public class File implements Serializable {
 
     private Integer downloadCount;
 
+    private String fileSize;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getFid() {
@@ -96,6 +98,14 @@ public class File implements Serializable {
         this.downloadCount = downloadCount;
     }
 
+    public String getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(String fileSize) {
+        this.fileSize = fileSize;
+    }
+
     @Override
     public String toString() {
         return "File{" +
@@ -108,6 +118,7 @@ public class File implements Serializable {
                 ", createdTime=" + createdTime +
                 ", modifiedTime=" + modifiedTime +
                 ", downloadCount=" + downloadCount +
+                ", fileSize='" + fileSize + '\'' +
                 '}';
     }
 }

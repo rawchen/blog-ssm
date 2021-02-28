@@ -1,6 +1,7 @@
 package com.yoyling;
 
 import com.yoyling.utils.DateTimeUtil;
+import com.yoyling.utils.FileUtil;
 import com.yoyling.utils.GravatarUtil;
 import com.yoyling.utils.StringUtil;
 import org.junit.Test;
@@ -60,6 +61,11 @@ public class StringTest {
 	@Test
 	public void run8() {
 		System.out.println(isContainChinese("mypaydayloan relief  http://loanonlineiuw.com/#  advance payday loan  <a href=\"http://loanonlineiuw.com/# \">new payday loans </a> payday loan stores"));
+	}
+
+	@Test
+	public void run9() {
+		System.out.println(FileUtil.formatBytes(12313123213L));
 	}
 
 }

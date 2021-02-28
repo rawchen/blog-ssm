@@ -11,10 +11,11 @@
     <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
     <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
     <result column="download_count" jdbcType="INTEGER" property="downloadCount" />
+    <result column="file_size" jdbcType="VARCHAR" property="fileSize" />
   </resultMap>
   <sql id="Base_Column_List">
     fid, path, author_id, file_status, name, file_type, created_time, modified_time, 
-    download_count
+    download_count, file_size
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -38,11 +39,12 @@
   <insert id="insert" parameterType="com.yoyling.domain.File">
     insert into file (fid, path, author_id, 
       file_status, name, file_type, 
-      created_time, modified_time, download_count
+      created_time, modified_time, download_count,file_size
       )
     values (#{fid,jdbcType=INTEGER}, #{path,jdbcType=VARCHAR}, #{authorId,jdbcType=INTEGER}, 
       #{fileStatus,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{fileType,jdbcType=VARCHAR}, 
-      #{createdTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP}, #{downloadCount,jdbcType=INTEGER}
+      #{createdTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP}, #{downloadCount,jdbcType=INTEGER},
+      #{fileSize,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.yoyling.domain.File">
@@ -75,6 +77,9 @@
       <if test="downloadCount != null">
         download_count,
       </if>
+      <if test="fileSize != null">
+        file_size,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="fid != null">
@@ -103,6 +108,9 @@
       </if>
       <if test="downloadCount != null">
         #{downloadCount,jdbcType=INTEGER},
+      </if>
+      <if test="fileSize != null">
+        #{fileSize,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -133,6 +141,9 @@
       <if test="downloadCount != null">
         download_count = #{downloadCount,jdbcType=INTEGER},
       </if>
+      <if test="fileSize != null">
+        file_size = #{fileSize,jdbcType=VARCHAR},
+      </if>
     </set>
     where fid = #{fid,jdbcType=INTEGER}
   </update>
@@ -145,7 +156,8 @@
       file_type = #{fileType,jdbcType=VARCHAR},
       created_time = #{createdTime,jdbcType=TIMESTAMP},
       modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
-      download_count = #{downloadCount,jdbcType=INTEGER}
+      download_count = #{downloadCount,jdbcType=INTEGER},
+      file_size = #{fileSize,jdbcType=VARCHAR}
     where fid = #{fid,jdbcType=INTEGER}
   </update>
 </mapper>

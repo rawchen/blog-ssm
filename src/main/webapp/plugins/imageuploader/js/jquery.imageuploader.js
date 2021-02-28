@@ -187,13 +187,46 @@
                     for (var i = 0; i < state.fileBatch.length; i++) {
                         data.append('files[]', state.fileBatch[i].file, state.fileBatch[i].fileName);
                     }
+                    var Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
                     $.ajax({
                         type: 'POST',
                         url: options.ajaxUrl,
                         data: data,
                         cache: false,
                         contentType: false,
-                        processData: false
+                        processData: false,
+                        success:function (e) {
+                            if (e.success === 1) {
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: '上传成功！'
+                                });
+                             $('.uploader__submit-button').attr("disabled","disabled");
+                                setTimeout("location.href = '/adminFile';",1000);
+                            } else if (e.success === -1) {
+                                Toast.fire({
+                                    icon: 'error',
+                                    title: '文件已存在！'
+                                });
+                            } else {
+                                Toast.fire({
+                                    icon: 'error',
+                                    title: '上传失败！'
+                                });
+                            }
+                        },
+                        error:function () {
+                            Toast.fire({
+                                icon: 'error',
+                                title: '网络错误！'
+                            });
+                        }
                     });
                 }
             }

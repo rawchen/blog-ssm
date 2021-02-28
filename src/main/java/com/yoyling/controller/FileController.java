@@ -3,21 +3,25 @@ package com.yoyling.controller;
 import com.yoyling.domain.Content;
 import com.yoyling.domain.File;
 import com.yoyling.domain.User;
+import com.yoyling.utils.FileUtil;
 import com.yoyling.utils.LogUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
 public class FileController extends BaseController {
+
 	@RequestMapping("/file")
 	public String showFiles(Model model) {
 
@@ -31,9 +35,6 @@ public class FileController extends BaseController {
 
 		List<File> files = fileService.selectAllFile();
 		model.addAttribute("files",files);
-		for (File file : files) {
-			System.out.println(file);
-		}
 
 		model.addAttribute("contents",contents);
 
@@ -53,6 +54,7 @@ public class FileController extends BaseController {
 		return "file-mgr";
 	}
 
+
 	@ResponseBody
 	@RequestMapping("/uploadFileList")
 	public Map<String,Object> uploadFileList(HttpServletRequest req, @RequestParam(value = "files[]") MultipartFile[] files) {
@@ -67,20 +69,86 @@ public class FileController extends BaseController {
 		if (!file.exists() && file.mkdirs()) {
 		}
 
+		map.put("success", 1);
+
 		for (MultipartFile mFile : files) {
 			try {
+				String fileName = mFile.getOriginalFilename();
+
+				if (new java.io.File(realPath, url + mFile.getOriginalFilename()).exists()) {
+					map.put("success", -1);
+					map.put("message", "文件已存在");
+					return map;
+				}
+
+				File newFile = new File();
+				newFile.setPath("/upload/file/"+uid+"/"+mFile.getOriginalFilename());
+				newFile.setAuthorId(uid);
+				newFile.setFileStatus("publish");
+				newFile.setName(mFile.getOriginalFilename());
+				if (!fileName.contains(".")) {
+					map.put("success", 0);
+					map.put("message", "上传失败");
+					return map;
+				}
 				mFile.transferTo(new java.io.File(realPath,url + mFile.getOriginalFilename()));
-				map.put("success", 1);
+
+				newFile.setFileType(FileUtil.imageType(fileName.substring(fileName.lastIndexOf(".")+1)));
+				newFile.setCreatedTime(new Date());
+				newFile.setModifiedTime(new Date());
+				newFile.setDownloadCount(0);
+				newFile.setFileSize(FileUtil.formatBytes(mFile.getSize()));
+				fileService.insert(newFile);
+
 				map.put("message", "上传成功");
+
 			} catch (Exception e) {
 				e.printStackTrace();
 				map.put("success", 0);
 				map.put("message", "上传失败");
-
+				return map;
 			}
 		}
-
 		return map;
+	}
+
+	@RequestMapping("/deleteFile/{fid}")
+	public String deleteFile(@PathVariable int fid, HttpServletRequest req) {
+		User user = (User) session.getAttribute("USER_SESSION");
+		int uid = user.getUid();
+
+		String url = "file/" + uid + "/";
+		String realPath = req.getServletContext().getRealPath("/upload/");
+		java.io.File file1 = new java.io.File(realPath, url + fileService.selectFileByFid(fid).getName());
+		if (file1.exists()) {
+			file1.delete();
+		}
+		int a = fileService.deleteByPrimaryKey(fid);
+		return "redirect:/adminFile";
+	}
+
+	@RequestMapping("/deleteSelectFile")
+	public String deleteSelectFile(HttpServletRequest req) {
+		String[] fids = request.getParameterValues("fid");
+		User user = (User) session.getAttribute("USER_SESSION");
+		int uid = user.getUid();
+
+		try {
+			if (fids != null && fids.length > 0) {
+				for (String fid: fids) {
+					String url = "file/" + uid + "/";
+					String realPath = req.getServletContext().getRealPath("/upload/");
+					java.io.File file1 = new java.io.File(realPath, url + fileService.selectFileByFid(Integer.parseInt(fid)).getName());
+					if (file1.exists()) {
+						file1.delete();
+					}
+					int a = fileService.deleteByPrimaryKey(Integer.parseInt(fid));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/adminFile";
 	}
 
 	/**
