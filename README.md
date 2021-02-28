@@ -19,7 +19,7 @@ Spring+SpringMVC+MyBatis+Thymeleaf+JQuery+Js+Ajax+Json+PageHelper
 
 服务器： Tomcat_8.5.53
 
-数据库： MySQL_5.6.46
+数据库： MySQL_5.5.61
 
 开发工具：IDEA_2020.3
 
