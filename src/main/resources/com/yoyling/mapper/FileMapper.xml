@@ -29,7 +29,7 @@
   </select>
 
   <select id="selectFileListWithUid" resultMap="BaseResultMap" parameterType="int">
-    select * from content where author_id = #{authorId} order by created_time DESC
+    select * from file where author_id = #{authorId} order by created_time DESC
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
