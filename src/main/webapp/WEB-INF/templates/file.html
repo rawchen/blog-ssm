@@ -151,7 +151,8 @@
 										<div class="card-body p-0">
 											<ul class="list-group ul-style">
 												<li class="bg-hover-gray li-style" th:date="${#dates.format((f.createdTime), 'yyyy,MM')}" th:each="f,arrayS:${files}">
-													<a th:href="${#request.getContextPath()}+${f.path}" th:style="'background: url(/img/'+${f.fileType}+'.png) 50% 30% no-repeat;'" target="_blank" class="d-block link-title text-truncate a-style" th:text="${f.name}" data-toggle="tooltip" data-placement="bottom" th:title="${f.name}"></a>
+													<a th:if="${#strings.containsIgnoreCase(f.path,'/upload/file/')}" th:href="${#request.getContextPath()}+${f.path}" th:style="'background: url(/img/'+${f.fileType}+'.png) 50% 30% no-repeat;'" target="_blank" class="d-block link-title text-truncate a-style" th:text="${f.name}" data-toggle="tooltip" data-placement="bottom" th:title="${f.name}"></a>
+													<a th:if="${!#strings.containsIgnoreCase(f.path,'/upload/file/')}" th:href="${f.path}" th:style="'background: url(/img/'+${f.fileType}+'.png) 50% 30% no-repeat;'" target="_blank" class="d-block link-title text-truncate a-style" th:text="${f.name}" data-toggle="tooltip" data-placement="bottom" th:title="${f.name}"></a>
 <!--													<a th:if="${f.fileType eq 'image'}" th:href="${#request.getContextPath()}+${f.path}" th:style="'background: url(/img/'+${f.fileType}+'.png) 50% 30% no-repeat;'" target="_blank" class="d-block link-title text-truncate a-style" th:text="${f.name}"></a>-->
 <!--													<a th:if="${f.fileType eq 'image'}" th:href="${#request.getContextPath()}+${f.path}" th:style="'background: url('+${f.path}+') 50% 30% no-repeat;'" target="_blank" class="d-block link-title text-truncate a-style" th:text="${f.name}"></a>-->
 												</li>
