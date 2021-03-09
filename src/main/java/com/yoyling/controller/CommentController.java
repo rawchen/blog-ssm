@@ -31,7 +31,7 @@ public class CommentController extends BaseController {
 		boolean isHaveAuthorAndMail = author == null || "".equals(author) || mail == null || "".equals(mail);
 
 		//判断机器人评论则直接返回到首页，后期可以添加屏蔽敏感词汇、网址关键字、邮箱关键字、ip等。
-		boolean isRobot = !isContainChinese(commentText) && isLetter(author);
+		boolean isRobot = !isContainChinese(commentText) && !isContainChinese(author);
 		int contentId = 0;
 		if (request.getParameter("contentId") == null || "".equals(request.getParameter("contentId"))) {
 		} else {
@@ -81,7 +81,7 @@ public class CommentController extends BaseController {
 		String mail = request.getParameter("mail");
 		String url = request.getParameter("url");
 		boolean isHaveAuthorAndMail = author == null || "".equals(author) || mail == null || "".equals(mail);
-		boolean isRobot = !isContainChinese(commentText) && isLetter(author);
+		boolean isRobot = !isContainChinese(commentText) && !isContainChinese(author);
 		Comment comment = new Comment();
 		comment.setCid(cid);
 		comment.setParent(coid);

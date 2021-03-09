@@ -68,4 +68,10 @@ public class StringTest {
 		System.out.println(FileUtil.formatBytes(12313123213L));
 	}
 
+	@Test
+	public void run10() {
+		System.out.println(!isContainChinese("My Homework Help") && !isContainChinese("<a href=https://writingserviceray.com/>write a essay about yourself</a> <a href=https://essayhw.com/>research paper</a>"));
+	}
+
+
 }
