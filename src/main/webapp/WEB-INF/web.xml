@@ -60,7 +60,12 @@
   <!-- 404页面 -->
   <error-page>
     <error-code>404</error-code>
-    <location>/WEB-INF/error/404.html</location>
+    <location>/404.html</location>
   </error-page>
 
+  <!-- 500页面 -->
+  <error-page>
+    <error-code>500</error-code>
+    <location>/500.html</location>
+  </error-page>
 </web-app>

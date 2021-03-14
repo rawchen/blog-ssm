@@ -52,6 +52,8 @@
 	<mvc:resources location="/img/" mapping="/img/**" />
 	<mvc:resources location="/upload/" mapping="/upload/**" />
 	<mvc:resources location="/plugins/" mapping="/plugins/**" />
+	<mvc:resources location="/404.html" mapping="/404.html" />
+	<mvc:resources location="/500.html" mapping="/500.html" />
 
 	<mvc:interceptors>
 		<mvc:interceptor>
