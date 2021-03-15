@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle} + '&nbsp;|&nbsp;ModifyBlog'"></title>
+	<link rel="shortcut icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
+	<link rel="apple-touch-icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
+
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+
+	<link rel="stylesheet" th:href="@{/plugins/editor.md/css/editormd.min.css}">
+
+	<link rel="stylesheet" th:href="@{/plugins/selectize/css/selectize.bootstrap3.css}">
+
+	<!-- iCheck for checkboxes and radio inputs -->
+	<link rel="stylesheet" th:href="@{/plugins/icheck-bootstrap/icheck-bootstrap.min.css}">
+
+	<!-- SweetAlert2 -->
+	<link rel="stylesheet" th:href="@{/plugins/sweetalert2/sweetalert2.min.css}">
+
+	<!-- Theme style -->
+	<link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<link rel="stylesheet" th:href="@{/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css}">
+	<style type="text/css">
+	</style>
+</head>
+<body class="hold-transition layout-top-nav">
+
+
+<!-- Site wrapper -->
+<div class="wrapper">
+	<!-- Navbar -->
+	<nav class="main-header navbar navbar-expand-md navbar-dark navbar-dark">
+		<div class="container-fluid pl-5 pr-5">
+			<a href="/admin" class="navbar-brand">
+				<img th:src="${#servletContext.getAttribute('applicationOptionsMap').avatar}" class="brand-image img-circle elevation-3">
+				<span class="brand-text font-weight-light" th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle}">websiteTitle</span>
+			</a>
+
+			<button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+					aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse order-3" id="navbarCollapse">
+				<!-- Left navbar links -->
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a href="/admin" class="nav-link">
+							<i class="nav-icon fas fa-tachometer-alt"></i>
+							仪表盘
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="/adminBlog" class="nav-link">
+							<i class="fa fa-list-alt nav-icon"></i>
+							博客管理
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="/adminCategory" class="nav-link">
+							<i class="fa fa-bookmark nav-icon"></i>
+							分类管理
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="/adminTag" class="nav-link">
+							<i class="fa fa-tags nav-icon"></i>
+							标签管理
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="/adminUser" class="nav-link">
+							<i class="fa fa-user nav-icon"></i>
+							用户管理
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="/adminFile" class="nav-link">
+							<i class="fas fa-file-code nav-icon"></i>
+							文件管理
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- /.navbar -->
+
+	<div class="container-fluid pl-5 pr-5 mt-3">
+		<form id="blogForm" action="/adminEditBlog" onkeydown="if(event.keyCode==13)return false;" method="post">
+			<!-- /.card-body -->
+			<div class="card card-teal card-outline">
+				<div class="card-header">
+					<h3 class="card-title">博客信息</h3>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<label for="title" class="input-group-text">标题</label>
+									</div>
+									<!-- /btn-group -->
+									<input th:value="${content.title}" type="text" class="form-control" required id="title" name="blogTitle" placeholder="title(必填)...">
+									<input th:value="${content.cid}" type="hidden" class="form-control" name="blogId">
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-5">
+							<div class="form-group">
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<label for="slug"
+											   class="input-group-text">[[${serverName}]]/articles/</label>
+									</div>
+									<!-- /btn-group -->
+									<input th:value="${content.slug}" type="text" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9\-_]/g,'')" class="form-control" id="slug" required name="blogSlug"
+										   placeholder="slug(必填)">
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-3">
+							<div class="form-group">
+								<div class="input-group date form_datetime form-group" data-date="" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+									<div class="input-group-prepend">
+									<label for="time-content" class="input-group-text">时间</label>
+									</div>
+									<input class="form-control times-text" size="16" type="text" id="time-content" value="" readonly>
+									<span class="input-group-addon addon-times"><span class="fa fa-times"></span></span>
+									<span class="input-group-addon addon-calendar"><span class="fa fa-calendar"></span></span>
+
+								</div>
+								<input type="hidden" name="blogCreatedTime" id="dtp_input1" value="" />
+							</div>
+						</div>
+
+
+					</div>
+
+					<div class="row">
+						<div class="col-md-2">
+							<div class="form-group">
+								<label for="categoryId">分类</label>
+
+								<select id="categoryId" name="blogCategory" data-placeholder="选择分类(必选)...." style="width: 100%;">
+									<option th:each="c,cStat:${categories}" th:value="${c.cgSlug}" th:text="${c.cgName}" th:selected="${c.cgid==content.cgid}"></option>
+								</select>
+							</div>
+							<!-- /.form-group -->
+						</div>
+
+						<!-- /.col -->
+						<div class="col-md-6">
+							<label for="tagInput">标签</label>
+							<input id="tagInput" name="blogTag" multiple="multiple" th:value="${content.tagList}"></input>
+							<!-- /.form-group -->
+						</div>
+						<!-- /.col -->
+
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="blogThumb">文章缩略图直链</label>
+								<input th:value="${content.thumb}" type="text" class="form-control" id="blogThumb" name="blogThumb"
+									   placeholder="建议存储 OSS/JsDelivr....">
+							</div>
+							<!-- /.form-group -->
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="description">博客描述</label>
+								<textarea class="form-control" th:text="${content.description}" rows="3" id="description" name="blogDescription"
+										  placeholder="主页显示的简要（必填）..."
+										  maxlength="" style="resize:none"></textarea>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+
+						<div class="col-md-3">
+							<button id="publishBtn" type="submit" class="btn btn-sm btn-success float-left">
+								<i class="fa fa-edit"></i>
+								更新
+							</button>
+							<a href="/adminTag" target="_blank" class="btn btn-sm btn-info float-left ml-1">
+								<i class="fas fa fa-plus"></i>
+								标签
+							</a>
+							<a href="/adminCategory" target="_blank" class="btn btn-sm btn-primary float-left ml-1">
+								<i class="fa fa-plus"></i>
+								分类
+							</a>
+						</div>
+
+						<div class="col-md-3">
+							<!-- radio -->
+							<div class="form-group clearfix">
+								<div class="icheck-default d-inline-block">
+									<input type="radio" id="original" name="blogType" value="原创">
+									<label for="original">原创</label>
+								</div>
+								<div class="icheck-default d-inline-block ml-3">
+									<input type="radio" id="reprinted" name="blogType" value="转载">
+									<label for="reprinted">转载</label>
+								</div>
+								<div class="icheck-default d-inline-block ml-3">
+									<input type="radio" id="translated" name="blogType" value="翻译">
+									<label for="translated">翻译</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-1">
+							<div class="icheck-success float-left">
+								<input type="checkbox" id="blogContentOrder" name="blogContentOrder">
+								<label for="blogContentOrder">推荐</label>
+							</div>
+						</div>
+
+						<div class="col-md-2">
+							<div class="form-group">
+								<select id="contentsstatus" name="blogContentStatus" style="width: 100%;">
+									<option value="publish" th:selected="${'publish'==content.contentStatus}">公开</option>
+									<option value="hidden" th:selected="${'hidden'==content.contentStatus}">隐藏</option>
+									<option value="password" th:selected="${'password'==content.contentStatus}">加密</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="col-md-1" id="contentspassword-div" style="display: none;">
+							<div class="form-group">
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<label for="title" class="input-group-text">密码</label>
+									</div>
+									<!-- /btn-group -->
+									<input type="text" name="blogPassword" class="form-control" id="contentspassword"
+										   maxlength="30">
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<!-- /.row -->
+			</div>
+
+			<!-- /.card-body -->
+			<div id="editormd" class="form-group mb-3">
+				<textarea th:text="${content.contentText}" name="content"></textarea>
+			</div>
+
+			<input type="hidden" id="isPublish" name="isPublish">
+		</form>
+	</div>
+</div>
+
+<!-- jQuery -->
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/js/adminlte.min.js}"></script>
+
+<!-- SweetAlert2 -->
+<script th:src="@{/plugins/sweetalert2/sweetalert2.all.min.js}"></script>
+
+<script th:src="@{/plugins/editor.md/js/editormd.min.js}"></script>
+
+<script th:src="@{/plugins/selectize/js/standalone/selectize.min.js}"></script>
+
+<script th:src="@{/js/edit.js}"></script>
+<script th:src="@{/js/categoryinput.init.js}"></script>
+
+<script th:src="@{/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
+<script th:src="@{/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.zh-CN.js}"></script>
+
+<script>
+	$('#contentsstatus').change(function () {
+		if ($(this).val() === 'password') {
+			$('#contentspassword-div').attr('style', 'display:contents;');
+		} else if ($(this).val() === 'hidden') {
+			$('#contentspassword-div').attr('style', 'display:none;');
+		} else {
+			$('#contentspassword-div').attr('style', 'display:none;');
+		}
+	});
+
+	$('.form_datetime').datetimepicker({
+		language : 'zh-CN',
+		format : 'yyyy-mm-dd hh:ii:ss',
+		pickerPosition: 'bottom-left',
+		weekStart: 1,
+		todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+		showMeridian: 1
+	});
+
+	$(function(){
+		var time = '[[${content.createdTime}]]';
+		var date = new Date(time);
+		$('.form_datetime').datetimepicker("setDate", date);
+	});
+
+	/**
+	 * 初始化标签输入框
+	 */
+	$('#tagInput').selectize({
+		plugins: ['remove_button'],
+		valueField: 'name',
+		labelField: 'name',
+		searchField: 'name',
+		maxItems: 5,
+		create: true,
+		render: {
+			option: function(item, escape) {
+				return '<div class="selection">' + '<i class="fa fa-tags nav-icon"></i>&nbsp;' + item.name + '</div>';
+			},
+		},
+		load: function(query, callback) {
+			if (!query.length) return callback();
+			$.ajax({
+				url: '/adminGetTagList',
+				type: 'GET',
+				error: function() {
+					callback();
+				},
+				success: function(res) {
+					callback(res.tags);
+				}
+			});
+		}
+	});
+
+	$('#categoryId').selectize({});
+	$('#contentsstatus').selectize({});
+
+	var Toast2 = Swal.mixin({toast: true, position: 'top-end', showConfirmButton: false, timer: 2000});
+
+	var slugOrigin = $('#slug').val();
+
+	$('#slug').blur(function () {
+		var slugName = $(this).val();
+		if (slugName != '') {
+			$.get("/findContentBySlugName",{slugName:slugName},function (data) {
+				if (data.slugExist && slugOrigin!=data.slugOrigin) {
+					Toast2.fire({
+						icon: 'error',
+						title: 'slug已存在！'
+					});
+					$('#slug').val("");
+					$('#slug').focus();
+				}
+			});
+		}
+	});
+
+	var ypxt=document.getElementsByName("blogType");
+	var jgjg='[[${content.contentType}]]';
+	for(var i=0;i<ypxt.length;i++){
+		if(jgjg.indexOf(ypxt[i].value)>-1){
+			ypxt[i].checked=true;
+		}
+	}
+
+	if ('[[${content.contentOrder}]]'=='1') {
+		document.getElementById("blogContentOrder").checked=true;
+	}
+
+	if ('[[${content.contentStatus}]]' == 'password') {
+		$('#contentspassword-div').attr('style', 'display:contents;');
+		$('#contentspassword').val('[[${content.password}]]');
+	}
+
+</script>
+</body>
+</html>

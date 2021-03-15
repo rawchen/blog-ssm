@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static com.yoyling.utils.StringUtil.listToString;
+import static com.yoyling.utils.StringUtil.stringToList;
 
 @Controller
 public class AdminController extends BaseController {
@@ -54,12 +55,46 @@ public class AdminController extends BaseController {
 	}
 
 	/**
+	 * 跳转modify.html修改博客页面
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/adminModify")
+	public String adminModify(Model model,@RequestParam(defaultValue = "0") int cid) {
+		Content content = contentService.selectByPrimaryKey(cid);
+		User user = (User) session.getAttribute("USER_SESSION");
+
+		//判断是否属于此user
+		if ((!user.getUid().equals(content.getAuthorId())) && (!"1".equals(String.valueOf(user.getUid())))) {
+			return "redirect:/adminBlog";
+		}
+		String tags = "";
+		List<String> strings = stringToList(content.getTagList());
+		for (String s : strings) {
+			tags = tags + (tagService.findTagById(Integer.parseInt(s)).getName()+",");
+		}
+		if (!"".equals(tags)) {
+			tags = tags.substring(0, tags.length()-1);
+		}
+		content.setTagList(tags);
+		model.addAttribute("content",content);
+		model.addAttribute("serverName",request.getServerName());
+
+		List<Category> categories = categoryService.selectAllCategory();
+		model.addAttribute("categories",categories);
+
+		return "modify";
+	}
+
+	/**
 	 * 提交博客编写表单
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping("/adminEditBlog")
 	public String adminEditBlog(Model model) {
+		String blogId = request.getParameter("blogId");
+
 		String blogTitle = request.getParameter("blogTitle");
 		String blogSlug = request.getParameter("blogSlug");
 		String blogCategory = request.getParameter("blogCategory");
@@ -96,7 +131,12 @@ public class AdminController extends BaseController {
 		content.setContentText(blogContent);
 		content.setContentOrder(Integer.parseInt(blogContentsOrder));
 		User user = (User) session.getAttribute("USER_SESSION");
-		content.setAuthorId(user.getUid());
+		if ("".equals(blogId)) {//新增
+			content.setAuthorId(user.getUid());
+		}else {
+			content.setCid(Integer.parseInt(blogId));
+			content.setAuthorId(contentService.selectContentAuthorIdBycontentId(Integer.parseInt(blogId)));//修改时
+		}
 		content.setContentType(blogType);
 		content.setContentStatus(blogContentStatus);
 		content.setContentStatus(blogContentStatus);
@@ -123,9 +163,16 @@ public class AdminController extends BaseController {
 			content.setTagList(listToString(tagListNew));
 		}
 
-		int result =  contentService.insert(content);
-		if (result == 1) {
+		int result = 0;
+		System.out.println(blogId);
+		if ("".equals(blogId)) {//新增
+			result = contentService.insert(content);
+		}else {
+			System.out.println(content);
+			result = contentService.updateContent(content);
+		}
 
+		if (result != 0) {
 			//插入文章后全局修正tag数量
 			List<Content> contents = contentService.selectAllContent();
 			StringBuilder a = new StringBuilder();
@@ -193,6 +240,7 @@ public class AdminController extends BaseController {
 		if (c != null) {
 			slugExist = true;
 		}
+		map.put("slugOrigin",slugName);
 		map.put("slugExist", slugExist);
 		return map;
 	}

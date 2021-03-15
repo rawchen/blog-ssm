@@ -147,4 +147,9 @@ public class ContentServiceImpl extends BaseServiceImpl implements ContentServic
 	public List<Content> selectContentListWithUid(int userId) {
 		return contentMapper.selectContentListWithUid(userId);
 	}
+
+	@Override
+	public int updateContent(Content content) {
+		return contentMapper.updateByPrimaryKeyWithBLOBs(content);
+	}
 }

@@ -49,4 +49,6 @@ public interface ContentService {
 	List<Content> selectPostSizeContentWithHot(int postsListSize);
 
 	List<Content> selectContentListWithUid(int userId);
+
+	int updateContent(Content content);
 }
