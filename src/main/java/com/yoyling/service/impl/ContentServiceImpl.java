@@ -152,4 +152,9 @@ public class ContentServiceImpl extends BaseServiceImpl implements ContentServic
 	public int updateContent(Content content) {
 		return contentMapper.updateByPrimaryKeyWithBLOBs(content);
 	}
+
+	@Override
+	public Integer selectContentViewsBycontentId(int parseInt) {
+		return contentMapper.selectContentViewsBycontentId(parseInt);
+	}
 }

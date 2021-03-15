@@ -70,6 +70,10 @@
     select author_id from content where cid = #{cid};
   </select>
 
+  <select id="selectContentAuthorIdBycontentId" parameterType="int" resultType="int">
+    select views from content where cid = #{cid};
+  </select>
+
   <select id="selectNumberOfArticles" resultType="int">
     select count(cid) from content;
   </select>

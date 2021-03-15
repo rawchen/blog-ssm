@@ -56,4 +56,6 @@ public interface ContentMapper {
 	int deleteByAuthorId(int parseInt);
 
 	List<Content> selectContentListWithUid(int userId);
+
+	Integer selectContentViewsBycontentId(int parseInt);
 }

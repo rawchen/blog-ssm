@@ -51,4 +51,6 @@ public interface ContentService {
 	List<Content> selectContentListWithUid(int userId);
 
 	int updateContent(Content content);
+
+	Integer selectContentViewsBycontentId(int parseInt);
 }

@@ -132,8 +132,10 @@ public class AdminController extends BaseController {
 		content.setContentOrder(Integer.parseInt(blogContentsOrder));
 		User user = (User) session.getAttribute("USER_SESSION");
 		if ("".equals(blogId)) {//新增
+			content.setViews(0);
 			content.setAuthorId(user.getUid());
 		}else {
+			content.setViews(contentService.selectContentViewsBycontentId(Integer.parseInt(blogId)));
 			content.setCid(Integer.parseInt(blogId));
 			content.setAuthorId(contentService.selectContentAuthorIdBycontentId(Integer.parseInt(blogId)));//修改时
 		}
@@ -141,7 +143,6 @@ public class AdminController extends BaseController {
 		content.setContentStatus(blogContentStatus);
 		content.setContentStatus(blogContentStatus);
 		content.setPassword(blogPassword);
-		content.setViews(0);
 		if ("".equals(blogThumb) || blogThumb == null) {
 			content.setThumb(StringUtil.randomContentThumb());
 		} else {
