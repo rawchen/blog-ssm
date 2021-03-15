@@ -164,11 +164,9 @@ public class AdminController extends BaseController {
 		}
 
 		int result = 0;
-		System.out.println(blogId);
 		if ("".equals(blogId)) {//新增
 			result = contentService.insert(content);
 		}else {
-			System.out.println(content);
 			result = contentService.updateContent(content);
 		}
 

@@ -20,6 +20,12 @@
 	<link rel="stylesheet" th:href="@{/plugins/prism/css/prism.css}">
 	<link rel="stylesheet" th:href="@{/plugins/lightbox/css/zoomify.min.css}">
 	<style type="text/css">
+        #editBlog {
+            color: black;
+        }
+		#editBlog:hover {
+			color: #4b667f;
+		}
 		#comment-form {
 			position: relative;
 			margin: 0 0 16px;
@@ -259,7 +265,8 @@
 								</div>
 								<div>
 									<span class="text-sm mr-1"><i class="far fa-calendar-alt mr-1"></i>[[${#dates.format(content.createdTime, 'yyyy-MM-dd HH:mm')}]]</span>
-									<span class="text-sm"><i class="far fa-eye mr-1"></i>[[${content.views}]]</span>
+									<span class="text-sm" th:if="${#session.getAttribute('USER_SESSION')}!=null"><a id="editBlog" target="_blank" th:href="'/adminModify?cid='+${content.cid}"><i class="far fa-eye mr-1"></i></a>[[${content.views}]]</span>
+									<span class="text-sm"  th:if="${#session.getAttribute('USER_SESSION')}==null"><i class="far fa-eye mr-1"></i></a>[[${content.views}]]</span>
 								</div>
 
 							</div><!-- /.card-header -->
