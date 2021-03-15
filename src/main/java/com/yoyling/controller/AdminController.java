@@ -93,7 +93,11 @@ public class AdminController extends BaseController {
 	 */
 	@RequestMapping("/adminEditBlog")
 	public String adminEditBlog(Model model) {
-		String blogId = request.getParameter("blogId");
+
+		String blogId = "";
+		if (request.getParameter("blogId") != null) {
+			blogId = request.getParameter("blogId");
+		}
 
 		String blogTitle = request.getParameter("blogTitle");
 		String blogSlug = request.getParameter("blogSlug");

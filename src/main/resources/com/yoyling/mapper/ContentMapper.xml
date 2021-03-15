@@ -70,7 +70,7 @@
     select author_id from content where cid = #{cid};
   </select>
 
-  <select id="selectContentAuthorIdBycontentId" parameterType="int" resultType="int">
+  <select id="selectContentViewsBycontentId" parameterType="int" resultType="int">
     select views from content where cid = #{cid};
   </select>
 
