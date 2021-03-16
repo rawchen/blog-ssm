@@ -292,7 +292,7 @@
 										<span class="direct-chat-timestamp float-left ml-2" th:text="${comment.createdDisplay}"></span>
 									</div>
 									<!-- /.direct-chat-infos -->
-									<img class="direct-chat-img position-absolute border" th:src="${comment.mail}" alt="message user image">
+									<img class="direct-chat-img position-absolute border" th:src="${comment.mail}" alt="">
 									<!-- /.direct-chat-img -->
 									<div class="direct-chat-text float-left"><span class="comm-text" th:utext="${comment.text}"/><a class="badge" th:href="'javascript:reply(\''+'/comment/'+${content.cid}+'/'+${comment.coid}+'\''+',\''+${comment.author}+'\')'">回复</a>
 									</div>
@@ -309,7 +309,7 @@
 
 									</div>
 									<!-- /.direct-chat-infos -->
-									<img class="direct-chat-img border position-absolute r-2" th:src="${comment.mail}" alt="message user image">
+									<img class="direct-chat-img border position-absolute r-2" th:src="${comment.mail}" alt="">
 									<!-- /.direct-chat-img -->
 									<div class="direct-chat-text float-right"><span class="comm-text" th:utext="${comment.text}"/><a class="badge" th:href="'javascript:reply(\''+'/comment/'+${content.cid}+'/'+${comment.coid}+'\''+',\''+${comment.author}+'\')'">回复</a>
 									</div>
