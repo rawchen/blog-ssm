@@ -105,7 +105,15 @@ public class AdminController extends BaseController {
 
 		List<String> blogTag = new ArrayList<>();
 		if (request.getParameterValues("blogTag") != null) {
-			blogTag = Arrays.asList(request.getParameterValues("blogTag"));
+			if ("".equals(blogId)) {//新增
+				blogTag = Arrays.asList(request.getParameterValues("blogTag"));
+			}else {//更新
+				if ("".equals(request.getParameterValues("blogTag")[0])) {
+					blogTag.clear();
+				}else {
+					blogTag = stringToList(request.getParameterValues("blogTag")[0]);
+				}
+			}
 		}
 
 		String blogDescription = request.getParameter("blogDescription");
