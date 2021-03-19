@@ -63,12 +63,11 @@ public class FileController extends BaseController {
 		User user = (User) session.getAttribute("USER_SESSION");
 		int uid = user.getUid();
 
-		String url = "file/" + uid + "/";
+		String url = "file/";
 		String realPath = req.getServletContext().getRealPath("/upload/");
 		java.io.File file = new java.io.File(realPath, url);
 		if (!file.exists() && file.mkdirs()) {
 		}
-
 		map.put("success", 1);
 
 		for (MultipartFile mFile : files) {
@@ -82,7 +81,7 @@ public class FileController extends BaseController {
 				}
 
 				File newFile = new File();
-				newFile.setPath("/upload/file/"+uid+"/"+mFile.getOriginalFilename());
+				newFile.setPath("/upload/file/"+mFile.getOriginalFilename());
 				newFile.setAuthorId(uid);
 				newFile.setFileStatus("publish");
 				newFile.setName(mFile.getOriginalFilename());
@@ -115,9 +114,8 @@ public class FileController extends BaseController {
 	@RequestMapping("/deleteFile/{fid}")
 	public String deleteFile(@PathVariable int fid, HttpServletRequest req) {
 		User user = (User) session.getAttribute("USER_SESSION");
-		int uid = user.getUid();
 
-		String url = "file/" + uid + "/";
+		String url = "file/";
 		String realPath = req.getServletContext().getRealPath("/upload/");
 		java.io.File file1 = new java.io.File(realPath, url + fileService.selectFileByFid(fid).getName());
 		if (file1.exists()) {
@@ -130,13 +128,10 @@ public class FileController extends BaseController {
 	@RequestMapping("/deleteSelectFile")
 	public String deleteSelectFile(HttpServletRequest req) {
 		String[] fids = request.getParameterValues("fid");
-		User user = (User) session.getAttribute("USER_SESSION");
-		int uid = user.getUid();
-
 		try {
 			if (fids != null && fids.length > 0) {
 				for (String fid: fids) {
-					String url = "file/" + uid + "/";
+					String url = "file/";
 					String realPath = req.getServletContext().getRealPath("/upload/");
 					java.io.File file1 = new java.io.File(realPath, url + fileService.selectFileByFid(Integer.parseInt(fid)).getName());
 					if (file1.exists()) {
