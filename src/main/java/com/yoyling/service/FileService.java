@@ -15,6 +15,4 @@ public interface FileService {
 	int deleteByPrimaryKey(int fid);
 
 	File selectFileByFid(int fid);
-
-	int deleteSelectFile(String[] fids);
 }

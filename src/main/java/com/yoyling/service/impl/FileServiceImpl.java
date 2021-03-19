@@ -32,21 +32,4 @@ public class FileServiceImpl extends BaseServiceImpl implements FileService {
 	public File selectFileByFid(int fid) {
 		return fileMapper.selectByPrimaryKey(fid);
 	}
-
-	@Override
-	public int deleteSelectFile(String[] fids) {
-		try {
-			if (fids != null && fids.length > 0) {
-				for (String uid: fids) {
-					int a = userMapper.deleteByPrimaryKey(Integer.parseInt(uid));
-					//删除所属的帖子
-					int b = contentMapper.deleteByAuthorId(Integer.parseInt(uid));
-				}
-			}
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-			return 0;
-		}
-		return 1;
-	}
 }
