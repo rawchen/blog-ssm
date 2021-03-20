@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle} + '&nbsp;|&nbsp;Log in'"></title>
+	<title th:text="${#servletContext.getAttribute('applicationOptionsMap').websiteTitle} + '&nbsp;|&nbsp;Register'"></title>
 	<link rel="shortcut icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
 	<link rel="apple-touch-icon" th:href="${#servletContext.getAttribute('applicationOptionsMap').websiteIco}">
 
@@ -69,13 +69,13 @@
 					</div>
 				</div>
 				<div class="input-group mb-3">
-					<input type="button" onclick="subForm()" class="btn btn-success btn-block" value="注册">
+					<input type="button" onclick="subForm()" class="btn btn-primary btn-block" value="注册">
 				</div>
 			</form>
 
 			<div class="social-auth-links text-center mb-3">
 				<p>- OR -</p>
-				<a href="/login" class="btn btn-block btn-primary">
+				<a href="/login" class="btn btn-block btn-success">
 					登录
 				</a>
 			</div>
