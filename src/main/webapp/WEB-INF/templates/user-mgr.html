@@ -300,9 +300,9 @@
 				{
 					render: function (data, type, row, meta) {
 						if (row.uid == 1) {
-							return '<button class="btn btn-success btn-xs">修改</button>';
+							return '<a href="javascript:void(0);" onclick="updateUser(' + row.uid +');" class="btn btn-success btn-xs">修改</a>';
 						}else {
-							return '<a href="javascript:void(0);" onclick="deleteUser(' + row.uid +');" class="btn btn-danger btn-xs">删除</a> <button class="btn btn-success btn-xs">修改</button>';
+							return '<a href="javascript:void(0);" onclick="deleteUser(' + row.uid +');" class="btn btn-danger btn-xs">删除</a> <a href="javascript:void(0);" onclick="updateUser(' + row.uid +');" class="btn btn-success btn-xs">修改</a>';
 						}
 
 					}
