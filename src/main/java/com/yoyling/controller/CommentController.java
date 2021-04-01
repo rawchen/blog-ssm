@@ -27,12 +27,6 @@ public class CommentController extends BaseController {
 		String mail = request.getParameter("mail");
 		String url = request.getParameter("url");
 
-		System.out.println(contentId);
-		System.out.println(commentText);
-
-//		String author = request.getParameter("author");
-//		String mail = request.getParameter("mail");
-//		String url = request.getParameter("url");
 		boolean isHaveAuthorAndMail = true;
 		if (author == null || "".equals(author) || mail == null || "".equals(mail)) {
 			isHaveAuthorAndMail = false;
@@ -42,7 +36,6 @@ public class CommentController extends BaseController {
 		boolean isRobot = !isContainChinese(commentText) && !isContainChinese(author);
 		int contentIdInt = 0;
 
-		System.out.println("contentId:" + contentId);
 		if (contentId == null || "".equals(contentId)) {
 		} else {
 			contentIdInt = Integer.parseInt(contentId);
@@ -53,7 +46,6 @@ public class CommentController extends BaseController {
 		comment.setCreated(new Date());
 
 		User sessionUser = (User) session.getAttribute("USER_SESSION");
-		System.out.println(sessionUser);
 		if (sessionUser == null) {
 			if (!isHaveAuthorAndMail || isRobot) {
 				return "redirect:/index";
