@@ -333,7 +333,7 @@
 										<input type="email" name="mail" id="mail" class="form-control input-control clearfix" placeholder="邮箱 (必填哦)" value="" required="">
 										<input type="url" name="url" id="url" class="form-control input-control clearfix" placeholder="博客地址 (https://)" value="">
 									</div>
-									<input type="hidden" name="contentId" th:value="${content.cid}">
+									<input type="text" style="display: none" name="contentId" th:value="${content.cid}">
 
 									<textarea name="commentText" id="textarea" class="form-control" placeholder="来都来了，看都看了，想说点什么吗 0_o" required="required"></textarea>
 

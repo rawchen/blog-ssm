@@ -6,10 +6,7 @@ import com.yoyling.domain.User;
 import com.yoyling.utils.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -21,30 +18,44 @@ import static com.yoyling.utils.StringUtil.*;
 @Controller
 public class CommentController extends BaseController {
 
-	@RequestMapping("/comment")
+	@RequestMapping(value = "/comment")
 	public String comment() {
+		String contentId = request.getParameter("contentId");
 		String commentText = request.getParameter("commentText");
 		commentText = SmileUtil.StringConvertSmile(commentText);
 		String author = request.getParameter("author");
 		String mail = request.getParameter("mail");
 		String url = request.getParameter("url");
-		boolean isHaveAuthorAndMail = author == null || "".equals(author) || mail == null || "".equals(mail);
+
+		System.out.println(contentId);
+		System.out.println(commentText);
+
+//		String author = request.getParameter("author");
+//		String mail = request.getParameter("mail");
+//		String url = request.getParameter("url");
+		boolean isHaveAuthorAndMail = true;
+		if (author == null || "".equals(author) || mail == null || "".equals(mail)) {
+			isHaveAuthorAndMail = false;
+		}
 
 		//判断机器人评论则直接返回到首页，后期可以添加屏蔽敏感词汇、网址关键字、邮箱关键字、ip等。
 		boolean isRobot = !isContainChinese(commentText) && !isContainChinese(author);
-		int contentId = 0;
-		if (request.getParameter("contentId") == null || "".equals(request.getParameter("contentId"))) {
+		int contentIdInt = 0;
+
+		System.out.println("contentId:" + contentId);
+		if (contentId == null || "".equals(contentId)) {
 		} else {
-			contentId = Integer.parseInt(request.getParameter("contentId"));
+			contentIdInt = Integer.parseInt(contentId);
 		}
 
 		Comment comment = new Comment();
-		comment.setCid(contentId);
+		comment.setCid(contentIdInt);
 		comment.setCreated(new Date());
 
 		User sessionUser = (User) session.getAttribute("USER_SESSION");
+		System.out.println(sessionUser);
 		if (sessionUser == null) {
-			if (isHaveAuthorAndMail || isRobot) {
+			if (!isHaveAuthorAndMail || isRobot) {
 				return "redirect:/index";
 			} else {
 				comment.setAuthorid(0);
@@ -66,10 +77,10 @@ public class CommentController extends BaseController {
 		comment.setParent(0);
 		int a = commentService.insert(comment);
 		CookieUtil.setUserLoginCookie(author, mail, url, request, response);
-		if (contentId == 0) {
+		if (contentIdInt == 0) {
 			return "redirect:/guestbook";
 		} else {
-			return "redirect:/articles/"+contentService.selectByPrimaryKey(contentId).getSlug();
+			return "redirect:/articles/"+contentService.selectByPrimaryKey(contentIdInt).getSlug();
 		}
 	}
 
