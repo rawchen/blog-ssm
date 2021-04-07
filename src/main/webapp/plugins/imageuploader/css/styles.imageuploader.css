@@ -131,9 +131,12 @@ dfn {
  * Correct the font size and margin on `h1` elements within `section` and
  * `article` contexts in Chrome, Firefox, and Safari.
  */
+
+/*
 h1 {
   font-size: 2em;
   margin: 0.67em 0; }
+*/
 
 /**
  * Add the correct background and color in IE 9-.
@@ -509,10 +512,13 @@ textarea {
   /*padding: 0.2em;*/
 }
 
+/*
 body {
   font-family: "Source Sans Pro", sans-serif;
   font-size: 1em; }
+*/
 
+/*
 h1,
 h2,
 h3,
@@ -521,7 +527,9 @@ h5,
 h6 {
   font-family: "Source Sans Pro", sans-serif;
   margin: 0; }
+*/
 
+/*
 h1,
 .primary-heading {
   font-size: 2em; }
@@ -538,6 +546,7 @@ h4,
 h5,
 h6 {
   font-size: 1.2em; }
+*/
 
 .text--important, .uploader__instructions {
   font-size: 1.2em; }
