@@ -77,7 +77,7 @@ public class FileController extends BaseController {
 				if (new java.io.File(realPath, url + fileName).exists()) {
 					map.put("success", -1);
 					map.put("message", "文件已存在");
-					return map;
+					break;
 				}
 
 				File newFile = new File();
@@ -88,7 +88,7 @@ public class FileController extends BaseController {
 				if (!fileName.contains(".")) {
 					map.put("success", 0);
 					map.put("message", "上传失败");
-					return map;
+					break;
 				}
 				//修正上传判断
 				mFile.transferTo(new java.io.File(realPath,url + fileName));
