@@ -74,24 +74,24 @@ public class FileController extends BaseController {
 			try {
 				String fileName = mFile.getOriginalFilename();
 
-				if (new java.io.File(realPath, url + mFile.getOriginalFilename()).exists()) {
+				if (new java.io.File(realPath, url + fileName).exists()) {
 					map.put("success", -1);
 					map.put("message", "文件已存在");
 					return map;
 				}
 
 				File newFile = new File();
-				newFile.setPath("/upload/file/"+mFile.getOriginalFilename());
+				newFile.setPath("/upload/file/"+fileName);
 				newFile.setAuthorId(uid);
 				newFile.setFileStatus("publish");
-				newFile.setName(mFile.getOriginalFilename());
+				newFile.setName(fileName);
 				if (!fileName.contains(".")) {
 					map.put("success", 0);
 					map.put("message", "上传失败");
 					return map;
 				}
 				//修正上传判断
-				mFile.transferTo(new java.io.File(realPath,url + mFile.getOriginalFilename()));
+				mFile.transferTo(new java.io.File(realPath,url + fileName));
 
 				newFile.setFileType(FileUtil.imageType(fileName.substring(fileName.lastIndexOf(".")+1)));
 				newFile.setCreatedTime(new Date());
