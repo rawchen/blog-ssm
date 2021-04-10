@@ -90,6 +90,7 @@ public class FileController extends BaseController {
 					map.put("message", "上传失败");
 					return map;
 				}
+				//修正上传判断
 				mFile.transferTo(new java.io.File(realPath,url + mFile.getOriginalFilename()));
 
 				newFile.setFileType(FileUtil.imageType(fileName.substring(fileName.lastIndexOf(".")+1)));
