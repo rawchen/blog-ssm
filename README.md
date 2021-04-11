@@ -38,7 +38,7 @@ Spring+SpringMVC+MyBatis+Thymeleaf+JQuery+Js+Ajax+Json+PageHelper
 4. 为项目添加Tomcat配置，Deployment下Application context设置为：/
 
 ```Java
-Admin:	帐号：yoyling	密码：yoyling(已修改，自行部署)
+Admin:	帐号：yoyling	密码：yoyling(在线演示已修改，自行部署)
 User:	帐号：yoyling1	密码：yoyling
 ```
 
