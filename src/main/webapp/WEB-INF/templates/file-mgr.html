@@ -363,8 +363,6 @@
 		 */
 		function renderTopPlugin(data) {
 			//上方topPlugin DIV中追加HTML
-			//var topPlugin='<button id="addButton" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addUser" style="display:block;">' +
-			// '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>添加用户</button>';
 			//删除用户按钮的HTMLDOM
 			var topPlugin = '<a href="" class="btn btn-success btn-sm" data-toggle="modal" data-target="#uploadFileList">上传</a>  <a href="javascript:void(0);" id="deleteSelectFile" class="btn btn-danger btn-sm">批量删除</a> <a href="javascript:void(0);" class="btn btn-info btn-sm">导出(未实现)</a>';
 			$("#topPlugin").append(topPlugin);//在表格上方topPlugin DIV中追加HTML
