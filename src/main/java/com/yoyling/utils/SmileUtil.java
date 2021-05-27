@@ -9,7 +9,7 @@ public class SmileUtil {
 			return null;
 		}
 		Map<String, String> smile = new HashMap<>();
-		String url = "https://yoyling.com/usr/plugins/Smilies/tieba";
+		String url = "https://rawchen.com/usr/plugins/Smilies/tieba";
 		String front = "<img class=\"smile-img\" src=\""+url+"/";
 		String end = "\">";
 		smile.put(":mrgreen:",front+"icon_mrgreen.png"+end);
