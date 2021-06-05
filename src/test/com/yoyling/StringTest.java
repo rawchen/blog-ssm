@@ -5,6 +5,7 @@ import com.yoyling.utils.FileUtil;
 import com.yoyling.utils.GravatarUtil;
 import com.yoyling.utils.StringUtil;
 import org.junit.Test;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,5 +74,13 @@ public class StringTest {
 		System.out.println(!isContainChinese("My Homework Help") && !isContainChinese("<a href=https://writingserviceray.com/>write a essay about yourself</a> <a href=https://essayhw.com/>research paper</a>"));
 	}
 
-
+	@Test
+	@Scheduled(fixedDelay = 1000)
+	public void run11() {
+		System.out.println(1);
+		while (true) {
+			int i = 0;
+			i++;
+		}
+	}
 }
