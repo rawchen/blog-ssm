@@ -104,6 +104,14 @@ User:	帐号：yoyling1	密码：yoyling
 
 ![blog-23.png](https://cdn.jsdelivr.net/gh/rawchen/JsDelivr/static/blog-ssm/blog-23.png)
 
+## Stargazers
+
+[![](https://reporoster.com/stars/rawchen/blog-ssm)](https://github.com/rawchen/blog-ssm/stargazers)
+
+## Forkers
+
+[![](https://reporoster.com/forks/rawchen/blog-ssm)](https://github.com/rawchen/blog-ssm/network/members)
+
 ## 待完成
 
 - [ ] 模板片段（代码冗余：⻚眉⻚脚公共菜单..）
