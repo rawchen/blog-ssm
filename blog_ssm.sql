@@ -209,7 +209,7 @@ CREATE TABLE `options`  (
 INSERT INTO `options` VALUES ('avatar', 'https://yoyling.com/favicon.png');
 INSERT INTO `options` VALUES ('description', '大道至简 大简至极');
 INSERT INTO `options` VALUES ('email_link', 'https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=Bn9pf2pvaGFZZWlrRnd3KGVpaw');
-INSERT INTO `options` VALUES ('github_link', 'https://github.com/yoyling');
+INSERT INTO `options` VALUES ('github_link', 'https://github.com/rawchen');
 INSERT INTO `options` VALUES ('hobby', '后端开发,极简化,写博客,去看海,摄影');
 INSERT INTO `options` VALUES ('icp', '闽ICP备18008354号-1');
 INSERT INTO `options` VALUES ('location', 'Xiamen, China');
