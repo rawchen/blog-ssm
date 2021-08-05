@@ -20,7 +20,7 @@ public class ScheduleController {
 	 */
 	@RequestMapping("/ts")
 	@ResponseBody
-	@Scheduled(fixedDelay = 1000)
+//	@Scheduled(fixedDelay = 1000)
 	public Map<String,Object> ts() {
 		Map<String, Object> map = new HashMap<>();
 		map.put("data", "success");

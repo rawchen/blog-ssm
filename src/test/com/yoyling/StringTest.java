@@ -78,9 +78,5 @@ public class StringTest {
 	@Scheduled(fixedDelay = 1000)
 	public void run11() {
 		System.out.println(1);
-		while (true) {
-			int i = 0;
-			i++;
-		}
 	}
 }
