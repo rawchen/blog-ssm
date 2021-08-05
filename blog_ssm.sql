@@ -289,16 +289,16 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'yoyling', '4114f0873c42e83c2af05855d6a00fab', '2221999792@qq.com', 'https://yoyling.com', 'YOYLING.', '2021-01-08 17:54:08', '2021-01-08 17:54:12', 'administrator', 'https://gravatar.loli.net/avatar/5e14d26e8ebbf5b28fe734b82043d3ad?s=200');
-INSERT INTO `user` VALUES (6, 'yoyling1', '4114f0873c42e83c2af05855d6a00fab', '2131@qq.com', NULL, 'yoyling1', '2021-01-18 22:17:27', '2021-01-18 22:17:27', 'user', 'https://gravatar.loli.net/avatar/1680c30fc7df9403fa7d9518dabc9883?s=200');
-INSERT INTO `user` VALUES (7, '123213', '4114f0873c42e83c2af05855d6a00fab', '12321@qq.com', NULL, '123213', '2021-01-18 22:32:37', '2021-01-18 22:32:37', 'user', 'https://gravatar.loli.net/avatar/25bb0274ea3102380e5c10f5911d74dc?s=200');
-INSERT INTO `user` VALUES (37, 'admin', 'd9b1d7db4cd6e70935368a1efb10e377', '2221999792@qq.com', NULL, 'admin', '2021-01-19 12:50:02', '2021-01-19 12:50:02', 'user', 'https://gravatar.loli.net/avatar/5e14d26e8ebbf5b28fe734b82043d3ad?s=200');
-INSERT INTO `user` VALUES (38, 'user', '0d8d5cd06832b29560745fe4e1b941cf', '2221999792@qq.com', NULL, 'user', '2021-01-19 12:50:45', '2021-01-19 12:50:45', 'user', 'https://gravatar.loli.net/avatar/5e14d26e8ebbf5b28fe734b82043d3ad?s=200');
-INSERT INTO `user` VALUES (39, '杉渝', '4e3c2d212374c4b1c56e2f4dc6606c3d', '1354605159@qq.com', NULL, '杉渝', '2021-01-19 14:15:25', '2021-01-19 14:15:25', 'user', 'https://gravatar.loli.net/avatar/b9ac41d2108f0a5d66ea057e1b395f22?s=200');
-INSERT INTO `user` VALUES (40, '失眠', '31cf24a146bc9c82f45d2a58e2429930', '1164245647@qq.com', NULL, '失眠', '2021-01-19 14:26:24', '2021-01-19 14:26:24', 'user', 'https://gravatar.loli.net/avatar/d58f32f999d02c5de57c9aeedef2569b?s=200');
-INSERT INTO `user` VALUES (41, 'kyoya18520', 'bd484da172a2154b1c47ae6aadf99b0a', '123456@qq.com', NULL, 'kyoya18520', '2021-01-20 10:52:47', '2021-01-20 10:52:47', 'user', 'https://gravatar.loli.net/avatar/35de170fc7836ea645e1a7d7b307ff6e?s=200');
-INSERT INTO `user` VALUES (42, 'asdada', 'ec6a6536ca304edf844d1d248a4f08dc', '12312@qq.com', NULL, 'asdada', '2021-01-23 22:25:16', '2021-01-23 22:25:16', 'user', 'https://gravatar.loli.net/avatar/e60e07e6aa600a8f9b83b4697f29deb9?s=200');
-INSERT INTO `user` VALUES (43, 'yoyling2', '4114f0873c42e83c2af05855d6a00fab', 'yoyling2@qq.com', NULL, 'yoyling2', '2021-02-15 22:26:19', '2021-02-15 22:26:19', 'user', 'https://gravatar.loli.net/avatar/db7b79b05566f5708d19a929bba7b31d?s=200');
-INSERT INTO `user` VALUES (44, 'yoyling3', '4114f0873c42e83c2af05855d6a00fab', '2221999792@qq.com', NULL, 'yoyling3', '2021-02-18 12:28:08', '2021-02-18 12:28:08', 'user', 'https://gravatar.loli.net/avatar/5e14d26e8ebbf5b28fe734b82043d3ad?s=200');
+INSERT INTO `user` VALUES (1, 'yoyling', '4114f0873c42e83c2af05855d6a00fab', '2221999792@qq.com', 'https://yoyling.com', 'YOYLING.', '2021-01-08 17:54:08', '2021-01-08 17:54:12', 'administrator', 'https://cravatar.cn/avatar/5e14d26e8ebbf5b28fe734b82043d3ad?s=200');
+INSERT INTO `user` VALUES (6, 'yoyling1', '4114f0873c42e83c2af05855d6a00fab', '2131@qq.com', NULL, 'yoyling1', '2021-01-18 22:17:27', '2021-01-18 22:17:27', 'user', 'https://cravatar.cn/avatar/1680c30fc7df9403fa7d9518dabc9883?s=200');
+INSERT INTO `user` VALUES (7, '123213', '4114f0873c42e83c2af05855d6a00fab', '12321@qq.com', NULL, '123213', '2021-01-18 22:32:37', '2021-01-18 22:32:37', 'user', 'https://cravatar.cn/avatar/25bb0274ea3102380e5c10f5911d74dc?s=200');
+INSERT INTO `user` VALUES (37, 'admin', 'd9b1d7db4cd6e70935368a1efb10e377', '2221999792@qq.com', NULL, 'admin', '2021-01-19 12:50:02', '2021-01-19 12:50:02', 'user', 'https://cravatar.cn/avatar/5e14d26e8ebbf5b28fe734b82043d3ad?s=200');
+INSERT INTO `user` VALUES (38, 'user', '0d8d5cd06832b29560745fe4e1b941cf', '2221999792@qq.com', NULL, 'user', '2021-01-19 12:50:45', '2021-01-19 12:50:45', 'user', 'https://cravatar.cn/avatar/5e14d26e8ebbf5b28fe734b82043d3ad?s=200');
+INSERT INTO `user` VALUES (39, '杉渝', '4e3c2d212374c4b1c56e2f4dc6606c3d', '1354605159@qq.com', NULL, '杉渝', '2021-01-19 14:15:25', '2021-01-19 14:15:25', 'user', 'https://cravatar.cn/avatar/b9ac41d2108f0a5d66ea057e1b395f22?s=200');
+INSERT INTO `user` VALUES (40, '失眠', '31cf24a146bc9c82f45d2a58e2429930', '1164245647@qq.com', NULL, '失眠', '2021-01-19 14:26:24', '2021-01-19 14:26:24', 'user', 'https://cravatar.cn/avatar/d58f32f999d02c5de57c9aeedef2569b?s=200');
+INSERT INTO `user` VALUES (41, 'kyoya18520', 'bd484da172a2154b1c47ae6aadf99b0a', '123456@qq.com', NULL, 'kyoya18520', '2021-01-20 10:52:47', '2021-01-20 10:52:47', 'user', 'https://cravatar.cn/avatar/35de170fc7836ea645e1a7d7b307ff6e?s=200');
+INSERT INTO `user` VALUES (42, 'asdada', 'ec6a6536ca304edf844d1d248a4f08dc', '12312@qq.com', NULL, 'asdada', '2021-01-23 22:25:16', '2021-01-23 22:25:16', 'user', 'https://cravatar.cn/avatar/e60e07e6aa600a8f9b83b4697f29deb9?s=200');
+INSERT INTO `user` VALUES (43, 'yoyling2', '4114f0873c42e83c2af05855d6a00fab', 'yoyling2@qq.com', NULL, 'yoyling2', '2021-02-15 22:26:19', '2021-02-15 22:26:19', 'user', 'https://cravatar.cn/avatar/db7b79b05566f5708d19a929bba7b31d?s=200');
+INSERT INTO `user` VALUES (44, 'yoyling3', '4114f0873c42e83c2af05855d6a00fab', '2221999792@qq.com', NULL, 'yoyling3', '2021-02-18 12:28:08', '2021-02-18 12:28:08', 'user', 'https://cravatar.cn/avatar/5e14d26e8ebbf5b28fe734b82043d3ad?s=200');
 
 SET FOREIGN_KEY_CHECKS = 1;
