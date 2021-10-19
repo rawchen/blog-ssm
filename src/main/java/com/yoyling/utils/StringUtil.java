@@ -3,6 +3,7 @@ package com.yoyling.utils;
 import org.springframework.util.DigestUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -174,5 +175,22 @@ public class StringUtil {
 		}
 		String regex = "^[a-zA-Z]+$";
 		return str.matches(regex);
+	}
+
+	public static boolean isRobotComment(String commentText, String authorName) {
+		String encode ="GB2312";
+
+		//如果不包含任意简体中文都是机器人
+		if (!isContainChinese(commentText) && !isContainChinese(authorName)) {
+			return true;
+		}
+		try {
+			if (!commentText.equals(new String(commentText.getBytes(encode), encode))) {
+				return true;
+			}
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }
