@@ -11,7 +11,7 @@ public interface LogService {
 
 	List<Integer> selectTodayPvUvIndexGuestbook();
 
-	List<Integer> selectLastWeekPvList();
+	List<Integer> selectSevenDaysPv();
 
-	List<Integer> selectLastWeekUvList();
+	List<Integer> selectSevenDaysUv();
 }

@@ -1,6 +1,7 @@
 package com.yoyling.service.impl;
 
 import com.yoyling.domain.Log;
+import com.yoyling.domain.dto.SevenDayLog;
 import com.yoyling.service.LogService;
 import org.springframework.stereotype.Service;
 
@@ -37,42 +38,22 @@ public class LogServiceImpl extends BaseServiceImpl implements LogService {
 	}
 
 	@Override
-	public List<Integer> selectLastWeekPvList() {
+	public List<Integer> selectSevenDaysPv() {
 		List<Integer> l = new ArrayList<>();
-		int r7 = logMapper.selectApartDaysPv(7);
-		int r6 = logMapper.selectApartDaysPv(6);
-		int r5 = logMapper.selectApartDaysPv(5);
-		int r4 = logMapper.selectApartDaysPv(4);
-		int r3 = logMapper.selectApartDaysPv(3);
-		int r2 = logMapper.selectApartDaysPv(2);
-		int r1 = logMapper.selectApartDaysPv(1);
-		l.add(r7);
-		l.add(r6);
-		l.add(r5);
-		l.add(r4);
-		l.add(r3);
-		l.add(r2);
-		l.add(r1);
+		List<SevenDayLog> logs = logMapper.selectSevenDaysPv();
+		for (SevenDayLog log : logs) {
+			l.add(log.getAccessValue());
+		}
 		return l;
 	}
 
 	@Override
-	public List<Integer> selectLastWeekUvList() {
+	public List<Integer> selectSevenDaysUv() {
 		List<Integer> l = new ArrayList<>();
-		int r7 = logMapper.selectApartDaysUv(7);
-		int r6 = logMapper.selectApartDaysUv(6);
-		int r5 = logMapper.selectApartDaysUv(5);
-		int r4 = logMapper.selectApartDaysUv(4);
-		int r3 = logMapper.selectApartDaysUv(3);
-		int r2 = logMapper.selectApartDaysUv(2);
-		int r1 = logMapper.selectApartDaysUv(1);
-		l.add(r7);
-		l.add(r6);
-		l.add(r5);
-		l.add(r4);
-		l.add(r3);
-		l.add(r2);
-		l.add(r1);
+		List<SevenDayLog> logs = logMapper.selectSevenDaysUv();
+		for (SevenDayLog log : logs) {
+			l.add(log.getAccessValue());
+		}
 		return l;
 	}
 }

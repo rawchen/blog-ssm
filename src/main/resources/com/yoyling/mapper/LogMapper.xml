@@ -14,6 +14,12 @@
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.yoyling.domain.Log">
     <result column="ua" jdbcType="LONGVARCHAR" property="ua" />
   </resultMap>
+
+  <resultMap id="SevenDayLogResultMap" type="com.yoyling.domain.dto.SevenDayLog">
+    <result column="access_date" jdbcType="TIMESTAMP" property="accessDate" />
+    <result column="access_value" jdbcType="INTEGER" property="accessValue" />
+  </resultMap>
+
   <sql id="Base_Column_List">
     id, browser_name, os_name, api_path, ip, referer, access_time, content_id
   </sql>
@@ -62,12 +68,64 @@
     select count(id) FROM log WHERE TO_DAYS(NOW()) = TO_DAYS(access_time) and api_path like '%${value}%'
   </select>
 
-  <select id="selectApartDaysPv" parameterType="int" resultType="int">
-    select count(id) FROM log WHERE TO_DAYS(NOW())-#{value} = TO_DAYS(access_time)
+  <select id="selectSevenDaysPv" resultMap="SevenDayLogResultMap">
+    SELECT
+    b.access_date,IFNULL(a.COUNT,0) AS access_value
+    FROM (
+    SELECT DATE_SUB(CURDATE(), INTERVAL 1 DAY) AS access_date
+    UNION ALL
+    SELECT DATE_SUB(CURDATE(), INTERVAL 2 DAY) AS item
+    UNION ALL
+    SELECT DATE_SUB(CURDATE(), INTERVAL 3 DAY) AS item
+    UNION ALL
+    SELECT DATE_SUB(CURDATE(), INTERVAL 4 DAY) AS item
+    UNION ALL
+    SELECT DATE_SUB(CURDATE(), INTERVAL 5 DAY) AS item
+    UNION ALL
+    SELECT DATE_SUB(CURDATE(), INTERVAL 6 DAY) AS item
+    UNION ALL
+    SELECT DATE_SUB(CURDATE(), INTERVAL 7 DAY) AS item
+    ) b
+    LEFT JOIN
+    (
+    SELECT DATE_FORMAT(access_time,'%Y-%m-%d') days, COUNT(0) COUNT
+    <![CDATA[
+      FROM (SELECT * FROM log  WHERE DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= DATE(access_time)) as t
+    ]]>
+    GROUP BY days
+    ) AS a
+    ON (b.access_date = a.days)
+    ORDER BY access_date
   </select>
 
-  <select id="selectApartDaysUv" parameterType="int" resultType="int">
-    select count(distinct ip) FROM log WHERE TO_DAYS(NOW())-#{value} = TO_DAYS(access_time)
+  <select id="selectSevenDaysUv" resultMap="SevenDayLogResultMap">
+    SELECT
+      b.access_date,IFNULL(a.COUNT,0) AS access_value
+    FROM (
+           SELECT DATE_SUB(CURDATE(), INTERVAL 1 DAY) AS access_date
+           UNION ALL
+           SELECT DATE_SUB(CURDATE(), INTERVAL 2 DAY) AS item
+           UNION ALL
+           SELECT DATE_SUB(CURDATE(), INTERVAL 3 DAY) AS item
+           UNION ALL
+           SELECT DATE_SUB(CURDATE(), INTERVAL 4 DAY) AS item
+           UNION ALL
+           SELECT DATE_SUB(CURDATE(), INTERVAL 5 DAY) AS item
+           UNION ALL
+           SELECT DATE_SUB(CURDATE(), INTERVAL 6 DAY) AS item
+           UNION ALL
+           SELECT DATE_SUB(CURDATE(), INTERVAL 7 DAY) AS item
+         ) b
+           LEFT JOIN
+         (
+           SELECT DATE_FORMAT(access_time,'%Y-%m-%d') days, count(distinct ip) COUNT
+    <![CDATA[
+           FROM (SELECT * FROM log  WHERE DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= DATE(access_time)) as t
+    ]]>
+    GROUP BY days
+         ) AS a
+         ON (b.access_date = a.days)
+    ORDER BY access_date
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

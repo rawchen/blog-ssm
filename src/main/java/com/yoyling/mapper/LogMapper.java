@@ -1,6 +1,9 @@
 package com.yoyling.mapper;
 
 import com.yoyling.domain.Log;
+import com.yoyling.domain.dto.SevenDayLog;
+
+import java.util.List;
 
 public interface LogMapper {
     int deleteByPrimaryKey(Integer id);
@@ -33,7 +36,7 @@ public interface LogMapper {
 
     Integer selectTodayAccessLikeApi(String s);
 
-    int selectApartDaysPv(int i);
+    List<SevenDayLog> selectSevenDaysPv();
 
-    int selectApartDaysUv(int i);
+    List<SevenDayLog> selectSevenDaysUv();
 }

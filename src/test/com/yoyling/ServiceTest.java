@@ -160,4 +160,27 @@ public class ServiceTest {
 		}
 	}
 
+	@Test
+	public void run16() {
+		ApplicationContext ac = new
+				ClassPathXmlApplicationContext("classpath:spring-context.xml");
+		ContentService contentsService = (ContentService) ac.getBean("contentService");
+		List<Content> contents = contentsService.selectAllContent();
+		for (Content c : contents) {
+			System.out.println(c);
+			System.out.println(c.gettList());
+		}
+	}
+
+	@Test
+	public void run17() {
+		ApplicationContext ac = new
+				ClassPathXmlApplicationContext("classpath:spring-context.xml");
+		LogService logService = (LogService) ac.getBean("logService");
+		List<Integer> ys = logService.selectSevenDaysUv();
+		for (Integer y : ys) {
+			System.out.println(y);
+		}
+	}
+
 }

@@ -135,8 +135,8 @@ public class OtherController extends BaseController {
 	public Map<String,Object> getLastWeekendAccess() {
 		Map<String, Object> map = new HashMap<>();
 
-		List<Integer> pv = logService.selectLastWeekPvList();
-		List<Integer> uv = logService.selectLastWeekUvList();
+		List<Integer> pv = logService.selectSevenDaysPv();
+		List<Integer> uv = logService.selectSevenDaysUv();
 
 		List<Map<String,Object>> l = new ArrayList<>();
 		for (int i = 7; i > 0; i--) {
