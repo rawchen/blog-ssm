@@ -70,29 +70,27 @@
 
   <select id="selectSevenDaysPv" resultMap="SevenDayLogResultMap">
     SELECT
-    b.access_date,IFNULL(a.COUNT,0) AS access_value
+      b.access_date,IFNULL(a.count,0) AS access_value
     FROM (
-    SELECT DATE_SUB(CURDATE(), INTERVAL 1 DAY) AS access_date
-    UNION ALL
-    SELECT DATE_SUB(CURDATE(), INTERVAL 2 DAY) AS item
-    UNION ALL
-    SELECT DATE_SUB(CURDATE(), INTERVAL 3 DAY) AS item
-    UNION ALL
-    SELECT DATE_SUB(CURDATE(), INTERVAL 4 DAY) AS item
-    UNION ALL
-    SELECT DATE_SUB(CURDATE(), INTERVAL 5 DAY) AS item
-    UNION ALL
-    SELECT DATE_SUB(CURDATE(), INTERVAL 6 DAY) AS item
-    UNION ALL
-    SELECT DATE_SUB(CURDATE(), INTERVAL 7 DAY) AS item
-    ) b
+      SELECT DATE_SUB(CURDATE(), INTERVAL 1 DAY) AS access_date
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 2 DAY)
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 3 DAY)
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 4 DAY)
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 5 DAY)
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 6 DAY)
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+    ) AS b
     LEFT JOIN
     (
-    SELECT DATE_FORMAT(access_time,'%Y-%m-%d') days, COUNT(0) COUNT
-    <![CDATA[
-      FROM (SELECT * FROM log  WHERE DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= DATE(access_time)) as t
-    ]]>
-    GROUP BY days
+      SELECT DATE_FORMAT(access_time,'%Y-%m-%d') days, COUNT(0) AS count
+      FROM log
+      GROUP BY days
     ) AS a
     ON (b.access_date = a.days)
     ORDER BY access_date
@@ -100,31 +98,29 @@
 
   <select id="selectSevenDaysUv" resultMap="SevenDayLogResultMap">
     SELECT
-      b.access_date,IFNULL(a.COUNT,0) AS access_value
+      b.access_date,IFNULL(a.count,0) AS access_value
     FROM (
-           SELECT DATE_SUB(CURDATE(), INTERVAL 1 DAY) AS access_date
-           UNION ALL
-           SELECT DATE_SUB(CURDATE(), INTERVAL 2 DAY) AS item
-           UNION ALL
-           SELECT DATE_SUB(CURDATE(), INTERVAL 3 DAY) AS item
-           UNION ALL
-           SELECT DATE_SUB(CURDATE(), INTERVAL 4 DAY) AS item
-           UNION ALL
-           SELECT DATE_SUB(CURDATE(), INTERVAL 5 DAY) AS item
-           UNION ALL
-           SELECT DATE_SUB(CURDATE(), INTERVAL 6 DAY) AS item
-           UNION ALL
-           SELECT DATE_SUB(CURDATE(), INTERVAL 7 DAY) AS item
-         ) b
-           LEFT JOIN
-         (
-           SELECT DATE_FORMAT(access_time,'%Y-%m-%d') days, count(distinct ip) COUNT
-    <![CDATA[
-           FROM (SELECT * FROM log  WHERE DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= DATE(access_time)) as t
-    ]]>
-    GROUP BY days
-         ) AS a
-         ON (b.access_date = a.days)
+      SELECT DATE_SUB(CURDATE(), INTERVAL 1 DAY) AS access_date
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 2 DAY)
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 3 DAY)
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 4 DAY)
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 5 DAY)
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 6 DAY)
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+    ) AS b
+    LEFT JOIN
+    (
+      SELECT DATE_FORMAT(access_time,'%Y-%m-%d') days, COUNT(DISTINCT ip) AS count
+      FROM log
+      GROUP BY days
+    ) AS a
+    ON (b.access_date = a.days)
     ORDER BY access_date
   </select>
 

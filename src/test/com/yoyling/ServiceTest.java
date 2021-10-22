@@ -139,17 +139,6 @@ public class ServiceTest {
 	}
 
 	@Test
-	public void run14() {
-		ApplicationContext ac = new
-				ClassPathXmlApplicationContext("classpath:spring-context.xml");
-		LogService logService = (LogService) ac.getBean("logService");
-		List<Integer> ys = logService.selectLastWeekUvList();
-		for (Integer y : ys) {
-			System.out.println(y);
-		}
-	}
-
-	@Test
 	public void run15() {
 		ApplicationContext ac = new
 				ClassPathXmlApplicationContext("classpath:spring-context.xml");
