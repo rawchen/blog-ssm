@@ -117,7 +117,9 @@
     LEFT JOIN
     (
       SELECT DATE_FORMAT(access_time,'%Y-%m-%d') days, COUNT(DISTINCT ip) AS count
-      FROM log
+      <![CDATA[
+        FROM (SELECT * FROM log WHERE DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= DATE(access_time)) AS t
+      ]]>
       GROUP BY days
     ) AS a
     ON (b.access_date = a.days)
