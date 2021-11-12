@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rawchen.mapper.FileMapper">
+  <resultMap id="BaseResultMap" type="com.rawchen.domain.File">
+    <id column="fid" jdbcType="INTEGER" property="fid" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="author_id" jdbcType="INTEGER" property="authorId" />
+    <result column="file_status" jdbcType="VARCHAR" property="fileStatus" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="file_type" jdbcType="VARCHAR" property="fileType" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+    <result column="download_count" jdbcType="INTEGER" property="downloadCount" />
+    <result column="file_size" jdbcType="VARCHAR" property="fileSize" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    fid, path, author_id, file_status, name, file_type, created_time, modified_time, 
+    download_count, file_size
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from file
+    where fid = #{fid,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAllFile" resultMap="BaseResultMap">
+    select * from file order by created_time DESC
+  </select>
+
+  <select id="selectFileListWithUid" resultMap="BaseResultMap" parameterType="int">
+    select * from file where author_id = #{authorId} order by created_time DESC
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from file
+    where fid = #{fid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.rawchen.domain.File">
+    insert into file (fid, path, author_id, 
+      file_status, name, file_type, 
+      created_time, modified_time, download_count,file_size
+      )
+    values (#{fid,jdbcType=INTEGER}, #{path,jdbcType=VARCHAR}, #{authorId,jdbcType=INTEGER}, 
+      #{fileStatus,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{fileType,jdbcType=VARCHAR}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP}, #{downloadCount,jdbcType=INTEGER},
+      #{fileSize,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.rawchen.domain.File">
+    insert into file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fid != null">
+        fid,
+      </if>
+      <if test="path != null">
+        path,
+      </if>
+      <if test="authorId != null">
+        author_id,
+      </if>
+      <if test="fileStatus != null">
+        file_status,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="fileType != null">
+        file_type,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="modifiedTime != null">
+        modified_time,
+      </if>
+      <if test="downloadCount != null">
+        download_count,
+      </if>
+      <if test="fileSize != null">
+        file_size,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fid != null">
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="authorId != null">
+        #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="fileStatus != null">
+        #{fileStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        #{fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="downloadCount != null">
+        #{downloadCount,jdbcType=INTEGER},
+      </if>
+      <if test="fileSize != null">
+        #{fileSize,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rawchen.domain.File">
+    update file
+    <set>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="authorId != null">
+        author_id = #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="fileStatus != null">
+        file_status = #{fileStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        file_type = #{fileType,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="downloadCount != null">
+        download_count = #{downloadCount,jdbcType=INTEGER},
+      </if>
+      <if test="fileSize != null">
+        file_size = #{fileSize,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rawchen.domain.File">
+    update file
+    set path = #{path,jdbcType=VARCHAR},
+      author_id = #{authorId,jdbcType=INTEGER},
+      file_status = #{fileStatus,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      file_type = #{fileType,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      download_count = #{downloadCount,jdbcType=INTEGER},
+      file_size = #{fileSize,jdbcType=VARCHAR}
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+</mapper>

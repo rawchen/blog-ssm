@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rawchen.mapper.CategoryMapper">
+  <resultMap id="BaseResultMap" type="com.rawchen.domain.Category">
+    <id column="cgid" jdbcType="INTEGER" property="cgid" />
+    <result column="cg_name" jdbcType="VARCHAR" property="cgName" />
+    <result column="cg_slug" jdbcType="VARCHAR" property="cgSlug" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    cgid, cg_name, cg_slug
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from category
+    where cgid = #{cgid,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAllCategory" resultMap="BaseResultMap">
+    select * from category;
+  </select>
+
+  <select id="selectCategoryBySlug" parameterType="java.lang.String" resultType="int">
+    select cgid from category where cg_slug = #{cgSlug};
+  </select>
+
+  <select id="selectCategoryNameById" parameterType="int" resultType="string">
+    select cg_name from category where cgid = #{cgid};
+  </select>
+
+  <select id="selectCountOfCategory" resultType="int">
+    select count(*) from category;
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from category
+    where cgid = #{cgid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.rawchen.domain.Category">
+    insert into category (cgid, cg_name, cg_slug
+      )
+    values (#{cgid,jdbcType=INTEGER}, #{cgName,jdbcType=VARCHAR}, #{cgSlug,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.rawchen.domain.Category">
+    insert into category
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cgid != null">
+        cgid,
+      </if>
+      <if test="cgName != null">
+        cg_name,
+      </if>
+      <if test="cgSlug != null">
+        cg_slug,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cgid != null">
+        #{cgid,jdbcType=INTEGER},
+      </if>
+      <if test="cgName != null">
+        #{cgName,jdbcType=VARCHAR},
+      </if>
+      <if test="cgSlug != null">
+        #{cgSlug,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rawchen.domain.Category">
+    update category
+    <set>
+      <if test="cgName != null">
+        cg_name = #{cgName,jdbcType=VARCHAR},
+      </if>
+      <if test="cgSlug != null">
+        cg_slug = #{cgSlug,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cgid = #{cgid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rawchen.domain.Category">
+    update category
+    set cg_name = #{cgName,jdbcType=VARCHAR},
+      cg_slug = #{cgSlug,jdbcType=VARCHAR}
+    where cgid = #{cgid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rawchen.mapper.LogMapper">
+  <resultMap id="BaseResultMap" type="com.rawchen.domain.Log">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="browser_name" jdbcType="VARCHAR" property="browserName" />
+    <result column="os_name" jdbcType="VARCHAR" property="osName" />
+    <result column="api_path" jdbcType="VARCHAR" property="apiPath" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="referer" jdbcType="VARCHAR" property="referer" />
+    <result column="access_time" jdbcType="TIMESTAMP" property="accessTime" />
+    <result column="content_id" jdbcType="INTEGER" property="contentId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.rawchen.domain.Log">
+    <result column="ua" jdbcType="LONGVARCHAR" property="ua" />
+  </resultMap>
+
+  <resultMap id="SevenDayLogResultMap" type="com.rawchen.domain.dto.SevenDayLog">
+    <result column="access_date" jdbcType="TIMESTAMP" property="accessDate" />
+    <result column="access_value" jdbcType="INTEGER" property="accessValue" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, browser_name, os_name, api_path, ip, referer, access_time, content_id
+  </sql>
+  <sql id="Blob_Column_List">
+    ua
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectYesterdayPv" resultType="int">
+    SELECT count(id) FROM log WHERE DATEDIFF(access_time,NOW()) = -1
+  </select>
+
+  <select id="selectYesterdayUv" resultType="int">
+    SELECT count(distinct ip) FROM log WHERE DATEDIFF(access_time,NOW()) = -1
+    <!-- SELECT count(id) FROM log WHERE DATEDIFF(access_time,NOW()) = -1;-->
+  </select>
+
+  <select id="selectYesterdayAccessByApi" parameterType="string" resultType="int">
+    SELECT count(id) FROM log WHERE DATEDIFF(access_time,NOW()) = -1 and api_path = #{value}
+  </select>
+
+  <select id="selectYesterdayAccessLikeApi" parameterType="string" resultType="int">
+    select count(id) FROM log WHERE DATEDIFF(access_time,NOW()) = -1 and api_path like '%${value}%'
+  </select>
+
+  <select id="selectTodayPv" resultType="int">
+    SELECT count(id) FROM log WHERE TO_DAYS(NOW()) = TO_DAYS(access_time)
+  </select>
+
+  <select id="selectTodayUv" resultType="int">
+    SELECT count(distinct ip) FROM log WHERE TO_DAYS(NOW()) = TO_DAYS(access_time)
+  </select>
+
+  <select id="selectTodayAccessByApi" parameterType="string" resultType="int">
+    select count(id) FROM log WHERE TO_DAYS(NOW()) = TO_DAYS(access_time) and api_path = #{value}
+  </select>
+
+  <select id="selectTodayAccessLikeApi" parameterType="string" resultType="int">
+    select count(id) FROM log WHERE TO_DAYS(NOW()) = TO_DAYS(access_time) and api_path like '%${value}%'
+  </select>
+
+  <select id="selectSevenDaysPv" resultMap="SevenDayLogResultMap">
+    SELECT
+      b.access_date,IFNULL(a.count,0) AS access_value
+    FROM (
+      SELECT DATE_SUB(CURDATE(), INTERVAL 1 DAY) AS access_date
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 2 DAY)
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 3 DAY)
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 4 DAY)
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 5 DAY)
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 6 DAY)
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+    ) AS b
+    LEFT JOIN
+    (
+      SELECT DATE_FORMAT(access_time,'%Y-%m-%d') days, COUNT(0) AS count
+      FROM log
+      GROUP BY days
+    ) AS a
+    ON (b.access_date = a.days)
+    ORDER BY access_date
+  </select>
+
+  <select id="selectSevenDaysUv" resultMap="SevenDayLogResultMap">
+    SELECT
+      b.access_date,IFNULL(a.count,0) AS access_value
+    FROM (
+      SELECT DATE_SUB(CURDATE(), INTERVAL 1 DAY) AS access_date
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 2 DAY)
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 3 DAY)
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 4 DAY)
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 5 DAY)
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 6 DAY)
+      UNION ALL
+      SELECT DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+    ) AS b
+    LEFT JOIN
+    (
+      SELECT DATE_FORMAT(access_time,'%Y-%m-%d') days, COUNT(DISTINCT ip) AS count
+      <![CDATA[
+        FROM (SELECT * FROM log WHERE DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= DATE(access_time)) AS t
+      ]]>
+      GROUP BY days
+    ) AS a
+    ON (b.access_date = a.days)
+    ORDER BY access_date
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.rawchen.domain.Log">
+    insert into log (id, browser_name, os_name, 
+      api_path, ip, referer, 
+      access_time, content_id, ua
+      )
+    values (#{id,jdbcType=INTEGER}, #{browserName,jdbcType=VARCHAR}, #{osName,jdbcType=VARCHAR}, 
+      #{apiPath,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{referer,jdbcType=VARCHAR}, 
+      #{accessTime,jdbcType=TIMESTAMP}, #{contentId,jdbcType=INTEGER}, #{ua,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.rawchen.domain.Log">
+    insert into log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="browserName != null">
+        browser_name,
+      </if>
+      <if test="osName != null">
+        os_name,
+      </if>
+      <if test="apiPath != null">
+        api_path,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="referer != null">
+        referer,
+      </if>
+      <if test="accessTime != null">
+        access_time,
+      </if>
+      <if test="contentId != null">
+        content_id,
+      </if>
+      <if test="ua != null">
+        ua,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="browserName != null">
+        #{browserName,jdbcType=VARCHAR},
+      </if>
+      <if test="osName != null">
+        #{osName,jdbcType=VARCHAR},
+      </if>
+      <if test="apiPath != null">
+        #{apiPath,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="referer != null">
+        #{referer,jdbcType=VARCHAR},
+      </if>
+      <if test="accessTime != null">
+        #{accessTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contentId != null">
+        #{contentId,jdbcType=INTEGER},
+      </if>
+      <if test="ua != null">
+        #{ua,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rawchen.domain.Log">
+    update log
+    <set>
+      <if test="browserName != null">
+        browser_name = #{browserName,jdbcType=VARCHAR},
+      </if>
+      <if test="osName != null">
+        os_name = #{osName,jdbcType=VARCHAR},
+      </if>
+      <if test="apiPath != null">
+        api_path = #{apiPath,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="referer != null">
+        referer = #{referer,jdbcType=VARCHAR},
+      </if>
+      <if test="accessTime != null">
+        access_time = #{accessTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contentId != null">
+        content_id = #{contentId,jdbcType=INTEGER},
+      </if>
+      <if test="ua != null">
+        ua = #{ua,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.rawchen.domain.Log">
+    update log
+    set browser_name = #{browserName,jdbcType=VARCHAR},
+      os_name = #{osName,jdbcType=VARCHAR},
+      api_path = #{apiPath,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      referer = #{referer,jdbcType=VARCHAR},
+      access_time = #{accessTime,jdbcType=TIMESTAMP},
+      content_id = #{contentId,jdbcType=INTEGER},
+      ua = #{ua,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rawchen.domain.Log">
+    update log
+    set browser_name = #{browserName,jdbcType=VARCHAR},
+      os_name = #{osName,jdbcType=VARCHAR},
+      api_path = #{apiPath,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      referer = #{referer,jdbcType=VARCHAR},
+      access_time = #{accessTime,jdbcType=TIMESTAMP},
+      content_id = #{contentId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

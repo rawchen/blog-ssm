@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rawchen.mapper.ContentMapper">
+  <resultMap id="BaseResultMap" type="com.rawchen.domain.Content">
+    <id column="cid" jdbcType="INTEGER" property="cid" />
+    <result column="cgid" jdbcType="INTEGER" property="cgid" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="slug" jdbcType="VARCHAR" property="slug" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+    <result column="content_order" jdbcType="INTEGER" property="contentOrder" />
+    <result column="author_id" jdbcType="INTEGER" property="authorId" />
+    <result column="content_type" jdbcType="VARCHAR" property="contentType" />
+    <result column="content_status" jdbcType="VARCHAR" property="contentStatus" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="views" jdbcType="INTEGER" property="views" />
+    <result column="tag_list" jdbcType="VARCHAR" property="tagList" />
+<!--    <collection property="tags" ofType="tag">-->
+<!--      <id    column="tid" property="id"/>-->
+<!--      <result column="name" property="name"/>-->
+<!--      <result column="count" property="count"/>-->
+<!--    </collection>-->
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.rawchen.domain.Content">
+    <result column="content_text" jdbcType="LONGVARCHAR" property="contentText" />
+    <result column="thumb" jdbcType="LONGVARCHAR" property="thumb" />
+    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    cid, cgid, title, slug, created_time, modified_time, content_order, author_id, content_type,
+    content_status, password, views, tag_list
+  </sql>
+  <sql id="Blob_Column_List">
+    content_text, thumb, description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from content
+    where cid = #{cid,jdbcType=INTEGER}
+  </select>
+
+	<update id="updateContentViewsBySlug" parameterType="string">
+		update content set views = views + 1 where slug = #{slug};
+	</update>
+
+  <select id="selectContentListByCgid" parameterType="int" resultMap="BaseResultMap">
+    select * from content where cgid = #{cgid};
+  </select>
+
+  <select id="selectContentCountByCgid" parameterType="int" resultType="int">
+    select count(cid) from content where cgid = #{cgid};
+  </select>
+
+  <select id="selectAllContent" resultMap="BaseResultMap">
+    select * from content order by created_time DESC
+  </select>
+
+  <select id="selectContentListWithUid" resultMap="BaseResultMap" parameterType="int">
+    select * from content where author_id = #{authorId} order by created_time DESC
+  </select>
+
+  <select id="selectPostSizeContentWithHot" parameterType="int" resultMap="BaseResultMap">
+    select * from content order by views DESC limit #{value}
+  </select>
+
+  <select id="selectContentAuthorIdBycontentId" parameterType="int" resultType="int">
+    select author_id from content where cid = #{cid};
+  </select>
+
+  <select id="selectContentViewsBycontentId" parameterType="int" resultType="int">
+    select views from content where cid = #{cid};
+  </select>
+
+  <select id="selectNumberOfArticles" resultType="int">
+    select count(cid) from content;
+  </select>
+
+  <select id="selectContentListByLike" parameterType="string" resultMap="BaseResultMap">
+    select * from content where content_text like '%${value}%' or title like '%${value}%';
+
+  </select>
+
+  <select id="selectCommentCountByCid" parameterType="int" resultType="int">
+    select count(coid) from comment where cid = #{cid};
+  </select>
+
+  <select id="findContentBySlugName" parameterType="string" resultMap="ResultMapWithBLOBs">
+    select * from content where slug = #{slug};
+  </select>
+
+  <select id="selectRecommendContent" resultMap="BaseResultMap">
+    select * from content where content_order = 1 order by created_time limit 5;
+  </select>
+
+  <select id="selectSlugByCid" parameterType="int" resultType="string">
+    select slug from content where cid = #{cid};
+  </select>
+
+  <select id="selectContentListByTid" parameterType="string" resultMap="ResultMapWithBLOBs">
+    select * from content where FIND_IN_SET(#{tid}, tag_list);
+  </select>
+
+  <select id="selectContentOrderByCid" parameterType="int" resultType="int">
+    select content_order from content where cid = #{cid};
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from content
+    where cid = #{cid,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="deleteByAuthorId" parameterType="int">
+    delete from content where author_id = #{authorId}
+  </delete>
+
+  <insert id="insert" parameterType="com.rawchen.domain.Content">
+    insert into content (cid, cgid, title,
+                         slug, created_time, modified_time,
+                         content_order, author_id, content_type,
+                         content_status, password, views,
+                         tag_list, content_text, thumb,
+                         description)
+    values (#{cid,jdbcType=INTEGER}, #{cgid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR},
+            #{slug,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP},
+            #{contentOrder,jdbcType=INTEGER}, #{authorId,jdbcType=INTEGER}, #{contentType,jdbcType=VARCHAR},
+            #{contentStatus,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{views,jdbcType=INTEGER},
+            #{tagList,jdbcType=VARCHAR}, #{contentText,jdbcType=LONGVARCHAR}, #{thumb,jdbcType=LONGVARCHAR},
+            #{description,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rawchen.domain.Content">
+    insert into content
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cid != null">
+        cid,
+      </if>
+      <if test="cgid != null">
+        cgid,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="slug != null">
+        slug,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="modifiedTime != null">
+        modified_time,
+      </if>
+      <if test="contentOrder !  = null">
+        content_order,
+      </if>
+      <if test="authorId != null">
+        author_id,
+      </if>
+      <if test="contentType != null">
+        content_type,
+      </if>
+      <if test="contentStatus != null">
+        content_status,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="views != null">
+        views,
+      </if>
+      <if test="tagList != null">
+        tag_list,
+      </if>
+      <if test="contentText != null">
+        content_text,
+      </if>
+      <if test="thumb != null">
+        thumb,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cid != null">
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="cgid != null">
+        #{cgid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="slug != null">
+        #{slug,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contentOrder != null">
+        #{contentOrder,jdbcType=INTEGER},
+      </if>
+      <if test="authorId != null">
+        #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="contentType != null">
+        #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="contentStatus != null">
+        #{contentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="views != null">
+        #{views,jdbcType=INTEGER},
+      </if>
+      <if test="tagList != null">
+        #{tagList,jdbcType=VARCHAR},
+      </if>
+      <if test="contentText != null">
+        #{contentText,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="thumb != null">
+        #{thumb,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateContentCgidDefaultByCid" parameterType="int">
+    update content set cgid = 1 where cid = #{cid};
+  </update>
+
+  <update id="changeContentOrderByCid" parameterType="int">
+    update  content set content_order = case content_order when 0 then 1 when 1 then 0 end where cid = #{cid};
+  </update>
+
+  <update id="updateContentTagListByCid" parameterType="com.rawchen.domain.Content">
+    update  content set tag_list = #{tagList} where cid = #{cid};
+  </update>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.rawchen.domain.Content">
+    update content
+    <set>
+      <if test="cgid != null">
+        cgid = #{cgid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="slug != null">
+        slug = #{slug,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedTime != null">
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contentOrder != null">
+        content_order = #{contentOrder,jdbcType=INTEGER},
+      </if>
+      <if test="authorId != null">
+        author_id = #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="contentType != null">
+        content_type = #{contentType,jdbcType=VARCHAR},
+      </if>
+      <if test="contentStatus != null">
+        content_status = #{contentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="views != null">
+        views = #{views,jdbcType=INTEGER},
+      </if>
+      <if test="tagList != null">
+        tag_list = #{tagList,jdbcType=VARCHAR},
+      </if>
+      <if test="contentText != null">
+        content_text = #{contentText,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="thumb != null">
+        thumb = #{thumb,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.rawchen.domain.Content">
+    update content
+    set cgid = #{cgid,jdbcType=INTEGER},
+        title = #{title,jdbcType=VARCHAR},
+        slug = #{slug,jdbcType=VARCHAR},
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+        content_order = #{contentOrder,jdbcType=INTEGER},
+        author_id = #{authorId,jdbcType=INTEGER},
+        content_type = #{contentType,jdbcType=VARCHAR},
+        content_status = #{contentStatus,jdbcType=VARCHAR},
+        password = #{password,jdbcType=VARCHAR},
+        views = #{views,jdbcType=INTEGER},
+        tag_list = #{tagList,jdbcType=VARCHAR},
+        content_text = #{contentText,jdbcType=LONGVARCHAR},
+        thumb = #{thumb,jdbcType=LONGVARCHAR},
+        description = #{description,jdbcType=LONGVARCHAR}
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rawchen.domain.Content">
+    update content
+    set cgid = #{cgid,jdbcType=INTEGER},
+        title = #{title,jdbcType=VARCHAR},
+        slug = #{slug,jdbcType=VARCHAR},
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+        content_order = #{contentOrder,jdbcType=INTEGER},
+        author_id = #{authorId,jdbcType=INTEGER},
+        content_type = #{contentType,jdbcType=VARCHAR},
+        content_status = #{contentStatus,jdbcType=VARCHAR},
+        password = #{password,jdbcType=VARCHAR},
+        views = #{views,jdbcType=INTEGER},
+        tag_list = #{tagList,jdbcType=VARCHAR}
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+</mapper>

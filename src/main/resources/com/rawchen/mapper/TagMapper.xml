@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rawchen.mapper.TagMapper">
+  <resultMap id="BaseResultMap" type="com.rawchen.domain.Tag">
+    <id column="tid" jdbcType="INTEGER" property="tid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tid, name, count
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tag
+    where tid = #{tid,jdbcType=INTEGER}
+  </select>
+
+  <select id="findTagIdByName" parameterType="java.lang.String" resultType="int">
+    select IFNULL(Max(tid),-1) from tag where name = #{name};
+  </select>
+
+  <select id="findTagById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from tag where tid = #{tid};
+  </select>
+
+  <select id="selectAllTag" resultMap="BaseResultMap">
+    select * from tag order by count DESC;
+  </select>
+
+  <select id="fuzzyQueryTag" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from tag where name like '%${value}%';
+  </select>
+
+  <select id="selectCountOfTag" resultType="int">
+    select count(*) from tag;
+  </select>
+
+  <update id="updateTagCount" parameterType="int">
+    update tag set count = #{count} where tid = #{tid};
+  </update>
+
+  <update id="updateTagName" parameterType="com.rawchen.domain.Tag">
+    update tag set name = #{name} where tid = #{tid};
+  </update>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tag
+    where tid = #{tid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.rawchen.domain.Tag">
+    insert into tag (tid, name, count
+      )
+    values (#{tid,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.rawchen.domain.Tag">
+    insert into tag
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tid != null">
+        tid,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="count != null">
+        count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tid != null">
+        #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rawchen.domain.Tag">
+    update tag
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null">
+        count = #{count,jdbcType=INTEGER},
+      </if>
+    </set>
+    where tid = #{tid,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.rawchen.domain.Tag">
+    update tag
+    set name = #{name,jdbcType=VARCHAR},
+      count = #{count,jdbcType=INTEGER}
+    where tid = #{tid,jdbcType=INTEGER}
+  </update>
+
+</mapper>

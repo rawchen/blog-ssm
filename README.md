@@ -1,7 +1,7 @@
 # JavaWeb博客项目
 SSM框架的web博客项目——Spring、SpringMVC、MyBatis
 
-**演示地址：**[blog.yoyling.com](https://blog.yoyling.com)
+**演示地址：**[blog.rawchen.com](https://blog.rawchen.com)
 
 
 
@@ -37,9 +37,9 @@ Spring+SpringMVC+MyBatis+Thymeleaf+JQuery+Js+Ajax+Json+PageHelper
 
 4. 为项目添加Tomcat配置，Deployment下Application context设置为：/
 
-```Java
-Admin:	帐号：yoyling	密码：yoyling(在线演示已修改，自行部署)
-User:	帐号：yoyling1	密码：yoyling
+```
+Admin:	帐号：rawchen  密码：rawchen(密码已改，自行部署)
+User:	帐号：user     密码：user
 ```
 
 

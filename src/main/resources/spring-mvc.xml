@@ -12,7 +12,7 @@
 			http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- 扫描controller的注解，别的不扫描 -->
-	<context:component-scan base-package="com.yoyling">
+	<context:component-scan base-package="com.rawchen">
 		<context:include-filter type="annotation"
 				expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
@@ -58,7 +58,7 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/admin**"/>
-			<bean class="com.yoyling.interceptor.LoginInterceptor"/>
+			<bean class="com.rawchen.interceptor.LoginInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
 

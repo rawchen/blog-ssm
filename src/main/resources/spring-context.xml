@@ -14,7 +14,7 @@
 			http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<!-- 开启注解扫描，要扫描的是service和dao层的注解，要忽略web层注解，因为web层让SpringMVC框架去管理 -->
-	<context:component-scan base-package="com.yoyling">
+	<context:component-scan base-package="com.rawchen">
 		<!-- 配置要忽略的注解 -->
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
@@ -30,7 +30,7 @@
 	<!-- 配置SqlSession的工厂 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="typeAliasesPackage" value="com.yoyling.domain"/>
+		<property name="typeAliasesPackage" value="com.rawchen.domain"/>
 
 		<!-- 配置PageHelper分页插件 -->
 		<property name="plugins">
@@ -48,6 +48,6 @@
 	</bean>
 	<!-- 配置扫描mapper的包 -->
 	<bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.yoyling.mapper"/>
+		<property name="basePackage" value="com.rawchen.mapper"/>
 	</bean>
 </beans>

@@ -3366,7 +3366,7 @@
     // Emoji graphics files url path
     editormd.emoji     = {
         // path  : "https://www.webpagefx.com/tools/emoji-cheat-sheet/graphics/emojis/",
-        path  : "https://cdn.jsdelivr.net/gh/yoyling/JsDelivr/static/emoji/",
+        path  : "https://cdn.jsdelivr.net/gh/rawchen/JsDelivr/static/emoji/",
         ext   : ".png"
     };
 

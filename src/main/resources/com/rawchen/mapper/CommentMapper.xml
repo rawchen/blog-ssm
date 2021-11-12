@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rawchen.mapper.CommentMapper">
+  <resultMap id="BaseResultMap" type="com.rawchen.domain.Comment">
+    <id column="coid" jdbcType="INTEGER" property="coid" />
+    <result column="cid" jdbcType="INTEGER" property="cid" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="authorId" jdbcType="INTEGER" property="authorid" />
+    <result column="mail" jdbcType="VARCHAR" property="mail" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="parent" jdbcType="INTEGER" property="parent" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.rawchen.domain.Comment">
+    <result column="agent" jdbcType="LONGVARCHAR" property="agent" />
+    <result column="text" jdbcType="LONGVARCHAR" property="text" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    coid, cid, created, author, authorId, mail, url, ip, parent
+  </sql>
+  <sql id="Blob_Column_List">
+    agent, text
+  </sql>
+
+  <select id="selectAllCommment" resultMap="ResultMapWithBLOBs">
+    select * from comment order by created desc;
+  </select>
+
+  <select id="selectCommentListWithUserId" resultMap="ResultMapWithBLOBs" parameterType="int">
+    select * from comment where authorId = #{authorId} order by created desc;
+  </select>
+
+  <select id="selectCommentListByContentId" parameterType="int" resultMap="ResultMapWithBLOBs">
+    select * from comment where cid = #{cid};
+  </select>
+
+  <select id="selectCommentAuthorById" parameterType="int" resultType="String">
+    select author from comment where coid = #{coid};
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from comment
+    where coid = #{coid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from comment
+    where coid = #{coid,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="deleteByCid" parameterType="int">
+    delete from comment where cid = #{cid}
+  </delete>
+
+  <insert id="insert" parameterType="com.rawchen.domain.Comment">
+    insert into comment (coid, cid, created,
+      author, authorId, mail,
+      url, ip, parent, agent,
+      text)
+    values (#{coid,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}, #{created,jdbcType=TIMESTAMP},
+      #{author,jdbcType=VARCHAR}, #{authorid,jdbcType=INTEGER}, #{mail,jdbcType=VARCHAR},
+      #{url,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{parent,jdbcType=INTEGER}, #{agent,jdbcType=LONGVARCHAR},
+      #{text,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rawchen.domain.Comment">
+    insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="coid != null">
+        coid,
+      </if>
+      <if test="cid != null">
+        cid,
+      </if>
+      <if test="created != null">
+        created,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="authorid != null">
+        authorId,
+      </if>
+      <if test="mail != null">
+        mail,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="parent != null">
+        parent,
+      </if>
+      <if test="agent != null">
+        agent,
+      </if>
+      <if test="text != null">
+        text,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="coid != null">
+        #{coid,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null">
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="authorid != null">
+        #{authorid,jdbcType=INTEGER},
+      </if>
+      <if test="mail != null">
+        #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="parent != null">
+        #{parent,jdbcType=INTEGER},
+      </if>
+      <if test="agent != null">
+        #{agent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="text != null">
+        #{text,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rawchen.domain.Comment">
+    update comment
+    <set>
+      <if test="cid != null">
+        cid = #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="authorid != null">
+        authorId = #{authorid,jdbcType=INTEGER},
+      </if>
+      <if test="mail != null">
+        mail = #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="parent != null">
+        parent = #{parent,jdbcType=INTEGER},
+      </if>
+      <if test="agent != null">
+        agent = #{agent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="text != null">
+        text = #{text,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where coid = #{coid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.rawchen.domain.Comment">
+    update comment
+    set cid = #{cid,jdbcType=INTEGER},
+      created = #{created,jdbcType=TIMESTAMP},
+      author = #{author,jdbcType=VARCHAR},
+      authorId = #{authorid,jdbcType=INTEGER},
+      mail = #{mail,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      parent = #{parent,jdbcType=INTEGER},
+      agent = #{agent,jdbcType=LONGVARCHAR},
+      text = #{text,jdbcType=LONGVARCHAR}
+    where coid = #{coid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rawchen.domain.Comment">
+    update comment
+    set cid = #{cid,jdbcType=INTEGER},
+      created = #{created,jdbcType=TIMESTAMP},
+      author = #{author,jdbcType=VARCHAR},
+      authorId = #{authorid,jdbcType=INTEGER},
+      mail = #{mail,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      parent = #{parent,jdbcType=INTEGER}
+    where coid = #{coid,jdbcType=INTEGER}
+  </update>
+</mapper>

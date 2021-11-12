@@ -48,7 +48,7 @@
   </listener>
 
   <listener>
-    <listener-class>com.yoyling.listener.StartupListener</listener-class>
+    <listener-class>com.rawchen.listener.StartupListener</listener-class>
   </listener>
 
   <!-- 配置加载类路径的配置文件 -->
