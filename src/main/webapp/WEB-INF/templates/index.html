@@ -156,9 +156,18 @@
 															</div>
 														</div>
 														<p class="mb-0">
-															<object><a class="btn btn-success btn-xs category-a" th:href="'/category/'+${content.cgid}"><i class="fa fa-bookmark-o nav-item" aria-hidden="true" th:text="'&nbsp;'+${content.categoryName}"></i></a></object>
+															<object>
+																<a class="btn btn-success btn-xs category-a" th:href="'/category/'+${content.cgid}">
+																	<i class="fa fa-bookmark-o nav-item" aria-hidden="true" th:text="'&nbsp;'+${content.categoryName}">
+
+																	</i>
+																</a>
+															</object>
 															<span class="block-thumb" th:each="tags,arrayS:${content.tList}">
-																<object><a class="btn btn-outline-light btn-xs" th:href="'/tag/'+${tags.tid}" th:text="${tags.name}"></a></object>
+																<object>
+																	<a class="btn btn-outline-light btn-xs" th:href="'/tag/'+${tags.tid}" th:text="${tags.name}">
+																	</a>
+																</object>
 															</span>
 														</p>
 													</div>

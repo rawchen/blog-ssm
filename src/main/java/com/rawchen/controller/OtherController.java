@@ -48,7 +48,10 @@ public class OtherController extends BaseController {
 			List<Tag> tags = new ArrayList<>();
 			List<String> strings = stringToList(c.getTagList());
 			for (String s : strings) {
-				tags.add(tagService.findTagById(Integer.parseInt(s)));
+				Tag tag = tagService.findTagById(Integer.parseInt(s));
+				if (tag != null) {
+					tags.add(tag);
+				}
 			}
 			c.settList(tags);
 		}
