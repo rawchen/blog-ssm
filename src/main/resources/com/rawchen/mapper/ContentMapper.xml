@@ -47,7 +47,7 @@
 	</update>
 
   <select id="selectContentListByCgid" parameterType="int" resultMap="BaseResultMap">
-    select * from content where cgid = #{cgid};
+    select * from content where cgid = #{cgid} order by created_time DESC;
   </select>
 
   <select id="selectContentCountByCgid" parameterType="int" resultType="int">
