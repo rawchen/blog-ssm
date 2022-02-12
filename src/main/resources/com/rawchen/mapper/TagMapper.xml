@@ -26,7 +26,7 @@
   </select>
 
   <select id="selectAllTag" resultMap="BaseResultMap">
-    select * from tag order by count DESC;
+    select * from tag where count != 0 and count is not null order by count DESC;
   </select>
 
   <select id="fuzzyQueryTag" parameterType="java.lang.String" resultMap="BaseResultMap">
