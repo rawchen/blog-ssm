@@ -33,7 +33,7 @@ Spring+SpringMVC+MyBatis+Thymeleaf+JQuery+Js+Ajax+Json+PageHelper
 
 2. 解压下载zip重命名blog-ssm-master文件夹为blog-ssm，IDEA打开该blog-ssm项目
 
-3. 修改配置数据库连接文件：druid.properties
+3. 修改配置数据库连接文件：dbconfig.properties
 
 4. 为项目添加Tomcat配置，Deployment下Application context设置为：/
 
