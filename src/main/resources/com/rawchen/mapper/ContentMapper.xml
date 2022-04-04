@@ -100,7 +100,7 @@
   </select>
 
   <select id="selectContentListByTid" parameterType="string" resultMap="ResultMapWithBLOBs">
-    select * from content where FIND_IN_SET(#{tid}, tag_list);
+    select * from content where FIND_IN_SET(#{tid}, tag_list) order by created_time DESC;
   </select>
 
   <select id="selectContentOrderByCid" parameterType="int" resultType="int">
