@@ -1,18 +1,18 @@
 package com.rawchen.service;
 
-import com.rawchen.domain.File;
+import com.rawchen.domain.MyFile;
 
 import java.util.List;
 
 public interface FileService {
 
-	List<File> selectAllFile();
+	List<MyFile> selectAllFile();
 
-	List<File> selectFileListWithUid(int userId);
+	List<MyFile> selectFileListWithUid(int userId);
 
-	int insert(File newFile);
+	int insert(MyFile newFile);
 
 	int deleteByPrimaryKey(int fid);
 
-	File selectFileByFid(int fid);
+	MyFile selectFileByFid(int fid);
 }

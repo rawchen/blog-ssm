@@ -49,7 +49,7 @@ public class CommentController extends BaseController {
 		User sessionUser = (User) session.getAttribute("USER_SESSION");
 		if (sessionUser == null) {
 			if (!isHaveAuthorAndMail || isRobot) {
-				return "redirect:/index";
+				return "redirect:/";
 			} else {
 				comment.setAuthorid(0);
 				comment.setMail(mail);
@@ -93,7 +93,7 @@ public class CommentController extends BaseController {
 		User sessionUser = (User) session.getAttribute("USER_SESSION");
 		if (sessionUser == null) {
 			if (isHaveAuthorAndMail || isRobot) {
-				return "redirect:/index";
+				return "redirect:/";
 			} else {
 				comment.setAuthorid(0);
 				comment.setMail(mail);

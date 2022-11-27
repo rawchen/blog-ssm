@@ -20,7 +20,7 @@ public class LogServiceImpl extends BaseServiceImpl implements LogService {
 		List<Integer> y = new ArrayList<>();
 		y.add(logMapper.selectYesterdayPv());
 		y.add(logMapper.selectYesterdayUv());
-		y.add(logMapper.selectYesterdayAccessByApi("/index"));
+		y.add(logMapper.selectYesterdayAccessByApi("/"));
 		y.add(logMapper.selectYesterdayAccessByApi("/guestbook"));
 		y.add(logMapper.selectYesterdayAccessLikeApi("/articles/"));
 		return y;
@@ -31,7 +31,7 @@ public class LogServiceImpl extends BaseServiceImpl implements LogService {
 		List<Integer> t = new ArrayList<>();
 		t.add(logMapper.selectTodayPv());
 		t.add(logMapper.selectTodayUv());
-		t.add(logMapper.selectTodayAccessByApi("/index"));
+		t.add(logMapper.selectTodayAccessByApi("/"));
 		t.add(logMapper.selectTodayAccessByApi("/guestbook"));
 		t.add(logMapper.selectTodayAccessLikeApi("/articles/"));
 		return t;

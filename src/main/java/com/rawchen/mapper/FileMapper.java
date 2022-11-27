@@ -1,23 +1,23 @@
 package com.rawchen.mapper;
 
-import com.rawchen.domain.File;
+import com.rawchen.domain.MyFile;
 
 import java.util.List;
 
 public interface FileMapper {
     int deleteByPrimaryKey(Integer fid);
 
-    int insert(File record);
+    int insert(MyFile record);
 
-    int insertSelective(File record);
+    int insertSelective(MyFile record);
 
-    File selectByPrimaryKey(Integer fid);
+	MyFile selectByPrimaryKey(Integer fid);
 
-    int updateByPrimaryKeySelective(File record);
+    int updateByPrimaryKeySelective(MyFile record);
 
-    int updateByPrimaryKey(File record);
+    int updateByPrimaryKey(MyFile record);
 
-	List<File> selectAllFile();
+	List<MyFile> selectAllFile();
 
-	List<File> selectFileListWithUid(int userId);
+	List<MyFile> selectFileListWithUid(int userId);
 }

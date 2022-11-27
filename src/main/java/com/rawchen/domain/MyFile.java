@@ -3,7 +3,7 @@ package com.rawchen.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-public class File implements Serializable {
+public class MyFile implements Serializable {
     private Integer fid;
 
     private String path;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rawchen.mapper.FileMapper">
-  <resultMap id="BaseResultMap" type="com.rawchen.domain.File">
+  <resultMap id="BaseResultMap" type="com.rawchen.domain.MyFile">
     <id column="fid" jdbcType="INTEGER" property="fid" />
     <result column="path" jdbcType="VARCHAR" property="path" />
     <result column="author_id" jdbcType="INTEGER" property="authorId" />
@@ -36,7 +36,7 @@
     delete from file
     where fid = #{fid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.rawchen.domain.File">
+  <insert id="insert" parameterType="com.rawchen.domain.MyFile">
     insert into file (fid, path, author_id, 
       file_status, name, file_type, 
       created_time, modified_time, download_count,file_size
@@ -47,7 +47,7 @@
       #{fileSize,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.rawchen.domain.File">
+  <insert id="insertSelective" parameterType="com.rawchen.domain.MyFile">
     insert into file
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="fid != null">
@@ -114,7 +114,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.rawchen.domain.File">
+  <update id="updateByPrimaryKeySelective" parameterType="com.rawchen.domain.MyFile">
     update file
     <set>
       <if test="path != null">
@@ -147,7 +147,7 @@
     </set>
     where fid = #{fid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.rawchen.domain.File">
+  <update id="updateByPrimaryKey" parameterType="com.rawchen.domain.MyFile">
     update file
     set path = #{path,jdbcType=VARCHAR},
       author_id = #{authorId,jdbcType=INTEGER},

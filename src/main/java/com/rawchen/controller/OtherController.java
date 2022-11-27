@@ -24,12 +24,12 @@ import static com.rawchen.utils.StringUtil.stringToList;
 @Controller
 public class OtherController extends BaseController {
 
-	@RequestMapping("/index")
+	@RequestMapping({"/", "/index"})
 	public String index(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
 						Model model){
 
 		//插入日志
-		logService.insert(LogUtil.insertLog(request,"/index"));
+		logService.insert(LogUtil.insertLog(request,"/"));
 
 		int numberOfArticles = contentService.selectNumberOfArticles();
 		model.addAttribute("numberOfArticles",numberOfArticles);
