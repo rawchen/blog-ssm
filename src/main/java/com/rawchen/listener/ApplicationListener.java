@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class StartupListener implements ServletContextListener, ApplicationContextAware {
+public class ApplicationListener implements ServletContextListener, ApplicationContextAware {
 	private static ApplicationContext applicationContext;
 
 	@Override
@@ -33,19 +33,19 @@ public class StartupListener implements ServletContextListener, ApplicationConte
 		String hobby = optionsService.selectValueByName("hobby");
 
 		Map<String, Object> optionsMap = new HashMap<>();
-		optionsMap.put("qqLink",qqLink);
-		optionsMap.put("emailLink",emailLink);
-		optionsMap.put("githubLink",githubLink);
-		optionsMap.put("location",location);
-		optionsMap.put("icp",icp);
-		optionsMap.put("description",description);
-		optionsMap.put("websiteTitle",websiteTitle);
-		optionsMap.put("avatar",avatar);
-		optionsMap.put("websiteIco",websiteIco);
-		optionsMap.put("postsListSize",postsListSize);
+		optionsMap.put("qqLink", qqLink);
+		optionsMap.put("emailLink", emailLink);
+		optionsMap.put("githubLink", githubLink);
+		optionsMap.put("location", location);
+		optionsMap.put("icp", icp);
+		optionsMap.put("description", description);
+		optionsMap.put("websiteTitle", websiteTitle);
+		optionsMap.put("avatar", avatar);
+		optionsMap.put("websiteIco", websiteIco);
+		optionsMap.put("postsListSize", postsListSize);
 		List<String> hobbyList = StringUtil.stringToList(hobby);
-		optionsMap.put("hobby",hobby);
-		optionsMap.put("hobbyList",hobbyList);
+		optionsMap.put("hobby", hobby);
+		optionsMap.put("hobbyList", hobbyList);
 		sce.getServletContext().setAttribute("applicationOptionsMap", optionsMap);
 	}
 
@@ -55,6 +55,6 @@ public class StartupListener implements ServletContextListener, ApplicationConte
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		StartupListener.applicationContext = applicationContext;
+		ApplicationListener.applicationContext = applicationContext;
 	}
 }
