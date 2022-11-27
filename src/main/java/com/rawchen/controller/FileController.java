@@ -1,7 +1,7 @@
 package com.rawchen.controller;
 
 import com.rawchen.domain.Content;
-import com.rawchen.domain.File;
+import com.rawchen.domain.MyFile;
 import com.rawchen.domain.User;
 import com.rawchen.utils.FileUtil;
 import com.rawchen.utils.LogUtil;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +34,7 @@ public class FileController extends BaseController {
 			c.setCategorySlug(categoryService.selectByPrimaryKey(c.getCgid()).getCgSlug());
 		}
 
-		List<File> files = fileService.selectAllFile();
+		List<MyFile> files = fileService.selectAllFile();
 		model.addAttribute("files",files);
 
 		model.addAttribute("contents",contents);
@@ -74,22 +75,33 @@ public class FileController extends BaseController {
 			try {
 				String fileName = mFile.getOriginalFilename();
 
-				if (new java.io.File(realPath, url + fileName).exists()) {
+				// 其中一个文件存在同名
+				if (new File(realPath, url + fileName).exists()) {
 					map.put("success", -1);
 					map.put("message", "文件已存在");
 					break;
 				}
 
-				File newFile = new File();
+				// 后缀
+				if (fileName != null && !fileName.contains(".")) {
+					map.put("success", 0);
+					map.put("message", "文件无法识别后缀");
+					break;
+				}
+
+				// 限制文件类型
+				if (fileName != null && (fileName.endsWith(".jsp") || fileName.endsWith(".asp"))) {
+					map.put("success", 0);
+					map.put("message", "无法上传类型为jsp和asp的文件");
+					break;
+				}
+
+				MyFile newFile = new MyFile();
 				newFile.setPath("/upload/file/"+fileName);
 				newFile.setAuthorId(uid);
 				newFile.setFileStatus("publish");
 				newFile.setName(fileName);
-				if (!fileName.contains(".")) {
-					map.put("success", 0);
-					map.put("message", "上传失败");
-					break;
-				}
+
 				//修正上传判断
 				mFile.transferTo(new java.io.File(realPath,url + fileName));
 
@@ -155,7 +167,7 @@ public class FileController extends BaseController {
 	@ResponseBody
 	public Map<String,Object> adminGetFileList() {
 		Map<String, Object> map = new HashMap<>();
-		List<File> files = fileService.selectAllFile();
+		List<MyFile> files = fileService.selectAllFile();
 		map.put("data",files);
 		return map;
 	}
@@ -169,7 +181,7 @@ public class FileController extends BaseController {
 	@ResponseBody
 	public Map<String,Object> userGetFileList(@RequestParam(value="userId") int userId) {
 		Map<String, Object> map = new HashMap<>();
-		List<File> files = fileService.selectFileListWithUid(userId);
+		List<MyFile> files = fileService.selectFileListWithUid(userId);
 		map.put("data",files);
 		return map;
 	}
