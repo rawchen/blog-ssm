@@ -82,7 +82,15 @@ public class OtherController extends BaseController {
 		}
 		String originalFileName = picpaths.getOriginalFilename();
 		String newFileSName = "";
-		if (originalFileName.indexOf(".") != -1) {
+
+		// 限制文件类型
+		if (originalFileName != null && (originalFileName.endsWith(".jsp") || originalFileName.endsWith(".asp"))) {
+			map.put("success", 0);
+			map.put("message", "无法上传类型为jsp和asp的文件");
+			return map;
+		}
+
+		if (originalFileName.contains(".")) {
 			newFileSName = originalFileName.substring(originalFileName.lastIndexOf("."));
 		}
 		String upPicFileName = System.currentTimeMillis() + newFileSName;
