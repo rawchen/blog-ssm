@@ -84,7 +84,7 @@ public class OtherController extends BaseController {
 		String newFileSName = "";
 
 		// 限制文件类型
-		if (originalFileName != null && (originalFileName.endsWith(".jsp") || originalFileName.endsWith(".asp"))) {
+		if (originalFileName != null && (originalFileName.toLowerCase().endsWith(".jsp") || originalFileName.toLowerCase().endsWith(".asp"))) {
 			map.put("success", 0);
 			map.put("message", "无法上传类型为jsp和asp的文件");
 			return map;

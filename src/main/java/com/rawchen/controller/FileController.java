@@ -90,7 +90,7 @@ public class FileController extends BaseController {
 				}
 
 				// 限制文件类型
-				if (fileName != null && (fileName.endsWith(".jsp") || fileName.endsWith(".asp"))) {
+				if (fileName != null && (fileName.toLowerCase().endsWith(".jsp") || fileName.toLowerCase().endsWith(".asp"))) {
 					map.put("success", 0);
 					map.put("message", "无法上传类型为jsp和asp的文件");
 					break;
