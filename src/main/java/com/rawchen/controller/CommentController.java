@@ -34,7 +34,7 @@ public class CommentController extends BaseController {
 
 		//机器人评论过滤。
 		//后期可以自定义屏蔽敏感词汇、网址关键字、邮箱关键字、ip等。
-		boolean isRobot = StringUtil.isRobotComment(commentText, author);
+		boolean isRobot = StringUtil.isRobotComment(commentText, author, url, mail);
 		int contentIdInt = 0;
 
 		if (contentId == null || "".equals(contentId)) {
@@ -85,7 +85,7 @@ public class CommentController extends BaseController {
 		String mail = request.getParameter("mail");
 		String url = request.getParameter("url");
 		boolean isHaveAuthorAndMail = author == null || "".equals(author) || mail == null || "".equals(mail);
-		boolean isRobot = StringUtil.isRobotComment(commentText, author);
+		boolean isRobot = StringUtil.isRobotComment(commentText, author, url, mail);
 		Comment comment = new Comment();
 		comment.setCid(cid);
 		comment.setParent(coid);

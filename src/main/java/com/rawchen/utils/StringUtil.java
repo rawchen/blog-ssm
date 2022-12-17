@@ -177,13 +177,19 @@ public class StringUtil {
 		return str.matches(regex);
 	}
 
-	public static boolean isRobotComment(String commentText, String authorName) {
+	public static boolean isRobotComment(String commentText, String authorName, String url, String mail) {
 		String encode ="GB2312";
 
-		//如果不包含任意简体中文都是机器人
+		// 如果不包含任意简体中文都是机器人
 		if (!isContainChinese(commentText) && !isContainChinese(authorName)) {
 			return true;
 		}
+
+		// 如果URL包含?和&则肯定为广告跳转
+		if (url.contains("?") || url.contains("&")) {
+			return true;
+		}
+
 		try {
 			if (!commentText.equals(new String(commentText.getBytes(encode), encode))) {
 				return true;
