@@ -150,7 +150,7 @@ public class OtherController extends BaseController {
 		List<Integer> uv = logService.selectSevenDaysUv();
 
 		List<Map<String,Object>> l = new ArrayList<>();
-		for (int i = 7; i > 0; i--) {
+		for (int i = 30; i > 0; i--) {
 			Map<String, Object> mapLastWeek = new HashMap<>();
 			mapLastWeek.put("date",calculateApartDayConvertString(i));
 			mapLastWeek.put("pv",pv.get(i-1));
