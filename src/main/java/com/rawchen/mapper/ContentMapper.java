@@ -58,4 +58,6 @@ public interface ContentMapper {
 	List<Content> selectContentListWithUid(int userId);
 
 	Integer selectContentViewsBycontentId(int parseInt);
+
+	int nextAutoincrementId();
 }

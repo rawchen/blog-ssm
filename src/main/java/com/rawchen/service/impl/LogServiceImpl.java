@@ -22,7 +22,7 @@ public class LogServiceImpl extends BaseServiceImpl implements LogService {
 		y.add(logMapper.selectYesterdayUv());
 		y.add(logMapper.selectYesterdayAccessByApi("/"));
 		y.add(logMapper.selectYesterdayAccessByApi("/guestbook"));
-		y.add(logMapper.selectYesterdayAccessLikeApi("/articles/"));
+		y.add(logMapper.selectYesterdayAccessLikeApi("/p/"));
 		return y;
 	}
 
@@ -33,7 +33,7 @@ public class LogServiceImpl extends BaseServiceImpl implements LogService {
 		t.add(logMapper.selectTodayUv());
 		t.add(logMapper.selectTodayAccessByApi("/"));
 		t.add(logMapper.selectTodayAccessByApi("/guestbook"));
-		t.add(logMapper.selectTodayAccessLikeApi("/articles/"));
+		t.add(logMapper.selectTodayAccessLikeApi("/p/"));
 		return t;
 	}
 

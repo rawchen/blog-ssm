@@ -53,4 +53,6 @@ public interface ContentService {
 	int updateContent(Content content);
 
 	Integer selectContentViewsBycontentId(int parseInt);
+
+	int nextAutoincrementId();
 }

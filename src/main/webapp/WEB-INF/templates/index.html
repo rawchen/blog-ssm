@@ -134,7 +134,7 @@
 							<div class="block-thumb" th:each="content,arrayS:${contents}">
 								<div class="card-body bg-hover-gray">
 									<p>
-										<a th:href="'/articles/'+${content.slug}">
+										<a th:href="'/p/'+${content.slug}">
 											<div class="block-thumb2" th:style="'background-image:url('+${content.thumb}+')'">
 												<div class="overlaya">
 													<div class="post-header-text-container">
@@ -219,7 +219,7 @@
 									<li class="list-group-item" th:if="${!recommendContents.isEmpty()}">
 										<strong><i class="far fa-bookmark mr-2"></i>推荐</strong>
 										<div th:each="content,arrayS:${recommendContents}">
-											<a th:href="'/articles/'+${content.slug}" class="d-block link-title text-truncate" th:text="${content.title}"></a>
+											<a th:href="'/p/'+${content.slug}" class="d-block link-title text-truncate" th:text="${content.title}"></a>
 										</div>
 									</li>
 

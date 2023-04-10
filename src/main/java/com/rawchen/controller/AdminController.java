@@ -51,6 +51,8 @@ public class AdminController extends BaseController {
 		}
 		model.addAttribute("tags",listToString(tags1));
 
+		model.addAttribute("nextAutoincrementId", contentService.nextAutoincrementId());
+
 		return "edit";
 	}
 

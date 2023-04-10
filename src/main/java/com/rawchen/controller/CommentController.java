@@ -73,7 +73,7 @@ public class CommentController extends BaseController {
 		if (contentIdInt == 0) {
 			return "redirect:/guestbook";
 		} else {
-			return "redirect:/articles/"+contentService.selectByPrimaryKey(contentIdInt).getSlug();
+			return "redirect:/p/"+contentService.selectByPrimaryKey(contentIdInt).getSlug();
 		}
 	}
 
@@ -119,7 +119,7 @@ public class CommentController extends BaseController {
 		CookieUtil.setUserLoginCookie(author, mail, url, request, response);
 
 		if (cid != 0) {
-			return "redirect:/articles/"+contentService.selectByPrimaryKey(cid).getSlug();
+			return "redirect:/p/"+contentService.selectByPrimaryKey(cid).getSlug();
 		} else {
 			return "redirect:/guestbook";
 		}

@@ -187,7 +187,7 @@
 									<li class="list-group-item" th:if="${!recommendContents.isEmpty()}">
 										<strong><i class="far fa-bookmark mr-2"></i>推荐</strong>
 										<div th:each="content,arrayS:${recommendContents}">
-											<a th:href="'/articles/'+${content.slug}" class="d-block link-title text-truncate"
+											<a th:href="'/p/'+${content.slug}" class="d-block link-title text-truncate"
 											   th:text="${content.title}"></a>
 										</div>
 									</li>

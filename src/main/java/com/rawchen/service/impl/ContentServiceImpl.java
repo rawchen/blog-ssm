@@ -157,4 +157,9 @@ public class ContentServiceImpl extends BaseServiceImpl implements ContentServic
 	public Integer selectContentViewsBycontentId(int parseInt) {
 		return contentMapper.selectContentViewsBycontentId(parseInt);
 	}
+
+	@Override
+	public int nextAutoincrementId() {
+		return contentMapper.nextAutoincrementId();
+	}
 }

@@ -141,10 +141,10 @@ public class ContentController extends BaseController {
 		return "index";
 	}
 
-	@RequestMapping("/articles/{slugName}")
+	@RequestMapping("/p/{slugName}")
 	public String showContent(Model model, @PathVariable String slugName) {
 		//插入日志
-		logService.insert(LogUtil.insertLog(request,"/articles/" + slugName));
+		logService.insert(LogUtil.insertLog(request,"/p/" + slugName));
 
 		int a = contentService.updateContentViewsBySlug(slugName);
 		Content content =  contentService.findContentBySlugName(slugName);

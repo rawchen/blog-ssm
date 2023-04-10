@@ -107,7 +107,11 @@
     select content_order from content where cid = #{cid};
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+	<select id="nextAutoincrementId" resultType="int">
+      select auto_increment from information_schema.`tables` where table_name = 'content';
+    </select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from content
     where cid = #{cid,jdbcType=INTEGER}
   </delete>
