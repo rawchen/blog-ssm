@@ -180,8 +180,18 @@ public class StringUtil {
 	public static boolean isRobotComment(String commentText, String authorName, String url, String mail) {
 		String encode ="GB2312";
 
+		// 如果是空字符
+		if (StringUtil.isBlank(commentText)) {
+			return true;
+		}
+
 		// 如果不包含任意简体中文都是机器人
 		if (!isContainChinese(commentText) && !isContainChinese(authorName)) {
+			return true;
+		}
+
+		// 如果包含敏感词
+		if (commentText.contains("水微晶玻尿酸")) {
 			return true;
 		}
 
